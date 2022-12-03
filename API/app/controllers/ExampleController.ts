@@ -1,0 +1,9 @@
+import { Request, Response} from 'express';
+
+export function getUsers( _req:Request, res:Response){
+    try {
+        return res.send([{message: "all users"}]);
+    } catch ({message}) {
+        return res.status(400).send({message: message});
+    }
+}
