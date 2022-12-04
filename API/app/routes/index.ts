@@ -18,6 +18,6 @@ fs.readdirSync(pathRouter).forEach((file:String)=> {
         // Creates the url: /users 
         router.use(`/${routerName}`, require(`./${routerName}`));
     
-})
+});
 
 export default router;
