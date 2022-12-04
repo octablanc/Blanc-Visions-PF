@@ -1,5 +1,5 @@
 /*
 
-Example model file.
+Example of a model file.
 
 */
