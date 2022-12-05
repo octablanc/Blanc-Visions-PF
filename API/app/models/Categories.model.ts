@@ -6,12 +6,11 @@ export default (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        descripcion: {
+        description: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-
-        estado: {
+        state: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         }

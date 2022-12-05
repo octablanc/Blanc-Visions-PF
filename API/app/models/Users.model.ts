@@ -6,34 +6,33 @@ export default (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        apellido: {
+        last_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        email: {
+        mail: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        telefono: {
+        phone: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        fecha_nacimiento: {
+        birthday: {
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        nombre_usuario: {
+        user_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        contraseña: {
+        password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        estado: {
+        state: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         }
-
     }, { freezeTableName: true });
 };

@@ -10,13 +10,9 @@ export default (sequelize: Sequelize) => {
             type: DataTypes.FLOAT,
             allowNull: false
         },
-        direction: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         state: {
             type: DataTypes.STRING,
             allowNull: false
         }
-    })
+    }, { freezeTableName: true });
 }

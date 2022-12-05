@@ -10,5 +10,5 @@ export default (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    })
+    }, { freezeTableName: true });
 }

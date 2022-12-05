@@ -10,23 +10,23 @@ export default (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        precio: {
+        price: {
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-        stok: {
+        stock: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        descripcion: {
+        description: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        imagen: {
+        image: {
             type: DataTypes.STRING(400),
             allowNull: false,
         },
-        estado: {
+        state: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         }

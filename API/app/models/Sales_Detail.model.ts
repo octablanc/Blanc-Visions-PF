@@ -2,16 +2,15 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 export default (sequelize: Sequelize) => {
     sequelize.define('sales_detail', {
-        cantidad: {
+        quantity: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        precio: {
+        price: {
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-
-        descuento: {
+        discount: {
             type: DataTypes.FLOAT,
             allowNull: false,
         }
