@@ -18,6 +18,6 @@ app.use('/', router);
 
 // Makes the connection to the data base.
 ConnectionDB();
-app.listen(PORT, ()=>{
-    console.log("Server listening on port "+PORT);
+app.listen(PORT, () => {
+    console.log("Server listening on port " + PORT);
 });
