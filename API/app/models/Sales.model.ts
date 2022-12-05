@@ -1,20 +1,20 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
 export default (sequelize: Sequelize) => {
-    sequelize.define('user_address', {
-        street: {
+    sequelize.define('sales', {
+        date: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        height: {
-            type: DataTypes.INTEGER,
+        total: {
+            type: DataTypes.FLOAT,
             allowNull: false
         },
-        city: {
+        direction: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        province: {
+        state: {
             type: DataTypes.STRING,
             allowNull: false
         }

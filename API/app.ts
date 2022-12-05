@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
-import ConnectionDB from './config/ConnectionDB';
+import DBcontext from './config/ConnectionDB';
 import router from './app/routes';
 
 dotenv.config();
@@ -17,7 +17,9 @@ app.use(express.json());
 app.use('/', router);
 
 // Makes the connection to the data base.
-ConnectionDB();
-app.listen(PORT, () => {
-    console.log("Server listening on port " + PORT);
-});
+
+DBcontext.sync().then(()=> {
+    app.listen(PORT, ()=>{
+        console.log("Server listening on port "+PORT);
+    });
+})

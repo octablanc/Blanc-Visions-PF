@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
 export default (sequelize: Sequelize) => {
-    sequelize.define('role', {
+    sequelize.define('roles', {
         name: {
             type: DataTypes.STRING,
             allowNull: false

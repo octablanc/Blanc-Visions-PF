@@ -1,33 +1,29 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
 export default (sequelize: Sequelize) => {
-    sequelize.define('usuario', {
+    sequelize.define('products', {
+        codigo: {
+            type: DataTypes.STRING(5),
+            allowNull: false,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        apellido: {
-            type: DataTypes.STRING,
+        precio: {
+            type: DataTypes.FLOAT,
             allowNull: false,
         },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        telefono: {
+        stok: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        fecha_nacimiento: {
-            type: DataTypes.DATEONLY,
+        descripcion: {
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
-        nombre_usuario: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        contraseña: {
-            type: DataTypes.STRING,
+        imagen: {
+            type: DataTypes.STRING(400),
             allowNull: false,
         },
         estado: {
