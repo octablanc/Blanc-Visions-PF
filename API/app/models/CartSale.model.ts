@@ -2,9 +2,9 @@ import { DataTypes, Sequelize } from "sequelize";
 
 export default (sequelize: Sequelize) => {
   sequelize.define(
-    "carrusel",
+    "cartSale",
     {
-      precioTotal: {
+      priceTotalCart: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },

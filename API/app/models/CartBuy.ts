@@ -2,14 +2,10 @@ import { DataTypes, Sequelize } from "sequelize";
 
 export default (sequelize: Sequelize) => {
   sequelize.define(
-    "roles",
+    "cart",
     {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      state: {
-        type: DataTypes.STRING,
+      priceTotal: {
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
     },

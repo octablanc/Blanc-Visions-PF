@@ -5,10 +5,9 @@ import * as dotenv from 'dotenv';
 import Categories from '../app/models/Categories.model';
 import Products from '../app/models/Products.model';
 import Roles from '../app/models/Roles.model';
-import Sales_Detail from '../app/models/Sales_Detail.model';
-import Sales from '../app/models/OrderCompra';
+import Sales_Detail from '../app/models/CartSale.model';
+import Sales from '../app/models/OrderBuy';
 import Users from '../app/models/Users.model';
-import UserAddress from '../app/models/UsersAddresses.model';
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -28,7 +27,6 @@ Roles(DBcontext);
 Sales_Detail(DBcontext);
 Sales(DBcontext);
 Users(DBcontext);
-UserAddress(DBcontext);
 
 const { users, users_addresses, sales, roles, products, categories, sales_detail } = DBcontext.models;
 
