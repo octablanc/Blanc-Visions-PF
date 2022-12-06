@@ -28,7 +28,7 @@ Products(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
 
-const { cart, cartSale, categories, orderSales, products, roles, users } =
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users } =
   DBcontext.models;
 
 /*
@@ -42,24 +42,24 @@ roles.hasMany(users);
 users.belongsTo(roles);
 
 //A user can have a single carrusel, carrusel can have a single users.(one to one)
-users.hasOne(cart);
-cart.belongsTo(users);
+users.hasOne(cartBuy);
+cartBuy.belongsTo(users);
 
 //A user can have a single carrusel of the Venta. Carrusel can have a single users.(one to one)
 users.hasOne(cartSale);
 cartSale.belongsTo(users);
 
 //A Carrusel can have a single Order of Compra. Order of Compra can have a single Carrusel.(one to one)
-cart.hasOne(orderSales);
-orderSales.belongsTo(cart);
+cartBuy.hasOne(orderBuy);
+orderBuy.belongsTo(cartBuy);
 
 //A Carrusel of Venta can have a single Order of Compra. Order of Compra can have a single Carrusel of Venta.(one to one)
-cartSale.hasOne(orderSales);
-orderSales.belongsTo(cartSale);
+cartSale.hasOne(orderBuy);
+orderBuy.belongsTo(cartSale);
 
 //A Order of Compra can have many Products. Products can have many Order of Compra.(many to many)
-orderSales.belongsToMany(products, { through: "orderSales_Products" });
-products.belongsToMany(orderSales, { through: "orderSales_Products" });
+orderBuy.belongsToMany(products, { through: "orderBuy_Products" });
+products.belongsToMany(orderBuy, { through: "orderBuy_Products" });
 
 //One category many products. A product can have only one category (one to many).
 categories.hasMany(products);
