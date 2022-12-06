@@ -32,6 +32,18 @@ UserAddress(DBcontext);
 
 const { users, users_addresses, sales, roles, products, categories, sales_detail } = DBcontext.models;
 
+// A user can have a single role, roles can have many users (one to many).
+roles.hasMany(users)
+users.belongsTo(roles);
+/*
+Un Usuario puede tener solo 1 Rol. Si el rol es usuario entonces tendra un carrito de compra. Si el Rol es Admin, entonces tendra un carrito de ventas.
+Tanto el carrito de compra como el de venta, tendran acceso a laOrden de Compra.
+La orden tiene muchos productos, y los productos corresponden a una categoria.
+
+
+*/
+
+
 // A product can have only one category, one category many products (one to many).
 categories.hasMany(products);
 products.belongsTo(categories);
@@ -44,9 +56,7 @@ sales_detail.belongsTo(products);
 users_addresses.hasOne(users);
 users.belongsTo(users_addresses);
 
-// A user can have a single role, roles can have many users (one to many).
-roles.hasMany(users)
-users.belongsTo(roles);
+
 
 // A sale has only one address, one address can correspond to several sales (one to many).
 users_addresses.hasMany(sales, { foreignKey: 'deliveryAddress'});
