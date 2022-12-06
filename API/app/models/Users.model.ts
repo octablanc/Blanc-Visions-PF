@@ -8,11 +8,11 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      last_name: {
+      lastName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      image_profile: {
+      imageProfile: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -28,7 +28,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      user_name: {
+      userName: {
         type: DataTypes.STRING,
         allowNull: false,
       },

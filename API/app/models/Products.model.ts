@@ -4,7 +4,7 @@ export default (sequelize: Sequelize) => {
   sequelize.define(
     "products",
     {
-      codigo: {
+      code: {
         type: DataTypes.STRING(5),
         allowNull: false,
       },
@@ -32,7 +32,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      cantidadProductos: {
+      quantityProducts: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

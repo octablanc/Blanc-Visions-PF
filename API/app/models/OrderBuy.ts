@@ -4,31 +4,31 @@ export default (sequelize: Sequelize) => {
   sequelize.define(
     "orderSales",
     {
-      precioTotalDescuento: {
+      priceTotalDiscount: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      descuento: {
+      discount: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      estado: {
+      state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      codigoPostal: {
+      postalCode: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      calle: {
+      street: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      altura: {
+      height: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      ciudad: {
+      city: {
         type: DataTypes.STRING,
         allowNull: false,
       },
