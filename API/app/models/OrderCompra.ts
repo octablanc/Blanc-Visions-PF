@@ -12,6 +12,10 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      estado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
       codigoPostal: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -26,10 +30,6 @@ export default (sequelize: Sequelize) => {
       },
       ciudad: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      cantidadDelProducto: {
-        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
