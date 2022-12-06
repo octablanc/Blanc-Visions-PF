@@ -1,4 +1,4 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import * as dotenv from 'dotenv';
 import modelExample from '../app/models/model.example';
 
@@ -10,7 +10,7 @@ import Sales_Detail from '../app/models/Sales_Detail.model';
 import Sales from '../app/models/Sales.model';
 import Users from '../app/models/Users.model';
 import UserAddress from '../app/models/UsersAddress.model';
-import sequelize from 'sequelize';
+
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
