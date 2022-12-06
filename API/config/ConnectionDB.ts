@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
 import * as dotenv from 'dotenv';
-import modelExample from '../app/models/model.example';
 
 //Models
 import Categories from '../app/models/Categories.model';
@@ -9,8 +8,7 @@ import Roles from '../app/models/Roles.model';
 import Sales_Detail from '../app/models/Sales_Detail.model';
 import Sales from '../app/models/Sales.model';
 import Users from '../app/models/Users.model';
-import UserAddress from '../app/models/UsersAddress.model';
-
+import UserAddress from '../app/models/UsersAddresses.model';
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -23,9 +21,6 @@ const DBcontext = new Sequelize(`${DB_URL}`, {
     native: false
 });
 
-// Creating a model example
-modelExample(DBcontext);
-
 // Creating tables from models
 Categories(DBcontext);
 Products(DBcontext);
@@ -35,46 +30,35 @@ Sales(DBcontext);
 Users(DBcontext);
 UserAddress(DBcontext);
 
-// Here will be all tables relations
-const { users, users_address, sales, roles, products, categories, sales_detail } = DBcontext.models;
-/* 
-usuario puede tener una direccion y una direccion le correspone a un unico usuario(de uno a muchos).
-Una direccion puede corresponder a varias ventas. Pero, una venta tiene una sola direccion(uno a muchos).
-Un usuario puede tener un unico rol y roles puede tener muchos usuarios(uno a muchos).
-Un producto puede tener una sola categoria, una categoria muchos productos(uno a muchos).
-Un producto tiene un Detalle de venta. Y un Detalles de venta corresponde a un Producto(uno a uno)
-*/
+const { users, users_addresses, sales, roles, products, categories, sales_detail } = DBcontext.models;
 
+// A product can have only one category, one category many products (one to many).
+categories.hasMany(products);
+products.belongsTo(categories);
 
-
-
-//Un producto puede tener una sola categoria, una categoria muchos productos(uno a muchos).
-products.hasMany(categories)
-categories.belongsTo(products);
-
-//Un producto tiene un Detalle de venta. Y un Detalles de venta corresponde a un Producto(uno a uno)
-products.hasOne(sales_detail);
+// A product has many sales details, one sales detail corresponds to one product (one to many).
+products.hasMany(sales_detail);
 sales_detail.belongsTo(products);
 
-//Un Usuario tiene una direccion y Una direccion tiene 1 unico Usuario(Uno a Uno).
-users.hasOne(users_address);
-users_address.belongsTo(users);
+// A User has one address, an address has only one user (One to One).
+users_addresses.hasOne(users);
+users.belongsTo(users_addresses);
 
-//un usuario puede tener un unico rol y Roles puede tener muchos usuarios(uno a muchos).
-users.hasMany(roles)
-roles.belongsTo(users);
+// A user can have a single role, roles can have many users (one to many).
+roles.hasMany(users)
+users.belongsTo(roles);
 
-//Una venta tiene una sola direccion. Pero, una direccion puede corresponder a varias ventas(uno a muchos).
-sales.hasMany(users_address)
-users_address.belongsTo(sales);
+// A sale has only one address, one address can correspond to several sales (one to many).
+users_addresses.hasMany(sales, { foreignKey: 'deliveryAddress'});
+// sales.belongsTo(users_addresses); <-- this will create another foreign key that we do not need. 
 
-//Una venta tiene un Detalle de Venta. y Un detalle de venta corresponde a una Venta(uno a uno)
-sales.hasOne(sales_detail);
+// A sale has many sale details, a sale detail corresponds to a sale (one to many).
+sales.hasMany(sales_detail);
 sales_detail.belongsTo(sales);
 
-//Una venta corresponde a un usuario. Y un usuario puede tener muchas ventas.(uno a muchos)
-sales.hasMany(users);
-users.belongsTo(sales);
-
+// One sale corresponds to one user, one user can have many sales (one to many).
+users.hasMany(sales);
+sales.belongsTo(users);
+users.hasMany(sales, { foreignKey: 'userBuyerId' }); // Buyer relation
 
 export default DBcontext;

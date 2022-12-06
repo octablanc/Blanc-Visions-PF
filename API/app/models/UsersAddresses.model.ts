@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
 export default (sequelize: Sequelize) => {
-    sequelize.define('users_address', {
+    sequelize.define('users_addresses', {
         street: {
             type: DataTypes.STRING,
             allowNull: false
