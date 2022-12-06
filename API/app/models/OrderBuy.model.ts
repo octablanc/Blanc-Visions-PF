@@ -2,7 +2,7 @@ import { DataTypes, Sequelize } from "sequelize";
 
 export default (sequelize: Sequelize) => {
   sequelize.define(
-    "orderSales",
+    "orderBuy",
     {
       priceTotalDiscount: {
         type: DataTypes.FLOAT,
