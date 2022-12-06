@@ -6,7 +6,7 @@ import Categories from '../app/models/Categories.model';
 import Products from '../app/models/Products.model';
 import Roles from '../app/models/Roles.model';
 import Sales_Detail from '../app/models/Sales_Detail.model';
-import Sales from '../app/models/Sales.model';
+import Sales from '../app/models/OrderSales';
 import Users from '../app/models/Users.model';
 import UserAddress from '../app/models/UsersAddresses.model';
 

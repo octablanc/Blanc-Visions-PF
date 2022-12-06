@@ -1,43 +1,35 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 
 export default (sequelize: Sequelize) => {
   sequelize.define(
-    "users",
+    "orderSales",
     {
-      name: {
-        type: DataTypes.STRING,
+      precioTotalDescuento: {
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
-      last_name: {
-        type: DataTypes.STRING,
+      descuento: {
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
-      image_profile: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      phone: {
+      codigoPostal: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      mail: {
+      calle: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      password: {
+      altura: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      user_name: {
+      ciudad: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      birthday: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-      },
-      state: {
-        type: DataTypes.BOOLEAN,
+      cantidadDelProducto: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
