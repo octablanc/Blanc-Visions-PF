@@ -1,0 +1,1 @@
+Here you will find all the styled components that make up all the components of the home page.
