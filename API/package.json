@@ -19,6 +19,7 @@
     "express": "4.18.2",
     "morgan": "1.10.0",
     "pg": "^8.8.0",
+    "proto": "^1.0.19",
     "sequelize": "^6.26.0"
   },
   "devDependencies": {
