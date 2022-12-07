@@ -28,7 +28,7 @@ Products(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
 
-const { cartBuy, cartSale, categories, orderBuy, products, roles, users } =
+export const { cartBuy, cartSale, categories, orderBuy, products, roles, users } =
   DBcontext.models;
 
 /*
