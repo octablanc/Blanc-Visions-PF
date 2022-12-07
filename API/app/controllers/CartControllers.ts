@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import DBcontext from "../../config/ConnectionDB";
 const { cartBuy, users } = DBcontext.models;
 
-export async function getCart(_req: Request, res: Response) {
+export async function getCart(req: Request, res: Response) {
+  const { id } = req.body;
   try {
-    const carts = await cartBuy.findAll({ include: users });
-    return res.json({ message: "Get Carts", carts });
+    const cart = await cartBuy.findByPk(id,{ include: users });
+    return res.json({ message: "Get Carts", cart });
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
