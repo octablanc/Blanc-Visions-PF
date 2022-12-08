@@ -47,33 +47,21 @@ export async function getProductByPk(req:Request, res:Response) {
     }
 }
 
-// export async function postProduct(req:Request, res:Response){
-//     try {
-//         const product = req.body;
-
-//         let result = await Products.create(
-//             product
-//         );
-
-//         return res.send(result);
-//     } catch ({ message }) {
-//         console.log(message)
-//         return res.status(400).send({message});
-//     }
-// }
 export async function postProduct(req:Request, res:Response){
     try {
-      const {code, name, price, stock, description, features, image, state,id_category} = req.body;
-    let result = await Products.create({ code, name, price, stock, description, features, image, state });
-    // Hacer la relacion con el id_category
-    console.log(id_category)
+        const product = req.body;
+
+        let result = await Products.create(
+            product
+        );
+
         return res.send(result);
-        
-  } catch ({ message }) {
-      console.log("MENSAJE ERROR =>", message)
-      return res.status(400).send({message});
-  }
+    } catch ({ message }) {
+        console.log(message)
+        return res.status(400).send({message});
+    }
 }
+
 
 export async function updateProduct(req:Request, res:Response) {
     try {
