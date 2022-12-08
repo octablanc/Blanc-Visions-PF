@@ -15,5 +15,5 @@ export default (sequelize: Sequelize) => {
             allowNull: false,
         }
 
-    }, { freezeTableName: true });
+    }, { freezeTableName: true, timestamps: false });
 };

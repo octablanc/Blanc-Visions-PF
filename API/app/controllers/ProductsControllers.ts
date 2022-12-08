@@ -1,17 +1,54 @@
 import { Request, Response} from 'express';
-// import {} from "../../config/ConnectionDB";
 
-export function getProducts( _req:Request, res:Response){
+// Data base context import
+import DBcontext from '../../config/ConnectionDB';
+
+// Models
+const Products  = DBcontext.models.products;
+const Categories  = DBcontext.models.categories;
+
+export async function getProducts(req:Request, res:Response){
     try {
-        return res.send([{message: "Get Product"}]);
+        const { category } = req.query;
+        
+        const result = await Products.findAll(
+            category? {
+                include : [{
+                    model: Categories,
+                    where: {
+                        name: category 
+                    }
+                }]
+            } : undefined
+        );
+        
+        return res.send(result);
     } catch ({message}) {
         return res.status(400).send({message});
     }
 }
 
-export function postUser( _req:Request, res:Response){
+export async function getProductByPk(req:Request, res:Response) {
     try {
-        return res.send([{message: "Post Product"}]);
+        const { id } = req.params;
+
+        const result = await Products.findByPk(id);
+
+        return res.send(result);
+    } catch ({ message }) {
+        return res.status(400).send({ message });
+    }
+}
+
+export async function postProduct(req:Request, res:Response){
+    try {
+        const product = req.body;
+
+        let result = await Products.create(
+            product
+        );
+        console.log(result);
+        return res.send(result);
     } catch ({ message }) {
         console.log(message)
         return res.status(400).send({message});
