@@ -13,7 +13,7 @@ export async function getCategories(req:Request, res:Response){
                 where: {
                     name
                 }
-            } : {}
+            } : undefined
         );
 
         return res.send(result);
@@ -69,9 +69,10 @@ export async function deleteCategory(req:Request, res:Response) {
 
         const categoryToDelete = await Categories.findByPk(id);
 
-        await categoryToDelete?.destroy();
+        await categoryToDelete?.update({ state: false });
+        await categoryToDelete?.save();
 
-        return res.send({ message: "Category deleted!" });
+        return res.send({ message: "Category has been discharged!" });
     } catch ({ message }) {
         return res.status(400).send({ message });
     }
