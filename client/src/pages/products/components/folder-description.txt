@@ -1,0 +1,1 @@
+Here you will find all the components that only make up the home page and are not in another component.
