@@ -21,7 +21,11 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       description: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+      },
+      features: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
       image: {
@@ -30,10 +34,6 @@ export default (sequelize: Sequelize) => {
       },
       state: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      quantityProducts: {
-        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
