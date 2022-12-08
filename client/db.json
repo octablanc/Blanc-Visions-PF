@@ -1,0 +1,12 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "descripcion": [{ "id": 1, "name": "dsadsadsa", "icon": "dsadsa" }]
+    },
+    { "id": 2, "title": "dsadsa", "author": "dsadsa" }
+  ],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": { "name": "typicode" }
+}
