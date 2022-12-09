@@ -1,33 +1,57 @@
 import { Request, Response } from "express";
 import { users } from "../../config/ConnectionDB";
-
+import bcryptjs from 'bcryptjs';
 /*
 -Se enviará el email y password por la requesta en el body.
 -Busca el registro dentro de la base de datos según  email.
 -Compara que la password enviada por body si coincide con el registro traído de la base de datos.
 -Si coinciden los datos, se devuelve "acceso correcto", sino un bad request con un mensaje indicado.*/
+
+// export async function getUsers(req: Request, res: Response) {
+//   const { mail, password } = req.body;
+//   try {
+//     if (!mail) {
+//       return res.status(400).json({ mensaje: "Falta el email" });
+//     }
+//     if (!password) {
+//       return res.status(400).json({ mensaje: "Falta la contraseña" });
+//     }
+//     const userEncontrated = await users.findOne({ where: { mail: mail } });
+//     if (!userEncontrated) {
+//       return res.status(400).json({ mensaje: "Email no encontrado" });
+//     }
+//     if (userEncontrated.dataValues.password !== password) {
+//       return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+//     }
+
+//     return res.json("Este usuario, tuvo Acceso correcto");
+//   } catch ({ message }) {
+//     return res.status(400).json({ message });
+//   }
+// }
 export async function getUsers(req: Request, res: Response) {
   const { mail, password } = req.body;
   try {
-    if (!mail) {
-      return res.status(400).json({ mensaje: "Falta el email" });
-    }
-    if (!password) {
-      return res.status(400).json({ mensaje: "Falta la contraseña" });
-    }
-    const userEncontrated = await users.findOne({ where: { mail: mail } });
-    if (!userEncontrated) {
-      return res.status(400).json({ mensaje: "Email no encontrado" });
-    }
-    if (userEncontrated.dataValues.password !== password) {
-      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
-    }
+    if (!mail) return res.status(400).json({ mensaje: "Falta el email" });
+    if (!password) return res.status(400).json({ mensaje: "Falta la contraseña" });
 
-    return res.json("Este usuario, tuvo Acceso correcto");
+    const userEncontrated = await users.findOne({ where: { mail } });
+    if (!userEncontrated) return res.json({ mensaje: 'Email no encontrado' });
+  
+    const compare = await bcryptjs.compare(password, userEncontrated.dataValues.password);
+    if (!compare) return res.json("Contraseña incorrecta");
+    
+    // return res.json({ mensaje: "Este usuario, tuvo Acceso correcto" });
+    return res.json({ userEncontrated });
+
   } catch ({ message }) {
     return res.status(400).json({ message });
   }
 }
+
+// DeleteUsers
+// Updateuser
+
 
 
 //Formato para enviar un Usuario:
@@ -44,11 +68,34 @@ export async function getUsers(req: Request, res: Response) {
       "state": true,
   }
 */
+// export async function postUser(req: Request, res: Response) {
+//   try {
+//     const actividadCreate = await users.create(req.body);
+//     return res.send([{ message: "POST USERRR  users", actividadCreate }]);
+//   } catch ({ message }) {
+//     return res.status(400).json({ message });
+//   }
+// }
 export async function postUser(req: Request, res: Response) {
+  const { name, lastName, imageProfile, phone, mail, password, userName, birthday, state } = req.body;
   try {
-    const actividadCreate = await users.create(req.body);
-    return res.send([{ message: "POST USERRR  users", actividadCreate }]);
+    // console.log("MAIL",await users.findOne({ where: { mail } }))
+    // validar que no se repita
+    if (await users.findOne({ where: { mail } })) return res.json({ message: 'Este mail ya esta registrado' });
+
+    const passwordHash = await bcryptjs.hash(password, 10);
+    const userCreate = await users.create({ name, lastName, imageProfile, phone, mail, password: passwordHash, userName, birthday, state });
+    
+    return res.send([{ message: "POST USERRR  users", userCreate }]);
   } catch ({ message }) {
     return res.status(400).json({ message });
   }
 }
+
+// updateUsers
+// deleteUser
+// model?.save()
+// para guardar el modelo
+// por si el modelo s null el signoi de pregunta
+
+

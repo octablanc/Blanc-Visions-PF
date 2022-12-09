@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import DBcontext from "../../config/ConnectionDB";
-const { cartBuy, users, orderBuy } = DBcontext.models;
+const { cartBuy, orderBuy } = DBcontext.models;
 
 export async function getCart(req: Request, res: Response) {
   const { id } = req.body;
