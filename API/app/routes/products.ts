@@ -1,9 +1,10 @@
 import express from "express";
-import { getProducts, postProduct, getProductByPk, updateProduct, deleteProduct} from "../controllers/ProductsController";
+import { getProducts, postProduct, getProductByPk, updateProduct, deleteProduct, paginateProducts} from "../controllers/ProductsController";
 
 const router = express.Router();
 
 router.get("/", getProducts);
+router.get("/paginate", paginateProducts);
 router.get("/:id", getProductByPk);
 router.post('/', postProduct);
 router.put('/:id', updateProduct);
