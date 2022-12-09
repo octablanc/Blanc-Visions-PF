@@ -4,6 +4,8 @@ import Swiper, { Navigation, Pagination } from "swiper";
 import { Swipper } from "./components/swiper";
 import image from "./styled-components/camara.jpg";
 
+import {AiFillStar} from 'react-icons/ai';
+
 import styled from "styled-components";
 
 /*.....aca comienzan los ESTILOS ..........*/
@@ -12,11 +14,6 @@ const Box = styled.div`
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* grid-template-areas:
- "header header"
- "main sidebar"
- "footer footer"; */
-  /* grid-gap: 60px; */
 `;
 
 const Div = styled.div`
@@ -58,17 +55,17 @@ justify-content: center;
 align-items: center;
 `;
 
-const Img = styled.img`
-  width: 30vw;
-  height: 50vh;
-`;
+// const Img = styled.img`
+//   width: 30vw;
+//   height: 50vh;
+// `;
 
-const Miniature = styled.img`
-  width: 8vw;
-  height: 10vh;
-`;
+// const Miniature = styled.img`
+//   width: 8vw;
+//   height: 10vh;
+// `;
 
-const H5 = styled.h5`
+const H3 = styled.h5`
 align-self: center;
 `;
 
@@ -101,9 +98,9 @@ export const Detail = () => {
         <Div>
           <Div1>
             <h3>Producto</h3>
-            <p>Rating</p>
+            <p><AiFillStar /><AiFillStar /><AiFillStar /></p>
           </Div1>
-          <Div2><Swipper /></Div2>
+          {/* <Div2><Swipper /></Div2> */}
           {/* <div>
             <Img src={image} alt="imagen del producto" />
           </div>
@@ -115,7 +112,7 @@ export const Detail = () => {
         </Div>
 
         <Div3>
-          <H5>Description</H5>
+          <H3>Description</H3>
           <p>esta es la descripción del producto</p>
           <Div4>
             <p>Cantidad</p>
