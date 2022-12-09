@@ -72,6 +72,11 @@ const GlobalStyles = createGlobalStyle`
     margin-top: 2rem;
   }
 
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
   @media (min-width: 768px) {
     section {
       margin: 4rem;
