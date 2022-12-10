@@ -6,6 +6,7 @@ import { createSlice } from '@reduxjs/toolkit';
 interface ProductState {
   products: Pro[];
   loading: boolean;
+  page: number;
 }
 
 export default interface Pro {
@@ -27,6 +28,7 @@ export default interface Pro {
 const initialState: ProductState = {
   products: [],
   loading: false,
+  page: 1,
 };
 
 export const productSlice = createSlice({
@@ -41,6 +43,9 @@ export const productSlice = createSlice({
       state.loading = false;
       state.products = action.payload;
     },
+    changePage: (state, action) => {
+      state.page = action.payload;
+    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
@@ -48,7 +53,8 @@ export const productSlice = createSlice({
   },
 });
 
-export const { startLoadingProducts, setProducts } = productSlice.actions;
+export const { startLoadingProducts, setProducts, changePage } =
+  productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;

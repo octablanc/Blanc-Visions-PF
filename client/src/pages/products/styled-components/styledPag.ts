@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PaginationS = styled.div`
+const Paginations = styled.div`
   user-select: none;
   display: flex;
   align-items: center;
@@ -43,4 +43,4 @@ const PaginationS = styled.div`
   }
 `;
 
-export default PaginationS;
+export default Paginations;
