@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 // styles
 import { Conteiner } from './styled-components/styled';
 //components
-import { Filters } from '../../components/Filters/Filters';
+import { Filters } from '../../../components/Filters/Filters';
 //redux
-import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
-import { getProducts } from '../../redux/slices/products';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
+import { getProducts } from '../../../redux/slices/products';
 import { ProductItem } from './components/ProductItem';
 
 export const Products = () => {
