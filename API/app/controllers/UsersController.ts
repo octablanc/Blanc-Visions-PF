@@ -61,13 +61,9 @@ export async function postUser(req: Request, res: Response) {
 
 export async function deleteUser(req: Request, res: Response) {
   const { userName, mail, password } = req.body;
-  // const { userName, password } = req.body;
-
-
 
   try {
     const userDelete = await users.findOne({ where: { userName, mail } });
-    console.log("USER", userDelete);
     
     if (!userDelete) return res.json({ message: `Datos invalidos para eliminar a ${userName}` })
 
