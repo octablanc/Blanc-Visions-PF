@@ -7,6 +7,7 @@ export default (sequelize: Sequelize) => {
       code: {
         type: DataTypes.STRING(5),
         allowNull: false,
+        unique: true
       },
       name: {
         type: DataTypes.STRING,
@@ -30,10 +31,6 @@ export default (sequelize: Sequelize) => {
       },
       state: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      quantityProducts: {
-        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
