@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Cards } from './components/Cards';
-import Pro from '../../../products/models/ejProducts';
+import { Pro } from '../../../products/models/ejProducts';
 import { useEffect, useState } from 'react';
 
 const Div = styled.div`
