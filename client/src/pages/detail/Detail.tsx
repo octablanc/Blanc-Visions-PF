@@ -1,6 +1,6 @@
 import { useState, ChangeEvent } from "react";
 
-import Swiper, { Navigation, Pagination } from "swiper";
+
 import { Swipper } from "./components/swiper";
 import image from "./styled-components/camara.jpg";
 
@@ -65,7 +65,7 @@ align-items: center;
 //   height: 10vh;
 // `;
 
-const H3 = styled.h5`
+const H5 = styled.h5`
 align-self: center;
 `;
 
@@ -81,6 +81,7 @@ align-items: center;
 
 export const Detail = () => {
   const [counter, setCounter] = useState(0);
+  
 
   //la función plantea un contador x ahora
   const handleOnClickAdd = (number: number = 1): void => {
@@ -101,6 +102,7 @@ export const Detail = () => {
             <p><AiFillStar /><AiFillStar /><AiFillStar /></p>
           </Div1>
           {/* <Div2><Swipper /></Div2> */}
+          <Swipper />
           {/* <div>
             <Img src={image} alt="imagen del producto" />
           </div>
@@ -112,7 +114,7 @@ export const Detail = () => {
         </Div>
 
         <Div3>
-          <H3>Description</H3>
+          <H5>Description</H5>
           <p>esta es la descripción del producto</p>
           <Div4>
             <p>Cantidad</p>
@@ -131,7 +133,7 @@ export const Detail = () => {
           </Div4>
         </Div3>
       </Box>
-     
+      
     </div>
   );
 };
