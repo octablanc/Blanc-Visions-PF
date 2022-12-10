@@ -1,11 +1,20 @@
 import { Outlet } from 'react-router-dom';
+import styled from 'styled-components';
+import { Footer } from './Footer/Footer';
+import { Header } from './Header/Header';
+
+const GridLayout = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+`;
 
 export const Layout = () => {
   return (
-    <div>
-      <h1>Header</h1>
+    <GridLayout>
+      <Header />
       <Outlet />
-      <h1>Footer</h1>
-    </div>
+      <Footer />
+    </GridLayout>
   );
 };
