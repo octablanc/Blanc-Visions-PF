@@ -116,7 +116,6 @@ export async function paginateProducts(req:Request, res:Response) {
     category = Category we need to filter the products: Shoes, Phones, etc.
     */
     try {
-        console.log(req.query?.page + ' ' + req.query?.quantityProducts);
         if(req.query?.page && req.query?.quantityProducts){
             const page = parseInt(req.query.page.toString());
             const quantityProducts = parseInt(req.query.quantityProducts.toString());
