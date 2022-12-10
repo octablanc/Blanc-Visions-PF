@@ -1,10 +1,10 @@
 import express from "express";
-import { getCategories, getCategoriesByPk, postCategory, updateCategory, deleteCategory } from "../controllers/CategoriesController";
+import { getCategories, getCategoriesById, postCategory, updateCategory, deleteCategory } from "../controllers/CategoriesController";
 
 const router = express.Router();
 
 router.get('/', getCategories);
-router.get('/:id', getCategoriesByPk);
+router.get('/:id', getCategoriesById);
 router.post('/', postCategory);
 router.put('/:id', updateCategory);
 router.delete('/:id', deleteCategory);
