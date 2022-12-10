@@ -1,11 +1,11 @@
 import express from "express";
-import { getProducts, postProduct, getProductByPk, updateProduct, deleteProduct, paginateProducts} from "../controllers/ProductsController";
+import { getProducts, postProduct, getProductById, updateProduct, deleteProduct, paginateProducts} from "../controllers/ProductsController";
 
 const router = express.Router();
 
 router.get("/", getProducts);
 router.get("/paginate", paginateProducts);
-router.get("/:id", getProductByPk);
+router.get("/:id", getProductById);
 router.post('/', postProduct);
 router.put('/:id', updateProduct);
 router.delete('/:id', deleteProduct);

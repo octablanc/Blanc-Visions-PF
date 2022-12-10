@@ -35,7 +35,7 @@ export async function getProducts(req:Request, res:Response){
     }
 }
 
-export async function getProductByPk(req:Request, res:Response) {
+export async function getProductById(req:Request, res:Response) {
     try {
         const { id } = req.params;
 
@@ -46,6 +46,9 @@ export async function getProductByPk(req:Request, res:Response) {
                 attributes: { exclude: ["categoryId"] }
             }
         );
+
+        if(!result)
+            return res.status(404).send({ message: "Product not found!" });
 
         return res.send(result);
     } catch ({ message }) {
@@ -74,8 +77,12 @@ export async function updateProduct(req:Request, res:Response) {
         const newFields = req.body;
 
         const productToUpdate = await Products.findByPk(id);
-        await productToUpdate?.update(newFields);
-        await productToUpdate?.save();
+        if(productToUpdate){
+            await productToUpdate.update(newFields);
+            await productToUpdate.save();
+        }
+        else 
+            return res.status(404).send({ message: "Product no found!" });
 
         return res.send(productToUpdate);
     } catch ({ message }) {
@@ -88,8 +95,12 @@ export async function deleteProduct(req:Request, res:Response) {
         const { id } = req.params;
 
         const productToDelete = await Products.findByPk(id);
-        await productToDelete?.update({ state: false });
-        await productToDelete?.save();
+        if(productToDelete){
+            await productToDelete.update({ state: false });
+            await productToDelete.save();
+        }
+        else
+            return res.status(404).send({ message: "Product not found!" });
 
         return res.send({ message: "Product has been discharged!" });
     } catch ({ message }) {
