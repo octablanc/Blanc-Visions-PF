@@ -1,33 +1,10 @@
 import { Filters } from '../../components/Filters';
-import styled from 'styled-components';
 import './styled-components/prod.css';
+import { Conteiner, Card, Div, Div2 } from './styled-components/styled';
 import { useEffect, useState } from 'react';
-import Pro from './ejProducts';
-import { Form } from './FormProd';
-
-const Div = styled.div`
-  /* background: ; */
-`;
-const Div2 = styled.div`
-  /* background: #d794b8; */
-`;
-
-const Conteiner = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 2rem;
-`;
-const Card = styled.div`
-  display: grid;
-  place-items: center;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  border-bottom: 1px solid black;
-  padding-top: 3rem;
-  h3 {
-    line-height: normal;
-  }
-`;
+import Pro from './models/ejProducts';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import { BsCart4 } from 'react-icons/bs';
 
 export const Products = () => {
   const [product, setProduct] = useState<Pro[]>([]);
@@ -57,7 +34,16 @@ export const Products = () => {
                 </div>
                 <div className='description'>
                   <h3>{e.name}</h3>
-                  <Form />
+                  <div>
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiOutlineStar />
+                    <button>
+                      <BsCart4 />
+                    </button>
+                  </div>
                   <ul>
                     {e.description.map((e) => (
                       <li>{e}</li>
