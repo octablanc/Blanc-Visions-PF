@@ -7,28 +7,6 @@ import bcryptjs from 'bcryptjs';
 -Compara que la password enviada por body si coincide con el registro traído de la base de datos.
 -Si coinciden los datos, se devuelve "acceso correcto", sino un bad request con un mensaje indicado.*/
 
-// export async function getUsers(req: Request, res: Response) {
-//   const { mail, password } = req.body;
-//   try {
-//     if (!mail) {
-//       return res.status(400).json({ mensaje: "Falta el email" });
-//     }
-//     if (!password) {
-//       return res.status(400).json({ mensaje: "Falta la contraseña" });
-//     }
-//     const userEncontrated = await users.findOne({ where: { mail: mail } });
-//     if (!userEncontrated) {
-//       return res.status(400).json({ mensaje: "Email no encontrado" });
-//     }
-//     if (userEncontrated.dataValues.password !== password) {
-//       return res.status(400).json({ mensaje: "Contraseña incorrecta" });
-//     }
-
-//     return res.json("Este usuario, tuvo Acceso correcto");
-//   } catch ({ message }) {
-//     return res.status(400).json({ message });
-//   }
-// }
 export async function getUsers(req: Request, res: Response) {
   const { mail, password } = req.body;
   try {
@@ -49,11 +27,6 @@ export async function getUsers(req: Request, res: Response) {
   }
 }
 
-// DeleteUsers
-// Updateuser
-
-
-
 //Formato para enviar un Usuario:
 /*
     {
@@ -64,24 +37,18 @@ export async function getUsers(req: Request, res: Response) {
       "mail": "lucasPruebo@gmail.com",
       "password": "contraseña12345",
       "userName": "Soy Un Nombre de  Usuario",
-      "birthday": "2022-12-07"
-      "state": true,
+      "birthday": "2022-12-07",
+      "state": true
   }
 */
-// export async function postUser(req: Request, res: Response) {
-//   try {
-//     const actividadCreate = await users.create(req.body);
-//     return res.send([{ message: "POST USERRR  users", actividadCreate }]);
-//   } catch ({ message }) {
-//     return res.status(400).json({ message });
-//   }
-// }
 export async function postUser(req: Request, res: Response) {
   const { name, lastName, imageProfile, phone, mail, password, userName, birthday, state } = req.body;
   try {
-    // console.log("MAIL",await users.findOne({ where: { mail } }))
-    // validar que no se repita
-    if (await users.findOne({ where: { mail } })) return res.json({ message: 'Este mail ya esta registrado' });
+    const mailVal = await users.findOne({ where: { mail } });
+    const userNameVal = await users.findOne({ where: { userName } });
+
+    if (mailVal) return res.json({ message: 'Este mail ya esta registrado' });
+    if (userNameVal) return res.json({ message: 'Este nombre de usuario ya esta registrado' });
 
     const passwordHash = await bcryptjs.hash(password, 10);
     const userCreate = await users.create({ name, lastName, imageProfile, phone, mail, password: passwordHash, userName, birthday, state });
@@ -92,10 +59,26 @@ export async function postUser(req: Request, res: Response) {
   }
 }
 
-// updateUsers
-// deleteUser
-// model?.save()
-// para guardar el modelo
-// por si el modelo s null el signoi de pregunta
+export async function deleteUser(req: Request, res: Response) {
+  const { userName, mail, password } = req.body;
+  // const { userName, password } = req.body;
 
+
+
+  try {
+    const userDelete = await users.findOne({ where: { userName, mail } });
+    console.log("USER", userDelete);
+    
+    if (!userDelete) return res.json({ message: `Datos invalidos para eliminar a ${userName}` })
+
+    const compare = await bcryptjs.compare(password, userDelete.dataValues.password);
+    if (!compare) return res.json({ message: 'password invalid' });
+    
+    await userDelete.destroy();
+    return res.json({message:`${userName} fue eliminado con exito`});
+
+  } catch ({ message }) {
+    return res.status(400).json({ message });
+  }
+}
 
