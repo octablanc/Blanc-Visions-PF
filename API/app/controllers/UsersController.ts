@@ -59,22 +59,5 @@ export async function postUser(req: Request, res: Response) {
   }
 }
 
-export async function deleteUser(req: Request, res: Response) {
-  const { userName, mail, password } = req.body;
 
-  try {
-    const userDelete = await users.findOne({ where: { userName, mail } });
-    
-    if (!userDelete) return res.json({ message: `Datos invalidos para eliminar a ${userName}` })
-
-    const compare = await bcryptjs.compare(password, userDelete.dataValues.password);
-    if (!compare) return res.json({ message: 'password invalid' });
-    
-    await userDelete.destroy();
-    return res.json({message:`${userName} fue eliminado con exito`});
-
-  } catch ({ message }) {
-    return res.status(400).json({ message });
-  }
-}
 
