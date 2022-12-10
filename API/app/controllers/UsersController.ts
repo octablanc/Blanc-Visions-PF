@@ -37,19 +37,12 @@ export async function getUsers(req:Request, res:Response) {
 export async function getUserLogin(req: Request, res: Response) {
   const { mail, password } = req.body;
   try {
-    if (!mail) {
-      return res.status(400).json({ mensaje: "Falta el email" });
-    }
-    if (!password) {
-      return res.status(400).json({ mensaje: "Falta la contraseña" });
-    }
-    const userEncontrated = await users.findOne({ where: { mail: mail } });
-    if (!userEncontrated) {
-      return res.status(400).json({ mensaje: "Email no encontrado" });
-    }
-    if (userEncontrated.dataValues.password !== password) {
-      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
-    }
+
+    const userEncontrated = await users.findOne({ where: { mail } });
+    if (!userEncontrated) return res.status(400).json({ mensaje: "Email no encontrado" });
+
+    const compare = await bcrypt.compare(password, userEncontrated.dataValues.password)
+    if (!compare) return res.status(400).json({ mensaje: "Contraseña incorrecta" });
 
     return res.json(userEncontrated);
   } catch ({ message }) {
