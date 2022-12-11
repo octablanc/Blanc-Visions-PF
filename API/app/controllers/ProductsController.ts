@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { data, category } from '../utils';
+import { category, data } from '../utils';
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
