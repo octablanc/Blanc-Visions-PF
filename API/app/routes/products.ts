@@ -1,12 +1,21 @@
-import express from "express";
-import { getProducts, postProduct, getProductById, updateProduct, deleteProduct, paginateProducts} from "../controllers/ProductsController";
+import express from 'express';
+import {
+  getProducts,
+  postProduct,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+  paginateProducts,
+  bulk,
+} from '../controllers/ProductsController';
 
 const router = express.Router();
 
-router.get("/", getProducts);
-router.get("/paginate", paginateProducts);
-router.get("/:id", getProductById);
+router.get('/', getProducts);
+router.get('/paginate', paginateProducts);
+router.get('/:id', getProductById);
 router.post('/', postProduct);
+router.post('/bulk', bulk);
 router.put('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
 

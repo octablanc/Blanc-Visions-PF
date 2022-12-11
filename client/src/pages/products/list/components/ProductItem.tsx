@@ -4,9 +4,9 @@ import { AiFillStar, AiOutlineStar, BsCart4 } from '../../../../icons';
 interface Props {
   product: {
     name: string;
-    code: number;
+    code: string;
     image: string;
-    description: string[];
+    description: string;
     price: number;
   };
 }
@@ -31,11 +31,12 @@ export const ProductItem = ({ product }: Props) => {
             <BsCart4 />
           </button>
         </Icons>
-        <ul>
-          {description.map((e, i) => (
+        <p>{description}</p>
+        {/* <ul> */}
+        {/* {description.map((e, i) => (
             <li key={i}>{e}</li>
           ))}
-        </ul>
+        </ul> */}
         <h3>${price}</h3>
       </div>
     </Card>

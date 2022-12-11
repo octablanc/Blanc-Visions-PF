@@ -1,29 +1,34 @@
 import { Card } from './Card';
-import { Pro } from '../../../products/list/models/ejProducts';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { SalesContainer } from '../../styled-components/styles';
+import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
+import { getProducts } from '../../../../redux/slices/products';
+import Spinner from '../../../../components/Spinner/Spinner';
 
 export const Sales = () => {
-  const [products, setProducts] = useState<Pro[]>([]);
+  const dispatch = useAppDispatch();
+  const { loading, products } = useAppSelector((state) => state.productsState);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/products`)
-      .then(resp => resp.json())
-      .then(prod => setProducts(prod));
-  }, []);
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <SalesContainer className='container'>
-      {products &&
+      {loading ? (
+        <Spinner />
+      ) : (
+        products &&
         products
           .slice(0, 4)
-          .map(product => (
+          .map((product) => (
             <Card
               name={product.name}
               img={product.image}
               price={product.price}
             />
-          ))}
+          ))
+      )}
     </SalesContainer>
   );
 };

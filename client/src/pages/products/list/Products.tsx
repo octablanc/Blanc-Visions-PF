@@ -22,7 +22,7 @@ export const Products = () => {
     <Conteiner className='container'>
       <Filters />
       <div style={{ justifyContent: 'center' }}>
-        <h1 className='text-center'>Name Categoria</h1>
+        <h1 className='text-center'>Nuestros Productos</h1>
         <div>
           {loading ? (
             <Spinner />
