@@ -1,26 +1,39 @@
-import React, {useEffect, useState} from 'react';
-import {Pro} from './Interface';
+import { useState } from "react";
+
+import { dataSlider } from "../data";
+import { BtnSlider } from "./BtnSlider";
+import { Container, ContainerImg, Img } from "../styled-components/Slider";
 
 
 export const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState<number>(1);
 
-    const [prod, setProd] = useState<Pro[]>([])
+  const nextSlide = () => {
+    if (slideIndex !== dataSlider.img.length) {
+      setSlideIndex(slideIndex + 1);
+    } else if (slideIndex === dataSlider.img.length) {
+      setSlideIndex(1);
+    }
+  };
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/products`)
-          .then((resp) => resp.json())
-          .then((prod) => {
-            console.log(prod);
-            setProduct(prod);
-          });
-      }, []);
-      
+  const prevSlide = () => {
+    if (slideIndex !== 1) {
+      setSlideIndex(slideIndex - 1);
+    } else if (slideIndex === 1) {
+      setSlideIndex(dataSlider.img.length);
+    }
+  };
+
   return (
-    <div>
-        dataSlider.map(obj, index) => 
-        Slider
-        
-        </div>
-  )
-}
-
+    <Container>
+      <ContainerImg>
+        <Img
+          src={process.env.PUBLIC_URL + `${dataSlider.img}`} //hasta que tenga el endpoint muestro sólo un imagen
+          alt="product image"
+        />
+      </ContainerImg>
+      <BtnSlider moveSlide={nextSlide} direction={"next"} />
+      <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+    </Container>
+  );
+};
