@@ -1,5 +1,5 @@
 import { Card } from '../styled-components/styled';
-import { AiFillStar, AiOutlineStar, BsCart4 } from '../../../icons';
+import { AiFillStar, AiOutlineStar, BsCart4 } from '../../../../icons';
 
 interface Props {
   product: {
