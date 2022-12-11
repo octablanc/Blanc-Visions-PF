@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Conteiner } from './styled-components/styled';
 //components
 import { Filters } from '../../../components/Filters/Filters';
+import Pagination from '../../../components/paginate/Pagination';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
 import { getProducts } from '../../../redux/slices/products';
@@ -27,6 +28,7 @@ export const Products = () => {
               <ProductItem key={product.code} product={product} />
             ))}
         </div>
+        <Pagination />
       </div>
     </Conteiner>
   );
