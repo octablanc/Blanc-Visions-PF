@@ -2,7 +2,7 @@ import { Card } from './Card';
 import { useEffect } from 'react';
 import { SalesContainer } from '../../styled-components/styles';
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { getProducts } from '../../../../redux/slices/products';
+import { getAllProducts } from '../../../../redux/slices/products';
 import Spinner from '../../../../components/Spinner/Spinner';
 
 export const Sales = () => {
@@ -10,7 +10,7 @@ export const Sales = () => {
   const { loading, products } = useAppSelector((state) => state.productsState);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getAllProducts());
   }, [dispatch]);
 
   return (

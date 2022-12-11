@@ -173,7 +173,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>Name cannot be empty.</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -193,7 +193,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>Image cannot be empty.</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -213,7 +213,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>Code cannot be empty.</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -235,7 +235,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>Price cannot be empty.</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -256,7 +256,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>Stock cannot be empty.</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <FormControl
@@ -277,9 +277,7 @@ export default function CreateProduct() {
               name='categoryId'
               label='Category '
               sx={{ fontSize: fontSizeInput }}
-              onChange={(e: any) =>
-                handlerChange(e.target.name, e.target.value)
-              }
+              onChange={(e) => handlerChange(e.target.name, e.target.value)}
             >
               <MenuItem
                 value={1}
@@ -325,7 +323,7 @@ export default function CreateProduct() {
                 </span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <Button
