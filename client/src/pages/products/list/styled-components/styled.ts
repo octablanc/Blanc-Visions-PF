@@ -16,7 +16,6 @@ export const Card = styled.div`
   button {
     border: none;
     background-color: transparent;
-    margin-left: 40rem;
     font-size: 4rem;
   }
 
@@ -26,4 +25,9 @@ export const Card = styled.div`
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
   }
+`;
+
+export const Icons = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

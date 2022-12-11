@@ -26,11 +26,15 @@ export const NotFoundContainer = styled.div`
 
   h2,
   h3 {
-    width: 30%;
+    width: 90%;
     line-height: normal;
     text-align: center;
     font-size: 2.5rem;
     font-weight: 400;
+
+    @media (min-width: 768px) {
+      width: 30%;
+    }
   }
 
   button {
