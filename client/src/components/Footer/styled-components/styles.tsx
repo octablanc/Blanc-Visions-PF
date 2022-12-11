@@ -9,11 +9,18 @@ export const FooterBar = styled.div`
 
 export const GridFooter = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3rem;
-
   ul li {
     padding-bottom: 1rem;
+  }
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
   }
 `;
 

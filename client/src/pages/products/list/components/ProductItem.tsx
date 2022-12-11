@@ -1,4 +1,4 @@
-import { Card } from '../styled-components/styled';
+import { Card, Icons } from '../styled-components/styled';
 import { AiFillStar, AiOutlineStar, BsCart4 } from '../../../../icons';
 
 interface Props {
@@ -19,16 +19,18 @@ export const ProductItem = ({ product }: Props) => {
       </div>
       <div>
         <h3>{name}</h3>
-        <div>
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <AiOutlineStar />
+        <Icons>
+          <div>
+            <AiFillStar />
+            <AiFillStar />
+            <AiFillStar />
+            <AiFillStar />
+            <AiOutlineStar />
+          </div>
           <button>
             <BsCart4 />
           </button>
-        </div>
+        </Icons>
         <ul>
           {description.map((e, i) => (
             <li key={i}>{e}</li>
