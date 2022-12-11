@@ -7,8 +7,13 @@ export const Menu = styled.header`
 
 export const Nav = styled.nav`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export const Input = styled.input`
@@ -24,26 +29,37 @@ export const Input = styled.input`
 
 export const Icons = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 1.5rem;
 
   li {
     font-size: 2rem;
   }
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export const CategoriesBar = styled.div`
   background-color: ${props => props.theme.colors.black};
   color: ${props => props.theme.colors.white};
-  height: 5rem;
+  width: 100%;
   display: flex;
   align-items: center;
 
   ul {
     height: 100%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
   }
 `;

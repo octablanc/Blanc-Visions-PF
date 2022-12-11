@@ -18,8 +18,8 @@ app.use('/', router);
 
 // Makes the connection to the data base.
 
-DBcontext.sync( { force: true } ).then(() => {
-    app.listen(PORT, () => {
-        console.log("Server listening on port " + PORT);
-    });
-})
+DBcontext.sync({ force: false }).then(() => {
+  app.listen(PORT, () => {
+    console.log('Server listening on port ' + PORT);
+  });
+});
