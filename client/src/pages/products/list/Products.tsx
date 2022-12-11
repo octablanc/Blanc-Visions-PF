@@ -7,6 +7,7 @@ import { Filters } from '../../components/Filters/Filters';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { getProducts } from '../../redux/slices/products';
 import { ProductItem } from './components/ProductItem';
+import Spinner from '../../components/Spinner/Spinner';
 
 export const Products = () => {
   const dispatch = useAppDispatch();
