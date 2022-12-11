@@ -30,4 +30,5 @@ export const Card = styled.div`
 export const Icons = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
