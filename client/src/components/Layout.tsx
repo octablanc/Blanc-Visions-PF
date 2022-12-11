@@ -9,11 +9,17 @@ const GridLayout = styled.div`
   grid-template-rows: auto 1fr auto;
 `;
 
+const ContainerLayout = styled.div`
+  padding: 3.5rem 0;
+`;
+
 export const Layout = () => {
   return (
     <GridLayout>
       <Header />
-      <Outlet />
+      <ContainerLayout>
+        <Outlet />
+      </ContainerLayout>
       <Footer />
     </GridLayout>
   );

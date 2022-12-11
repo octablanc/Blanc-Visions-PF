@@ -27,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
   h1,
   h2,
   h3 {
-    margin: 0 0 3rem 0;
+    margin: 0 0 1rem 0;
   }
 
   h1 {
@@ -56,7 +56,7 @@ const GlobalStyles = createGlobalStyle`
 
   @media (min-width: 768px) {
     h3 {
-      font-size: 3rem;
+      font-size: 2.7rem;
     }
   }
 
