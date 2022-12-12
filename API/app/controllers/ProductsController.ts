@@ -35,6 +35,7 @@ export async function getProducts(req: Request, res: Response) {
         },
       ],
       attributes: { exclude: ['categoryId'] },
+      order: [['id', 'ASC']]
     });
 
     return res.send(result);
@@ -152,6 +153,7 @@ export async function paginateProducts(req: Request, res: Response) {
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
+          order: [['id', 'ASC']]
         });
 
         return res.send(result);
