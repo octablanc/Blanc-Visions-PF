@@ -9,6 +9,7 @@ import {
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
@@ -38,10 +39,15 @@ export const Header = () => {
         <CategoriesBar>
           <div className='container'>
             <ul>
-              <li>Categoria 1</li>
-              <li>Categoria 2</li>
-              <li>Categoria 3</li>
-              <li>Categoria 4</li>
+              <li>
+                <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/products'>Productos</Link>
+              </li>
+              <li>
+                <Link to='/products/create'>Crear Productos</Link>
+              </li>
             </ul>
           </div>
         </CategoriesBar>
