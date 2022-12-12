@@ -9,6 +9,8 @@ import OrderBuy from "../app/models/OrderBuy.model";
 import Products from "../app/models/Products.model";
 import Roles from "../app/models/Roles.model";
 import Users from "../app/models/Users.model";
+import Images from "../app/models/Images.model";
+
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -27,8 +29,9 @@ OrderBuy(DBcontext);
 Products(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
+Images(DBcontext)
 
-export const { cartBuy, cartSale, categories, orderBuy, products, roles, users } =
+export const { cartBuy, cartSale, categories, orderBuy, products, roles, users, images } =
   DBcontext.models;
 
 /*
@@ -64,5 +67,9 @@ products.belongsToMany(orderBuy, { through: "orderBuy_Products" });
 //One category many products. A product can have only one category (one to many).
 categories.hasMany(products);
 products.belongsTo(categories);
+
+//a product can have many images and an image can belong to a single product.
+products.hasMany(images);
+images.belongsTo(products)
 
 export default DBcontext;
