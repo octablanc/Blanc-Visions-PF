@@ -9,10 +9,12 @@ import { getAllPage, getProductsPage } from '../../../redux/slices/products';
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
+import 'animate.css';
+
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading, totalPages } = useAppSelector(
-    (state) => state.productsState
+    state => state.productsState
   );
   const [page, setPage] = useState(1);
   const quantity = 3;
@@ -39,8 +41,13 @@ export const Products = () => {
               <Spinner />
             ) : (
               products.length &&
-              products.map((product) => (
-                <ProductItem key={product.code} product={product} />
+              products.map(product => (
+                <div
+                  key={product.code}
+                  className='animate__animated animate__fadeIn'
+                >
+                  <ProductItem product={product} />
+                </div>
               ))
             )}
           </div>
@@ -49,10 +56,11 @@ export const Products = () => {
         </div>
       </Conteiner>
       <Paginate>
-        <button onClick={decrement}>anterior</button>
+        {page !== 1 && <button onClick={decrement}>{'<'}</button>}
         <h3>{page}</h3>
-
-        <button onClick={increment}>siguiente</button>
+        {Math.ceil(totalPages / quantity) !== page && (
+          <button onClick={increment}>{'>'}</button>
+        )}
       </Paginate>
     </>
   );
