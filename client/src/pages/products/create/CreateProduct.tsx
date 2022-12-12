@@ -174,7 +174,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>{error.name}</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -195,7 +195,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>{error.image}</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -217,7 +217,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>{error.code}</span>
               ))
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -239,7 +239,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>{error.price}</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -261,7 +261,7 @@ export default function CreateProduct() {
                 <span style={{ fontSize: '13px' }}>{error.stock}</span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <FormControl
@@ -282,9 +282,7 @@ export default function CreateProduct() {
               name='categoryId'
               label='Category '
               sx={{ fontSize: fontSizeInput }}
-              onChange={(e: any) =>
-                handlerChange(e.target.name, e.target.value)
-              }
+              onChange={(e) => handlerChange(e.target.name, e.target.value)}
             >
               {
                 categories.length ? categories.map(
@@ -327,7 +325,7 @@ export default function CreateProduct() {
                 </span>
               )
             }
-            onChange={(e: any) => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <Button

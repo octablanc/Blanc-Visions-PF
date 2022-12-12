@@ -6,7 +6,7 @@ import { Filters } from '../../../components/Filters/Filters';
 import Pagination from '../../../components/paginate/Pagination';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { getProducts } from '../../../redux/slices/products';
+import { getAllProducts } from '../../../redux/slices/products';
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
@@ -15,7 +15,7 @@ export const Products = () => {
   const { products, loading } = useAppSelector((state) => state.productsState);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getAllProducts());
   }, [dispatch]);
 
   return (
