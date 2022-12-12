@@ -144,3 +144,108 @@ export const data = [
     categoryId: 1,
   },
 ];
+
+export const imagesArray = [
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 1,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 1,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 2,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 3,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 3,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 3,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 4,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 4,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 5,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 5,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 5,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 5,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 6,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 6,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 7,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 8,
+  },
+  {
+    url_image:
+      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
+    state: true,
+    productId: 9,
+  },
+];
