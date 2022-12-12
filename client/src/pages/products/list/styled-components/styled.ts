@@ -42,13 +42,14 @@ export const Paginate = styled.div`
     background-color: black;
     color: white;
     margin: 4rem;
-    padding: 1.5rem;
+    padding: 0.6rem;
     text-transform: uppercase;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     font-weight: bold;
+    font-size: 1.8rem;
   }
   h3 {
     margin: 0;
-    font-size: 4rem;
+    font-size: 3rem;
   }
 `;
