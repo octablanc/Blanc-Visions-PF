@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // styles
 import { Conteiner } from './styled-components/styled';
 //components
@@ -6,17 +6,18 @@ import { Filters } from '../../../components/Filters/Filters';
 import Pagination from '../../../components/paginate/Pagination';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { getAllProducts } from '../../../redux/slices/products';
+import { getProductsPage } from '../../../redux/slices/products';
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading } = useAppSelector((state) => state.productsState);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+    dispatch(getProductsPage(page));
+  }, [dispatch, page]);
 
   return (
     <Conteiner className='container'>
@@ -34,8 +35,11 @@ export const Products = () => {
           )}
         </div>
 
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
+      <button onClick={() => setPage(page + 1)}>increment</button>
+      {page}
+      <button onClick={() => setPage(page - 1)}>decrement</button>
     </Conteiner>
   );
 };

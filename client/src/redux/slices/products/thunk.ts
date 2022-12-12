@@ -4,6 +4,7 @@ import {
   startLoadingProducts,
   createProduct,
   detailProduct,
+  changePage,
 } from './productsSlice';
 
 import axios from 'axios';
@@ -24,7 +25,8 @@ export const getProductById = (id: number) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts());
-      let productsId = await axios(`http://localhost:3001/products${id}`);
+      let productsId = (await axios(`http://localhost:3001/products/${id}`))
+        .data;
       dispatch(detailProduct(productsId));
     } catch (error) {
       console.log(error);
@@ -50,11 +52,18 @@ export const createNewProduct = (product: any) => {
   };
 };
 
-// export const getproductById = (id: number) => {
-//   return async (dispatch: any) => {
-//     let productId = await axios(
-//       `http://localhost:3001/products/${id}`
-//     );
-//     dispatch(productById(productId));
-//   };
-// };
+export const getProductsPage = (page: number) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingProducts());
+      let products = (
+        await axios(
+          `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${2}`
+        )
+      ).data;
+      dispatch(changePage(products));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

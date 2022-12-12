@@ -6,7 +6,7 @@ import { createSlice } from '@reduxjs/toolkit';
 interface ProductState {
   products: Pro[];
   categories: Cat[];
-  detail: UniquePro;
+  currentProduct: UniquePro;
   loading: boolean;
   page: number;
   // detail: Pro;
@@ -51,7 +51,7 @@ const initialState: ProductState = {
   categories: [],
   loading: false,
   page: 1,
-  detail: {
+  currentProduct: {
     id: 0,
     name: '',
     code: '',
@@ -78,7 +78,8 @@ export const productSlice = createSlice({
       state.products = action.payload;
     },
     changePage: (state, action) => {
-      state.page = action.payload;
+      state.loading = false;
+      state.products = action.payload;
     },
     getCategories: (state, action) => {
       state.categories = action.payload;
@@ -87,7 +88,7 @@ export const productSlice = createSlice({
       state.products = [...state.products, action.payload];
     },
     detailProduct: (state, action) => {
-      state.detail = action.payload;
+      state.currentProduct = action.payload;
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
