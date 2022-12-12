@@ -3,6 +3,7 @@ import {
   getCategories,
   startLoadingProducts,
   createProduct,
+  detailProduct,
 } from './productsSlice';
 
 import axios from 'axios';
@@ -13,6 +14,18 @@ export const getAllProducts = () => {
       dispatch(startLoadingProducts());
       let products = (await axios(`http://localhost:3001/products`)).data;
       dispatch(getProducts(products));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getProductById = (id: number) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingProducts());
+      let productsId = await axios(`http://localhost:3001/products${id}`);
+      dispatch(detailProduct(productsId));
     } catch (error) {
       console.log(error);
     }
