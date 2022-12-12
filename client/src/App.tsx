@@ -7,6 +7,7 @@ import { Products } from './pages/products/list/Products';
 import CreateProduct from './pages/products/create/CreateProduct';
 import { store } from './redux/app/store';
 import { NotFound } from './pages/error/NotFound';
+import { CrearProduct } from './pages/products/create/CrearProduct';
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route index path='home' element={<Home />} />
+            <Route index element={<Home />} />
             <Route path='products' element={<Products />} />
             <Route path='products/create' element={<CreateProduct />} />
+            <Route path='products/crear' element={<CrearProduct />} />
             <Route path='detail' element={<Detail />} />
             <Route path='*' element={<NotFound />} />
           </Route>
