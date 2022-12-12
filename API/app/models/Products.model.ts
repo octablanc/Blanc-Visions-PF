@@ -1,14 +1,14 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes } from 'sequelize';
 
 export default (sequelize: Sequelize) => {
   sequelize.define(
-    "products",
+    'products',
     {
       code: {
         type: DataTypes.STRING,
 
         allowNull: false,
-        unique: true
+        unique: true,
       },
       name: {
         type: DataTypes.STRING,
@@ -23,11 +23,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       description: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
-      features: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.STRING(400),
         allowNull: false,
       },
       image: {
