@@ -32,3 +32,23 @@ export const Icons = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+export const Paginate = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  height: 10rem;
+  button {
+    background-color: black;
+    color: white;
+    margin: 4rem;
+    padding: 1.5rem;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    font-weight: bold;
+  }
+  h3 {
+    margin: 0;
+    font-size: 4rem;
+  }
+`;

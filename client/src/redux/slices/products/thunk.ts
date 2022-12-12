@@ -5,6 +5,7 @@ import {
   createProduct,
   detailProduct,
   changePage,
+  getPages,
 } from './productsSlice';
 
 import axios from 'axios';
@@ -52,16 +53,29 @@ export const createNewProduct = (product: any) => {
   };
 };
 
-export const getProductsPage = (page: number) => {
+export const getProductsPage = (page: number, quantity: number) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts());
       let products = (
         await axios(
-          `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${2}`
+          `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}`
         )
       ).data;
       dispatch(changePage(products));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getAllPage = () => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingProducts());
+      let totalPages = (await axios(`http://localhost:3001/products`)).data
+        .length;
+      dispatch(getPages(totalPages));
     } catch (error) {
       console.log(error);
     }

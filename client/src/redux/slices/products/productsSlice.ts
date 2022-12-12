@@ -9,6 +9,7 @@ interface ProductState {
   currentProduct: UniquePro;
   loading: boolean;
   page: number;
+  totalPages: number;
   // detail: Pro;
 }
 
@@ -51,6 +52,7 @@ const initialState: ProductState = {
   categories: [],
   loading: false,
   page: 1,
+  totalPages: 0,
   currentProduct: {
     id: 0,
     name: '',
@@ -90,6 +92,9 @@ export const productSlice = createSlice({
     detailProduct: (state, action) => {
       state.currentProduct = action.payload;
     },
+    getPages: (state, action) => {
+      state.totalPages = action.payload;
+    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
@@ -104,6 +109,7 @@ export const {
   getCategories,
   createProduct,
   detailProduct,
+  getPages,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
