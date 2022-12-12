@@ -7,15 +7,31 @@
 //   "state": true,
 //   "categoryId": 1
 //  }
+
 export const category = [
   {
-    name: 'camaras',
-    description: 'Every camara',
+    name: 'Camaras y Lentes',
+    description: 'lorem ipsum',
     state: true,
   },
   {
-    name: 'pantalla',
-    description: 'pantalla luminica',
+    name: 'Accesorios',
+    description: 'lorem ipsum',
+    state: true,
+  },
+  {
+    name: 'Flashes e Iluminacion',
+    description: 'lorem ipsum',
+    state: true,
+  },
+  {
+    name: 'Tripodes y Soportes',
+    description: 'lorem ipsum',
+    state: true,
+  },
+  {
+    name: 'Audio y Video',
+    description: 'lorem ipsum',
     state: true,
   },
 ];
