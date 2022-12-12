@@ -8,6 +8,7 @@ interface ProductState {
   categories: Cat[];
   loading: boolean;
   page: number;
+  // detail: Pro;  
 }
 
 export default interface Pro {
@@ -36,6 +37,18 @@ const initialState: ProductState = {
   categories: [],
   loading: false,
   page: 1,
+  // detail: {
+  //   map(): {[name,]},
+  //   name: '',
+  //   code: '',
+  //   description: '',
+  //   image: '',
+  //   price: 0,
+  //   entrega: '',
+  //   stock: 0,
+  //   id_category: 0,
+  //   state: true,
+  // },
 };
 
 export const productSlice = createSlice({
@@ -59,6 +72,9 @@ export const productSlice = createSlice({
     createProduct: (state, action) => {
       state.products = [...state.products, action.payload];
     },
+    // productById: (state, action) => {
+    //   state.detail = action.payload;
+    // }
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
@@ -72,6 +88,7 @@ export const {
   changePage,
   getCategories,
   createProduct,
+  // productById,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
