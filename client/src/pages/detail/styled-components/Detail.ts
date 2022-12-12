@@ -12,28 +12,38 @@ export const Image = styled.div`
   /* background: red; */
   display: flex;
   flex-direction: column;
+  .title{
+    line-height: normal;
+    font-size: 3rem;
+  }
+  .img{
+    margin-top: 3rem;
+  }
 `;
 
-export const Title = styled.div`
-  /* background: yellow; */
-  color: #c2ad94;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`;
+// export const Title = styled.div`
+//   background: yellow;
+//   color: #c2ad94;  
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   align-items: center;  
+//  `;
 
 export const Info = styled.div`
+/* background-color: red; */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   margin: 6rem 0rem 0rem 0rem;
   h3 {
-    align-self: flex-start;
-    font-size: 2.5rem;
+     font-size: 2.5rem;
     font-weight: normal;
     color: #c2ad94;
+  }
+  .icons {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -47,13 +57,14 @@ export const CartSection = styled.div`
 export const Counter = styled.div`
   /* background: yellow; */
   border-color: #c2ad94;
+  margin-top: -2rem;
   width: 10rem;
   height: 5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  div {    
+  div {      
     font-size: 2rem;
   }
   button {
