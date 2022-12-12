@@ -1,10 +1,11 @@
 import { useState, ChangeEvent, useEffect } from "react";
 
 import { Slider } from "./components/Slider";
-// import { Swipper } from "./components/swiper";
+import { Slide } from "./components/Slide";
 
 import { AiFillStar } from "react-icons/ai";
 import { dataSlider } from "./data";
+import line from './styled-components/imgLine.png';
 import {
   Container,
   Image,
@@ -14,16 +15,25 @@ import {
   Counter,
   Btn,
 } from "./styled-components/Detail";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
+import Swipper from "./components/Swiper";
+// import { getproductById } from "../../redux/slices/products";
 
 export const Detail = () => {
   const [counter, setCounter] = useState(0);
+  const dispatch = useAppDispatch();
+  // const { detail, id } = useAppSelector(state => state.productsState)
 
-  //la función plantea un contador x ahora
+  // useEffect(() => {
+  //   dispatch(getproductById(detail.id));
+  // }, [dispatch]);
+
+  //la función plantea solo el contador x ahora
   const handleOnClickAdd = (number: number = 1): void => {
     setCounter(counter + 1);
   };
 
-  //la función plantea un contador x ahora
+  //la función plantea solo el contador x ahora
   const handleOnClickSubstract = (number: number = 1): void => {
     setCounter(counter <= 1 ? 0 : counter - 1);
   };
@@ -43,14 +53,17 @@ export const Detail = () => {
               <AiFillStar />
             </p>
           </Title>
-          {/* <Image2><Swipper /></Div2> */}
-          {dataSlider &&
+          <img src={line} />
+          <div><Slide /></div>
+          {/* <div><Swipper /></div> */}
+          {/* {dataSlider &&
             dataSlider.img.map((obj, index) => (
               <div>
                 <Slider />
-              </div>
-            ))}
+              </div> */}
+            {/* ))} */}
         </Image>
+        
 
         <Info>
           <h3>{`$${dataSlider.price}`}</h3>
