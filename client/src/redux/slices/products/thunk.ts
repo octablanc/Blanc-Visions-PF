@@ -49,3 +49,12 @@ export const createNewProduct = (product: any) => {
     dispatch(createProduct(newProduct));
   };
 };
+
+// export const getproductById = (id: number) => {
+//   return async (dispatch: any) => {
+//     let productId = await axios(
+//       `http://localhost:3001/products/${id}`
+//     );
+//     dispatch(productById(productId));
+//   };
+// };

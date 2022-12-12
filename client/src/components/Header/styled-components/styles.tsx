@@ -62,4 +62,9 @@ export const CategoriesBar = styled.div`
       align-items: center;
     }
   }
+
+  a {
+    color: white;
+    font-size: 1.8rem;
+  }
 `;

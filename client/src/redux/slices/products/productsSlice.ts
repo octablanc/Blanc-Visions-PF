@@ -9,6 +9,7 @@ interface ProductState {
   detail: UniquePro;
   loading: boolean;
   page: number;
+  // detail: Pro;
 }
 
 export default interface Pro {

@@ -4,6 +4,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import DBcontext from './config/ConnectionDB';
 import router from './app/routes';
+import axios from 'axios';
 
 dotenv.config();
 const { PORT } = process.env;
@@ -21,5 +22,6 @@ app.use('/', router);
 DBcontext.sync({ force: true }).then(() => {
   app.listen(PORT, () => {
     console.log('Server listening on port ' + PORT);
+    axios.post('http://localhost:3001/products/bulk');
   });
 });
