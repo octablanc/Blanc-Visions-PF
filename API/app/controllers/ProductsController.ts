@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { category, data } from '../utils';
+import { category, data, imagesArray } from '../utils';
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
@@ -7,6 +7,8 @@ import DBcontext from '../../config/ConnectionDB';
 // Models
 const Products = DBcontext.models.products;
 const Categories = DBcontext.models.categories;
+const Images = DBcontext.models.images;
+
 
 export async function getProducts(req: Request, res: Response) {
   /*
@@ -33,6 +35,7 @@ export async function getProducts(req: Request, res: Response) {
               }
             : undefined,
         },
+        {model:Images}
       ],
       attributes: { exclude: ['categoryId'] },
       order: [['id', 'ASC']]
@@ -48,6 +51,8 @@ export async function bulk(_req: Request, res: Response) {
   try {
     await Categories.bulkCreate(category);
     const newProducts = await Products.bulkCreate(data);
+    await Images.bulkCreate(imagesArray);
+
 
     return res.status(200).json(newProducts);
   } catch ({ message }) {
@@ -60,7 +65,7 @@ export async function getProductById(req: Request, res: Response) {
     const { id } = req.params;
 
     const result = await Products.findByPk(id, {
-      include: Categories,
+      include: [Categories,Images],
       attributes: { exclude: ['categoryId'] },
     });
 
