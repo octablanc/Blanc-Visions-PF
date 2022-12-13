@@ -8,7 +8,7 @@ import CreateProduct from './pages/products/create/CreateProduct';
 import { store } from './redux/app/store';
 import { NotFound } from './pages/error/NotFound';
 import { CrearProduct } from './pages/products/create/CrearProduct';
-import { Cart } from './pages/cart/components/Cart';
+import { Cart } from './pages/cart/components/Cart/Cart';
 
 function App() {
   return (
