@@ -5,7 +5,9 @@ import { Conteiner, Paginate } from './styled-components/styled';
 import { Filters } from '../../../components/Filters/Filters';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { getAllCategories, getAllPage, getProductsPage, setPaginationPage } from '../../../redux/slices/products';
+import { changePage, getProductsPage } from '../../../redux/slices/products';
+// import { getAllCategories, getAllPage, getProductsPage, setPaginationPage } from '../../../redux/slices/products';
+
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
@@ -13,28 +15,26 @@ import 'animate.css';
 
 export const Products = () => {
   const dispatch = useAppDispatch();
-  const { products, loading, totalPages, pagination } = useAppSelector(
+  const { products, loading, pagination } = useAppSelector(
     state => state.productsState
   );
-  const {page, quantity, category} = pagination
-  // const [page, setPage] = useState(1);
-  // const quantity = 2;
+  const { page, quantity, category, productsLength } = pagination;
   useEffect(() => {
     dispatch(getProductsPage(page, quantity, undefined));
-    // dispatch(getAllPage());
-  // }, [dispatch, page]);
   }, [dispatch]);
 
 
   const increment = () => {
-    // if (Math.ceil(totalPages / quantity) > page) setPage(page + 1);
-    if (Math.ceil(totalPages / quantity) > page) dispatch(setPaginationPage(page + 1));
-    dispatch(getProductsPage(page, quantity, category));
+    console.log("PAGIN",pagination)
+    console.log(productsLength, quantity, page)
+    if (Math.ceil(productsLength / quantity) > page) {
+      dispatch(getProductsPage(page + 1, quantity, category)); // TODO CAMBIAR
+    }
   };
   const decrement = () => {
-    // if (page > 1) setPage(page - 1);
-    if (page > 1) dispatch(setPaginationPage(page - 1));
-    dispatch(getProductsPage(page, quantity, category));
+    if (page > 1) {
+      dispatch(getProductsPage(page - 1, quantity, category)); // TODO CAMBIAR
+    }
   };
 
   return (
@@ -64,8 +64,10 @@ export const Products = () => {
       </Conteiner>
       <Paginate>
         {page !== 1 && <button onClick={decrement}>{'<'}</button>}
+
         <h3>{page}</h3>
-        {Math.ceil(totalPages / quantity) !== page && (
+        
+        {Math.ceil(productsLength / quantity) !== page && (
           <button onClick={increment}>{'>'}</button>
         )}
       </Paginate>
