@@ -25,8 +25,6 @@ export const Products = () => {
 
 
   const increment = () => {
-    console.log("PAGIN",pagination)
-    console.log(productsLength, quantity, page)
     if (Math.ceil(productsLength / quantity) > page) {
       dispatch(getProductsPage(page + 1, quantity, category)); // TODO CAMBIAR
     }
