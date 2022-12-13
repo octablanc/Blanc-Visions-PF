@@ -8,7 +8,11 @@ interface ProductState {
   categories: Cat[];
   currentProduct: UniquePro;
   loading: boolean;
-  page: number;
+  pagination: {
+    page: number,
+    quantity: number,
+    category: undefined | string
+  };
   totalPages: number;
   // detail: Pro;
 }
@@ -51,7 +55,6 @@ const initialState: ProductState = {
   products: [],
   categories: [],
   loading: false,
-  page: 1,
   totalPages: 0,
   currentProduct: {
     id: 0,
@@ -65,6 +68,11 @@ const initialState: ProductState = {
     id_category: 0,
     state: true,
   },
+  pagination: {
+    page: 1,
+    quantity: 2,
+    category: undefined
+  }
 };
 
 export const productSlice = createSlice({
@@ -72,19 +80,19 @@ export const productSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    startLoadingProducts: (state) => {
-      state.loading = true;
+    startLoadingProducts: (state, action) => {
+      state.loading = action.payload;
     },
     getProducts: (state, action) => {
-      state.loading = false;
       state.products = action.payload;
     },
     productOffCategories: (state, action) => {
-      state.loading = false;
-      state.products= action.payload;
+      state.products = action.payload;
+      console.log("LENG => ",action.payload.length)
+      state.totalPages = action.payload.length; // delete
+      
     },
     changePage: (state, action) => {
-      state.loading = false;
       state.products = action.payload;
     },
     getCategories: (state, action) => {
@@ -98,6 +106,12 @@ export const productSlice = createSlice({
     },
     getPages: (state, action) => {
       state.totalPages = action.payload;
+    },
+    setPage: (state, action) => {
+      state.pagination.page = action.payload;
+    },
+    setCategory: (state, action) => {
+      state.pagination.category = action.payload;
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
@@ -114,7 +128,9 @@ export const {
   createProduct,
   detailProduct,
   getPages,
-  productOffCategories
+  productOffCategories,
+  setPage,
+  setCategory
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

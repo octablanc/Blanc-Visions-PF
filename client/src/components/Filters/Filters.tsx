@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect } from 'react';
-import { getAllCategories, getProductCategories } from '../../redux/slices/products';
+import { getAllCategories, getAllPage, getAllProducts, getProductsPage, setPaginationCategory } from '../../redux/slices/products';
 
 export const Filters = () => {
-  const { categories } = useAppSelector((state) => state.productsState);
+  const { categories, pagination } = useAppSelector((state) => state.productsState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -12,7 +12,12 @@ export const Filters = () => {
  
   const filterByCategories = (e:React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    dispatch(getProductCategories(value))
+    console.log("VALOR",value)
+    dispatch(setPaginationCategory(value));
+    console.log("CAT",pagination.category)
+    
+    dispatch(getProductsPage(pagination.page, pagination.quantity, value));
+    dispatch(getAllPage());
   }
 
   return (
