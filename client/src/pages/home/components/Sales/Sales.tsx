@@ -23,6 +23,7 @@ export const Sales = () => {
           .slice(0, 4)
           .map((product) => (
             <Card
+              id={product.id}
               name={product.name}
               img={product.image}
               price={product.price}
