@@ -34,7 +34,7 @@ export const category = [
     state: true,
   },
 ];
-// Camaras y Lentes  1cea
+// Camaras y Lentes  1
 // Accesorios    2
 // Flashes e Iluminacion  3
 // Tripodes y Soportes  4
