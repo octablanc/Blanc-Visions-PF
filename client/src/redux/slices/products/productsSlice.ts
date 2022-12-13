@@ -79,6 +79,10 @@ export const productSlice = createSlice({
       state.loading = false;
       state.products = action.payload;
     },
+    productOffCategories: (state, action) => {
+      state.loading = false;
+      state.products= action.payload;
+    },
     changePage: (state, action) => {
       state.loading = false;
       state.products = action.payload;
@@ -110,6 +114,7 @@ export const {
   createProduct,
   detailProduct,
   getPages,
+  productOffCategories
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect } from 'react';
-import { getAllCategories } from '../../redux/slices/products';
+import { getAllCategories, getProductCategories } from '../../redux/slices/products';
 
 export const Filters = () => {
   const { categories } = useAppSelector((state) => state.productsState);
@@ -8,13 +8,18 @@ export const Filters = () => {
 
   useEffect(() => {
     dispatch(getAllCategories());
-  }, []);
+  }, [dispatch]);
+ 
+  const filterByCategories = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    dispatch(getProductCategories(value))
+  }
 
   return (
     <div>
       <h2>Refina tu busqueda</h2>
       <div>
-        <select>
+        <select onChange={filterByCategories}>
           <option>buscar categoria</option>
           {categories.map((category) => (
             <option key={category.id}>{category.name}</option>

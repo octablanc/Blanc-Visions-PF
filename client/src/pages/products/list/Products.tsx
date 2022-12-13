@@ -5,7 +5,7 @@ import { Conteiner, Paginate } from './styled-components/styled';
 import { Filters } from '../../../components/Filters/Filters';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { getAllPage, getProductsPage } from '../../../redux/slices/products';
+import { getAllCategories, getAllPage, getProductsPage } from '../../../redux/slices/products';
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 

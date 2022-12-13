@@ -23,7 +23,7 @@ export const ProductItem = ({ product }: Props) => {
     dispatch(getProductById(id));
     navigate(`/products/${id}`);
   };
-  console.log(product);
+  // console.log(product);
 
   return (
     <Card key={code} onClick={() => handleClick(id)}>

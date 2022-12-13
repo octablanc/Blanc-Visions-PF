@@ -6,6 +6,7 @@ import {
   detailProduct,
   changePage,
   getPages,
+  productOffCategories
 } from './productsSlice';
 
 import axios from 'axios';
@@ -40,6 +41,14 @@ export const getAllCategories = () => {
     dispatch(startLoadingProducts());
     let categories = (await axios(`http://localhost:3001/categories`)).data;
     dispatch(getCategories(categories));
+  };
+};
+export const getProductCategories = (value:string) => {
+  return async (dispatch: any) => {
+    dispatch(startLoadingProducts());
+    let productByCategories = (await axios(`http://localhost:3001/products?category=${value}`)).data;
+    console.log("BYCATEGOIRIES => ",productByCategories)
+    dispatch(productOffCategories(productByCategories));
   };
 };
 
