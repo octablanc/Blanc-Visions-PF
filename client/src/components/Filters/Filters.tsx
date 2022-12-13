@@ -1,23 +1,22 @@
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect } from 'react';
-import { getAllCategories, getAllPage, getAllProducts, getProductsPage, setPaginationCategory } from '../../redux/slices/products';
+import { getAllCategories, getProductsPage } from '../../redux/slices/products';
+// import { getAllCategories, getAllPage, getAllProducts, getProductsPage, setPaginationCategory } from '../../redux/slices/products';
 
 export const Filters = () => {
   const { categories, pagination } = useAppSelector((state) => state.productsState);
   const dispatch = useAppDispatch();
-
+  // const { category, page, productsLength, quantity } = pagination;
+  const { page, quantity } =  pagination;
+  
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
  
   const filterByCategories = (e:React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    console.log("VALOR",value)
-    dispatch(setPaginationCategory(value));
-    console.log("CAT",pagination.category)
-    
-    dispatch(getProductsPage(pagination.page, pagination.quantity, value));
-    dispatch(getAllPage());
+    if (value === 'buscar categoria') return dispatch(getProductsPage(1, quantity, undefined));
+    dispatch(getProductsPage(1, quantity, value));
   }
 
   return (
