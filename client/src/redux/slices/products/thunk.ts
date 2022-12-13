@@ -5,10 +5,8 @@ import {
   createProduct,
   detailProduct,
   changePage,
-  getPages,
   productOffCategories,
-  setPage,
-  setCategory
+  setPagination
 } from "./productsSlice";
 
 import axios from "axios";
@@ -17,11 +15,11 @@ export const getAllProducts = () => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let products = (await axios(`http://localhost:3001/products`)).data.result;
-      console.log(products)
-      console.log("GET ALL PRODUCT");
+      let products = (await axios(`http://localhost:3001/products`)).data;
+      // console.log(products)
+      // console.log("GET ALL PRODUCT");
       dispatch(getProducts(products));
-      dispatch(getPages(products.length));
+      // dispatch(getPages(products.length));
     } catch (error) {
       console.log(error);
     } finally {
@@ -35,7 +33,7 @@ export const getProductById = (id: number) => {
     try {
       dispatch(startLoadingProducts(true));
       let productsId = (await axios(`http://localhost:3001/products/${id}`))
-        .data.result;
+        .data;
       dispatch(detailProduct(productsId));
     } catch (error) {
       console.log(error);
@@ -66,7 +64,7 @@ export const getProductCategories = (value: string) => {
         await axios(`http://localhost:3001/products?category=${value}`)
       ).data.result;
       dispatch(productOffCategories(productByCategories));
-      dispatch(getPages(productByCategories.length));
+      // dispatch(getPages(productByCategories.length));
     } catch (err) {
       console.log(err);
     } finally {
@@ -102,35 +100,21 @@ export const createNewProduct = (product: any) => {
 //     }finally{dispatch(startLoadingProducts(false))}
 //   };
 // };
-export const getProductsPage = (
-  page: number,
-  quantity: number,
-  category: string | undefined
-) => {
+export const getProductsPage = (page: number, quantity: number, category: string | undefined) => {
   return async (dispatch: any) => {
+    // console.log("GET PRODUCT PAGE>=", page, quantity, category);
+
     try {
       dispatch(startLoadingProducts(true));
-      // console.log(page,quantity,category);
 
       let products;
       if (category) {
-        // console.log("CATEGORY => ",category);
-        products = (
-          await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
-          )
-        ).data.result;
+        products = (await axios(`http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`)).data;
       } else {
-        // console.log("FIN CAGEGORU")
-        products = (
-          await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
-          )
-        ).data.result;
+        products = (await axios(`http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`)).data;
       }
-      dispatch(getPages(products.length));
-      console.log("LENG",products.length)
-      dispatch(changePage(products));
+      dispatch(setPagination({page, category, productsLength: products.productsLength}))
+      dispatch(changePage(products.result));
     } catch (error) {
       console.log("EROR=>",error);
     } finally {
@@ -139,42 +123,42 @@ export const getProductsPage = (
   };
 };
 
-export const getAllPage = () => {
-  return async (dispatch: any) => {
-    try {
-      dispatch(startLoadingProducts(true));
-      let totalPages = (await axios(`http://localhost:3001/products`)).data
-        .length;
-      dispatch(getPages(totalPages));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch(startLoadingProducts(false));
-    }
-  };
-};
+// export const getAllPage = () => {
+//   return async (dispatch: any) => {
+//     try {
+//       dispatch(startLoadingProducts(true));
+//       let totalPages = (await axios(`http://localhost:3001/products`)).data
+//         .length;
+//       dispatch(getPages(totalPages));
+//     } catch (error) {
+//       console.log(error);
+//     } finally {
+//       dispatch(startLoadingProducts(false));
+//     }
+//   };
+// };
 
 
-export const setPaginationPage = (payload: number) => {
-  return async (dispatch: any) => {
-    try {
-      // dispatch(startLoadingProducts(true));
-      dispatch(setPage(payload))
-      // dispatch(startLoadingProducts(false));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
+// export const setPaginationPage = (payload: number) => {
+//   return async (dispatch: any) => {
+//     try {
+//       // dispatch(startLoadingProducts(true));
+//       dispatch(setPage(payload))
+//       // dispatch(startLoadingProducts(false));
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
 
-export const setPaginationCategory = (payload: string | undefined) => {
-  return async (dispatch: any) => {
-    try {
-      dispatch(startLoadingProducts(true));
-      dispatch(setCategory(payload))
-      dispatch(startLoadingProducts(false));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
+// export const setPaginationCategory = (payload: string | undefined) => {
+//   return async (dispatch: any) => {
+//     try {
+//       dispatch(startLoadingProducts(true));
+//       dispatch(setCategory(payload))
+//       dispatch(startLoadingProducts(false));
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
