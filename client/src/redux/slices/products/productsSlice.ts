@@ -12,8 +12,8 @@ interface ProductState {
     page: number,
     quantity: number,
     category: undefined | string
+    productsLength: number,
   };
-  totalPages: number;
   // detail: Pro;
 }
 
@@ -55,7 +55,6 @@ const initialState: ProductState = {
   products: [],
   categories: [],
   loading: false,
-  totalPages: 0,
   currentProduct: {
     id: 0,
     name: '',
@@ -71,7 +70,8 @@ const initialState: ProductState = {
   pagination: {
     page: 1,
     quantity: 2,
-    category: undefined
+    category: undefined,
+    productsLength: 0
   }
 };
 
@@ -87,10 +87,7 @@ export const productSlice = createSlice({
       state.products = action.payload;
     },
     productOffCategories: (state, action) => {
-      state.products = action.payload;
-      console.log("LENG => ",action.payload.length)
-      state.totalPages = action.payload.length; // delete
-      
+      state.products = action.payload;      
     },
     changePage: (state, action) => {
       state.products = action.payload;
@@ -104,15 +101,21 @@ export const productSlice = createSlice({
     detailProduct: (state, action) => {
       state.currentProduct = action.payload;
     },
-    getPages: (state, action) => {
-      state.totalPages = action.payload;
-    },
-    setPage: (state, action) => {
-      state.pagination.page = action.payload;
-    },
-    setCategory: (state, action) => {
-      state.pagination.category = action.payload;
-    },
+    // getPages: (state, action) => {
+    //   state.totalPages = action.payload;
+    // },
+    // setPage: (state, action) => {
+    //   state.pagination.page = action.payload;
+    // },
+    // setCategory: (state, action) => {
+    //   state.pagination.category = action.payload;
+    // },
+    setPagination: (state, action) => {
+      // console.log(action.payload)
+      state.pagination.page = action.payload.page;
+      state.pagination.category = action.payload.category;
+      state.pagination.productsLength = action.payload.productsLength;
+    }
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
@@ -127,10 +130,8 @@ export const {
   getCategories,
   createProduct,
   detailProduct,
-  getPages,
   productOffCategories,
-  setPage,
-  setCategory
+  setPagination
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
