@@ -9,6 +9,8 @@ import OrderBuy from "../app/models/OrderBuy.model";
 import Products from "../app/models/Products.model";
 import Roles from "../app/models/Roles.model";
 import Users from "../app/models/Users.model";
+import ProductsProperties from "../app/models/ProductsProperties.model";
+
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -22,13 +24,14 @@ const DBcontext = new Sequelize(`${DB_URL}`, {
 // Creating tables from models
 CartBuy(DBcontext);
 CartSale(DBcontext);
-Categories(DBcontext);
-OrderBuy(DBcontext);
 Products(DBcontext);
+Categories(DBcontext);
+ProductsProperties(DBcontext);
+OrderBuy(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
 
-const { cartBuy, cartSale, categories, orderBuy, products, roles, users } =
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties } =
   DBcontext.models;
 
 /*
@@ -64,5 +67,9 @@ products.belongsToMany(orderBuy, { through: "orderBuy_Products" });
 //One category many products. A product can have only one category (one to many).
 categories.hasMany(products);
 products.belongsTo(categories);
+
+//One product has many properties
+products.hasMany(products_properties, {as: 'properties', foreignKey: 'productId'});
+products_properties.belongsTo(products);
 
 export default DBcontext;
