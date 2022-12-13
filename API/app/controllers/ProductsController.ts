@@ -161,7 +161,7 @@ export async function paginateProducts(req: Request, res: Response) {
           include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
         })
 
-        return res.json({ result, lengthProducts : productsAll.length});
+        return res.json({ result, productsLength : productsAll.length});
 
       }
       throw new Error('The fields can only be numbers!');
