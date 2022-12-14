@@ -15,6 +15,7 @@ import {
   Btn,
 } from "./styled-components/Detail";
 import { useAppSelector } from "../../redux/app/hooks";
+import Spinner from "../../components/Spinner/Spinner";
 // import { getproductById } from "../../redux/slices/products";
 
 export const Detail = () => {
@@ -24,7 +25,7 @@ export const Detail = () => {
     (state: any) => state.productsState
   );
 
-  const { name, image, price, description } = currentProduct;
+  const { name, image, price, description, loading } = currentProduct;
 
   // useEffect(() => {
   //   dispatch(getproductById(detail.id));
@@ -45,57 +46,64 @@ export const Detail = () => {
 
   return (
     <div className="container">
-      <Container>
-        <Image>
-          <h3 className="title">{name}</h3>
-          <img src={line} />
-          <div className='img'>
-          <img src={image} />
-          </div>
-          <div>{/* <Slide /> */}</div>
-          {/* <div><Swipper /></div> */}
-          {/* {dataSlider &&
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Container>
+          <Image>
+            <h3 className="title">{name}</h3>
+            <img src={line} />
+            <div className="img">
+              <img src={image} alt={name} />
+            </div>
+            <div>{/* <Slide /> */}</div>
+            {/* <div><Swipper /></div> */}
+            {/* {dataSlider &&
             dataSlider.img.map((obj, index) => (
               <div>
                 <Slider />
               </div> */}
-          {/* ))} */}
-        </Image>
+            {/* ))} */}
+          </Image>
 
-        <Info>
-          <div className="icons">
-            <h3>{`$${price}`}</h3>
-            <div>
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
+          <Info>
+            <div className="icons">
+              <h3>{`$${price}`}</h3>
+              <div>
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+              </div>
             </div>
-          </div>
-          <p>DESCRIPTION{description}</p>
+            <p>DESCRIPTION{description}</p>
 
-          <CartSection>
-            <p>Cantidad</p>
-            <Counter>
-              <button name="subtract" onClick={() => handleOnClickSubstract()}>
-                -
-              </button>
-              <div>{counter}</div>
-              <button name="add" onClick={(e) => handleOnClickAdd()}>
-                +
-              </button>
-            </Counter>
+            <CartSection>
+              <p>Cantidad</p>
+              <Counter>
+                <button
+                  name="subtract"
+                  onClick={() => handleOnClickSubstract()}
+                >
+                  -
+                </button>
+                <div>{counter}</div>
+                <button name="add" onClick={(e) => handleOnClickAdd()}>
+                  +
+                </button>
+              </Counter>
 
-            <Btn name="addToCart" onClick={handleClick}>
-              Agregar al carrito
-            </Btn>
-            <Btn name="buy" onClick={handleClick}>
-              Comprar
-            </Btn>
-          </CartSection>
-        </Info>
-      </Container>
+              <Btn name="addToCart" onClick={handleClick}>
+                Agregar al carrito
+              </Btn>
+              <Btn name="buy" onClick={handleClick}>
+                Comprar
+              </Btn>
+            </CartSection>
+          </Info>
+        </Container>
+      )}
     </div>
   );
 };
