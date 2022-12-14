@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Styled Components
 import {
@@ -16,7 +16,10 @@ import {
   FormHelperText,
   FormControl,
   Button,
+  Snackbar,
 } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -27,15 +30,22 @@ import { getCategories } from '../../../redux/slices/categories';
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
 import { postProduct } from '../services/products.service';
 
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function CreateProduct() {
   const [product, setProduct] = useState({
     code: '',
     name: '',
-    price: 0,
-    stock: 0,
+    price: '',
+    stock: '',
     description: '',
     image: '',
-    categoryId: 0,
+    categoryId: '',
     state: true
   });
   const [error, setError] = useState({
@@ -47,11 +57,13 @@ export default function CreateProduct() {
     image: '',
     categoryId: '',
   });
+  const [open, setOpen] = useState(false);
   var hasError = false;
   const fontSizeLabel = 17;
   const fontSizeInput = 15;
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector(({ categoriesState }) => categoriesState);
+  const [ loading, setLoading ] = useState(false);
 
   // Get all categories
   useEffect(() => {
@@ -62,7 +74,7 @@ export default function CreateProduct() {
   function handlerChange(key: any, value: any) {
     setProduct({
       ...product,
-      [key]: key === 'code'? (value.length < 6? value: product.code) : value,
+      [key]: key === 'code' ? (value.length < 6 ? value : product.code) : value,
     });
 
     setError({
@@ -119,9 +131,28 @@ export default function CreateProduct() {
     if (!hasError) submit();
   }
 
+  function handleClose(event?: React.SyntheticEvent | Event, reason?: string) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   function submit() {
-    postProduct(product);
+    postProduct(product, setLoading, setOpen );
+    setProduct({
+      code: '',
+      name: '',
+      price: '',
+      stock: '',
+      description: '',
+      image: '',
+      categoryId: '',
+      state: true
+    });
   }
+
   return (
     <FormConteiner className='container'>
       <Image>
@@ -162,13 +193,14 @@ export default function CreateProduct() {
             }}
             label='Name'
             name='name'
+            value={product.name}
             placeholder='Product name'
             sx={{ m: 1, width: '100%' }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
             variant='outlined'
-            error={error.name? true:false}
+            error={error.name ? true : false}
             helperText={
               error.name && (
                 <span style={{ fontSize: '13px' }}>{error.name}</span>
@@ -183,13 +215,14 @@ export default function CreateProduct() {
             }}
             label='Image'
             name='image'
+            value={product.image}
             placeholder='Image URL'
             sx={{ m: 1, width: '100%' }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
             variant='outlined'
-            error={error.image? true:false}
+            error={error.image ? true : false}
             helperText={
               error.image && (
                 <span style={{ fontSize: '13px' }}>{error.image}</span>
@@ -211,7 +244,7 @@ export default function CreateProduct() {
             }}
             placeholder='Code of 5 characters'
             variant='outlined'
-            error={error.code? true:false}
+            error={error.code ? true : false}
             helperText={
               (error.code && (
                 <span style={{ fontSize: '13px' }}>{error.code}</span>
@@ -226,6 +259,7 @@ export default function CreateProduct() {
             }}
             label='Price'
             name='price'
+            value={product.price}
             placeholder='$'
             sx={{ m: 1, width: '100%' }}
             InputProps={{
@@ -233,7 +267,7 @@ export default function CreateProduct() {
               type: 'number',
             }}
             variant='outlined'
-            error={error.price? true:false}
+            error={error.price ? true : false}
             helperText={
               error.price && (
                 <span style={{ fontSize: '13px' }}>{error.price}</span>
@@ -248,6 +282,7 @@ export default function CreateProduct() {
             }}
             label='Stock'
             name='stock'
+            value={product.stock}
             placeholder='Product stock'
             sx={{ m: 1, width: '100%' }}
             InputProps={{
@@ -255,7 +290,7 @@ export default function CreateProduct() {
               type: 'number',
             }}
             variant='outlined'
-            error={error.stock? true:false}
+            error={error.stock ? true : false}
             helperText={
               error.stock && (
                 <span style={{ fontSize: '13px' }}>{error.stock}</span>
@@ -267,7 +302,7 @@ export default function CreateProduct() {
           <FormControl
             fullWidth
             sx={{ margin: '8px' }}
-            error={error.categoryId? true:false}
+            error={error.categoryId ? true : false}
           >
             <InputLabel
               id='demo-simple-select-label'
@@ -281,6 +316,7 @@ export default function CreateProduct() {
               labelId='demo-simple-select-label'
               name='categoryId'
               label='Category '
+              value={product.categoryId}
               sx={{ fontSize: fontSizeInput }}
               onChange={(e) => handlerChange(e.target.name, e.target.value)}
             >
@@ -309,6 +345,7 @@ export default function CreateProduct() {
             name='description'
             label='Description'
             multiline
+            value={product.description}
             rows={4}
             sx={{ m: 1, width: '100%' }}
             InputProps={{
@@ -317,7 +354,7 @@ export default function CreateProduct() {
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            error={error.description? true:false}
+            error={error.description ? true : false}
             helperText={
               error.description && (
                 <span style={{ fontSize: '13px' }}>
@@ -328,28 +365,49 @@ export default function CreateProduct() {
             onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
-          <Button
-            variant='contained'
-            color='success'
-            sx={{
-              width: '100%',
-              margin: '8px',
-              height: '50px',
-              fontSize: fontSizeInput,
-            }}
-            onClick={handlerSubmit}
-            disabled={
-              error.categoryId? true:false ||
-              error.code? true:false ||
-              error.description? true:false ||
-              error.image? true:false ||
-              error.name? true:false ||
-              error.price? true:false ||
-              error.stock? true:false
-            }
-          >
-            Create
-          </Button>
+          {
+            !loading ? (<Button
+              variant='contained'
+              color='success'
+              sx={{
+                width: '100%',
+                margin: '8px',
+                height: '50px',
+                fontSize: fontSizeInput,
+              }}
+              onClick={handlerSubmit}
+              disabled={
+                error.categoryId ? true : false ||
+                  error.code ? true : false ||
+                    error.description ? true : false ||
+                      error.image ? true : false ||
+                        error.name ? true : false ||
+                          error.price ? true : false ||
+                            error.stock ? true : false
+              }
+            >
+              Create
+            </Button>) :
+              (<LoadingButton
+                loading
+                variant="outlined"
+                sx={{
+                  width: '100%',
+                  margin: '8px',
+                  height: '50px',
+                  backgroundColor: '#66BB6A'
+                }}
+              />)
+          }
+
+          {
+            !loading &&
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert severity="success" sx={{ width: '100%', fontSize: fontSizeInput }}>
+                Product successfully published!
+              </Alert>
+            </Snackbar>
+          }
         </div>
       </Fields>
     </FormConteiner>

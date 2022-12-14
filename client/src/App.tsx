@@ -19,7 +19,7 @@ function App() {
             <Route path='products' element={<Products />} />
             <Route path='products/create' element={<CreateProduct />} />
             <Route path='products/crear' element={<CrearProduct />} />
-            <Route path='detail' element={<Detail />} />
+            <Route path='products/:id' element={<Detail />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

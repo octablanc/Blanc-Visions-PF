@@ -161,7 +161,13 @@ export async function paginateProducts(req: Request, res: Response) {
           order: [['id', 'ASC']]
         });
 
-        return res.send(result);
+        const productsAll = await Products.findAll({
+          where: { state: true },
+          include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
+        })
+
+        return res.json({ result, productsLength : productsAll.length});
+
       }
       throw new Error('The fields can only be numbers!');
     }

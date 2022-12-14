@@ -1,41 +1,74 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // styles
-import { Conteiner } from './styled-components/styled';
+import { Conteiner, Paginate } from './styled-components/styled';
 //components
 import { Filters } from '../../../components/Filters/Filters';
-import Pagination from '../../../components/paginate/Pagination';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { getAllProducts } from '../../../redux/slices/products';
+import { changePage, getProductsPage } from '../../../redux/slices/products';
+// import { getAllCategories, getAllPage, getProductsPage, setPaginationPage } from '../../../redux/slices/products';
+
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
+import 'animate.css'; 
+
 export const Products = () => {
   const dispatch = useAppDispatch();
-  const { products, loading } = useAppSelector((state) => state.productsState);
-
+  const { products, loading, pagination } = useAppSelector(
+    state => state.productsState
+  );
+  const { page, quantity, category, productsLength } = pagination;
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getProductsPage(page, quantity, undefined));
   }, [dispatch]);
 
-  return (
-    <Conteiner className='container'>
-      <Filters />
-      <div style={{ justifyContent: 'center' }}>
-        <h1 className='text-center'>Nuestros Productos</h1>
-        <div>
-          {loading ? (
-            <Spinner />
-          ) : (
-            products.length &&
-            products.map((product) => (
-              <ProductItem key={product.code} product={product} />
-            ))
-          )}
-        </div>
 
-        <Pagination />
-      </div>
-    </Conteiner>
+  const increment = () => {
+    if (Math.ceil(productsLength / quantity) > page) {
+      dispatch(getProductsPage(page + 1, quantity, category)); // TODO CAMBIAR
+    }
+  };
+  const decrement = () => {
+    if (page > 1) {
+      dispatch(getProductsPage(page - 1, quantity, category)); // TODO CAMBIAR
+    }
+  };
+
+  return (
+    <>
+      <Conteiner className='container'>
+        <Filters />
+        <div style={{ justifyContent: 'center' }}>
+          <h1 className='text-center'>Nuestros Productos</h1>
+          <div>
+            {loading ? (
+              <Spinner />
+            ) : (
+              products.length &&
+              products.map(product => (
+                <div
+                  key={product.code}
+                  className='animate__animated animate__fadeIn'
+                >
+                  <ProductItem product={product} />
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* <Pagination /> */}
+        </div>
+      </Conteiner>
+      <Paginate>
+        {page !== 1 && <button onClick={decrement}>{'<'}</button>}
+
+        <h3>{page}</h3>
+        
+        {Math.ceil(productsLength / quantity) !== page && (
+          <button onClick={increment}>{'>'}</button>
+        )}
+      </Paginate>
+    </>
   );
 };

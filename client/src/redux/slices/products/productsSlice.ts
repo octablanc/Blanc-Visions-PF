@@ -6,9 +6,14 @@ import { createSlice } from '@reduxjs/toolkit';
 interface ProductState {
   products: Pro[];
   categories: Cat[];
-  detail: UniquePro;
+  currentProduct: UniquePro;
   loading: boolean;
-  page: number;
+  pagination: {
+    page: number,
+    quantity: number,
+    category: undefined | string
+    productsLength: number,
+  };
   // detail: Pro;
 }
 
@@ -50,8 +55,7 @@ const initialState: ProductState = {
   products: [],
   categories: [],
   loading: false,
-  page: 1,
-  detail: {
+  currentProduct: {
     id: 0,
     name: '',
     code: '',
@@ -63,6 +67,12 @@ const initialState: ProductState = {
     id_category: 0,
     state: true,
   },
+  pagination: {
+    page: 1,
+    quantity: 2,
+    category: undefined,
+    productsLength: 0
+  }
 };
 
 export const productSlice = createSlice({
@@ -70,15 +80,17 @@ export const productSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    startLoadingProducts: (state) => {
-      state.loading = true;
+    startLoadingProducts: (state, action) => {
+      state.loading = action.payload;
     },
     getProducts: (state, action) => {
-      state.loading = false;
       state.products = action.payload;
     },
+    productOffCategories: (state, action) => {
+      state.products = action.payload;      
+    },
     changePage: (state, action) => {
-      state.page = action.payload;
+      state.products = action.payload;
     },
     getCategories: (state, action) => {
       state.categories = action.payload;
@@ -87,8 +99,23 @@ export const productSlice = createSlice({
       state.products = [...state.products, action.payload];
     },
     detailProduct: (state, action) => {
-      state.detail = action.payload;
+      state.currentProduct = action.payload;
     },
+    // getPages: (state, action) => {
+    //   state.totalPages = action.payload;
+    // },
+    // setPage: (state, action) => {
+    //   state.pagination.page = action.payload;
+    // },
+    // setCategory: (state, action) => {
+    //   state.pagination.category = action.payload;
+    // },
+    setPagination: (state, action) => {
+      // console.log(action.payload)
+      state.pagination.page = action.payload.page;
+      state.pagination.category = action.payload.category;
+      state.pagination.productsLength = action.payload.productsLength;
+    }
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
@@ -103,6 +130,8 @@ export const {
   getCategories,
   createProduct,
   detailProduct,
+  productOffCategories,
+  setPagination
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
