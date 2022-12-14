@@ -18,7 +18,7 @@ export const getAllProducts = () => {
       let products = (await axios(`http://localhost:3001/products`)).data;
       // console.log(products)
       // console.log("GET ALL PRODUCT");
-      dispatch(getProducts(products));
+      dispatch(getProducts(products.result));
       // dispatch(getPages(products.length));
     } catch (error) {
       console.log(error);
