@@ -9,30 +9,6 @@
 //  }
 export const category = [
   {
-<<<<<<< HEAD
-    name: 'Camaras y Lentes',
-    description: 'lorem ipsum',
-    state: true,
-  },
-  {
-    name: 'Accesorios',
-    description: 'lorem ipsum',
-    state: true,
-  },
-  {
-    name: 'Flashes e Iluminacion',
-    description: 'lorem ipsum',
-    state: true,
-  },
-  {
-    name: 'Tripodes y Soportes',
-    description: 'lorem ipsum',
-    state: true,
-  },
-  {
-    name: 'Audio y Video',
-    description: 'lorem ipsum',
-=======
     name: "Camaras y Lentes",
     description: "lorem ipsum",
     state: true,
@@ -55,7 +31,6 @@ export const category = [
   {
     name: "Audio y Video",
     description: "lorem ipsum",
->>>>>>> 300be7724da2b683489d8c954b4aa7adf80e20a0
     state: true,
   },
 ];
@@ -421,3 +396,31 @@ export const imagesArray = [
     productId: 9,
   },
 ];
+
+
+export const usersData = [
+  {
+    name: 'tomas 1',
+    lastName: 'apellido 1',
+    imageProfile: 'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg',
+    mail: 'tomas@gmail.com',
+    password: 'tomas123',
+    phone: 11232323,
+    birthday: 23,
+    state: true,
+    // roleId: 1,
+    userName: 'TomasUser'
+  },
+  {
+    name: 'flor 1',
+    lastName: 'flor apellido 1',
+    imageProfile: 'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg',
+    mail: 'flor@gmail.com',
+    password: 'flor123',
+    phone: 3213123,
+    birthday: 123,
+    state: true,
+    // roleId: 1,
+    userName: 'FlorUser'
+  },
+]

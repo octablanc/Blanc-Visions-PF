@@ -2,6 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 // import type { PayloadAction } from '@reduxjs/toolkit';
 // import type { RootState } from '../../app/store';
 
+export interface UserInfo {
+  id: number
+  imageProfile: string
+  name: string
+  lastName: string
+  phone: number
+  mail: string
+  password: string
+  userName: string
+  birthday: string
+  state: boolean
+  roleId: number
+}
 // Define a type for the slice state
 interface ProductState {
   products: Pro[];
@@ -14,6 +27,7 @@ interface ProductState {
     category: undefined | string
     productsLength: number,
   };
+  user: UserInfo
   // detail: Pro;
 }
 
@@ -72,6 +86,19 @@ const initialState: ProductState = {
     quantity: 2,
     category: undefined,
     productsLength: 0
+  },
+  user : {
+    id: 0,
+    imageProfile: '',
+    name: '',
+    lastName: '',
+    phone: 0,
+    mail: '',
+    password: '',
+    userName: '',
+    birthday: '',
+    state: true,
+    roleId: 0,
   }
 };
 
@@ -101,20 +128,13 @@ export const productSlice = createSlice({
     detailProduct: (state, action) => {
       state.currentProduct = action.payload;
     },
-    // getPages: (state, action) => {
-    //   state.totalPages = action.payload;
-    // },
-    // setPage: (state, action) => {
-    //   state.pagination.page = action.payload;
-    // },
-    // setCategory: (state, action) => {
-    //   state.pagination.category = action.payload;
-    // },
     setPagination: (state, action) => {
-      // console.log(action.payload)
       state.pagination.page = action.payload.page;
       state.pagination.category = action.payload.category;
       state.pagination.productsLength = action.payload.productsLength;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
     }
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
@@ -131,7 +151,8 @@ export const {
   createProduct,
   detailProduct,
   productOffCategories,
-  setPagination
+  setPagination,
+  setUser
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

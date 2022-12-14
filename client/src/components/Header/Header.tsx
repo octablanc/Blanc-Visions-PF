@@ -26,9 +26,9 @@ export const Header = () => {
             </form>
             <Icons>
               <li>
-                <Link to='/myaccount'>
-                  <FaUserCircle />
-                  Mi Cuenta
+                  <Link to='/profile'>
+                    <FaUserCircle />
+                    Mi Cuenta
                 </Link>
               </li>
 

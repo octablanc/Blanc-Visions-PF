@@ -6,9 +6,10 @@ import {
   detailProduct,
   changePage,
   productOffCategories,
-  setPagination
+  setPagination,
+  setUser,
 } from "./productsSlice";
-
+import { UserInfo } from "./productsSlice";
 import axios from "axios";
 
 export const getAllProducts = () => {
@@ -16,10 +17,7 @@ export const getAllProducts = () => {
     try {
       dispatch(startLoadingProducts(true));
       let products = (await axios(`http://localhost:3001/products`)).data;
-      // console.log(products)
-      // console.log("GET ALL PRODUCT");
       dispatch(getProducts(products));
-      // dispatch(getPages(products.length));
     } catch (error) {
       console.log(error);
     } finally {
@@ -64,7 +62,6 @@ export const getProductCategories = (value: string) => {
         await axios(`http://localhost:3001/products?category=${value}`)
       ).data.result;
       dispatch(productOffCategories(productByCategories));
-      // dispatch(getPages(productByCategories.length));
     } catch (err) {
       console.log(err);
     } finally {
@@ -85,80 +82,79 @@ export const createNewProduct = (product: any) => {
   };
 };
 
-// export const getProductsPage = (page: number, quantity: number, category: string | null| undefined) => {
-//   return async (dispatch: any) => {
-//     try {
-//       dispatch(startLoadingProducts(true));
-//       let products = (
-//         await axios(
-//           `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
-//         )
-//       ).data;
-//       dispatch(changePage(products));
-//     } catch (error) {
-//       console.log(error);
-//     }finally{dispatch(startLoadingProducts(false))}
-//   };
-// };
-export const getProductsPage = (page: number, quantity: number, category: string | undefined) => {
+export const getProductsPage = (
+  page: number,
+  quantity: number,
+  category: string | undefined
+) => {
   return async (dispatch: any) => {
-    // console.log("GET PRODUCT PAGE>=", page, quantity, category);
-
     try {
       dispatch(startLoadingProducts(true));
 
       let products;
       if (category) {
-        products = (await axios(`http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`)).data;
+        products = (
+          await axios(
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
+          )
+        ).data;
       } else {
-        products = (await axios(`http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`)).data;
+        products = (
+          await axios(
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
+          )
+        ).data;
       }
-      dispatch(setPagination({page, category, productsLength: products.productsLength}))
+      dispatch(
+        setPagination({
+          page,
+          category,
+          productsLength: products.productsLength,
+        })
+      );
       dispatch(changePage(products.result));
     } catch (error) {
-      console.log("EROR=>",error);
+      console.log("EROR=>", error);
     } finally {
       dispatch(startLoadingProducts(false));
     }
   };
 };
 
-// export const getAllPage = () => {
-//   return async (dispatch: any) => {
-//     try {
-//       dispatch(startLoadingProducts(true));
-//       let totalPages = (await axios(`http://localhost:3001/products`)).data
-//         .length;
-//       dispatch(getPages(totalPages));
-//     } catch (error) {
-//       console.log(error);
-//     } finally {
-//       dispatch(startLoadingProducts(false));
-//     }
-//   };
-// };
-
-
-// export const setPaginationPage = (payload: number) => {
-//   return async (dispatch: any) => {
-//     try {
-//       // dispatch(startLoadingProducts(true));
-//       dispatch(setPage(payload))
-//       // dispatch(startLoadingProducts(false));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
-
-// export const setPaginationCategory = (payload: string | undefined) => {
-//   return async (dispatch: any) => {
-//     try {
-//       dispatch(startLoadingProducts(true));
-//       dispatch(setCategory(payload))
-//       dispatch(startLoadingProducts(false));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
+export const updateUser = (user: UserInfo) => {
+  return async (dispatch: any) => {
+    try {
+      const {
+        id,
+        imageProfile,
+        name,
+        lastName,
+        phone,
+        mail,
+        password,
+        userName,
+        birthday,
+        state,
+        roleId,
+      } = user;
+      let updateUser = await axios.put(
+        `http://localhost:3001/user/${id}`,
+        {
+          imageProfile,
+          name,
+          lastName,
+          phone,
+          mail,
+          password,
+          userName,
+          birthday,
+          state,
+          roleId,
+        }
+      );
+      dispatch(setUser(updateUser));
+    } catch (error) {
+      console.log("EROR=>", error);
+    }
+  };
+};
