@@ -2,12 +2,23 @@ import { createSlice } from "@reduxjs/toolkit";
 import Pro from "../products/productsSlice";
 
 export interface CartState {
-  cartItems: Pro[];
+  cartItems: BoughtPro[];
   cartTotalQuantity: number;
   cartTotalAmount: number;
   loading: boolean;
 }
 
+export interface BoughtPro {
+    id: number, cartQuantity: number;
+    name: string;
+    code: string;
+    image: string;
+    price: number;
+    stock: number;
+    state: Boolean;
+    loading: boolean;
+
+}
 const initialState: CartState = {
   cartItems: [],
   cartTotalQuantity: 0,

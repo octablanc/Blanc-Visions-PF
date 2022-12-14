@@ -14,12 +14,14 @@ import {
   Counter,
   Btn,
 } from "./styled-components/Detail";
-import { useAppSelector } from "../../redux/app/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import Spinner from "../../components/Spinner/Spinner";
+import { addToCart } from "../../redux/slices/Cart/cartSlice";
 // import { getproductById } from "../../redux/slices/products";
 
 export const Detail = () => {
   const [counter, setCounter] = useState(0);
+  const dispatch = useAppDispatch();
 
   const { currentProduct } = useAppSelector(
     (state: any) => state.productsState
@@ -42,7 +44,11 @@ export const Detail = () => {
   };
 
   //función para manejar carrito o compra
-  const handleClick = () => {};
+  const handleAddToCart = () => {
+    dispatch(addToCart(currentProduct))    
+  };
+
+  const handlePurchase = () => {};
 
   return (
     <div className="container">
@@ -94,10 +100,10 @@ export const Detail = () => {
                 </button>
               </Counter>
 
-              <Btn name="addToCart" onClick={handleClick}>
+              <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy" onClick={handleClick}>
+              <Btn name="buy" onClick={handlePurchase}>
                 Comprar
               </Btn>
             </CartSection>
