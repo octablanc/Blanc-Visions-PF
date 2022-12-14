@@ -12,7 +12,7 @@ export const Sales = () => {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-
+  console.log("PRUDTOS =>",products)
   return (
     <SalesContainer className='container'>
       {loading ? (
