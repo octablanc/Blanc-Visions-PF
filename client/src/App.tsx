@@ -21,7 +21,9 @@ function App() {
             <Route path='products/crear' element={<CrearProduct />} />
             <Route path='products/:id' element={<Detail />} />
             <Route path='*' element={<NotFound />} />
+            <Route path='myaccount/' element={<h1>hola</h1>} />
           </Route>
+
         </Routes>
       </BrowserRouter>
     </Provider>
