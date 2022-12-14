@@ -37,6 +37,7 @@ export interface UniquePro {
   stock: number;
   id_category: number;
   state: Boolean;
+  loading: boolean;
 }
 
 export interface Cat {
@@ -64,6 +65,7 @@ const initialState: ProductState = {
     entrega: '',
     id_category: 0,
     state: true,
+    loading: false
   },
 };
 
@@ -90,6 +92,7 @@ export const productSlice = createSlice({
       state.products = [...state.products, action.payload];
     },
     detailProduct: (state, action) => {
+      state.loading = false;
       state.currentProduct = action.payload;
     },
     getPages: (state, action) => {
