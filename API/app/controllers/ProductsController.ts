@@ -38,13 +38,6 @@ export async function getProducts(req: Request, res: Response) {
       order: [['id', 'ASC']]
     });
 
-    const productsAll = await Products.findAll({
-          where: { state: true },
-          include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
-        })
-
-    return res.json({ result, lengthProducts : productsAll.length});
-
     return res.send(result);
   } catch ({ message }) {
     return res.status(400).send({ message });

@@ -26,8 +26,10 @@ export const Header = () => {
             </form>
             <Icons>
               <li>
-                <FaUserCircle />
-                Mi Cuenta
+                {/* <Link to='/'> */}
+                  <FaUserCircle />
+                  Mi Cuenta
+                {/* </Link> */}
               </li>
 
               <li>
