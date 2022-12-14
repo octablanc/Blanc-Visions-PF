@@ -38,6 +38,8 @@ export async function getProducts(req: Request, res: Response) {
       order: [['id', 'ASC']]
     });
 
+    
+
     return res.send(result);
   } catch ({ message }) {
     return res.status(400).send({ message });
