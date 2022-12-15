@@ -1,19 +1,60 @@
-import React from "react";
-
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
+import { useState } from 'react';
 export const Profile = () => {
-  
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.productsState);
+  const [formUser, setFormUser] = useState({
+    id: 0,
+    imageProfile: '',
+    name: '',
+    lastName: '',
+    phone: 0,
+    mail: '',
+    password: '',
+    userName: '',
+    birthday: '',
+    state: true,
+    roleId: 0,
+  });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { value } = e.target;
+  };
 
   return (
-    <form>
-      <h3>img</h3>
-      <h3>name</h3>
-      <h3>LastName</h3>
-      <h3>phone</h3>
-      <h3>mail</h3>
-      <h3>password</h3>
-      <h3>name_user</h3>
-      <h3>bithday</h3>
-    </form>
+    <div>
+      <form>
+        <div>
+          <h1>imagen</h1>
+          <label>Nombre: </label>
+          <input type='text' value={user.name} onChange={handleChange} />
+          <hr />
+          <label>Apellido: </label>
+          <input type='text' value={user.lastName} onChange={handleChange} />
+          <hr />
+
+          <label>Telefono: </label>
+          <input type='number' value={user.phone} onChange={handleChange} />
+          <hr />
+
+          <label>E-mail </label>
+          <input type='text' defaultValue={'flor@gmail'} disabled />
+          <hr />
+
+          <label>Contraseña </label>
+          <input
+            type='password'
+            value='jfsjdn'
+            onChange={handleChange}
+            disabled
+          />
+          <hr />
+
+          <label>Nombre de usuario: </label>
+          <input type='text' value={user.userName} onChange={handleChange} />
+          <hr />
+        </div>
+      </form>
+    </div>
   );
 };
