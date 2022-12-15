@@ -4,7 +4,7 @@ import { useState } from 'react';
 export const Profile = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.productsState);
-
+  
   const {
     id,
     imageProfile,
@@ -29,26 +29,64 @@ export const Profile = () => {
     state: true,
     roleId: 1,
   });
+  
+  const [alertMessage, setAlertMessage] = useState({
+    name: '',
+    lastName: '',
+    phone: '',
+  });
+
+  const validationFormUser = () => {
+    const exp = /[0-9]+/gi;
+    const exp2 = /(\W|_)+\s(\W)+/gi;
+    // const err = {}
+
+    if (exp.test(userForm.name) || exp2.test(userForm.name)) {
+      console.log("Name invalid");
+      alert("nombre invalido")
+      return 1;
+    }
+    if (exp.test(userForm.lastName) || exp2.test(userForm.lastName)) {
+      console.log("LastName invalid");
+      return 1;
+    }
+    if (typeof userForm.phone !== 'number' && isNaN(userForm.phone) ) {
+      console.log("Phone invalid");
+      return 1;
+    }
+    return 0;
+  }
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { value, name } = e.target;
-
-    setUserForm({
-      ...userForm,
-      [name]: value,
-    });
+    if (name === 'phone' && value.length > 10) return 0;
+    if (name === 'name' && value.length > 28) return 0;
+    if(name === 'lastName' && value.length > 25) return 0;
+    setUserForm({ ...userForm, [name]: value, });
   };
 
   const handleSub = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (validationFormUser()) return 0;
     dispatch(updateUser(userForm));
   };
+
+  const focusInput = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    const { name } = e.target
+    if (name === 'name' || name === 'lastName') return setAlertMessage({ ...alertMessage, [name]: 'solo Letras' })
+    setAlertMessage({...alertMessage, [name]: 'solo Numeros'})
+  }
+
+  const onBlurInput = (e: React.FocusEvent<HTMLInputElement, Element>) => setAlertMessage({ ...alertMessage, [e.target.name]: '' })
+
   return (
     <div>
       <form onSubmit={handleSub}>
         <div>
-          {/* <img src={imageProfile} alt='es demasiado' /> */}
-          <input 
+          <img src={imageProfile} alt='photo profile' />
+          <input
             onChange={handleChange}
             type='textarea'
             value={userForm.imageProfile}
@@ -57,28 +95,42 @@ export const Profile = () => {
           <hr />
           <label>Nombre: </label>
           <input
-            type='text'
-            value={userForm.name}
-            name='name'
             onChange={handleChange}
+            onFocus={focusInput}
+            onBlur={onBlurInput}
+            value={userForm.name}
+            type='text'
+            name='name'
+            tabIndex={1}
           />
+          <p>{alertMessage.name}</p>
           <hr />
           <label>Apellido: </label>
           <input
-            type='text'
-            value={userForm.lastName}
-            name='lastName'
             onChange={handleChange}
+            onFocus={focusInput}
+            onBlur={onBlurInput}
+            value={userForm.lastName}
+            type='text'
+            name='lastName'
+            tabIndex={2}
           />
+          <p>{alertMessage.lastName}</p>
+
           <hr />
 
           <label>Telefono: </label>
           <input
-            type='number'
-            value={userForm.phone}
-            name='phone'
             onChange={handleChange}
+            onFocus={focusInput}
+            onBlur={onBlurInput}
+            value={userForm.phone}
+            type='number'
+            name='phone'
+            tabIndex={3}
           />
+          <p>{alertMessage.phone}</p>
+
           <hr />
 
           <label>E-mail </label>
