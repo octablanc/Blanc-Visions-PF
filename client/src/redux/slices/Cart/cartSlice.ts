@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Pro from "../products/productsSlice";
+// import Pro from "../products/productsSlice";
 
 export interface CartState {
   cartItems: BoughtPro[];

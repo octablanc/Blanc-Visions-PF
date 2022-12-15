@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 // styles
 import { Conteiner, Paginate } from './styled-components/styled';
 //components
 import { Filters } from '../../../components/Filters/Filters';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { changePage, getProductsPage } from '../../../redux/slices/products';
+// import { changePage, getProductsPage } from '../../../redux/slices/products';
+import {  getProductsPage } from '../../../redux/slices/products';
+
 // import { getAllCategories, getAllPage, getProductsPage, setPaginationPage } from '../../../redux/slices/products';
 
 import { ProductItem } from './components/ProductItem';

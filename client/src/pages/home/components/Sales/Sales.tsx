@@ -22,11 +22,8 @@ export const Sales = () => {
           .slice(0, 4)
           .map((product) => (
             <Card
-<<<<<<< HEAD
               key={product.id}
-=======
               id={product.id}
->>>>>>> fa3fbc24c341baeeb4ca36095f5be7528a581b80
               name={product.name}
               img={product.image}
               price={product.price}
