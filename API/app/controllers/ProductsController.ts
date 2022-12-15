@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { category, data, usersData } from '../utils';
-// import { category, data} from '../utils';
+import { category, data, usersData, roles} from '../utils';
 
 
 // Data base context import
@@ -11,6 +10,8 @@ const Products = DBcontext.models.products;
 const Categories = DBcontext.models.categories;
 const Images = DBcontext.models.images;
 const Users = DBcontext.models.users;
+const Roles = DBcontext.models.roles;
+
 
 
 export async function getProducts(req: Request, res: Response) {
@@ -52,7 +53,7 @@ export async function getProducts(req: Request, res: Response) {
 
 export async function bulk(_req: Request, res: Response) {
   try {
-
+    await Roles.bulkCreate(roles);
     await Categories.bulkCreate(category);
     await Products.bulkCreate(data, { include: { model: Images, as: 'images' } });
     await Users.bulkCreate(usersData);
