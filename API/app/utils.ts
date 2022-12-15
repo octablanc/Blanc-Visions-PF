@@ -9,27 +9,27 @@
 //  }
 export const category = [
   {
-    name: "Camaras y Lentes",
+    name: "camaras y lentes",
     description: "lorem ipsum",
     state: true,
   },
   {
-    name: "Accesorios",
+    name: "accesorios",
     description: "lorem ipsum",
     state: true,
   },
   {
-    name: "Flashes e Iluminacion",
+    name: "flashes e iluminacion",
     description: "lorem ipsum",
     state: true,
   },
   {
-    name: "Tripodes y Soportes",
+    name: "tripodes y soportes",
     description: "lorem ipsum",
     state: true,
   },
   {
-    name: "Audio y Video",
+    name: "audio y video",
     description: "lorem ipsum",
     state: true,
   },
@@ -42,14 +42,32 @@ export const category = [
 export const data = [
   {
     code: "F0021",
-    name: "sony alfha",
-    price: 10000,
+    name: "sony alfha 7",
+    price: 1200000,
     stock: 50,
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
     image:
       "https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp",
     state: true,
     categoryId: 1,
+    images: [
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp",
+      },
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_659258-MLA31993759099_082019-O.webp",
+      },
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_947144-MLA31993704191_082019-O.webp",
+      },
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_963878-MLA41501060481_042020-O.webp",
+      }
+    ]
   },
   {
     code: "F027",
@@ -64,6 +82,20 @@ export const data = [
       "https://http2.mlstatic.com/D_NQ_NP_822322-MLA48551234826_122021-O.webp",
     state: true,
     categoryId: 1,
+    images: [
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_822322-MLA48551234826_122021-O.webp",
+      },
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_822133-MLA48551234976_122021-O.webp",
+      },
+      {
+        url_image:
+          "https://http2.mlstatic.com/D_NQ_NP_607595-MLA48551234827_122021-O.webp",
+      }
+    ]
   },
   {
     code: "Peak",
@@ -77,6 +109,16 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2182_1_z.jpg",
     state: true,
     categoryId: 4,
+    images: [
+      {
+        url_image:
+          "https://www.digi-zoom.com.ar/images/productos/2182_1_z.jpg",
+      },
+      {
+        url_image:
+          "https://www.digi-zoom.com.ar/images/productos/2182_2_z.jpg",
+      },
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=aXU5dlNlem5lU2VtckIvSFNHdktUaUhabFMvMW9pY1BUQ1MyWnBvVGJwYz0
   },
   {
@@ -87,10 +129,20 @@ export const data = [
     description: ` 
       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
     `,
-
     image: "https://www.digi-zoom.com.ar/images/productos/1751_1_z.jpg",
     state: true,
     categoryId: 4,
+    images: [
+      {
+        url_image: 'https://www.digi-zoom.com.ar/images/productos/1751_1_z.jpg',
+      },
+      {
+        url_image: 'https://www.digi-zoom.com.ar/images/productos/1751_5_z.jpg',
+      },
+      {
+        url_image: 'https://www.digi-zoom.com.ar/images/productos/1751_4_z.jpg',
+      }
+    ]
     //https://www.digi-zoom.com.ar/productos_detalle.php?i=VU5vRGNYVEpOQmZZellSb011d3pPNlluMFdSRURpNVNFNEVxTDZLVVc3cz0
   },
   {
@@ -105,7 +157,12 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
     state: true,
     categoryId: 4,
-    // https://www.digi-zoom.com.ar/productos_detalle.php?i=NjR3dGRIZTY1K05welpBSWhUS1RQNWdPWmZtd0ZObldIVkR0ckdkSU9kRT0
+    images: [
+      { url_image: 'https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg' },
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1488_3_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1488_6_z.jpg'},
+    ]
+  // https://www.digi-zoom.com.ar/productos_detalle.php?i=NjR3dGRIZTY1K05welpBSWhUS1RQNWdPWmZtd0ZObldIVkR0ckdkSU9kRT0
   },
   {
     code: "Pe4k",
@@ -119,6 +176,11 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
     state: true,
     categoryId: 4,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1489_1_z.jpg'},
+      { url_image: 'https://www.digi-zoom.com.ar/images/productos/1489_6_z.jpg' },
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1489_3_z.jpg'}
+    ]
     //https://www.digi-zoom.com.ar/productos_detalle.php?i=Wlp6T0pqT04xN1B0bWd4SThESlZGZVVXT2VuWmpsQ1ViMnliRXFuZXNtMD0
   },
   {
@@ -133,6 +195,11 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/300_1_z.jpg",
     state: true,
     categoryId: 3,
+    images: [
+      { url_image: 'https://www.digi-zoom.com.ar/images/productos/300_1_z.jpg' },
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/300_3_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/300_2_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=N2dkSzVpWU5halo0RmJrNmFhUzdDRmdEMFZwRmtIWXNqc0kzRUNRTGRhcz0
   },
   {
@@ -147,6 +214,10 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2283_1_z.jpg",
     state: true,
     categoryId: 3,
+    images: [
+      { url_image: 'https://www.digi-zoom.com.ar/images/productos/2283_1_z.jpg' },
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2283_2_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=cFZyb0lGbnUrNTA0MHFEVUo5TjZlTFFFTGNtQ2dWN3EyTk41MW5NM1B3MD0
   },
   {
@@ -161,6 +232,11 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1916_1_z.jpg",
     state: true,
     categoryId: 3,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1916_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1916_3_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/1916_8_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=WDhjSUo2UzNiMTZzSUFDMy8zYkw2aGQ3amJnWHh1a3R4d2EvYUl5ZVpPaz0
   },
   {
@@ -175,20 +251,11 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg",
     state: true,
     categoryId: 2,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/640_2_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=NyttZzZYdFNTNnNVdXZXbXIzMFJLVWxQczVCQzF4SDNjbzVlc3FGM0FITT0
-  },
-  {
-    code: "gorns",
-    name: "Go Pro Arnes para el pecho",
-    price: 11000,
-    stock: 6,
-    description: ` 
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-    `,
-
-    image: "https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg",
-    state: true,
-    categoryId: 2,
   },
   {
     code: "reel",
@@ -202,6 +269,11 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2181_2_z.jpg",
     state: true,
     categoryId: 1,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2181_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2181_3_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2181_6_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=aEY5Z2RrZE84emtZK1NZckt3azZlTUpqNmJhRnE3VmRudHJTUmF2Q2dMOD0
   },
   {
@@ -215,7 +287,12 @@ export const data = [
 
     image: "https://www.digi-zoom.com.ar/images/productos/2199_1_z.jpg",
     state: true,
-    categoryId: 1,  
+    categoryId: 1,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2197_2_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2197_6_z.jpg'}
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=V0cvcDg2MFNjbXBlZXNkck5VSjlSYUF1T1dmRmg5cEFaZUg0UVF3YXVVQT0
   },
   {
@@ -228,7 +305,12 @@ export const data = [
 
     image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
     state: true,
-    categoryId: 1,  
+    categoryId: 1,
+    images: [
+      { url_image: 'https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg' },
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2197_2_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2197_5_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=V0cvcDg2MFNjbXBlZXNkck5VSjlSYUF1T1dmRmg5cEFaZUg0UVF3YXVVQT0
   },
   {
@@ -239,12 +321,15 @@ export const data = [
     description: ` 
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
     `,
-
     image: "https://www.digi-zoom.com.ar/images/productos/2069_1_z.jpg",
     state: true,
-    categoryId: 5, 
+    categoryId: 5,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2069_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2069_2_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2069_4_z.jpg'}
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=U0kwVTRQR2hXV2NQVWd5bDgvVlY5SHU3WVcxUkhCOTRnbThQd0dScWw1Yz0
-
   },
   {
     code: "SYe1",
@@ -257,7 +342,12 @@ export const data = [
 
     image: "https://www.digi-zoom.com.ar/images/productos/2066_1_z.jpg",
     state: true,
-    categoryId: 5, 
+    categoryId: 5,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2066_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2066_2_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2066_4_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=UU45SlFXcU5IaWw0OFdaTXJUOVFNYjc0eHpSdklzMFBxYVdxTE52V2Yzdz0
 
   },
@@ -273,6 +363,11 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2059_1_z.jpg",
     state: true,
     categoryId: 5, 
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2059_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2059_2_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2059_3_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=bUlkbk9wV1VEUVEzdWtRTG9rM2JBRDJoSmI0WTFpWkpYbkpyN2RCNlp0RT0
 
   },
@@ -287,114 +382,14 @@ export const data = [
 
     image: "https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg",
     state: true,
-    categoryId: 5, 
+    categoryId: 5,
+    images: [
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg'},
+      {url_image: 'https://www.digi-zoom.com.ar/images/productos/2109_2_z.jpg'},
+    ]
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=RmFqTFBpMHk4RjM5WUNibzBKTkFaRVRHR3FZbVVaTlZpbWdWNkpVVnZlOD0
   }
-];
-
-export const imagesArray = [
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 1,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 1,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 2,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 3,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 3,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 3,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 4,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 4,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 5,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 5,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 5,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 5,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 6,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 6,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 7,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 8,
-  },
-  {
-    url_image:
-      "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-    state: true,
-    productId: 9,
-  },
 ];
 
 
