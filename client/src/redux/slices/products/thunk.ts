@@ -137,8 +137,9 @@ export const updateUser = (user: UserInfo) => {
         state,
         roleId,
       } = user;
+
       let updateUser = await axios.put(
-        `http://localhost:3001/user/${id}`,
+        `http://localhost:3001/users/${id}`,
         {
           imageProfile,
           name,
@@ -152,7 +153,7 @@ export const updateUser = (user: UserInfo) => {
           roleId,
         }
       );
-      dispatch(setUser(updateUser));
+      dispatch(setUser(updateUser.data));
     } catch (error) {
       console.log("EROR=>", error);
     }

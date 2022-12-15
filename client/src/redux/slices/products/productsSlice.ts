@@ -90,17 +90,19 @@ const initialState: ProductState = {
     productsLength: 0
   },
   user : {
-    id: 0,
-    imageProfile: '',
-    name: '',
-    lastName: '',
-    phone: 0,
-    mail: '',
-    password: '',
-    userName: '',
-    birthday: '',
+    id: 1,
+    imageProfile: 'http',
+    name: 'tomas gg',
+    lastName: 'apellido jhj',
+    phone: 123123,
+    mail: 'tomasd@gmail',
+    password: 'contra11231',
+    userName: 'tomasUser',
+    birthday: '2022-12-15',
+    // birthday: '2003/02/09',
+
     state: true,
-    roleId: 0,
+    roleId: 1,
   }
 };
 
