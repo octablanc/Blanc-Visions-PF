@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
-import { category, data, imagesArray, usersData } from '../utils';
+import { category, data, usersData } from '../utils';
+// import { category, data} from '../utils';
+
 
 // Data base context import
-import DBcontext, {users} from '../../config/ConnectionDB';
+import DBcontext from '../../config/ConnectionDB';
 
 // Models
 const Products = DBcontext.models.products;
 const Categories = DBcontext.models.categories;
 const Images = DBcontext.models.images;
-
+const Users = DBcontext.models.users;
 
 
 export async function getProducts(req: Request, res: Response) {
@@ -50,14 +52,12 @@ export async function getProducts(req: Request, res: Response) {
 
 export async function bulk(_req: Request, res: Response) {
   try {
+
     await Categories.bulkCreate(category);
-    const newProducts = await Products.bulkCreate(data);
-    await Images.bulkCreate(imagesArray);
-    await users.bulkCreate(usersData);
+    await Products.bulkCreate(data, { include: { model: Images, as: 'images' } });
+    await Users.bulkCreate(usersData);
+    return res.status(200).json({ message: "Datos harcodeados" });
 
-    // return res.status(200).json({ newProducts :"jkfdsjf"});
-
-    return res.status(200).json(newProducts);
   } catch ({ message }) {
     console.log("MSG ERR => ",message)
     return res.status(400).send({ message });
