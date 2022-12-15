@@ -9,7 +9,9 @@ import OrderBuy from "../app/models/OrderBuy.model";
 import Products from "../app/models/Products.model";
 import Roles from "../app/models/Roles.model";
 import Users from "../app/models/Users.model";
+import ProductsProperties from "../app/models/ProductsProperties.model";
 import Images from "../app/models/Images.model";
+
 
 
 // Creates connection to the data base with Sequelize or MongoDB.
@@ -24,14 +26,15 @@ const DBcontext = new Sequelize(`${DB_URL}`, {
 // Creating tables from models
 CartBuy(DBcontext);
 CartSale(DBcontext);
-Categories(DBcontext);
-OrderBuy(DBcontext);
 Products(DBcontext);
+Categories(DBcontext);
+ProductsProperties(DBcontext);
+OrderBuy(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
 Images(DBcontext)
 
-export const { cartBuy, cartSale, categories, orderBuy, products, roles, users, images } =
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images } =
   DBcontext.models;
 
 /*
@@ -71,5 +74,8 @@ products.belongsTo(categories);
 //a product can have many images and an image can belong to a single product.
 products.hasMany(images);
 images.belongsTo(products)
+//One product has many properties
+products.hasMany(products_properties, {as: 'properties', foreignKey: 'productId'});
+products_properties.belongsTo(products);
 
 export default DBcontext;

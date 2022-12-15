@@ -73,15 +73,18 @@ export const Counter = styled.div`
     font-size: 2rem;
     font-weight: bold;
     background: transparent;
+    cursor: pointer;
   }
 `;
 
 export const Btn = styled.button`
+  width: 70%;  
   font-size: 1.6rem;
   padding: 0.8rem;
   margin: 0.5rem;
-  border-radius: 3px;
+  border-radius: 8px;
   background: #c2ad94;
   border: none;
   box-shadow: inset 1rem 1rem 2rem #a1907b, inset -1rem -1rem 2rem #e3caad;
+  cursor: pointer;
 `;

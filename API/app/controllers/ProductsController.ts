@@ -13,13 +13,14 @@ const Users = DBcontext.models.users;
 const Roles = DBcontext.models.roles;
 
 
+const Properties = DBcontext.models.products_properties;
 
 export async function getProducts(req: Request, res: Response) {
   /*
     Querys: 
     state = true or false
     category = Category we need to filter the products: Shoes, Phones, etc.
-    */
+  */
   try {
     const { state, category } = req.query;
 
@@ -39,7 +40,13 @@ export async function getProducts(req: Request, res: Response) {
               }
             : undefined,
         },
-        {model:Images}
+        {
+          model: Properties,
+          as: 'properties' 
+        },
+        {
+          model: Images
+        },
       ],
       attributes: { exclude: ['categoryId'] },
       order: [['id', 'ASC']]
@@ -70,7 +77,18 @@ export async function getProductById(req: Request, res: Response) {
     const { id } = req.params;
 
     const result = await Products.findByPk(id, {
-      include: [Categories,Images],
+      include: [
+        {
+          model: Categories
+        },
+        {
+          model: Properties,
+          as: 'properties' 
+        },
+        {
+          model: Images,
+        }
+      ],
       attributes: { exclude: ['categoryId'] },
     });
 
@@ -86,7 +104,14 @@ export async function postProduct(req: Request, res: Response) {
   try {
     const product = req.body;
 
-    let result = await Products.create(product);
+    let result = await Products.create(product,
+      {
+        include: {
+          model: Properties,
+          as: 'properties' 
+        }
+      }
+    );
 
     return res.send(result);
   } catch ({ message }) {
@@ -100,7 +125,12 @@ export async function updateProduct(req: Request, res: Response) {
     const { id } = req.params;
     const newFields = req.body;
 
-    const productToUpdate = await Products.findByPk(id);
+    const productToUpdate = await Products.findByPk(id, {
+      include: {
+        model: Properties,
+        as: 'properties' 
+      }
+    });
     if (productToUpdate) {
       await productToUpdate.update(newFields);
       await productToUpdate.save();
@@ -134,7 +164,7 @@ export async function paginateProducts(req: Request, res: Response) {
     page = The number of page that we need to bring: 1, 2 , 3,etc.
     quantityProducts = Quantity of product that we need per page: 10, 15, 20, etc.
     category = Category we need to filter the products: Shoes, Phones, etc.
-    */
+  */
   try {
     if (req.query?.page && req.query?.quantityProducts) {
       const page = parseInt(req.query.page.toString());
@@ -159,6 +189,10 @@ export async function paginateProducts(req: Request, res: Response) {
                   }
                 : undefined,
             },
+            {
+              model: Properties,
+              as: 'properties' 
+            }
           ],
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
