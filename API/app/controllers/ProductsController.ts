@@ -62,7 +62,12 @@ export async function bulk(_req: Request, res: Response) {
   try {
     await Roles.bulkCreate(roles);
     await Categories.bulkCreate(category);
-    await Products.bulkCreate(data, { include: { model: Images, as: 'images' } });
+    await Products.bulkCreate(data, {
+      include: [
+        { model: Images, as: 'images', },
+        // { model: Properties, as: 'properties', },
+      ]
+    });
     await Users.bulkCreate(usersData);
     return res.status(200).json({ message: "Datos harcodeados" });
 
