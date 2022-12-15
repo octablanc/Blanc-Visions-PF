@@ -7,6 +7,17 @@
 //   "state": true,
 //   "categoryId": 1
 //  }
+export const roles = [
+  {
+    name: 'client',
+    state: true
+  },
+  {
+    name: 'admin',
+    state: true 
+  }
+]
+
 export const category = [
   {
     name: "camaras y lentes",
@@ -403,7 +414,7 @@ export const usersData = [
     phone: 11232323,
     birthday: 23,
     state: true,
-    // roleId: 1,
+    roleId: 1,
     userName: 'TomasUser'
   },
   {
@@ -415,7 +426,19 @@ export const usersData = [
     phone: 3213123,
     birthday: 123,
     state: true,
-    // roleId: 1,
+    roleId: 1,
     userName: 'FlorUser'
+  },
+  {
+    name: 'leo',
+    lastName: 'messi',
+    imageProfile: 'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg',
+    mail: 'messi@gmail.com',
+    password: 'messi123',
+    phone: 234312,
+    birthday: 32,
+    state: true,
+    roleId: 2,
+    userName: 'leoMessi'
   },
 ]
