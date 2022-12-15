@@ -65,7 +65,7 @@ export async function bulk(_req: Request, res: Response) {
     await Products.bulkCreate(data, {
       include: [
         { model: Images, as: 'images', },
-        // { model: Properties, as: 'properties', },
+        { model: Properties, as: 'properties', },
       ]
     });
     await Users.bulkCreate(usersData);
