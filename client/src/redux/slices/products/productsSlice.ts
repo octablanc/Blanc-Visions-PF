@@ -89,6 +89,8 @@ const initialState: ProductState = {
     category: undefined,
     productsLength: 0
   },
+
+  //* Usuario harcodeado para testear el formulario de modificacion
   user : {
     id: 1,
     imageProfile: 'http',
@@ -99,8 +101,6 @@ const initialState: ProductState = {
     password: 'contra11231',
     userName: 'tomasUser',
     birthday: '2022-12-15',
-    // birthday: '2003/02/09',
-
     state: true,
     roleId: 1,
   }
