@@ -79,13 +79,24 @@ export const data = [
           "https://http2.mlstatic.com/D_NQ_NP_963878-MLA41501060481_042020-O.webp",
       }
     ],
-    // properties: [
-    //   {
-    //     icon: 'icon',
-    //     name: 'gola',
-    //     value: 'valor de esto',
-    //   }
-    // ]
+    properties: [
+      {
+        name: 'gola',
+        value: 'valor de esto',
+      },
+      {
+        name: 'gola',
+        value: 'valor de esto',
+      },
+      {
+        name: 'gola',
+        value: 'valor de esto',
+      },
+      {
+        name: 'gola',
+        value: 'valor de esto',
+      },
+    ]
   },
   {
     code: "F027",
