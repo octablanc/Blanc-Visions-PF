@@ -12,7 +12,6 @@ export const Sales = () => {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-
   return (
     <SalesContainer className='container'>
       {loading ? (
@@ -23,6 +22,7 @@ export const Sales = () => {
           .slice(0, 4)
           .map((product) => (
             <Card
+              key={product.id}
               id={product.id}
               name={product.name}
               img={product.image}

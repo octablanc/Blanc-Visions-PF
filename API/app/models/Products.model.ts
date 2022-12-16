@@ -5,7 +5,8 @@ export default (sequelize: Sequelize) => {
     'products',
     {
       code: {
-        type: DataTypes.STRING(5),
+        type: DataTypes.STRING,
+
         allowNull: false,
         unique: true,
       },
