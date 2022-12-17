@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, useEffect } from "react";
-
 import { Slider } from "./components/Slider";
 import { Slide } from "./components/Slide";
 
@@ -17,11 +16,15 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import Spinner from "../../components/Spinner/Spinner";
 import { addToCart } from "../../redux/slices/Cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 // import { getproductById } from "../../redux/slices/products";
 
 export const Detail = () => {
   const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  
 
   const { currentProduct } = useAppSelector(
     (state: any) => state.productsState
@@ -41,11 +44,14 @@ export const Detail = () => {
   //la función plantea solo el contador x ahora
   const handleOnClickSubstract = (number: number = 1): void => {
     setCounter(counter <= 1 ? 0 : counter - 1);
+    
   };
 
   //función para manejar carrito o compra
+  /**************  FALTA REDIRECCIONAR AL CARRITO************/
   const handleAddToCart = () => {
-    dispatch(addToCart(currentProduct))    
+    dispatch(addToCart(currentProduct)) 
+    navigate('/cart')  
   };
 
   const handlePurchase = () => {};

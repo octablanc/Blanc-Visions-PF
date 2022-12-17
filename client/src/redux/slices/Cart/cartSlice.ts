@@ -6,6 +6,7 @@ export interface CartState {
   cartTotalQuantity: number;
   cartTotalAmount: number;
   loading: boolean;
+  localStorage: CurrentStorage[];
 }
 
 export interface BoughtPro {
@@ -17,13 +18,21 @@ export interface BoughtPro {
     stock: number;
     state: Boolean;
     loading: boolean;
-
 }
+ interface CurrentStorage {
+  getItem(key: string): string | null;
+  setItem(key: string, value: any): void;
+  removeItem(key: string,): void; 
+}
+
 const initialState: CartState = {
-  cartItems: [],
+  cartItems: localStorage.getItem('cartItems')
+  ? JSON.parse(`${localStorage.getItem('cartItems')}`) 
+  : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
   loading: false,
+  localStorage: [],  
 };
 
 export const cartSlice = createSlice({
@@ -38,8 +47,9 @@ export const cartSlice = createSlice({
         state.cartItems[itemIndex].cartQuantity += 1;
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
-        state.cartItems.push(action.payload);
+        state.cartItems.push(tempProduct);
       }
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
   },
 });
