@@ -4,10 +4,6 @@ export default (sequelize: Sequelize) => {
   sequelize.define(
     "products_properties",
     {
-      icon: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -1,33 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 // styles
 import { Conteiner, Paginate } from './styled-components/styled';
 //components
 import { Filters } from '../../../components/Filters/Filters';
 //redux
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { getAllPage, getProductsPage } from '../../../redux/slices/products';
+// import { changePage, getProductsPage } from '../../../redux/slices/products';
+import {  getProductsPage } from '../../../redux/slices/products';
+
+// import { getAllCategories, getAllPage, getProductsPage, setPaginationPage } from '../../../redux/slices/products';
+
 import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
-import 'animate.css';
+import 'animate.css'; 
 
 export const Products = () => {
   const dispatch = useAppDispatch();
-  const { products, loading, totalPages } = useAppSelector(
+  const { products, loading, pagination } = useAppSelector(
     state => state.productsState
   );
-  const [page, setPage] = useState(1);
-  const quantity = 3;
+  const { page, quantity, category, productsLength } = pagination;
   useEffect(() => {
-    dispatch(getProductsPage(page, quantity));
-    dispatch(getAllPage());
-  }, [dispatch, page]);
+    dispatch(getProductsPage(page, quantity, undefined));
+  }, [dispatch]);
+
 
   const increment = () => {
-    if (Math.ceil(totalPages / quantity) > page) setPage(page + 1);
+    if (Math.ceil(productsLength / quantity) > page) {
+      dispatch(getProductsPage(page + 1, quantity, category)); // TODO CAMBIAR
+    }
   };
   const decrement = () => {
-    if (page > 1) setPage(page - 1);
+    if (page > 1) {
+      dispatch(getProductsPage(page - 1, quantity, category)); // TODO CAMBIAR
+    }
   };
 
   return (
@@ -57,8 +64,10 @@ export const Products = () => {
       </Conteiner>
       <Paginate>
         {page !== 1 && <button onClick={decrement}>{'<'}</button>}
+
         <h3>{page}</h3>
-        {Math.ceil(totalPages / quantity) !== page && (
+        
+        {Math.ceil(productsLength / quantity) !== page && (
           <button onClick={increment}>{'>'}</button>
         )}
       </Paginate>

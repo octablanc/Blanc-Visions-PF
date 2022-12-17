@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import DBcontext from "../../config/ConnectionDB";
+import bcrypt from 'bcrypt'
+
 const { users, roles } = DBcontext.models;
 
 export async function getUsers(req:Request, res:Response) {
@@ -35,19 +37,12 @@ export async function getUsers(req:Request, res:Response) {
 export async function getUserLogin(req: Request, res: Response) {
   const { mail, password } = req.body;
   try {
-    if (!mail) {
-      return res.status(400).json({ mensaje: "Falta el email" });
-    }
-    if (!password) {
-      return res.status(400).json({ mensaje: "Falta la contraseña" });
-    }
-    const userEncontrated = await users.findOne({ where: { mail: mail } });
-    if (!userEncontrated) {
-      return res.status(400).json({ mensaje: "Email no encontrado" });
-    }
-    if (userEncontrated.dataValues.password !== password) {
-      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
-    }
+
+    const userEncontrated = await users.findOne({ where: { mail } });
+    if (!userEncontrated) return res.status(400).json({ mensaje: "Email no encontrado" });
+
+    const compare = await bcrypt.compare(password, userEncontrated.dataValues.password)
+    if (!compare) return res.status(400).json({ mensaje: "Contraseña incorrecta" });
 
     return res.json(userEncontrated);
   } catch ({ message }) {
@@ -87,8 +82,17 @@ export async function getUserById(req:Request, res:Response) {
 */
 export async function postUser(req: Request, res: Response) {
   try {
-    const actividadCreate = await users.create(req.body);
-    return res.send([{ message: "POST USERRR  users", actividadCreate }]);
+    const { name, lastName, imageProfile, phone, mail, password, userName, birthday, state, roleId } = req.body; 
+
+    const mailValidate = await users.findOne({ where: { mail } })
+    if (mailValidate) return res.json({ message: `El mail "${mail}" ya existe, elija otro` });
+
+    const userNameValidate = await users.findOne({ where: { userName } })
+    if (userNameValidate) return res.json({ message: `El userName "${userName}" ya existe, elija otro` });
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const userCreate = await users.create({ name, lastName, imageProfile, phone, mail, password: passwordHash, userName, birthday, state, roleId });
+    return res.send([{ message: "post user", userCreate }]);
   } catch ({ message }) {
     return res.status(400).json({ message });
   }

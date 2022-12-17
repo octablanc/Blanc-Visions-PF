@@ -8,6 +8,7 @@ import CreateProduct from './pages/products/create/CreateProduct';
 import { store } from './redux/app/store';
 import { NotFound } from './pages/error/NotFound';
 import { CrearProduct } from './pages/products/create/CrearProduct';
+import { Profile } from './pages/profile/components/Profile';
 import { Cart } from './pages/cart/components/Cart/Cart';
 
 function App() {
@@ -23,7 +24,9 @@ function App() {
             <Route path='products/:id' element={<Detail />} />
             <Route path='cart' element={<Cart />} />
             <Route path='*' element={<NotFound />} />
+            <Route path='profile/' element={<Profile />} />
           </Route>
+
         </Routes>
       </BrowserRouter>
     </Provider>
