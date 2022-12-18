@@ -22,6 +22,7 @@ function App() {
   const userState = useAppSelector(({ userState })=> userState.user);
   const dispatch = useAppDispatch();
 
+  // Set the user logged in the start 
   useEffect(()=> {
     onAuthStateChanged(auth, async (user)=>{
         if(user && !userState)
@@ -30,7 +31,7 @@ function App() {
         dispatch(getUser(user));
     });
   });
-     
+  
   return (
     <div>
       <BrowserRouter>
