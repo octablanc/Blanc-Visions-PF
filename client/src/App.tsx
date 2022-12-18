@@ -30,7 +30,7 @@ function App() {
         dispatch(getUser(user));
     });
   });
-  
+     
   return (
     <div>
       <BrowserRouter>
