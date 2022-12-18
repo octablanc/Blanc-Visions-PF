@@ -1,18 +1,38 @@
-import { Provider } from 'react-redux';
+import { useEffect, useState } from 'react';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Detail } from './pages/detail/Detail';
 import { Home } from './pages/home/Home';
 import { Products } from './pages/products/list/Products';
 import CreateProduct from './pages/products/create/CreateProduct';
-import { store } from './redux/app/store';
 import { NotFound } from './pages/error/NotFound';
 import { CrearProduct } from './pages/products/create/CrearProduct';
 import { Cart } from './pages/cart/components/Cart/Cart';
 
+// Authentication
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from './firebase/firebase.config';
+
+// Redux
+import { useAppDispatch, useAppSelector } from './redux/app/hooks';
+import { getUser } from './redux/slices/user-authentication';
+
 function App() {
+  const userState = useAppSelector(({ userState })=> userState.user);
+  const dispatch = useAppDispatch();
+
+  useEffect(()=> {
+    onAuthStateChanged(auth, async (user)=>{
+        if(user && !userState)
+          dispatch(getUser(user.email));
+        if(!user)
+        dispatch(getUser(user));
+    });
+  });
+
   return (
-    <Provider store={store}>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -26,7 +46,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
+    </div>
   );
 }
 
