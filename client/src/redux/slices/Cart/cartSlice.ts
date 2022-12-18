@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import Pro from "../products/productsSlice";
+// // import Pro from "../products/productsSlice";
 
 export interface CartState {
   cartItems: BoughtPro[];
@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
     addToCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
-      ); //
+      );
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
       } else {
@@ -51,7 +51,6 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
-
     delItem(state, action) {
       const findItem = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
@@ -61,16 +60,16 @@ export const cartSlice = createSlice({
         state.cartItems[findItem].cartQuantity > 1
           ? (state.cartItems[findItem].cartQuantity -= 1)
           : state.cartItems.splice(findItem, 1);
-      }      
+      }
     },
-    
+        
     remItem(state, action) {
       const itemRemove = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
       state.cartItems = itemRemove;
     },
-  },  
+  },
 });
 
 export const { addToCart, delItem, remItem } = cartSlice.actions;
