@@ -20,8 +20,9 @@ import loginImg from "../../assets/login.jpg";
 
 // Authentication
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
+import { useAppDispatch } from "../../redux/app/hooks";
+import { setLoading } from "../../redux/slices/user-authentication";
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -30,6 +31,7 @@ export default function Login() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const fontSizeLabel = 19;
@@ -48,8 +50,10 @@ export default function Login() {
 
   async function handleSubmit(){
     try {
+      dispatch(setLoading(true));
       const logged = await signInWithEmailAndPassword(auth, user.mail, user.password);
     } catch ({ message }) {
+      dispatch(setLoading(false));
       window.alert(message);
     }
   }

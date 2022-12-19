@@ -10,9 +10,13 @@ import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import Login from '../../pages/login/Login';
+import Login from '../login/Login';
+import { useAppSelector } from '../../redux/app/hooks';
+import LogOut from '../login/components/LogOut';
 
 export const Header = () => {
+  const userState = useAppSelector(({ userState })=> userState.user);
+  const loading = useAppSelector(({ userState })=> userState.loading);
   return (
     <>
       <Menu>
@@ -36,7 +40,9 @@ export const Header = () => {
               </li>
 
               <li>
-                <Login/>
+                {
+                  loading? <></> : userState? <LogOut/> : <Login/>
+                }
               </li>
             </Icons>
           </Nav>

@@ -11,7 +11,7 @@ import { CrearProduct } from './pages/products/create/CrearProduct';
 import { Cart } from './pages/cart/components/Cart/Cart';
 
 // Authentication
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from './firebase/firebase.config';
 
 // Redux
@@ -28,7 +28,7 @@ function App() {
         if(user && !userState)
           dispatch(getUser(user.email));
         if(!user)
-        dispatch(getUser(user));
+          dispatch(getUser(user));
     });
   });
   
