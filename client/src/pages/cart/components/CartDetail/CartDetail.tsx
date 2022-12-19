@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
-import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
+import { NavLink } from 'react-router-dom';
 /*............comienzan estilos........... */
 
-import styled from "styled-components";
-import { useState } from "react";
-import { addToCart, delItem } from "../../../../redux/slices/Cart/cartSlice";
-import { BsArrowLeftSquare } from "react-icons/bs";
+import styled from 'styled-components';
+import { useState } from 'react';
+import { addToCart, delItem } from '../../../../redux/slices/Cart/cartSlice';
+import { BsArrowLeftSquare } from 'react-icons/bs';
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +22,6 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 3rem;
-
 `;
 
 const Quantity = styled.div`
@@ -78,17 +77,14 @@ export const CartDetail = () => {
     cartTotalQuantity,
     cartTotalAmount,
   } = useAppSelector((state) => state.cartState);
- 
-
-
 
   const { currentProduct } = useAppSelector((state) => state.productsState);
   const { name, image, price } = currentProduct;
 
-  console.log('price:',price);
-  console.log('itemTotalAmount:',itemTotalAmount);
-  console.log('itemTotalQuantity:',itemTotalQuantity);
-  console.log('cartItems:',cartItems);
+  console.log('price:', price);
+  console.log('itemTotalAmount:', itemTotalAmount);
+  console.log('itemTotalQuantity:', itemTotalQuantity);
+  console.log('cartItems:', cartItems);
 
   const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
@@ -108,7 +104,7 @@ export const CartDetail = () => {
     <Container>
       <h2>Shopping Cart</h2>
       {cartItems.length === 0 ? (
-        <div className="emptyCart">
+        <div className='emptyCart'>
           <p>Your Cart is empty</p>
           <NavLink to='/products'>
             <p>Start Shopping</p>
@@ -117,7 +113,7 @@ export const CartDetail = () => {
         </div>
       ) : (
         <div>
-          <div className="titles">
+          <div className='titles'>
             <p>Product</p>
             <p>Price</p>
             <p>Quantity</p>
@@ -127,38 +123,38 @@ export const CartDetail = () => {
           {/* <Div> */}
           {cartItems?.map((cartItem) => (
             <Div key={cartItem.id}>
-                        <div>
-              <img src={cartItem.image} alt="imagen del producto" />
-              <div className='product'>
-                <h3> {cartItem.name}</h3>
-                <button>Remove</button>
+              <div>
+                <img src={cartItem.image} alt='imagen del producto' />
+                <div className='product'>
+                  <h3> {cartItem.name}</h3>
+                  <button>Remove</button>
+                </div>
               </div>
-            </div>
-            <div>{`${cartItem.price}`}</div>
-            <Quantity>
-              <Operators>
-                <button name="subtract" onClick={() => handleSubstractItem()}>
-                  -
-                </button>
-                <div>{cartItem.cartQuantity}</div>
-                <button name="add" onClick={() => handleAddItem()}>
-                  +
-                </button>
-              </Operators>
-            </Quantity>
-            <div>${cartItem.price*cartItem.cartQuantity}</div>
+              <div>{`${cartItem.price}`}</div>
+              <Quantity>
+                <Operators>
+                  <button name='subtract' onClick={() => handleSubstractItem()}>
+                    -
+                  </button>
+                  <div>{cartItem.cartQuantity}</div>
+                  <button name='add' onClick={() => handleAddItem()}>
+                    +
+                  </button>
+                </Operators>
+              </Quantity>
+              <div>${cartItem.price * cartItem.cartQuantity}</div>
             </Div>
-            ))}
+          ))}
           {/* </Div> */}
-          <div className="Amount">
+          <div className='Amount'>
             <span>Subtotal</span>
-            <span>{itemTotalQuantity*price}</span>
+            <span>{itemTotalQuantity * price}</span>
           </div>
           <Buttons>
             <Btn>Empty Cart</Btn>
             <Btn>Checkout</Btn>
             <div>
-              <NavLink to="/products">
+              <NavLink to='/products'>
                 <Btn>Continue Shopping</Btn>
               </NavLink>
             </div>
