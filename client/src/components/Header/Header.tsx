@@ -5,7 +5,7 @@ import {
   Input,
   Menu,
   Nav,
-  Desplegable
+  Desplegable,
 } from './styled-components/styles';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import { FaUserCircle } from 'react-icons/fa';
@@ -16,7 +16,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 export const Header = () => {
   const { categories, pagination } = useAppSelector(
     (state) => state.productsState
@@ -24,23 +23,24 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-    const [selectActive, setSelectActive] = useState(false);
+  const [selectActive, setSelectActive] = useState(false);
   const handleClick = (e: any): void => {
     const value = e.target.innerText;
     dispatch(getProductsPage(1, pagination.quantity, value));
   };
   const handleHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (selectActive) {
-    return setSelectActive(false);      
+      return setSelectActive(false);
     }
     setSelectActive(true);
-  }
-  const navigatePage = (e:any) => {
+  };
+  const navigatePage = (e: any) => {
     const { innerText } = e.target;
+    console.log(innerText);
     if (innerText !== 'perfil') return console.log(innerText);
     navigate(`/profile`);
-    setSelectActive(false)
-  }
+    setSelectActive(false);
+  };
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -52,7 +52,7 @@ export const Header = () => {
         <div className='container'>
           <Nav>
             <div>
-              <img src={logo} alt='kingcomm' />
+              <img src={logo} alt='kingcomm' onClick={() => navigate(`/`)} />
             </div>
             <form>
               <Input type='text' placeholder='Busca tu producto' />
@@ -64,13 +64,13 @@ export const Header = () => {
                   <FaUserCircle />
                   Mi Cuenta
                 </div>
-                {selectActive &&
+                {selectActive && (
                   <Desplegable>
                     <li onClick={navigatePage}>perfil</li>
                     <li onClick={navigatePage}>compras</li>
                     <li onClick={navigatePage}>cerrar sesion</li>
                   </Desplegable>
-                }
+                )}
               </li>
 
               <li>
@@ -85,7 +85,7 @@ export const Header = () => {
               {categories &&
                 categories.map((category) => (
                   <li key={category.id}>
-                    <Link to={'/products'} onClick={ e => handleClick(e)}>
+                    <Link to={'/products'} onClick={(e) => handleClick(e)}>
                       {category.name}
                     </Link>
                   </li>
@@ -96,4 +96,4 @@ export const Header = () => {
       </Menu>
     </>
   );
-}
+};
