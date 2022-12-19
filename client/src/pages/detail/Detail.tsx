@@ -48,7 +48,6 @@ export const Detail = () => {
   };
 
   //función para manejar carrito o compra
-  /**************  FALTA REDIRECCIONAR AL CARRITO************/
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct)) 
     navigate('/cart')  
@@ -92,8 +91,8 @@ export const Detail = () => {
             <p>DESCRIPTION{description}</p>
 
             <CartSection>
-              <p>Cantidad</p>
-              <Counter>
+              {/* <p>Cantidad</p> */}
+              {/* <Counter>
                 <button
                   name="subtract"
                   onClick={() => handleOnClickSubstract()}
@@ -104,7 +103,7 @@ export const Detail = () => {
                 <button name="add" onClick={(e) => handleOnClickAdd()}>
                   +
                 </button>
-              </Counter>
+              </Counter> */}
 
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
