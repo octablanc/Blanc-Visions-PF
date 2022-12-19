@@ -3,9 +3,15 @@ import { NavLink } from "react-router-dom";
 /*............comienzan estilos........... */
 
 import styled from "styled-components";
-import { useState } from "react";
-import { addToCart, delItem } from "../../../../redux/slices/Cart/cartSlice";
+import { MouseEvent, useEffect, useState } from "react";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  emptyCart,
+  getTotal,
+} from "../../../../redux/slices/cart/cart.slice";
 import { BsArrowLeftSquare } from "react-icons/bs";
+import { removeItem } from "../../../../redux/slices/cart";
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +28,6 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 3rem;
-
 `;
 
 const Quantity = styled.div`
@@ -78,39 +83,36 @@ export const CartDetail = () => {
     cartTotalQuantity,
     cartTotalAmount,
   } = useAppSelector((state) => state.cartState);
- 
 
-
-
-  const { currentProduct } = useAppSelector((state) => state.productsState);
-  const { name, image, price } = currentProduct;
-
-  console.log('price:',price);
-  console.log('itemTotalAmount:',itemTotalAmount);
-  console.log('itemTotalQuantity:',itemTotalQuantity);
-  console.log('cartItems:',cartItems);
-
-  const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
 
-  //la función plantea solo el contador x ahora
-  const handleSubstractItem = (number: number = 1): void => {
-    setCounter(counter <= 1 ? 0 : counter - 1);
-    dispatch(delItem(cartItems));
+  useEffect(() => {
+    dispatch(getTotal(cartItems));
+  }, [itemTotalQuantity, cartTotalQuantity, cartTotalAmount, dispatch]);
+
+  const handleSubstractItem = (cartItem: any) => {
+    dispatch(decreaseQuantity(cartItem));
   };
 
-  const handleAddItem = (number: number = 1): void => {
-    setCounter(counter + 1);
-    dispatch(addToCart(cartItems));
+  const handleAddItem = (cartItem: any) => {
+    dispatch(increaseQuantity(cartItem));
+  };
+
+  const handleRemoveItem = (cartItem: any) => {
+    dispatch(removeItem(cartItem));
+  };
+
+  const handleEmptyCart = (e: MouseEvent<HTMLButtonElement>) => {
+    dispatch(emptyCart(e));
   };
 
   return (
     <Container>
       <h2>Shopping Cart</h2>
-      {cartItems.length === 0 ? (
+      {cartItems.length < 1 ? (
         <div className="emptyCart">
           <p>Your Cart is empty</p>
-          <NavLink to='/products'>
+          <NavLink to="/products">
             <p>Start Shopping</p>
             <BsArrowLeftSquare />
           </NavLink>
@@ -127,35 +129,42 @@ export const CartDetail = () => {
           {/* <Div> */}
           {cartItems?.map((cartItem) => (
             <Div key={cartItem.id}>
-                        <div>
-              <img src={cartItem.image} alt="imagen del producto" />
-              <div className='product'>
-                <h3> {cartItem.name}</h3>
-                <button>Remove</button>
+              <div>
+                <img src={cartItem.image} alt="imagen del producto" />
+                <div className="product">
+                  <h3> {cartItem.name}</h3>
+                  <button onClick={() => handleRemoveItem(cartItem)}>
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-            <div>{`${cartItem.price}`}</div>
-            <Quantity>
-              <Operators>
-                <button name="subtract" onClick={() => handleSubstractItem()}>
-                  -
-                </button>
-                <div>{cartItem.cartQuantity}</div>
-                <button name="add" onClick={() => handleAddItem()}>
-                  +
-                </button>
-              </Operators>
-            </Quantity>
-            <div>${cartItem.price*cartItem.cartQuantity}</div>
+              <div>{`${cartItem.price}`}</div>
+              <Quantity>
+                <Operators>
+                  <button
+                    name="subtract"
+                    onClick={() => handleSubstractItem(cartItem)}
+                  >
+                    -
+                  </button>
+                  <div>{cartItem.cartQuantity}</div>
+                  <button name="add" onClick={() => handleAddItem(cartItem)}>
+                    +
+                  </button>
+                </Operators>
+              </Quantity>
+              <div>${cartItem.price * cartItem.cartQuantity}</div>
             </Div>
-            ))}
+          ))}
           {/* </Div> */}
           <div className="Amount">
+            <span>Total Products</span>
+            <span>{cartTotalQuantity}</span>
             <span>Subtotal</span>
-            <span>{itemTotalQuantity*price}</span>
+            <span>{cartTotalAmount}</span>
           </div>
           <Buttons>
-            <Btn>Empty Cart</Btn>
+            <Btn onClick={(e) => handleEmptyCart(e)}>Empty Cart</Btn>
             <Btn>Checkout</Btn>
             <div>
               <NavLink to="/products">
