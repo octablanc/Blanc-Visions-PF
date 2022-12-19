@@ -5,18 +5,14 @@ import {
   Input,
   Menu,
   Nav,
+  Desplegable
 } from './styled-components/styles';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import Login from '../login/Login';
-import { useAppSelector } from '../../redux/app/hooks';
-import LogOut from '../login/components/LogOut';
 
 export const Header = () => {
-  const userState = useAppSelector(({ userState })=> userState.user);
-  const loading = useAppSelector(({ userState })=> userState.loading);
   return (
     <>
       <Menu>
@@ -31,8 +27,17 @@ export const Header = () => {
             </form>
             <Icons>
               <li>
-                <FaUserCircle />
-                Mi Cuenta
+                <div onClick={handleHover}>
+                  <FaUserCircle />
+                  Mi Cuenta
+                </div>
+                {selectActive &&
+                  <Desplegable>
+                    <li onClick={navigatePage}>perfil</li>
+                    <li onClick={navigatePage}>compras</li>
+                    <li onClick={navigatePage}>cerrar sesion</li>
+                  </Desplegable>
+                }
               </li>
 
               <li>
@@ -50,19 +55,18 @@ export const Header = () => {
         <CategoriesBar>
           <div className='container'>
             <ul>
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/products'>Productos</Link>
-              </li>
-              <li>
-                <Link to='/products/create'>Crear Productos</Link>
-              </li>
+              {categories &&
+                categories.map((category) => (
+                  <li key={category.id}>
+                    <Link to={'/products'} onClick={ e => handleClick(e)}>
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </CategoriesBar>
       </Menu>
     </>
   );
-};
+}

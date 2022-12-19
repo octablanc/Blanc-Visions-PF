@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { category, data } from '../utils';
+import { category, data, usersData, roles} from '../utils';
+
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
@@ -7,6 +8,11 @@ import DBcontext from '../../config/ConnectionDB';
 // Models
 const Products = DBcontext.models.products;
 const Categories = DBcontext.models.categories;
+const Images = DBcontext.models.images;
+const Users = DBcontext.models.users;
+const Roles = DBcontext.models.roles;
+
+
 const Properties = DBcontext.models.products_properties;
 
 export async function getProducts(req: Request, res: Response) {
@@ -37,7 +43,10 @@ export async function getProducts(req: Request, res: Response) {
         {
           model: Properties,
           as: 'properties' 
-        }
+        },
+        {
+          model: Images
+        },
       ],
       attributes: { exclude: ['categoryId'] },
       order: [['id', 'ASC']]
@@ -51,11 +60,19 @@ export async function getProducts(req: Request, res: Response) {
 
 export async function bulk(_req: Request, res: Response) {
   try {
+    await Roles.bulkCreate(roles);
     await Categories.bulkCreate(category);
-    const newProducts = await Products.bulkCreate(data);
+    await Products.bulkCreate(data, {
+      include: [
+        { model: Images, as: 'images', },
+        { model: Properties, as: 'properties', },
+      ]
+    });
+    await Users.bulkCreate(usersData);
+    return res.status(200).json({ message: "Datos harcodeados" });
 
-    return res.status(200).json(newProducts);
   } catch ({ message }) {
+    console.log("MSG ERR => ",message)
     return res.status(400).send({ message });
   }
 }
@@ -72,6 +89,9 @@ export async function getProductById(req: Request, res: Response) {
         {
           model: Properties,
           as: 'properties' 
+        },
+        {
+          model: Images,
         }
       ],
       attributes: { exclude: ['categoryId'] },
@@ -185,7 +205,13 @@ export async function paginateProducts(req: Request, res: Response) {
           order: [['id', 'ASC']]
         });
 
-        return res.send(result);
+        const productsAll = await Products.findAll({
+          where: { state: true },
+          include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
+        })
+
+        return res.json({ result, productsLength : productsAll.length});
+
       }
       throw new Error('The fields can only be numbers!');
     }

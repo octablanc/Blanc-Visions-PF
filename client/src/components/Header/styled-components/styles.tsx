@@ -68,3 +68,10 @@ export const CategoriesBar = styled.div`
     font-size: 1.8rem;
   }
 `;
+
+
+export const Desplegable = styled.ul`
+  position: absolute;
+  background-color: Lightgray;
+  cursor:pointer;
+`;
