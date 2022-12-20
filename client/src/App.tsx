@@ -1,4 +1,4 @@
-import { Provider } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Detail } from './pages/detail/Detail';
@@ -12,9 +12,29 @@ import { Profile } from './pages/profile/components/Profile';
 import { Cart } from './pages/cart/components/Cart/Cart';
 import { About } from './pages/about/about';
 
+// Authentication
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from './firebase/firebase.config';
+
+// Redux
+import { useAppDispatch, useAppSelector } from './redux/app/hooks';
+import { getUser } from './redux/slices/user-authentication';
+
 function App() {
+  const userState = useAppSelector(({ userState })=> userState.user);
+  const dispatch = useAppDispatch();
+
+  // Set the user logged in the start 
+  useEffect(()=> {
+    onAuthStateChanged(auth, async (user)=>{
+        if(user && !userState)
+          dispatch(getUser(user.email));
+        if(!user)
+          dispatch(getUser(user));
+    });
+  });
+
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -30,7 +50,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
   );
 }
 

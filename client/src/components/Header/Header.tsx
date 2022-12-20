@@ -15,8 +15,13 @@ import { getAllCategories, getProductsPage } from '../../redux/slices/products';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Login from '../login/Login';
+import LogOut from '../login/components/LogOut';
 
 export const Header = () => {
+  const userState = useAppSelector(({ userState })=> userState.user);
+  const loading = useAppSelector(({ userState })=> userState.loading);
+
   const { categories, pagination } = useAppSelector(
     (state) => state.productsState
   );
@@ -75,6 +80,12 @@ export const Header = () => {
 
               <li>
                 <BsFillCartFill />
+              </li>
+
+              <li>
+                {
+                  loading? <></> : userState? <LogOut/> : <Login/>
+                }
               </li>
             </Icons>
           </Nav>
