@@ -40,3 +40,5 @@ DBcontext.sync({ force: true }).then(() => {
     axios.post('http://localhost:3001/products/bulk');
   });
 });
+
+//hola
