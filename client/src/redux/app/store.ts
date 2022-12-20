@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { cartSlice } from '../slices/Cart/cartSlice';
 import { categoriesSlice } from '../slices/categories/categories.slice';
 import { productSlice } from '../slices/products/productsSlice';
+import { userSlice } from '../slices/user-authentication';
 
 export const store = configureStore({
   reducer: {
     productsState: productSlice.reducer,
     categoriesState: categoriesSlice.reducer,
     cartState: cartSlice.reducer,
+    userState: userSlice.reducer
   },
 });
 

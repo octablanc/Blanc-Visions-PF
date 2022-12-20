@@ -4,24 +4,38 @@ import bcrypt from 'bcrypt'
 
 const { users, roles } = DBcontext.models;
 
-export async function getUsers(req:Request, res:Response) {
+export async function getUsers(req: Request, res: Response) {
   try {
-    const { state } = req.query;
+    const { state, mail } = req.query;
+    let result;
 
-    const result = await users.findAll({
-      where: 
-        state === 'true'?
-          {
-            state: true
-          } :
-          state === 'false'?
-            {
-              state: false
-            } : {}
-      ,
-      include: roles,
-      attributes: { exclude: ["roleId"] }
-    });
+    if (mail) {
+      result = await users.findOne({
+        where: {
+          mail,
+        },
+        include: roles,
+        attributes: { exclude: ["roleId"] },
+      });
+
+      if(!result)
+        throw new Error('User not found!');
+    } else {
+      result = await users.findAll({
+        where:
+          state === "true"
+            ? {
+                state: true,
+              }
+            : state === "false"
+            ? {
+                state: false,
+              }
+            : {},
+        include: roles,
+        attributes: { exclude: ["roleId"] },
+      });
+    }
 
     return res.send(result);
   } catch ({ message }) {
