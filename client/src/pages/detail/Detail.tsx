@@ -37,15 +37,15 @@ export const Detail = () => {
   // }, [dispatch]);
 
   //la función plantea solo el contador x ahora
-  const handleOnClickAdd = (number: number = 1): void => {
-    setCounter(counter + 1);
-  };
+  // const handleOnClickAdd = (number: number = 1): void => {
+  //   setCounter(counter + 1);
+  // };
 
   //la función plantea solo el contador x ahora
-  const handleOnClickSubstract = (number: number = 1): void => {
-    setCounter(counter <= 1 ? 0 : counter - 1);
+  // const handleOnClickSubstract = (number: number = 1): void => {
+  //   setCounter(counter <= 1 ? 0 : counter - 1);
     
-  };
+  // };
 
   //función para manejar carrito o compra
   const handleAddToCart = () => {
