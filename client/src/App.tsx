@@ -13,7 +13,7 @@ import { Cart } from './pages/cart/components/Cart/Cart';
 import { About } from './pages/about/about';
 
 // Authentication
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase/firebase.config';
 
 // Redux
