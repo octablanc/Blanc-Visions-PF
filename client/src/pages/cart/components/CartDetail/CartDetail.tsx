@@ -1,18 +1,17 @@
-import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
-import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
+import { NavLink } from 'react-router-dom';
 /*............comienzan estilos........... */
 
-import styled from "styled-components";
-import { MouseEvent, useEffect, useState } from "react";
+import styled from 'styled-components';
+import { MouseEvent, useEffect, useState } from 'react';
 import {
   decreaseQuantity,
   increaseQuantity,
   emptyCart,
   getTotal,
-  removeFromCart
+  removeFromCart,
 } from '../../../../redux/slices/Cart';
-import { BsArrowLeftSquare } from "react-icons/bs";
-
+import { BsArrowLeftSquare } from 'react-icons/bs';
 
 const Container = styled.div`
   display: flex;
@@ -85,6 +84,15 @@ export const CartDetail = () => {
     cartTotalAmount,
   } = useAppSelector((state) => state.cartState);
 
+  const { currentProduct } = useAppSelector((state) => state.productsState);
+  const { name, image, price } = currentProduct;
+
+  console.log('price:', price);
+  console.log('itemTotalAmount:', itemTotalAmount);
+  console.log('itemTotalQuantity:', itemTotalQuantity);
+  console.log('cartItems:', cartItems);
+
+  const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -111,16 +119,16 @@ export const CartDetail = () => {
     <Container>
       <h2>Shopping Cart</h2>
       {cartItems.length < 1 ? (
-        <div className="emptyCart">
+        <div className='emptyCart'>
           <p>Your Cart is empty</p>
-          <NavLink to="/products">
+          <NavLink to='/products'>
             <p>Start Shopping</p>
             <BsArrowLeftSquare />
           </NavLink>
         </div>
       ) : (
         <div>
-          <div className="titles">
+          <div className='titles'>
             <p>Product</p>
             <p>Price</p>
             <p>Quantity</p>
@@ -131,8 +139,8 @@ export const CartDetail = () => {
           {cartItems?.map((cartItem) => (
             <Div key={cartItem.id}>
               <div>
-                <img src={cartItem.image} alt="imagen del producto" />
-                <div className="product">
+                <img src={cartItem.image} alt='imagen del producto' />
+                <div className='product'>
                   <h3> {cartItem.name}</h3>
                   <button onClick={() => handleRemoveItem(cartItem)}>
                     Remove
@@ -143,13 +151,13 @@ export const CartDetail = () => {
               <Quantity>
                 <Operators>
                   <button
-                    name="subtract"
+                    name='subtract'
                     onClick={() => handleSubstractItem(cartItem)}
                   >
                     -
                   </button>
                   <div>{cartItem.cartQuantity}</div>
-                  <button name="add" onClick={() => handleAddItem(cartItem)}>
+                  <button name='add' onClick={() => handleAddItem(cartItem)}>
                     +
                   </button>
                 </Operators>
@@ -158,7 +166,7 @@ export const CartDetail = () => {
             </Div>
           ))}
           {/* </Div> */}
-          <div className="Amount">
+          <div className='Amount'>
             <span>Total Products</span>
             <span>{cartTotalQuantity}</span>
             <span>Subtotal</span>
@@ -168,7 +176,7 @@ export const CartDetail = () => {
             <Btn onClick={(e) => handleEmptyCart(e)}>Empty Cart</Btn>
             <Btn>Checkout</Btn>
             <div>
-              <NavLink to="/products">
+              <NavLink to='/products'>
                 <Btn>Continue Shopping</Btn>
               </NavLink>
             </div>
