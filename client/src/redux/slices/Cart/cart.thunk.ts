@@ -1,5 +1,6 @@
-import { addToCart, delItem, increaseQuantity, removeFromCart } from '../../../redux/slices/cart';
+import { addToCart, delItem, removeFromCart } from './cartSlice';
 import axios from 'axios';
+
 
 export const getProduct = (id: number) => {
   return async (dispatch: any) => {

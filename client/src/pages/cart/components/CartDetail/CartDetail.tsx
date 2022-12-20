@@ -9,9 +9,10 @@ import {
   increaseQuantity,
   emptyCart,
   getTotal,
-} from "../../../../redux/slices/cart/cart.slice";
+  removeFromCart
+} from '../../../../redux/slices/Cart';
 import { BsArrowLeftSquare } from "react-icons/bs";
-import { removeItem } from "../../../../redux/slices/cart";
+
 
 const Container = styled.div`
   display: flex;
@@ -99,7 +100,7 @@ export const CartDetail = () => {
   };
 
   const handleRemoveItem = (cartItem: any) => {
-    dispatch(removeItem(cartItem));
+    dispatch(removeFromCart(cartItem));
   };
 
   const handleEmptyCart = (e: MouseEvent<HTMLButtonElement>) => {

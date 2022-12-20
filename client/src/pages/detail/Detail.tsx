@@ -15,8 +15,9 @@ import {
 } from "./styled-components/Detail";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import Spinner from "../../components/Spinner/Spinner";
-import { addToCart } from '../../redux/slices/cart';
+
 import { useNavigate } from "react-router-dom";
+import { addToCart } from '../../redux/slices/Cart'
 // import { getproductById } from "../../redux/slices/products";
 
 export const Detail = () => {
