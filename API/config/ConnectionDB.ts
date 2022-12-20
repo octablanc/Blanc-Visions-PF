@@ -11,6 +11,8 @@ import Roles from "../app/models/Roles.model";
 import Users from "../app/models/Users.model";
 import ProductsProperties from "../app/models/ProductsProperties.model";
 import Images from "../app/models/Images.model";
+import ProductOrder from "../app/models/ProductOrder.model";
+
 
 
 
@@ -33,8 +35,9 @@ OrderBuy(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
 Images(DBcontext)
+ProductOrder(DBcontext)
 
-const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images } =
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder } =
   DBcontext.models;
 
 /*
@@ -77,5 +80,18 @@ images.belongsTo(products)
 //One product has many properties
 products.hasMany(products_properties, {as: 'properties', foreignKey: 'productId'});
 products_properties.belongsTo(products);
+
+// a user has many purchase orders, and one purchase order belongs to one user
+users.hasMany(orderBuy);
+orderBuy.belongsTo(users);
+
+// a purchase order can have many product orders, and a product order can belong to a purchase order
+orderBuy.hasMany(productOrder, { as: 'productOrder', foreignKey: 'productOrderId' });
+productOrder.belongsTo(orderBuy);
+
+// relacion de orden de productos con productos
+productOrder.hasOne(products);
+products.belongsTo(productOrder);
+
 
 export default DBcontext;
