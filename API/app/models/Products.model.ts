@@ -23,7 +23,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       description: {
-        type: DataTypes.STRING(400),
+        type: DataTypes.STRING(800),
         allowNull: false,
       },
       image: {
