@@ -1,8 +1,9 @@
 import express from 'express';
-import { getProductsOrder, postProductsOrder } from '../controllers/ProductOrderController';
+import { getProductsOrder, postProductsOrder,getProductsOrderById } from '../controllers/ProductOrderController';
 
 const router = express.Router();
 
+router.get('/:id', getProductsOrderById);
 router.get('/', getProductsOrder);
 router.post('/', postProductsOrder);
 
