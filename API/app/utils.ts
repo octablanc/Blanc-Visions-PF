@@ -762,6 +762,7 @@ export const ordenBuyArray = [
     quantityProducts: 10,
     dues: 130,
     userId: 1,
+    buy: false,
     productOrders: [
       {
         productId: 1,
@@ -782,6 +783,66 @@ export const ordenBuyArray = [
 
   },
   {
+    priceTotalDiscount: 10,
+    discount: 20,
+    state: true,
+    postalCode: 199,
+    street: "calle falsa",
+    height: "12943",
+    city: "varelaa",
+    quantityProducts: 10,
+    dues: 130,
+    userId: 1,
+    buy: true,
+    productOrders: [
+      {
+        productId: 10,
+        quantity: 10,
+        price: 1000,
+      },
+      {
+        productId: 4,
+        quantity: 30,
+        price: 1000,
+      },
+      {
+        productId: 4,
+        quantity: 2,
+        price: 1000,
+      },
+    ]
+  },
+  {
+    priceTotalDiscount: 10,
+    discount: 20,
+    state: true,
+    postalCode: 199,
+    street: "calle falsa",
+    height: "12943",
+    city: "varelaa",
+    quantityProducts: 10,
+    dues: 130,
+    userId: 1,
+    buy: true,
+    productOrders: [
+      {
+        productId: 3,
+        quantity: 10,
+        price: 1000,
+      },
+      {
+        productId: 1,
+        quantity: 30,
+        price: 1000,
+      },
+      {
+        productId: 17,
+        quantity: 2,
+        price: 1000,
+      },
+    ]
+  },
+  {
     priceTotalDiscount: 12323,
     discount: 321321,
     state: true,
@@ -792,6 +853,7 @@ export const ordenBuyArray = [
     quantityProducts: 100,
     dues: 130,
     userId: 2,
+    buy: false,
     productOrders: [
       {
         productId: 10,
