@@ -86,12 +86,11 @@ users.hasMany(orderBuy);
 orderBuy.belongsTo(users);
 
 // a purchase order can have many product orders, and a product order can belong to a purchase order
-orderBuy.hasMany(productOrder, { as: 'productOrder', foreignKey: 'productOrderId' });
+orderBuy.hasMany(productOrder);
 productOrder.belongsTo(orderBuy);
 
-// relacion de orden de productos con productos
-productOrder.hasOne(products);
-products.belongsTo(productOrder);
-
+// Un producto tiene a una orden de producto, y una orden de producto pertenece a un producto.
+products.hasOne(productOrder);
+productOrder.belongsTo(products);
 
 export default DBcontext;
