@@ -75,6 +75,30 @@ export const ForgetPassword = styled.span`
 `;
 
 export const ImagLogin = styled.img`
+    width: 100%;
+    height: 100%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    object-fit: cover;
 `;
+
+export const Inputs = styled.div`
+    position: relative;
+    margin-top: 70px;
+    width: 420px;
+    height: 170px;
+`;
+
+export const Mail = { 
+    position: 'absolute', 
+    top: '0', 
+    left:'0px', 
+    width: "100%"
+};
+
+export const Password = { 
+    position: 'absolute', 
+    top: '90px', 
+    left:'0px', 
+    width: "100%" 
+}

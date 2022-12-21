@@ -750,10 +750,14 @@ export const usersData = [
   {
     name: 'leo',
     lastName: 'messi',
+<<<<<<< HEAD
     imageProfile:
       'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg',
+=======
+    imageProfile: 'https://www.lavoz.com.ar/resizer/NIrwqF-30hCyH3lDF05KKhi2iig=/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/BGRXLQMBXNADBIBSMZ6VQUUNQI.jpg',
+>>>>>>> 3ad24a4823f35340549b27c40e56e2cb445578a8
     mail: 'messi@gmail.com',
-    password: 'messi123',
+    password: '18diciembre',
     phone: 234312,
     birthday: 32,
     state: true,

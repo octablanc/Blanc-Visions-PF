@@ -14,14 +14,14 @@ import Images from '../app/models/Images.model';
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
-const { DB_DEPLOY } = process.env;
+const { DB_URL } = process.env;
 
 // const DBcontext = new Sequelize(`${DB_URL}`, {
 //   logging: false,
 //   native: false,
 // });
 
-const DBcontext = new Sequelize(`${DB_DEPLOY}`, {
+const DBcontext = new Sequelize(`${DB_URL}`, {
   logging: false,
   native: false,
 });
