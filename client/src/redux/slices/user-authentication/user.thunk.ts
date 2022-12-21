@@ -1,5 +1,7 @@
 import { setUser, setLoading } from "./user.slice";
 import axios from 'axios';
+import { signOut } from "@firebase/auth";
+import { auth } from "../../../firebase/firebase.config";
 
 export function getUser( mail: string | null ){
     return async ( dispatch:any ) => {
@@ -7,9 +9,14 @@ export function getUser( mail: string | null ){
             dispatch(setUser(null));
         }
         else {
-            dispatch(setLoading(true));
-            const { data } = await axios.get(`http://localhost:3001/users?mail=${mail}`);
-            dispatch(setUser(data));
+            try {
+                dispatch(setLoading(true));
+                const { data } = await axios.get(`http://localhost:3001/users?mail=${mail}`);
+                dispatch(setUser(data));
+            } catch ({ message }) {
+                signOut(auth);
+                window.alert(message);
+            }   
         }
     }
 }

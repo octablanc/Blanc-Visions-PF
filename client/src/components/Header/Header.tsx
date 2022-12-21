@@ -20,8 +20,8 @@ import LogOut from '../login/components/LogOut';
 
 
 export const Header = () => {
-  const userState = useAppSelector(({ userState })=> userState.user);
-  const loading = useAppSelector(({ userState })=> userState.loading);
+  const userState = useAppSelector(({ userState }) => userState.user);
+  const loading = useAppSelector(({ userState }) => userState.loading);
 
   const { categories, pagination } = useAppSelector(
     (state) => state.productsState
@@ -29,18 +29,18 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-    const [selectActive, setSelectActive] = useState(false);
+  const [selectActive, setSelectActive] = useState(false);
   const handleClick = (e: any): void => {
     const value = e.target.innerText;
     dispatch(getProductsPage(1, pagination.quantity, value));
   };
   const handleHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (selectActive) {
-    return setSelectActive(false);      
+      return setSelectActive(false);
     }
     setSelectActive(true);
   }
-  const navigatePage = (e:any) => {
+  const navigatePage = (e: any) => {
     const { innerText } = e.target;
     if (innerText !== 'perfil') return console.log(innerText);
     navigate(`/profile`);
@@ -64,19 +64,22 @@ export const Header = () => {
               <HiOutlineMagnifyingGlass />
             </form>
             <Icons>
-              <li>
-                <div onClick={handleHover}>
-                  <FaUserCircle />
-                  Mi Cuenta
-                </div>
-                {selectActive &&
-                  <Desplegable>
-                    <li onClick={navigatePage}>perfil</li>
-                    <li onClick={navigatePage}>compras</li>
-                    <li onClick={navigatePage}>cerrar sesion</li>
-                  </Desplegable>
-                }
-              </li>
+              {
+                userState && 
+                <li>
+                  <div onClick={handleHover}>
+                    <FaUserCircle />
+                    Mi Cuenta
+                  </div>
+                  {selectActive &&
+                    <Desplegable>
+                      <li onClick={navigatePage}>perfil</li>
+                      <li onClick={navigatePage}>compras</li>
+                      <li onClick={navigatePage}>cerrar sesion</li>
+                    </Desplegable>
+                  }
+                </li>
+              }
 
               <li>
                 <BsFillCartFill />
@@ -84,7 +87,7 @@ export const Header = () => {
 
               <li>
                 {
-                  loading? <></> : userState? <LogOut/> : <Login/>
+                  loading ? <></> : userState ? <LogOut /> : <Login />
                 }
               </li>
             </Icons>
@@ -96,7 +99,7 @@ export const Header = () => {
               {categories &&
                 categories.map((category) => (
                   <li key={category.id}>
-                    <Link to={'/products'} onClick={ e => handleClick(e)}>
+                    <Link to={'/products'} onClick={e => handleClick(e)}>
                       {category.name}
                     </Link>
                   </li>

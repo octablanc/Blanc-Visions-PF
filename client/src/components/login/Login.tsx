@@ -62,7 +62,10 @@ export default function Login() {
   async function handleSubmit() {
     try {
       setBtnLoading(true);
+
       await signInWithEmailAndPassword(auth, user.mail, user.password);
+      
+      setBtnLoading(false);
     } catch ({ code }) {
       setBtnLoading(false);
 
