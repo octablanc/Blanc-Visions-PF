@@ -13,7 +13,7 @@ export const Container = styled.div`
 `;
 
 export const SlideBox = styled(Swiper)`
-/* background: green; */
+/* background-color: green; */
 width: 100%;
   height: 100%;
   position: absolute;
@@ -22,6 +22,7 @@ width: 100%;
 `;
 
 export const Img = styled.img`
+ background-image: "https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp";
   width: 100%;
   height: 100%;
   object-fit: contain;

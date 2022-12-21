@@ -18,6 +18,8 @@ import Spinner from "../../components/Spinner/Spinner";
 
 import { useNavigate } from "react-router-dom";
 import { addToCart } from '../../redux/slices/Cart'
+import { detailProduct } from "../../redux/slices/products";
+import Swipper from "./components/swiper";
 // import { getproductById } from "../../redux/slices/products";
 
 export const Detail = () => {
@@ -25,28 +27,15 @@ export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  
-
   const { currentProduct } = useAppSelector(
     (state: any) => state.productsState
   );
 
-  const { name, image, price, description, loading } = currentProduct;
+  const { name, image, price, description, loading, stock, properties, images } = currentProduct;
 
   // useEffect(() => {
-  //   dispatch(getproductById(detail.id));
+  //   dispatch(productDetail(id));
   // }, [dispatch]);
-
-  //la función plantea solo el contador x ahora
-  // const handleOnClickAdd = (number: number = 1): void => {
-  //   setCounter(counter + 1);
-  // };
-
-  //la función plantea solo el contador x ahora
-  // const handleOnClickSubstract = (number: number = 1): void => {
-  //   setCounter(counter <= 1 ? 0 : counter - 1);
-    
-  // };
 
   //función para manejar carrito o compra
   const handleAddToCart = () => {
@@ -62,22 +51,17 @@ export const Detail = () => {
         <Spinner />
       ) : (
         <Container>
+         
           <Image>
             <h3 className="title">{name}</h3>
             <img src={line} />
-            <div className="img">
-              <img src={image} alt={name} />
-            </div>
-            <div>{/* <Slide /> */}</div>
-            {/* <div><Swipper /></div> */}
-            {/* {dataSlider &&
-            dataSlider.img.map((obj, index) => (
-              <div>
-                <Slider />
+            {/* <div className="img">                         
+              <img src={image} alt={name} />          
               </div> */}
-            {/* ))} */}
+            {/* <div> <Slide /> </div> */}
+            {/* <div><Swipper /></div> */}
+              <Slider />
           </Image>
-
           <Info>
             <div className="icons">
               <h3>{`$${price}`}</h3>
@@ -90,8 +74,15 @@ export const Detail = () => {
               </div>
             </div>
             <p>DESCRIPTION{description}</p>
+            <p>Unidades disponibles:{stock}</p>
+            {properties?.map((prop: any, key: number) => {
+              <ul>
+                <p>{prop.name}</p>
+                <p>{prop.value}</p>                
+              </ul>
+              })}
 
-            <CartSection>
+                        <CartSection>
               {/* <p>Cantidad</p> */}
               {/* <Counter>
                 <button

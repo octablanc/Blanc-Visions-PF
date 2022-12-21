@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background: pink;
+  /* background: pink; */
   max-width: 60rem;
   height: 50rem;
   margin: 10rem auto 0;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 `;
 
 export const ContainerImg = styled.div`
-  /* background: blue; */
+  background: blue;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -22,5 +22,6 @@ export const ContainerImg = styled.div`
 export const Img = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: scale-down;
 `;
+
