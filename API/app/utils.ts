@@ -748,3 +748,67 @@ export const usersData = [
     userName: 'leoMessi'
   },
 ]
+
+
+export const ordenBuyArray = [
+  {
+    priceTotalDiscount: 10,
+    discount: 20,
+    state: true,
+    postalCode: 199,
+    street: "calle falsa",
+    height: "12943",
+    city: "varelaa",
+    quantityProducts: 10,
+    dues: 130,
+    userId: 1,
+    productOrders: [
+      {
+        productId: 1,
+        quantity: 10,
+        price: 1000,
+      },
+      {
+        productId: 2,
+        quantity: 30,
+        price: 1000,
+      },
+      {
+        productId: 3,
+        quantity: 2,
+        price: 1000,
+      },
+    ]
+
+  },
+  {
+    priceTotalDiscount: 12323,
+    discount: 321321,
+    state: true,
+    postalCode: 213,
+    street: "reerer falsa",
+    height: "12943",
+    city: "fdsfda",
+    quantityProducts: 100,
+    dues: 130,
+    userId: 2,
+    productOrders: [
+      {
+        productId: 10,
+        quantity: 1,
+        price: 1000,
+      },
+      {
+        productId: 3,
+        quantity: 20,
+        price: 1000,
+      },
+      {
+        productId: 6,
+        quantity: 4,
+        price: 1000,
+      },
+    ]
+
+  }
+]
