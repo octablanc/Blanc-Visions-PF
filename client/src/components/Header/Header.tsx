@@ -5,42 +5,54 @@ import {
   Input,
   Menu,
   Nav,
-  Desplegable
+  Desplegable,
+  AuthButtons
 } from './styled-components/styles';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-import { FaUserCircle } from 'react-icons/fa';
-import { BsFillCartFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { getAllCategories, getProductsPage } from '../../redux/slices/products';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Login from '../login/Login';
+import LogOut from '../login/components/LogOut';
 
+// Interfaces
+import { User } from '../../models/User.model';
+import SingUp from '../register/Register';
+import AccountMenu from './components/AccountMenu';
+import { BsFillCartFill } from 'react-icons/bs';
 
 export const Header = () => {
+  const userState: User | null = useAppSelector(
+    ({ userState }) => userState.user
+  );
+  const loading = useAppSelector(({ userState }) => userState.loading);
+
   const { categories, pagination } = useAppSelector(
     (state) => state.productsState
   );
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-    const [selectActive, setSelectActive] = useState(false);
+  const [selectActive, setSelectActive] = useState(false);
   const handleClick = (e: any): void => {
     const value = e.target.innerText;
     dispatch(getProductsPage(1, pagination.quantity, value));
   };
   const handleHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (selectActive) {
-    return setSelectActive(false);      
+      return setSelectActive(false);
     }
     setSelectActive(true);
-  }
-  const navigatePage = (e:any) => {
+  };
+  const navigatePage = (e: any) => {
     const { innerText } = e.target;
+    console.log(innerText);
     if (innerText !== 'perfil') return console.log(innerText);
     navigate(`/profile`);
-    setSelectActive(false)
-  }
+    setSelectActive(false);
+  };
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -52,7 +64,7 @@ export const Header = () => {
         <div className='container'>
           <Nav>
             <div>
-              <img src={logo} alt='kingcomm' />
+              <img src={logo} alt='kingcomm' onClick={() => navigate(`/`)} />
             </div>
             <form>
               <Input type='text' placeholder='Busca tu producto' />
@@ -60,22 +72,39 @@ export const Header = () => {
             </form>
             <Icons>
               <li>
-                <div onClick={handleHover}>
-                  <FaUserCircle />
-                  Mi Cuenta
-                </div>
-                {selectActive &&
-                  <Desplegable>
-                    <li onClick={navigatePage}>perfil</li>
-                    <li onClick={navigatePage}>compras</li>
-                    <li onClick={navigatePage}>cerrar sesion</li>
-                  </Desplegable>
-                }
-              </li>
-
-              <li>
                 <BsFillCartFill />
-              </li>
+              </li> 
+             
+              {userState && (
+                <li>
+                  <div
+                    onClick={handleHover}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                  {/* <AccountMenu avatar={`${userState.imageProfile}`} fullName={`${userState.name} ${userState.lastName}`}/> */}
+                    Mi Cuenta
+                  </div>
+                  {selectActive && (
+                    <Desplegable>
+                      <li onClick={navigatePage}>perfil</li>
+                      <li onClick={navigatePage}>compras</li>
+                      <li onClick={navigatePage}>cerrar sesion</li>
+                    </Desplegable>
+                  )}
+
+                </li>
+              )}
+
+              <li>{loading ? <></> : !userState &&
+                <AuthButtons>
+                  <Login />
+                  <SingUp/>
+                </AuthButtons>
+              }</li>
             </Icons>
           </Nav>
         </div>
@@ -85,7 +114,7 @@ export const Header = () => {
               {categories &&
                 categories.map((category) => (
                   <li key={category.id}>
-                    <Link to={'/products'} onClick={ e => handleClick(e)}>
+                    <Link to={'/products'} onClick={(e) => handleClick(e)}>
                       {category.name}
                     </Link>
                   </li>
@@ -96,4 +125,4 @@ export const Header = () => {
       </Menu>
     </>
   );
-}
+};

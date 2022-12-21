@@ -75,3 +75,9 @@ export const Desplegable = styled.ul`
   background-color: Lightgray;
   cursor:pointer;
 `;
+
+export const AuthButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+`;
