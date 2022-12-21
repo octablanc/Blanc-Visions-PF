@@ -5,7 +5,7 @@ import {
   Input,
   Menu,
   Nav,
-  Desplegable
+  Desplegable,
 } from './styled-components/styles';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import { FaUserCircle } from 'react-icons/fa';
@@ -23,7 +23,9 @@ import Avatar from '@mui/material/Avatar';
 import { User } from '../../models/User.model';
 
 export const Header = () => {
-  const userState:User | null = useAppSelector(({ userState }) => userState.user);
+  const userState: User | null = useAppSelector(
+    ({ userState }) => userState.user
+  );
   const loading = useAppSelector(({ userState }) => userState.loading);
 
   const { categories, pagination } = useAppSelector(
@@ -42,13 +44,14 @@ export const Header = () => {
       return setSelectActive(false);
     }
     setSelectActive(true);
-  }
+  };
   const navigatePage = (e: any) => {
     const { innerText } = e.target;
+    console.log(innerText);
     if (innerText !== 'perfil') return console.log(innerText);
     navigate(`/profile`);
-    setSelectActive(false)
-  }
+    setSelectActive(false);
+  };
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -60,39 +63,45 @@ export const Header = () => {
         <div className='container'>
           <Nav>
             <div>
-              <img src={logo} alt='kingcomm' />
+              <img src={logo} alt='kingcomm' onClick={() => navigate(`/`)} />
             </div>
             <form>
               <Input type='text' placeholder='Busca tu producto' />
               <HiOutlineMagnifyingGlass />
             </form>
             <Icons>
-              {
-                userState && 
+              {userState && (
                 <li>
-                  <div onClick={handleHover} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Avatar alt='User Avatar' src={`${userState.imageProfile}`}  sx={{ width: 30, height: 30, marginRight: '10px' }}/>
+                  <div
+                    onClick={handleHover}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Avatar
+                      alt='User Avatar'
+                      src={`${userState.imageProfile}`}
+                      sx={{ width: 30, height: 30, marginRight: '10px' }}
+                    />
                     Mi Cuenta
                   </div>
-                  {selectActive &&
+                  {selectActive && (
                     <Desplegable>
                       <li onClick={navigatePage}>perfil</li>
                       <li onClick={navigatePage}>compras</li>
                       <li onClick={navigatePage}>cerrar sesion</li>
                     </Desplegable>
-                  }
+                  )}
                 </li>
-              }
+              )}
 
               <li>
                 <BsFillCartFill />
               </li>
 
-              <li>
-                {
-                  loading ? <></> : userState ? <LogOut /> : <Login />
-                }
-              </li>
+              <li>{loading ? <></> : userState ? <LogOut /> : <Login />}</li>
             </Icons>
           </Nav>
         </div>
@@ -102,7 +111,7 @@ export const Header = () => {
               {categories &&
                 categories.map((category) => (
                   <li key={category.id}>
-                    <Link to={'/products'} onClick={e => handleClick(e)}>
+                    <Link to={'/products'} onClick={(e) => handleClick(e)}>
                       {category.name}
                     </Link>
                   </li>
@@ -113,4 +122,4 @@ export const Header = () => {
       </Menu>
     </>
   );
-}
+};

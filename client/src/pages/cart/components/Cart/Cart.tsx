@@ -1,11 +1,9 @@
 import { CartDetail } from '../CartDetail/CartDetail';
 
 export const Cart = () => {
-
-  
   return (
     <div className='container'>
-      <h3>Mi carrito</h3>
+      <h2>Mi carrito</h2>
       <CartDetail />
     </div>
   );
