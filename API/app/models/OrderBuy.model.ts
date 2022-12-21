@@ -32,13 +32,13 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      quantityProducts: { // Lo agrewgamos el jueves
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       dues: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      buy: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       }
 
     },
