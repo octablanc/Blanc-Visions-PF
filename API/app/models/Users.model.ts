@@ -13,7 +13,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       imageProfile: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       phone: {
