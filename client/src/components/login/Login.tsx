@@ -27,6 +27,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
+
 export default function Login() {
   const [user, setUser] = useState({
     mail: '',
@@ -58,7 +59,6 @@ export default function Login() {
   function handleClickShow() {
     setShowPassword(!showPassword);
   }
-
   async function handleSubmit() {
     try {
       setBtnLoading(true);
@@ -110,6 +110,7 @@ export default function Login() {
               width: '100%',
               height: '100%',
             }}>
+
               <ImagLogin src={loginImg} alt="loginImage" />
             </div>
             <div
@@ -117,12 +118,10 @@ export default function Login() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: 'center',
-                justifyContent: "flex-end",
               }}
             >
               <LoginContainer>
                 <h2 style={{ fontWeight: "500" }}>Log In</h2>
-
                 <Inputs>
                   <TextField
                     InputLabelProps={{
@@ -176,12 +175,12 @@ export default function Login() {
                     onChange={handleInput}
                   />
                 </Inputs>
-
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
+
                   }}
                 >
                   {
@@ -194,7 +193,6 @@ export default function Login() {
                         loadingIndicator={<CircularProgress size={'20px'} sx={{ color: '#fff' }} />}
                       /> : <Button variant="contained" sx={ButtonLog} onClick={handleSubmit}>Log In</Button>
                   }
-
                   <ForgetPassword>Forgot your password?</ForgetPassword>
                 </div>
               </LoginContainer>

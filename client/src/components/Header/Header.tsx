@@ -85,8 +85,8 @@ export const Header = () => {
                       alignItems: 'center',
                     }}
                   >
-                    Mi Cuenta
                   {/* <AccountMenu avatar={`${userState.imageProfile}`} fullName={`${userState.name} ${userState.lastName}`}/> */}
+                    Mi Cuenta
                   </div>
                   {selectActive && (
                     <Desplegable>

@@ -90,7 +90,7 @@ export default function AccountMenu({ avatar, fullName }: { avatar: string, full
           </div>
         </MenuItem>
 
-        <Divider />
+        <Divider style={{ backgroundColor: '#E5E5E5' }}/>
 
         <MenuItem sx={{ fontSize: '17px', marginLeft: '5px'}}>
           <ListItemIcon>
