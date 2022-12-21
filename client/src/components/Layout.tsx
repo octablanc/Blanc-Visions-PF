@@ -20,7 +20,7 @@ const ContainerLayout = styled.div`
 `;
 
 export const Layout = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<Boolean>(false);
   const loading = useAppSelector(({userState})=> userState.loading);
   
   useEffect(()=> {
@@ -31,7 +31,7 @@ export const Layout = () => {
     <div>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
+        open={open? true:false}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

@@ -17,10 +17,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Login from '../login/Login';
 import LogOut from '../login/components/LogOut';
+import Avatar from '@mui/material/Avatar';
 
+// Interfaces
+import { User } from '../../models/User.model';
 
 export const Header = () => {
-  const userState = useAppSelector(({ userState }) => userState.user);
+  const userState:User | null = useAppSelector(({ userState }) => userState.user);
   const loading = useAppSelector(({ userState }) => userState.loading);
 
   const { categories, pagination } = useAppSelector(
@@ -67,8 +70,8 @@ export const Header = () => {
               {
                 userState && 
                 <li>
-                  <div onClick={handleHover}>
-                    <FaUserCircle />
+                  <div onClick={handleHover} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Avatar alt='User Avatar' src={`${userState.imageProfile}`}  sx={{ width: 30, height: 30, marginRight: '10px' }}/>
                     Mi Cuenta
                   </div>
                   {selectActive &&
