@@ -37,8 +37,8 @@ export default function Login() {
   const [open, setOpen] = useState(false);
   const [btnLoading, setBtnLoading] = useState(Boolean);
   const [error, setError] = useState({ mail: false, password: false });
-  const fontSizeLabel = 20;
-  const fontSizeInput = 18;
+  const fontSizeLabel = 18;
+  const fontSizeInput = 16;
 
   const handleOpen = () => setOpen(true);
 
@@ -59,6 +59,7 @@ export default function Login() {
   function handleClickShow() {
     setShowPassword(!showPassword);
   }
+  
   async function handleSubmit() {
     try {
       setBtnLoading(true);
@@ -110,7 +111,6 @@ export default function Login() {
               width: '100%',
               height: '100%',
             }}>
-
               <ImagLogin src={loginImg} alt="loginImage" />
             </div>
             <div
@@ -138,7 +138,7 @@ export default function Login() {
                     error={error.mail ? true : false}
                     helperText={
                       (error.mail && (
-                        <span style={{ fontSize: '15px' }}>User not found!</span>
+                        <span style={{ fontSize: '12px' }}>User not found!</span>
                       ))
                     }
                     variant="standard"
@@ -168,7 +168,7 @@ export default function Login() {
                     error={error.password ? true : false}
                     helperText={
                       (error.password && (
-                        <span style={{ fontSize: '15px', position: 'absolute' }}>Wrong password!</span>
+                        <span style={{ fontSize: '12px', position: 'absolute' }}>Wrong password!</span>
                       ))
                     }
                     variant="standard"
