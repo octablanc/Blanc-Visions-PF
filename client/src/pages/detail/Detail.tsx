@@ -1,6 +1,4 @@
-import { useState, ChangeEvent, useEffect } from "react";
-import { Slider } from "./components/Slider";
-import { Slide } from "./components/Slide";
+import { Slider } from "./components/Slider/Slider";
 
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import line from "./styled-components/imgLine.png";
@@ -10,20 +8,16 @@ import {
   Image,
   Info,
   CartSection,
-  Counter,
   Btn,
 } from "./styled-components/Detail";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import Spinner from "../../components/Spinner/Spinner";
 
 import { useNavigate } from "react-router-dom";
-import { addToCart } from '../../redux/slices/Cart'
-import { detailProduct } from "../../redux/slices/products";
-import Swipper from "./components/swiper";
-// import { getproductById } from "../../redux/slices/products";
+import { addToCart } from "../../redux/slices/Cart";
+import { ProductProperties } from "./components/productProperties";
 
 export const Detail = () => {
-  const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -31,19 +25,20 @@ export const Detail = () => {
     (state: any) => state.productsState
   );
 
-  const { name, image, price, description, loading, stock, properties, images } = currentProduct;
+  const { name, price, description, loading, stock, properties } =
+    currentProduct;
 
-  // useEffect(() => {
-  //   dispatch(productDetail(id));
-  // }, [dispatch]);
+  let productProps = properties.map((el: any) => el.name);
+  console.log("properties:", properties);
+  console.log("productProps:", productProps);
 
-  //función para manejar carrito o compra
   const handleAddToCart = () => {
-    dispatch(addToCart(currentProduct)) 
-    navigate('/cart')  
+    dispatch(addToCart(currentProduct));
+    navigate("/cart");
   };
 
-  const handlePurchase = () => {};
+  //Falta declarar función para checkOut
+  const handleCheckOut = () => {};
 
   return (
     <div className="container">
@@ -51,16 +46,10 @@ export const Detail = () => {
         <Spinner />
       ) : (
         <Container>
-         
           <Image>
             <h3 className="title">{name}</h3>
             <img src={line} />
-            {/* <div className="img">                         
-              <img src={image} alt={name} />          
-              </div> */}
-            {/* <div> <Slide /> </div> */}
-            {/* <div><Swipper /></div> */}
-              <Slider />
+            <Slider />
           </Image>
           <Info>
             <div className="icons">
@@ -73,34 +62,33 @@ export const Detail = () => {
                 <AiOutlineStar />
               </div>
             </div>
-            <p>DESCRIPTION{description}</p>
-            <p>Unidades disponibles:{stock}</p>
-            {properties?.map((prop: any, key: number) => {
+            {/* <p>Descripción</p>
+            <p>{description}</p> */}
+
+            <span className="features">Características</span>
+            {properties?.map((el: any, key: number) => (
               <ul>
-                <p>{prop.name}</p>
-                <p>{prop.value}</p>                
+                <hr />
+                <span className="list">{el.name}</span>
+                <span className="list">{el.value}</span>
               </ul>
-              })}
-
-                        <CartSection>
-              {/* <p>Cantidad</p> */}
-              {/* <Counter>
-                <button
-                  name="subtract"
-                  onClick={() => handleOnClickSubstract()}
-                >
-                  -
-                </button>
-                <div>{counter}</div>
-                <button name="add" onClick={(e) => handleOnClickAdd()}>
-                  +
-                </button>
-              </Counter> */}
-
+              //  <li value={el.name}>{el.name}</li>
+              // name= {el.name }
+              // value= {el.value}
+              // />
+            ))}
+            
+            <ul> 
+            <hr />
+            <br />             
+            <span className='stock'>Unidades disponibles:</span>
+            <span className='stock'>{stock}</span>
+            </ul>
+            <CartSection>
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy" onClick={handlePurchase}>
+              <Btn name="buy" onClick={handleCheckOut}>
                 Comprar
               </Btn>
             </CartSection>
