@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     /* font-family: */
     font-family: ${(props: PropsTheme) => props.theme.fonts.poppins};
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.8;
   }
 
@@ -31,32 +31,32 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1 {
-    font-size: 3.5rem;
-  }
-
-  @media (min-width: 768px) {
-    h1 {
-      font-size: 4.5rem;
-    }
-  }
-
-  h2 {
     font-size: 3rem;
   }
 
   @media (min-width: 768px) {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
     h2 {
-      font-size: 3.8rem;
+      font-size: 2.5rem;
     }
   }
 
   h3 {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
 
   @media (min-width: 768px) {
     h3 {
-      font-size: 2.7rem;
+      font-size: 2.3rem;
     }
   }
 

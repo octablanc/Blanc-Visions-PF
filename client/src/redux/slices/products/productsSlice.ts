@@ -55,6 +55,9 @@ export interface UniquePro {
   stock: number;
   id_category: number;
   state: Boolean;
+  category: string;
+  properties: [];
+  images: [];
   loading: boolean;
 }
 
@@ -81,6 +84,9 @@ const initialState: ProductState = {
     entrega: '',
     id_category: 0,
     state: true,
+    category: '',
+    properties: [],
+    images: [],
     loading: false
   },
   pagination: {
