@@ -19,7 +19,7 @@ import LogOut from '../login/components/LogOut';
 
 // Interfaces
 import { User } from '../../models/User.model';
-import SingUp from '../register/Register';
+import SingUp from '../singup/SingUp';
 import AccountMenu from './components/AccountMenu';
 import { BsFillCartFill } from 'react-icons/bs';
 
@@ -99,11 +99,11 @@ export const Header = () => {
                 </li>
               )}
 
-              <li>{loading ? <></> : !userState &&
+              <li>{loading ? <></> : !userState? 
                 <AuthButtons>
                   <Login />
                   <SingUp/>
-                </AuthButtons>
+                </AuthButtons> : <LogOut/>
               }</li>
             </Icons>
           </Nav>
