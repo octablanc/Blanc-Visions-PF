@@ -85,16 +85,17 @@ export const Header = () => {
                       alignItems: 'center',
                     }}
                   >
-                  <AccountMenu avatar={`${userState.imageProfile}`} fullName={`${userState.name} ${userState.lastName}`}/>
-                    {/* Mi Cuenta */}
+                  {/* <AccountMenu/> */}
+                    Mi Cuenta
                   </div>
-                  {/* {selectActive && (
+
+                  {selectActive && (
                     <Desplegable>
                       <li onClick={navigatePage}>perfil</li>
                       <li onClick={navigatePage}>compras</li>
                       <li onClick={navigatePage}>cerrar sesion</li>
                     </Desplegable>
-                  )} */}
+                  )}
 
                 </li>
               )}
@@ -105,8 +106,8 @@ export const Header = () => {
                   <SingUp/>
                 </AuthButtons> 
                 : 
-                // <LogOut/>
-                <></>
+                <LogOut/>
+                // <></>
               }</li>
             </Icons>
           </Nav>
