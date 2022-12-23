@@ -70,7 +70,6 @@ export async function getUserByMail(req: Request, res: Response) {
       return res.status(404).send({ message: "User not found!" });
 
     return res.send(user);
-    return res.send({});
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
@@ -80,7 +79,7 @@ export async function postUser(req: Request, res: Response) {
   try {
     const newUser = req.body; 
     
-    const userCreate = await users.create({ newUser });
+    const userCreate = await users.create(newUser);
     return res.send([{ message: "post user", userCreate }]);
   } catch ({ message }) {
     return res.status(400).json({ message });

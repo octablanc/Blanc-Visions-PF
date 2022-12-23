@@ -74,6 +74,7 @@ export const ForgetPassword = styled.span`
 `;
 
 export const ImagLogin = styled.img`
+    width: 100%;
     height: 100%; 
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;

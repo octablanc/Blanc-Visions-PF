@@ -15,21 +15,20 @@ export const ModalContainer = styled.div`
     display: grid;
     grid-template-columns: 40% 60%;
     width: 900px;
-
+    
     div {
         img {
             overflow: hidden;
             margin-bottom: -10px;
         }
     }
-`;
+    `;
 
 export const Fields = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px 60px 0px 60px;
-    height: 400px;
+    margin: 60px;
 
     .input {
         margin-top: 15px;
@@ -37,7 +36,7 @@ export const Fields = styled.div`
 `;
 
 export const Tittle = styled.h2`
-    margin: 40px 40px;
+margin-bottom: 20px;
     font-weight: 500;
 `;
 
@@ -52,6 +51,7 @@ export const ButtonLog = {
     marginTop: '60px',
     fontSize: "15px",
     textTransform: "capitalize",
-    padding: "13px 13px",
+    padding: '13px 13px',
     width: "100%",
+    backgroundColor: "#1976D2"
 };
