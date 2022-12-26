@@ -8,9 +8,9 @@ import {
   productOffCategories,
   setPagination,
   setUser,
-} from "./productsSlice";
-import { UserInfo } from "./productsSlice";
-import axios from "axios";
+} from './productsSlice';
+import { UserInfo } from './productsSlice';
+import axios from 'axios';
 
 export const getAllProducts = () => {
   return async (dispatch: any) => {
@@ -114,7 +114,7 @@ export const getProductsPage = (
       );
       dispatch(changePage(products.result));
     } catch (error) {
-      console.log("EROR=>", error);
+      console.log('EROR=>', error);
     } finally {
       dispatch(startLoadingProducts(false));
     }
@@ -138,24 +138,21 @@ export const updateUser = (user: UserInfo) => {
         roleId,
       } = user;
 
-      let updateUser = await axios.put(
-        `http://localhost:3001/users/${id}`,
-        {
-          imageProfile,
-          name,
-          lastName,
-          phone,
-          mail,
-          password,
-          userName,
-          birthday,
-          state,
-          roleId,
-        }
-      );
+      let updateUser = await axios.put(`http://localhost:3001/users/${id}`, {
+        imageProfile,
+        name,
+        lastName,
+        phone,
+        mail,
+        password,
+        userName,
+        birthday,
+        state,
+        roleId,
+      });
       dispatch(setUser(updateUser.data));
     } catch (error) {
-      console.log("EROR=>", error);
+      console.log('EROR=>', error);
     }
   };
 };
