@@ -7,28 +7,34 @@ import Spinner from '../../../../components/Spinner/Spinner';
 
 export const Sales = () => {
   const dispatch = useAppDispatch();
-  const { loading, products } = useAppSelector((state) => state.productsState);
+  const { loading, products } = useAppSelector(state => state.productsState);
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
   return (
-    <SalesContainer className='container'>
-      {loading ? (
-        <Spinner />
-      ) : (
-        products &&
-        products
-          .slice(0, 4)
-          .map((product) => (
-            <Card
-              key={product.id}
-              name={product.name}
-              img={product.image}
-              price={product.price}
-            />
-          ))
-      )}
-    </SalesContainer>
+    <>
+      <div className='container'>
+        <h3 className='text-center'>SALES</h3>
+        <SalesContainer>
+          {loading ? (
+            <Spinner />
+          ) : (
+            products &&
+            products
+              .slice(0, 4)
+              .map(product => (
+                <Card
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  img={product.image}
+                  price={product.price}
+                />
+              ))
+          )}
+        </SalesContainer>
+      </div>
+    </>
   );
 };

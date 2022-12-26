@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { images } from "../../config/ConnectionDB";
-
+import DBcontext from "../../config/ConnectionDB";
+const { images } = DBcontext.models;
 // Model
 /*
 {

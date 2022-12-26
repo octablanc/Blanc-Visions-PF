@@ -1,9 +1,6 @@
-import { useState, ChangeEvent, useEffect } from "react";
+import { Slider } from './components/Slider/Slider';
 
-import { Slider } from "./components/Slider";
-import { Slide } from "./components/Slide";
-
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar } from '../../icons';
 import line from "./styled-components/imgLine.png";
 
 import {
@@ -11,91 +8,89 @@ import {
   Image,
   Info,
   CartSection,
-  Counter,
   Btn,
 } from "./styled-components/Detail";
-import { useAppSelector } from "../../redux/app/hooks";
-// import { getproductById } from "../../redux/slices/products";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
+import Spinner from "../../components/Spinner/Spinner";
+
+import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../redux/slices/Cart";
 
 export const Detail = () => {
-  const [counter, setCounter] = useState(0);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { currentProduct } = useAppSelector(
     (state: any) => state.productsState
   );
 
-  const { name, image, price, description } = currentProduct;
+  const { name, price, description, loading, stock, properties } =
+    currentProduct;
 
-  // useEffect(() => {
-  //   dispatch(getproductById(detail.id));
-  // }, [dispatch]);
+  let productProps = properties.map((el: any) => el.name);
+  console.log("properties:", properties);
+  console.log("productProps:", productProps);
 
-  //la función plantea solo el contador x ahora
-  const handleOnClickAdd = (number: number = 1): void => {
-    setCounter(counter + 1);
+  const handleAddToCart = () => {
+    dispatch(addToCart(currentProduct));
+    navigate("/cart");
   };
 
-  //la función plantea solo el contador x ahora
-  const handleOnClickSubstract = (number: number = 1): void => {
-    setCounter(counter <= 1 ? 0 : counter - 1);
-  };
-
-  //función para manejar carrito o compra
-  const handleClick = () => {};
+  //Falta declarar función para checkOut
+  const handleCheckOut = () => {};
 
   return (
     <div className="container">
-      <Container>
-        <Image>
-          <h3 className="title">{name}</h3>
-          <img src={line} />
-          <div className='img'>
-          <img src={image} />
-          </div>
-          <div>{/* <Slide /> */}</div>
-          {/* <div><Swipper /></div> */}
-          {/* {dataSlider &&
-            dataSlider.img.map((obj, index) => (
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Container>
+          <Image>
+            <h3 className="title">{name}</h3>
+            <img src={line} />
+            <Slider />
+          </Image>
+          <Info>
+            <div className="icons">
+              <h3>{`$${price}`}</h3>
               <div>
-                <Slider />
-              </div> */}
-          {/* ))} */}
-        </Image>
-
-        <Info>
-          <div className="icons">
-            <h3>{`$${price}`}</h3>
-            <div>
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+              </div>
             </div>
-          </div>
-          <p>DESCRIPTION{description}</p>
+            {/* <p>Descripción</p>
+            <p>{description}</p> */}
 
-          <CartSection>
-            <p>Cantidad</p>
-            <Counter>
-              <button name="subtract" onClick={() => handleOnClickSubstract()}>
-                -
-              </button>
-              <div>{counter}</div>
-              <button name="add" onClick={(e) => handleOnClickAdd()}>
-                +
-              </button>
-            </Counter>
+            <span className="features">Características</span>
+            {properties?.map((el: any, key: number) => (
+              <ul>
+                <hr />
+                <span className="list">{el.name}</span>
+                <span className="list">{el.value}</span>
+              </ul>
 
-            <Btn name="addToCart" onClick={handleClick}>
-              Agregar al carrito
-            </Btn>
-            <Btn name="buy" onClick={handleClick}>
-              Comprar
-            </Btn>
-          </CartSection>
-        </Info>
-      </Container>
+            ))}
+            
+            <ul> 
+            <hr />
+            <br />             
+            <span className='stock'>Unidades disponibles:</span>
+            <span className='stock'>{stock}</span>
+            </ul>
+            <CartSection>
+              <Btn name="addToCart" onClick={() => handleAddToCart()}>
+                Agregar al carrito
+              </Btn>
+              <Btn name="buy" onClick={handleCheckOut}>
+                Comprar
+              </Btn>
+            </CartSection>
+          </Info>
+        </Container>
+      )}
     </div>
   );
 };

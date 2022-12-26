@@ -68,3 +68,16 @@ export const CategoriesBar = styled.div`
     font-size: 1.8rem;
   }
 `;
+
+
+export const Desplegable = styled.ul`
+  position: absolute;
+  background-color: Lightgray;
+  cursor:pointer;
+`;
+
+export const AuthButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+`;

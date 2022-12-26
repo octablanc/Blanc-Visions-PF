@@ -8,10 +8,6 @@ export default (sequelize: Sequelize) => {
           type: DataTypes.TEXT,
           allowNull: false,
         },
-        state: {
-          type: DataTypes.BOOLEAN,
-          allowNull: false,
-        },
       },
       { freezeTableName: true, timestamps: false }
     );

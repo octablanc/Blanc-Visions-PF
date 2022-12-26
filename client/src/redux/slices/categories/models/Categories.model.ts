@@ -1,5 +1,6 @@
-import { Category } from "../../../../models/Category.model"
+import { Category } from '../../../../models/Category.model';
 
 export default interface Categories {
-    categories: Category[]
+  categories: Category[];
+  currentCategory: string;
 }
