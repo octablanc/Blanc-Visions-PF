@@ -42,6 +42,16 @@ const GlobalStyles = createGlobalStyle`
 
   h2 {
     font-size: 2.5rem;
+    display: inline-block;
+  }
+
+  h2:after {
+    content: "";
+    background-color: ${(props): string => props.theme.colors.primary};
+    height: 0.7rem;
+    width: calc(100% + 0.5rem);
+    display: block;
+    margin-top: -1.5rem;
   }
 
   @media (min-width: 768px) {
@@ -93,6 +103,10 @@ const GlobalStyles = createGlobalStyle`
 
   .text-center {
     text-align: center;
+  }
+
+  .active {
+    border-bottom: 4px solid ${(props): string => props.theme.colors.primary};
   }
 
   @media (min-width: 768px) {

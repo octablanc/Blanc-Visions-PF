@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-import { Footer } from './Footer/Footer';
-import { Header } from './Header/Header';
+// import { Footer } from './Footer/Footer';
+// import { Header } from './Header/Header';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAppSelector } from '../redux/app/hooks';
-
+import { Headerr } from './Header/Headerr';
 
 const GridLayout = styled.div`
   display: grid;
@@ -21,26 +21,27 @@ const ContainerLayout = styled.div`
 
 export const Layout = () => {
   const [open, setOpen] = useState<Boolean>(false);
-  const loading = useAppSelector(({userState})=> userState.loading);
-  
-  useEffect(()=> {
+  const loading = useAppSelector(({ userState }) => userState.loading);
+
+  useEffect(() => {
     setOpen(loading);
-  }, [ loading ]);
+  }, [loading]);
 
   return (
     <div>
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open? true:false}
+        sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
+        open={open ? true : false}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
       <GridLayout>
-        <Header />
+        {/* <Header /> */}
+        <Headerr />
         <ContainerLayout>
           <Outlet />
         </ContainerLayout>
-        <Footer />
+        {/* <Footer /> */}
       </GridLayout>
     </div>
   );
