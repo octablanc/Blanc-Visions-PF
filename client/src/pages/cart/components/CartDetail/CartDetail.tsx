@@ -24,6 +24,7 @@ import {
   Line,
   Product,
   Remove,
+  Titles,
 } from '../../styled-components/styles';
 
 /*................terminan estilos............... */
@@ -83,12 +84,12 @@ export const CartDetail = () => {
         <Contain>
           <div>
             {/* <Div className='titles'> */}
-            <Div style={{ fontSize: '2rem' }}>
+            <Titles style={{ fontSize: '2rem' }}>
               <p>Productos</p>
               <p>Precio</p>
               <p>Cantidad</p>
               <p>Total</p>
-            </Div>
+            </Titles>
 
             {/* <Div> */}
             {cartItems?.map((cartItem) => (
@@ -117,7 +118,7 @@ export const CartDetail = () => {
                 </Quantity>
                 <div>${cartItem.price * cartItem.cartQuantity}</div>
                 <Remove onClick={() => handleRemoveItem(cartItem)}>
-                  Remover
+                  Eliminar producto
                 </Remove>
               </Div>
             ))}
@@ -135,7 +136,7 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <Btn>Finalizar compra</Btn>
+              <Btn className='end'>Finalizar compra</Btn>
               <div>
                 <NavLink to='/products'>
                   <Btn>Continuar comprando</Btn>
