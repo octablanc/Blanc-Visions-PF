@@ -56,25 +56,13 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-    
-    delItem(state, action) {
-      const findItem = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
-      ); //retorna el index del match
-
-      if (findItem >= 0) {
-        state.cartItems[findItem].cartQuantity > 1
-          ? (state.cartItems[findItem].cartQuantity -= 1)
-          : state.cartItems.splice(findItem, 1);
-      }
-    },
 
     removeFromCart(state, action) {
       const itemRemoved = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
       state.cartItems = itemRemoved;
-      console.log(itemRemoved);
+      // console.log(itemRemoved);
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
@@ -82,19 +70,7 @@ export const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      let quantity = state.cartItems[itemIndex].cartQuantity;
-      if (state.cartItems[itemIndex].cartQuantity > 0) {
-        quantity = state.cartItems[itemIndex].cartQuantity -= 1;
-        
-        if (!state.cartItems[itemIndex].cartQuantity) {
-          const itemRemoved = state.cartItems.filter(
-            (item) => item.id !== action.payload.id
-          );
-          quantity = 0;
-          state.cartItems = itemRemoved;
-        }
-      } 
-      state.itemTotalQuantity = quantity;
+      state.itemTotalAmount = state.cartItems[itemIndex].cartQuantity -= 1;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
@@ -102,15 +78,7 @@ export const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      let quantity = state.cartItems[itemIndex].cartQuantity;
-      if (state.cartItems[itemIndex].stock > 0) {
-        quantity = state.cartItems[itemIndex].cartQuantity += 1;
-      } else {
-        if (state.cartItems[itemIndex].stock === 0) {
-          quantity = state.cartItems[itemIndex].cartQuantity += 0;
-        }
-      }
-      state.itemTotalQuantity = quantity;
+      state.itemTotalQuantity = state.cartItems[itemIndex].cartQuantity += 1;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
@@ -125,9 +93,8 @@ export const cartSlice = createSlice({
           const { price, cartQuantity } = cartItem;
           const itemTotal = price * cartQuantity;
           // console.log(itemTotal);
-
           cartTotal.total += itemTotal;
-          console.log(cartTotal.total);
+          // console.log(cartTotal.total);
           cartTotal.quantity += cartQuantity;
           return cartTotal;
         },
@@ -139,12 +106,12 @@ export const cartSlice = createSlice({
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
+
   },
 });
 
 export const {
   addToCart,
-  delItem,
   removeFromCart,
   decreaseQuantity,
   increaseQuantity,

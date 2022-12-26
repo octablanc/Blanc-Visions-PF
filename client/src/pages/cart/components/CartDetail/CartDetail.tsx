@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
 import { NavLink } from 'react-router-dom';
-/*............comienzan estilos........... */
+import { MouseEvent, useEffect } from 'react';
+import { BsArrowLeftSquare } from '../../../../icons';
 
-import { MouseEvent, useEffect, useState } from 'react';
 import {
   decreaseQuantity,
   increaseQuantity,
@@ -10,7 +10,7 @@ import {
   getTotal,
   removeFromCart,
 } from '../../../../redux/slices/Cart';
-import { BsArrowLeftSquare } from 'react-icons/bs';
+
 import {
   Div,
   Div2,
@@ -26,8 +26,6 @@ import {
   Remove,
 } from '../../styled-components/styles';
 
-/*................terminan estilos............... */
-
 export const CartDetail = () => {
   const {
     cartItems,
@@ -37,27 +35,34 @@ export const CartDetail = () => {
     cartTotalAmount,
   } = useAppSelector((state) => state.cartState);
 
-  const { currentProduct } = useAppSelector((state) => state.productsState);
-  const { name, image, price } = currentProduct;
+  // const { currentProduct } = useAppSelector((state) => state.productsState);
+  // const { name, image, price } = currentProduct;
 
-  console.log('price:', price);
-  console.log('itemTotalAmount:', itemTotalAmount);
-  console.log('itemTotalQuantity:', itemTotalQuantity);
-  console.log('cartItems:', cartItems);
-
-  const [counter, setCounter] = useState(0);
-  const dispatch = useAppDispatch();
+ const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getTotal(cartItems));
-  }, [itemTotalQuantity, cartTotalQuantity, cartTotalAmount, dispatch]);
+  }, [itemTotalQuantity, cartTotalQuantity, cartTotalAmount, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
-    dispatch(decreaseQuantity(cartItem));
+    if (cartItem.cartQuantity > 1){
+         dispatch(decreaseQuantity(cartItem))
+    } else {
+      if(cartItem.cartQuantity === 1){
+        dispatch(decreaseQuantity(cartItem))
+        dispatch(removeFromCart(cartItem))
+      }
+    }   
   };
 
   const handleAddItem = (cartItem: any) => {
-    dispatch(increaseQuantity(cartItem));
+    if(cartItem.stock === 0){
+      return
+    } else {
+      if(cartItem.stock > 0){
+        dispatch(increaseQuantity(cartItem));
+      }
+    }    
   };
 
   const handleRemoveItem = (cartItem: any) => {

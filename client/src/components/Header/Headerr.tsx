@@ -1,5 +1,5 @@
 import logo from '../../assets/logo2.svg';
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   NavInput,
@@ -86,6 +86,11 @@ export const Headerr = () => {
               </li>
               <li>Sing In</li>
               <li>Login</li>
+              <li>
+                <Link to='/cart'>
+                <BsCart4 />
+                </Link>
+              </li>
             </NavOptions>
           </NavMenu>
         </Navbar>
