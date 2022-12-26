@@ -4,7 +4,7 @@ import { useState } from 'react';
 export const Profile = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.productsState);
-  
+
   const {
     id,
     imageProfile,
@@ -29,7 +29,7 @@ export const Profile = () => {
     state: true,
     roleId: 1,
   });
-  
+
   const [alertMessage, setAlertMessage] = useState({
     name: '',
     lastName: '',
@@ -42,29 +42,27 @@ export const Profile = () => {
     // const err = {}
 
     if (exp.test(userForm.name) || exp2.test(userForm.name)) {
-      console.log("Name invalid");
-      alert("nombre invalido")
+      console.log('Name invalid');
+      alert('nombre invalido');
       return 1;
     }
     if (exp.test(userForm.lastName) || exp2.test(userForm.lastName)) {
-      console.log("LastName invalid");
+      console.log('LastName invalid');
       return 1;
     }
-    if (typeof userForm.phone !== 'number' && isNaN(userForm.phone) ) {
-      console.log("Phone invalid");
+    if (typeof userForm.phone !== 'number' && isNaN(userForm.phone)) {
+      console.log('Phone invalid');
       return 1;
     }
     return 0;
-  }
-
-
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { value, name } = e.target;
     if (name === 'phone' && value.length > 10) return 0;
     if (name === 'name' && value.length > 28) return 0;
-    if(name === 'lastName' && value.length > 25) return 0;
-    setUserForm({ ...userForm, [name]: value, });
+    if (name === 'lastName' && value.length > 25) return 0;
+    setUserForm({ ...userForm, [name]: value });
   };
 
   const handleSub = (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,12 +72,14 @@ export const Profile = () => {
   };
 
   const focusInput = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    const { name } = e.target
-    if (name === 'name' || name === 'lastName') return setAlertMessage({ ...alertMessage, [name]: 'solo Letras' })
-    setAlertMessage({...alertMessage, [name]: 'solo Numeros'})
-  }
+    const { name } = e.target;
+    if (name === 'name' || name === 'lastName')
+      return setAlertMessage({ ...alertMessage, [name]: 'solo Letras' });
+    setAlertMessage({ ...alertMessage, [name]: 'solo Numeros' });
+  };
 
-  const onBlurInput = (e: React.FocusEvent<HTMLInputElement, Element>) => setAlertMessage({ ...alertMessage, [e.target.name]: '' })
+  const onBlurInput = (e: React.FocusEvent<HTMLInputElement, Element>) =>
+    setAlertMessage({ ...alertMessage, [e.target.name]: '' });
 
   return (
     <div>
@@ -165,11 +165,9 @@ export const Profile = () => {
             disabled
           />
           <hr />
-          <input type="submit"/>
-          
+          <input type='submit' />
         </div>
       </form>
     </div>
   );
 };
-

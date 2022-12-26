@@ -91,7 +91,7 @@ const initialState: ProductState = {
   },
   pagination: {
     page: 1,
-    quantity: 2,
+    quantity: 3,
     category: undefined,
     productsLength: 0,
   },

@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
 import { NavLink } from 'react-router-dom';
-import { MouseEvent, useEffect } from 'react';
-import { BsArrowLeftSquare } from '../../../../icons';
+/*............comienzan estilos........... */
 
+import { MouseEvent, useEffect, useState } from 'react';
 import {
   decreaseQuantity,
   increaseQuantity,
@@ -10,7 +10,7 @@ import {
   getTotal,
   removeFromCart,
 } from '../../../../redux/slices/Cart';
-
+import { BsArrowLeftSquare } from 'react-icons/bs';
 import {
   Div,
   Div2,
@@ -25,6 +25,7 @@ import {
   Product,
   Remove,
 } from '../../styled-components/styles';
+import { display, fontSize } from '@mui/system';
 
 export const CartDetail = () => {
   const {
@@ -38,31 +39,43 @@ export const CartDetail = () => {
   // const { currentProduct } = useAppSelector((state) => state.productsState);
   // const { name, image, price } = currentProduct;
 
- const dispatch = useAppDispatch();
+  // console.log('price:', price);
+  console.log('itemTotalAmount:', itemTotalAmount);
+  console.log('itemTotalQuantity:', itemTotalQuantity);
+  console.log('cartItems:', cartItems);
+
+  const [counter, setCounter] = useState(0);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getTotal(cartItems));
-  }, [itemTotalQuantity, cartTotalQuantity, cartTotalAmount, cartItems, dispatch]);
+  }, [
+    itemTotalQuantity,
+    cartTotalQuantity,
+    cartTotalAmount,
+    cartItems,
+    dispatch,
+  ]);
 
   const handleSubstractItem = (cartItem: any) => {
-    if (cartItem.cartQuantity > 1){
-         dispatch(decreaseQuantity(cartItem))
+    if (cartItem.cartQuantity > 1) {
+      dispatch(decreaseQuantity(cartItem));
     } else {
-      if(cartItem.cartQuantity === 1){
-        dispatch(decreaseQuantity(cartItem))
-        dispatch(removeFromCart(cartItem))
+      if (cartItem.cartQuantity === 1) {
+        dispatch(decreaseQuantity(cartItem));
+        dispatch(removeFromCart(cartItem));
       }
-    }   
+    }
   };
 
   const handleAddItem = (cartItem: any) => {
-    if(cartItem.stock === 0){
-      return
+    if (cartItem.stock === 0) {
+      return;
     } else {
-      if(cartItem.stock > 0){
+      if (cartItem.stock > 0) {
         dispatch(increaseQuantity(cartItem));
       }
-    }    
+    }
   };
 
   const handleRemoveItem = (cartItem: any) => {
@@ -140,7 +153,13 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <Btn>Finalizar compra</Btn>
+              <Btn>
+                <form action='http://localhost:3002/checkout' method='POST'>
+                  <input type='hidden' name='title' value='nada' />
+                  <input type='hidden' name='price' value={cartTotalAmount} />
+                  <input type='submit' value='Finalizar compra checkout' />
+                </form>
+              </Btn>
               <div>
                 <NavLink to='/products'>
                   <Btn>Continuar comprando</Btn>

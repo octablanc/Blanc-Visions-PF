@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { category, data, usersData, roles} from '../utils';
+import { category, data, usersData, roles, ordenBuyArray} from '../utils';
 
 
 // Data base context import
@@ -11,6 +11,10 @@ const Categories = DBcontext.models.categories;
 const Images = DBcontext.models.images;
 const Users = DBcontext.models.users;
 const Roles = DBcontext.models.roles;
+
+const OrderBuy = DBcontext.models.orderBuy;
+const ProductOrder= DBcontext.models.productOrder;
+
 
 
 const Properties = DBcontext.models.products_properties;
@@ -69,6 +73,8 @@ export async function bulk(_req: Request, res: Response) {
       ]
     });
     await Users.bulkCreate(usersData);
+
+    await OrderBuy.bulkCreate(ordenBuyArray, { include: [{ model: ProductOrder }, { model: Products },] });
     return res.status(200).json({ message: "Datos harcodeados" });
 
   } catch ({ message }) {
