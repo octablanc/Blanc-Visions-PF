@@ -11,7 +11,7 @@ const theme = {
     poppins: "'Poppins', sans-serif",
   },
   colors: {
-    primary: '#C2AD94',
+    primary: '#ffa801',
     secondary: '#FFF4E6',
     black: '#000000',
     white: '#FFFFFF',
@@ -27,6 +27,7 @@ export interface PropsTheme {
       background: string;
       black: string;
       white: string;
+      primary: string;
     };
   };
 }

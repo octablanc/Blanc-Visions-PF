@@ -1,6 +1,4 @@
-import { useState, ChangeEvent, useEffect } from "react";
-import { Slider } from "./components/Slider";
-import { Slide } from "./components/Slide";
+import { Slider } from "./components/Slider/Slider";
 
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import line from "./styled-components/imgLine.png";
@@ -10,51 +8,37 @@ import {
   Image,
   Info,
   CartSection,
-  Counter,
   Btn,
 } from "./styled-components/Detail";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 import Spinner from "../../components/Spinner/Spinner";
 
 import { useNavigate } from "react-router-dom";
-import { addToCart } from '../../redux/slices/Cart'
-// import { getproductById } from "../../redux/slices/products";
+import { addToCart } from "../../redux/slices/Cart";
+import { ProductProperties } from "./components/productProperties";
 
 export const Detail = () => {
-  const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  
 
   const { currentProduct } = useAppSelector(
     (state: any) => state.productsState
   );
 
-  const { name, image, price, description, loading } = currentProduct;
+  const { name, price, description, loading, stock, properties } =
+    currentProduct;
 
-  // useEffect(() => {
-  //   dispatch(getproductById(detail.id));
-  // }, [dispatch]);
+  let productProps = properties.map((el: any) => el.name);
+  console.log("properties:", properties);
+  console.log("productProps:", productProps);
 
-  //la función plantea solo el contador x ahora
-  // const handleOnClickAdd = (number: number = 1): void => {
-  //   setCounter(counter + 1);
-  // };
-
-  //la función plantea solo el contador x ahora
-  // const handleOnClickSubstract = (number: number = 1): void => {
-  //   setCounter(counter <= 1 ? 0 : counter - 1);
-    
-  // };
-
-  //función para manejar carrito o compra
   const handleAddToCart = () => {
-    dispatch(addToCart(currentProduct)) 
-    navigate('/cart')  
+    dispatch(addToCart(currentProduct));
+    navigate("/cart");
   };
 
-  const handlePurchase = () => {};
+  //Falta declarar función para checkOut
+  const handleCheckOut = () => {};
 
   return (
     <div className="container">
@@ -65,19 +49,8 @@ export const Detail = () => {
           <Image>
             <h3 className="title">{name}</h3>
             <img src={line} />
-            <div className="img">
-              <img src={image} alt={name} />
-            </div>
-            <div>{/* <Slide /> */}</div>
-            {/* <div><Swipper /></div> */}
-            {/* {dataSlider &&
-            dataSlider.img.map((obj, index) => (
-              <div>
-                <Slider />
-              </div> */}
-            {/* ))} */}
+            <Slider />
           </Image>
-
           <Info>
             <div className="icons">
               <h3>{`$${price}`}</h3>
@@ -89,28 +62,38 @@ export const Detail = () => {
                 <AiOutlineStar />
               </div>
             </div>
-            <p>DESCRIPTION{description}</p>
+            {/* <p>Descripción</p>
+            <p>{description}</p> */}
 
+            <span className="features">Características</span>
+            {properties?.map((el: any, key: number) => (
+              <ul>
+                <hr />
+                <span className="list">{el.name}</span>
+                <span className="list">{el.value}</span>
+              </ul>
+              //  <li value={el.name}>{el.name}</li>
+              // name= {el.name }
+              // value= {el.value}
+              // />
+            ))}
+
+            <ul>
+              <hr />
+              <br />
+              <span className="stock">Unidades disponibles:</span>
+              <span className="stock">{stock}</span>
+            </ul>
             <CartSection>
-              {/* <p>Cantidad</p> */}
-              {/* <Counter>
-                <button
-                  name="subtract"
-                  onClick={() => handleOnClickSubstract()}
-                >
-                  -
-                </button>
-                <div>{counter}</div>
-                <button name="add" onClick={(e) => handleOnClickAdd()}>
-                  +
-                </button>
-              </Counter> */}
-
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy" onClick={handlePurchase}>
-                Comprar
+              <Btn name="buy">
+                <form action="http://localhost:3002/checkout" method="POST">
+                  <input type="hidden" name="title" value={name} />
+                  <input type="hidden" name="price" value={price} />
+                  <input type="submit" value="Comprar checkout" />
+                </form>
               </Btn>
             </CartSection>
           </Info>

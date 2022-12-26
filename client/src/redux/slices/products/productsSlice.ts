@@ -3,17 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 // import type { RootState } from '../../app/store';
 
 export interface UserInfo {
-  id: number
-  imageProfile: string
-  name: string
-  lastName: string
-  phone: number
-  mail: string
-  password: string
-  userName: string
-  birthday: string
-  state: boolean
-  roleId: number
+  id: number;
+  imageProfile: string;
+  name: string;
+  lastName: string;
+  phone: number;
+  mail: string;
+  password: string;
+  userName: string;
+  birthday: string;
+  state: boolean;
+  roleId: number;
 }
 // Define a type for the slice state
 interface ProductState {
@@ -22,12 +22,12 @@ interface ProductState {
   currentProduct: UniquePro;
   loading: boolean;
   pagination: {
-    page: number,
-    quantity: number,
-    category: undefined | string
-    productsLength: number,
+    page: number;
+    quantity: number;
+    category: undefined | string;
+    productsLength: number;
   };
-  user: UserInfo
+  user: UserInfo;
   // detail: Pro;
 }
 
@@ -55,6 +55,9 @@ export interface UniquePro {
   stock: number;
   id_category: number;
   state: Boolean;
+  category: string;
+  properties: [];
+  images: [];
   loading: boolean;
 }
 
@@ -81,17 +84,20 @@ const initialState: ProductState = {
     entrega: '',
     id_category: 0,
     state: true,
-    loading: false
+    category: '',
+    properties: [],
+    images: [],
+    loading: false,
   },
   pagination: {
     page: 1,
     quantity: 2,
     category: undefined,
-    productsLength: 0
+    productsLength: 0,
   },
 
   //* Usuario harcodeado para testear el formulario de modificacion
-  user : {
+  user: {
     id: 1,
     imageProfile: 'http',
     name: 'tomas gg',
@@ -103,11 +109,11 @@ const initialState: ProductState = {
     birthday: '2022-12-15',
     state: true,
     roleId: 1,
-  }
+  },
 };
 
 export const productSlice = createSlice({
-  name: 'counter',
+  name: 'products',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -118,7 +124,7 @@ export const productSlice = createSlice({
       state.products = action.payload;
     },
     productOffCategories: (state, action) => {
-      state.products = action.payload;      
+      state.products = action.payload;
     },
     changePage: (state, action) => {
       state.products = action.payload;
@@ -140,7 +146,7 @@ export const productSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
-    }
+    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
@@ -157,7 +163,7 @@ export const {
   detailProduct,
   productOffCategories,
   setPagination,
-  setUser
+  setUser,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

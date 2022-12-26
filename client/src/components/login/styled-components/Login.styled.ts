@@ -1,4 +1,3 @@
-import { padding } from "@mui/system";
 import styled from "styled-components";
 
 export const BoxStyle = {
@@ -76,10 +75,11 @@ export const ForgetPassword = styled.span`
 
 export const ImagLogin = styled.img`
     width: 100%;
-    height: 100%;
+    height: 100%; 
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     object-fit: cover;
+    overflow: hidden;
 `;
 
 export const Inputs = styled.div`
@@ -102,3 +102,4 @@ export const Password = {
     left:'0px', 
     width: "100%" 
 }
+

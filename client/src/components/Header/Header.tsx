@@ -6,10 +6,9 @@ import {
   Menu,
   Nav,
   Desplegable,
+  AuthButtons
 } from './styled-components/styles';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-import { FaUserCircle } from 'react-icons/fa';
-import { BsFillCartFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { getAllCategories, getProductsPage } from '../../redux/slices/products';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
@@ -17,10 +16,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Login from '../login/Login';
 import LogOut from '../login/components/LogOut';
-import Avatar from '@mui/material/Avatar';
 
 // Interfaces
 import { User } from '../../models/User.model';
+import SingUp from '../singup/SingUp';
+import AccountMenu from './components/AccountMenu';
+import { BsFillCartFill } from 'react-icons/bs';
 
 export const Header = () => {
   const userState: User | null = useAppSelector(
@@ -70,6 +71,10 @@ export const Header = () => {
               <HiOutlineMagnifyingGlass />
             </form>
             <Icons>
+              <li>
+                <BsFillCartFill />
+              </li> 
+             
               {userState && (
                 <li>
                   <div
@@ -80,13 +85,10 @@ export const Header = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <Avatar
-                      alt='User Avatar'
-                      src={`${userState.imageProfile}`}
-                      sx={{ width: 30, height: 30, marginRight: '10px' }}
-                    />
+                  {/* <AccountMenu/> */}
                     Mi Cuenta
                   </div>
+
                   {selectActive && (
                     <Desplegable>
                       <li onClick={navigatePage}>perfil</li>
@@ -94,14 +96,19 @@ export const Header = () => {
                       <li onClick={navigatePage}>cerrar sesion</li>
                     </Desplegable>
                   )}
+
                 </li>
               )}
 
-              <li>
-                <BsFillCartFill />
-              </li>
-
-              <li>{loading ? <></> : userState ? <LogOut /> : <Login />}</li>
+              <li>{loading ? <></> : !userState? 
+                <AuthButtons>
+                  <Login />
+                  <SingUp/>
+                </AuthButtons> 
+                : 
+                <LogOut/>
+                // <></>
+              }</li>
             </Icons>
           </Nav>
         </div>

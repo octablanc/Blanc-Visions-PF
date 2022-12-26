@@ -1,12 +1,12 @@
 import { useAppDispatch } from '../../redux/app/hooks';
 import { useEffect } from 'react';
-import { getAllCategories} from '../../redux/slices/products';
+import { getAllCategories } from '../../redux/slices/products';
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getAllCategories());
-  }, [dispatch]); 
+  }, [dispatch]);
 
   return (
     <div>

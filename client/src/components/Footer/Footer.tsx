@@ -1,28 +1,59 @@
 import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
+import { useState } from 'react';
 import { BsTwitter } from 'react-icons/bs';
 import { SiTiktok } from 'react-icons/si';
-import { FooterBar, GridFooter, Icons } from './styled-components/styles';
+import { Link } from 'react-router-dom';
+import {
+  FooterBar,
+  GridFooter,
+  Icons,
+  Input,
+  Btn,
+  Newsletter,
+} from './styled-components/styles';
 
 export const Footer = () => {
+  const [input, setInput] = useState({
+    mail: '',
+  });
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
+    console.log(input);
+  };
+
+  const handleSubmit = () => {};
+
   return (
     <FooterBar>
       <GridFooter className='container'>
-        <div>
-          <h3>Sobre Nosotros</h3>
-          <p>
-            Somos una empresa dedicada a la venta de productos de calidad, con
-            una amplia gama de productos para todos los gustos y necesidades del
-            cliente.
-          </p>
-        </div>
+        <Newsletter>
+          <h4>Recibí las últimas novedades</h4>
+          <Input
+            placeholder='Ingresá tu email'
+            name='mail'
+            value={input.mail}
+            onChange={handleChange}
+          />
+          <Btn onSubmit={handleSubmit}>Suscribirme</Btn>
+        </Newsletter>
 
         <div>
           <h3>Categorías</h3>
           <ul>
-            <li>Inicio</li>
+            <li>
+              <Link to='/'>Inicio</Link>
+            </li>
             <li>Productos</li>
-            <li>Nosotros</li>
-            <li>Contacto</li>
+            <li>
+              <Link to='about'>Nosotros</Link>
+            </li>
+            {/* <li>Contacto</li> */}
           </ul>
         </div>
 
