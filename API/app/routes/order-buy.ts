@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", getOrderBuy);
 router.get("/cart/:userId", getCartUser);
-router.get("/:userId", getOrderBuyUserId);
+router.get("/user/:userId", getOrderBuyUserId);
 router.post("/", postOrderBuy);
 router.put("/:id", setOrderBuy);
 
