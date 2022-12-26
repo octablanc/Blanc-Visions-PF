@@ -30,6 +30,7 @@ export const Products = () => {
     } else {
       dispatch(getProductsPage(1, quantity, currentCategory));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentCategory]);
 
   const increment = () => {

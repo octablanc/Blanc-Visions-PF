@@ -15,6 +15,7 @@ import { getAllCategories, setCategory } from '../../redux/slices/categories';
 
 export const Headerr = () => {
   const { categories } = useAppSelector(state => state.categoriesState);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

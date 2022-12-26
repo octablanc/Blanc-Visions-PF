@@ -19,7 +19,8 @@ const Slide = styled.div`
 
   h2 {
     line-height: normal;
-    font-size: 3rem;
+    font-size: 2.8rem;
+    text-transform: uppercase;
   }
 
   p {

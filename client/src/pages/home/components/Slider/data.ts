@@ -8,7 +8,7 @@ export const offers = [
   },
   {
     id: 2,
-    name: 'Panasonic AG-AC30 Full HD Camcorder',
+    name: 'Panasonic AG-AC30 Full HD',
     description:
       'La videocámara AG-AC30 Full HD de Panasonic con pantalla táctil LCD de panel táctil y luz LED incorporada está preparada para filmar proyectos corporativos, de eventos e independientes.',
     img: '/Images/camara.png',
@@ -22,7 +22,7 @@ export const offers = [
   },
   {
     id: 4,
-    name: 'Tripode Vanguard VEO 2 204AB RED',
+    name: 'Tripode Vanguard VEO 2 204AB',
     description:
       'El kit de trípode de aluminio de 4 secciones VESTA 204AP utiliza una rótula ergonómica PH-23 fluida y un sistema bloqueo de patas de clip fácil y rápido de ajustar.',
     img: '/Images/tripode.png',

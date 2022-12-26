@@ -113,7 +113,7 @@ const initialState: ProductState = {
 };
 
 export const productSlice = createSlice({
-  name: 'counter',
+  name: 'products',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
