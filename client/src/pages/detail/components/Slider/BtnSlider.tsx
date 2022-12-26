@@ -1,8 +1,5 @@
-import { MdArrowBackIosNew } from "react-icons/md";
-import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowBackIosNew, MdArrowForwardIos } from '../../../../icons';
 import { BtnNext, BtnPrev } from '../../styled-components/Slider/BtnSlider';
-
-
 
 export const BtnSlider = ({ direction, moveSlide }: any) => {
   if (direction === "next") {
