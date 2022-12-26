@@ -1,16 +1,16 @@
-import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
+import { NavLink } from "react-router-dom";
 /*............comienzan estilos........... */
 
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from "react";
 import {
   decreaseQuantity,
   increaseQuantity,
   emptyCart,
   getTotal,
   removeFromCart,
-} from '../../../../redux/slices/Cart';
-import { BsArrowLeftSquare } from 'react-icons/bs';
+} from "../../../../redux/slices/Cart";
+import { BsArrowLeftSquare } from "react-icons/bs";
 import {
   Div,
   Div2,
@@ -24,8 +24,13 @@ import {
   Line,
   Product,
   Remove,
+<<<<<<< HEAD
   Titles,
 } from '../../styled-components/styles';
+=======
+} from "../../styled-components/styles";
+import { display, fontSize } from "@mui/system";
+>>>>>>> dba30d0823f582dc0b1f5840a8dda572a6e9bab6
 
 /*................terminan estilos............... */
 
@@ -41,10 +46,10 @@ export const CartDetail = () => {
   const { currentProduct } = useAppSelector((state) => state.productsState);
   const { name, image, price } = currentProduct;
 
-  console.log('price:', price);
-  console.log('itemTotalAmount:', itemTotalAmount);
-  console.log('itemTotalQuantity:', itemTotalQuantity);
-  console.log('cartItems:', cartItems);
+  console.log("price:", price);
+  console.log("itemTotalAmount:", itemTotalAmount);
+  console.log("itemTotalQuantity:", itemTotalQuantity);
+  console.log("cartItems:", cartItems);
 
   const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
@@ -72,9 +77,9 @@ export const CartDetail = () => {
   return (
     <Container>
       {cartItems.length < 1 ? (
-        <div className='emptyCart'>
+        <div className="emptyCart">
           <p>Your Cart is empty</p>
-          <NavLink to='/products'>
+          <NavLink to="/products">
             <p>Start Shopping</p>
             <BsArrowLeftSquare />
           </NavLink>
@@ -84,7 +89,11 @@ export const CartDetail = () => {
         <Contain>
           <div>
             {/* <Div className='titles'> */}
+<<<<<<< HEAD
             <Titles style={{ fontSize: '2rem' }}>
+=======
+            <Div style={{ fontSize: "2rem" }}>
+>>>>>>> dba30d0823f582dc0b1f5840a8dda572a6e9bab6
               <p>Productos</p>
               <p>Precio</p>
               <p>Cantidad</p>
@@ -95,8 +104,8 @@ export const CartDetail = () => {
             {cartItems?.map((cartItem) => (
               <Div key={cartItem.id}>
                 <Product>
-                  <img src={cartItem.image} alt='imagen del producto' />
-                  <div className='product'>
+                  <img src={cartItem.image} alt="imagen del producto" />
+                  <div className="product">
                     <p> {cartItem.name}</p>
                   </div>
                 </Product>
@@ -105,13 +114,13 @@ export const CartDetail = () => {
                 <Quantity>
                   <Operators>
                     <button
-                      name='subtract'
+                      name="subtract"
                       onClick={() => handleSubstractItem(cartItem)}
                     >
                       -
                     </button>
                     <div>{cartItem.cartQuantity}</div>
-                    <button name='add' onClick={() => handleAddItem(cartItem)}>
+                    <button name="add" onClick={() => handleAddItem(cartItem)}>
                       +
                     </button>
                   </Operators>
@@ -136,9 +145,22 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
+<<<<<<< HEAD
               <Btn className='end'>Finalizar compra</Btn>
+=======
+              <Btn>
+                <form action="http://localhost:3002/checkout" method="POST">
+                  <input type="hidden" name="title" value="nada" />
+                  <input type="hidden" name="price" value={cartTotalAmount} />
+                  <input
+                    type="submit"
+                    value="Finalizar compra checkout"
+                  />
+                </form>
+              </Btn>
+>>>>>>> dba30d0823f582dc0b1f5840a8dda572a6e9bab6
               <div>
-                <NavLink to='/products'>
+                <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>
                 </NavLink>
               </div>

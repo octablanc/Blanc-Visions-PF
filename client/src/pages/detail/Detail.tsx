@@ -77,19 +77,23 @@ export const Detail = () => {
               // value= {el.value}
               // />
             ))}
-            
-            <ul> 
-            <hr />
-            <br />             
-            <span className='stock'>Unidades disponibles:</span>
-            <span className='stock'>{stock}</span>
+
+            <ul>
+              <hr />
+              <br />
+              <span className="stock">Unidades disponibles:</span>
+              <span className="stock">{stock}</span>
             </ul>
             <CartSection>
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy" onClick={handleCheckOut}>
-                Comprar
+              <Btn name="buy">
+                <form action="http://localhost:3002/checkout" method="POST">
+                  <input type="hidden" name="title" value={name} />
+                  <input type="hidden" name="price" value={price} />
+                  <input type="submit" value="Comprar checkout" />
+                </form>
               </Btn>
             </CartSection>
           </Info>
