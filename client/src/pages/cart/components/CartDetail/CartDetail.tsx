@@ -136,16 +136,13 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <Btn>
-                <form action="http://localhost:3002/checkout" method="POST">
-                  <input type="hidden" name="title" value="nada" />
-                  <input type="hidden" name="price" value={cartTotalAmount} />
-                  <input
-                    type="submit"
-                    value="Finalizar compra checkout"
-                  />
-                </form>
-              </Btn>
+              <form action="http://localhost:3002/checkout" method="POST">
+                <input type="hidden" name="title" value="nada" />
+                <input type="hidden" name="price" value={cartTotalAmount} />
+                <Btn name="buy">
+                  <button type="submit"> Finalizar Compra checkout</button>
+                </Btn>
+              </form>
               <div>
                 <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>
