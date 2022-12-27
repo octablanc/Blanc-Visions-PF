@@ -32,7 +32,7 @@ export default (sequelize: Sequelize) => {
       },
       discount: {
         type: DataTypes.INTEGER,
-        defaultValue: false
+        defaultValue: 0,
       },
       state: {
         type: DataTypes.BOOLEAN,

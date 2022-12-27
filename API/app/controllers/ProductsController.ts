@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { category, data, usersData, roles, ordenBuyArray} from '../utils';
-
+import { category, data, usersData, roles, ordenBuyArray } from '../utils';
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
@@ -13,9 +12,7 @@ const Users = DBcontext.models.users;
 const Roles = DBcontext.models.roles;
 
 const OrderBuy = DBcontext.models.orderBuy;
-const ProductOrder= DBcontext.models.productOrder;
-
-
+const ProductOrder = DBcontext.models.productOrder;
 
 const Properties = DBcontext.models.products_properties;
 
@@ -46,14 +43,14 @@ export async function getProducts(req: Request, res: Response) {
         },
         {
           model: Properties,
-          as: 'properties' 
+          as: 'properties',
         },
         {
-          model: Images
+          model: Images,
         },
       ],
       attributes: { exclude: ['categoryId'] },
-      order: [['id', 'ASC']]
+      order: [['id', 'ASC']],
     });
 
     return res.send(result);
@@ -68,17 +65,18 @@ export async function bulk(_req: Request, res: Response) {
     await Categories.bulkCreate(category);
     await Products.bulkCreate(data, {
       include: [
-        { model: Images, as: 'images', },
-        { model: Properties, as: 'properties', },
-      ]
+        { model: Images, as: 'images' },
+        { model: Properties, as: 'properties' },
+      ],
     });
     await Users.bulkCreate(usersData);
 
-    await OrderBuy.bulkCreate(ordenBuyArray, { include: [{ model: ProductOrder }, { model: Products },] });
-    return res.status(200).json({ message: "Datos harcodeados" });
-
+    await OrderBuy.bulkCreate(ordenBuyArray, {
+      include: [{ model: ProductOrder }, { model: Products }],
+    });
+    return res.status(200).json({ message: 'Datos harcodeados' });
   } catch ({ message }) {
-    console.log("MSG ERR => ",message)
+    console.log('MSG ERR => ', message);
     return res.status(400).send({ message });
   }
 }
@@ -90,15 +88,15 @@ export async function getProductById(req: Request, res: Response) {
     const result = await Products.findByPk(id, {
       include: [
         {
-          model: Categories
+          model: Categories,
         },
         {
           model: Properties,
-          as: 'properties' 
+          as: 'properties',
         },
         {
           model: Images,
-        }
+        },
       ],
       attributes: { exclude: ['categoryId'] },
     });
@@ -115,14 +113,12 @@ export async function postProduct(req: Request, res: Response) {
   try {
     const product = req.body;
 
-    let result = await Products.create(product,
-      {
-        include: {
-          model: Properties,
-          as: 'properties' 
-        }
-      }
-    );
+    let result = await Products.create(product, {
+      include: {
+        model: Properties,
+        as: 'properties',
+      },
+    });
 
     return res.send(result);
   } catch ({ message }) {
@@ -139,8 +135,8 @@ export async function updateProduct(req: Request, res: Response) {
     const productToUpdate = await Products.findByPk(id, {
       include: {
         model: Properties,
-        as: 'properties' 
-      }
+        as: 'properties',
+      },
     });
     if (productToUpdate) {
       await productToUpdate.update(newFields);
@@ -202,22 +198,27 @@ export async function paginateProducts(req: Request, res: Response) {
             },
             {
               model: Properties,
-              as: 'properties' 
-            }
+              as: 'properties',
+            },
           ],
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
-          order: [['id', 'ASC']]
+          order: [['id', 'ASC']],
         });
 
         const productsAll = await Products.findAll({
           where: { state: true },
-          include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
-        })
+          include: [
+            {
+              model: Categories,
+              where: category ? { name: category } : undefined,
+            },
+          ],
+          attributes: { exclude: ['categoryId'] },
+        });
 
-        return res.json({ result, productsLength : productsAll.length});
-
+        return res.json({ result, productsLength: productsAll.length });
       }
       throw new Error('The fields can only be numbers!');
     }
