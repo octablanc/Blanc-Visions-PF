@@ -87,16 +87,7 @@ export default function Login() {
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        sx={{
-          color: "black",
-          fontSize: "20px",
-          textTransform: "capitalize",
-          fontFamily: "'Poppins', sans-serif",
-          fontWeight: "400",
-        }}
-      >
+      <Button onClick={handleOpen} sx={{ marginRight: '1rem' }}>
         Log In
       </Button>
       <Modal
@@ -104,6 +95,7 @@ export default function Login() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={{ backdropFilter: 'blur(10px)' }}
       >
         <Box sx={BoxStyle}>
           <ModalContainer>

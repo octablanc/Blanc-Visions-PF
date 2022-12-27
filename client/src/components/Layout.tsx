@@ -30,7 +30,7 @@ export const Layout = () => {
   return (
     <div>
       <Backdrop
-        sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
+        sx={{ backgroundColor: '#00000061', backdropFilter: 'blur(10px)', color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
         open={open ? true : false}
       >
         <CircularProgress color='inherit' />
