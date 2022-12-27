@@ -1,24 +1,21 @@
-export interface Props{
-    prodBuy:{
-        name:string;
-        image:string;
-        id:number;
-    }
+import { ProductOrder } from "../../../redux/slices/misCompras/buySlice";
+import { Contenedor } from "../styled-components/stryled";
+export interface Props {
+  prodBuy: ProductOrder;
 }
 
-
-// function ProductBuy({ prodBuy }: Props) {
-function ProductBuy(){
-    
-    // const { name, image, id } = prodBuy;
-    return (
-        <div>
-            {/* <p>{name}</p> */}
-            <p>name</p>
-
-        </div>
-    )
-
+function ProductBuy({ prodBuy }: Props) {
+  const { id, product, quantity, price } = prodBuy;
+  const priceProduct = price / quantity;
+  return (
+    <Contenedor>
+      <h3>{product.name}</h3>
+      <img src={product.image} alt="not found" className="img" />
+      <p>
+        {quantity} x {priceProduct}
+      </p>
+    </Contenedor>
+  );
 }
 
 export default ProductBuy;

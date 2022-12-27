@@ -42,10 +42,10 @@ export async function getOrderBuyUserId(req: Request, res: Response) {
             model: Products,
             attributes: ['id','name','image']
           }],
-          attributes: ['quantity','price']
+          attributes: ['id','quantity','price']
         },
       ],
-      attributes: ['id','priceTotalDiscount','buy','createdAt']
+      attributes: ['id','priceTotalDiscount','buy','createdAt','street','height','city']
     });
     
     return res.json({ message: "ORDER BUY .",ordenBuyUser });

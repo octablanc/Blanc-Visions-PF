@@ -16,13 +16,13 @@ function MyBuy() {
     <div>
       <h1>Mis compras</h1>
       {myBuys.length
-        ? myBuys.map(compras => (
-            <div key={compras.id}>
-              <BuyList compras={compras} />
-            </div>))
+        ? myBuys.map(compras => <BuyList compras={compras} key={compras.id} />)
         : <Spinner />
       }
     </div>
   );
 }
 export default MyBuy;
+
+
+// 'street','height','city'

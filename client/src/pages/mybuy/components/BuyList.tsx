@@ -1,36 +1,24 @@
-import { BuyState, ProductOrder } from "../../../redux/slices/misCompras/buySlice";
+import { BuyState } from "../../../redux/slices/misCompras/buySlice";
+import { CardConteiner,ProductsContainer } from "../styled-components/stryled";
 import ProductBuy from "./ProductBuy";
 
 interface Props {
-  compras: {
-    buy: boolean;
-    id: number;
-    priceTotalDiscount: number;
-    createdAt: string;
-    productOrders: Array<ProductOrder>;
-  };
+  compras: BuyState
 }
 
 function buyList({ compras }: Props) {
-  const { buy, createdAt, id, priceTotalDiscount, productOrders } = compras;
+  const { buy, createdAt, id, priceTotalDiscount, productOrders,street,height,city } = compras;
   const date = createdAt.split("T")[0];
   return (
-    <div>
-      <p>{id}</p>
-      <p>Fecha: {date}</p>
+    <CardConteiner>
+      <p className='newFecha'>Fecha: {date}</p>
       <p>Total Pagado:{priceTotalDiscount}</p>
-      {/* {productOrders.map(pOrder => (<p>{pOrder.quantity}</p>))} */}
-      {productOrders.map(prodBuy => {
-        console.log("PRDBUY => ",prodBuy)
-        // return <ProductBuy prodBuy={prodBuy} />
-        return <ProductBuy />
-      })}
-
-      <hr />
-    </div>
+      <ProductsContainer>
+        {productOrders.map(prodBuy => <ProductBuy prodBuy={prodBuy} key={prodBuy.id} />)}
+      </ProductsContainer>
+      <p>Direccion: {street} {height} - {city}</p>
+    </CardConteiner>
   );
 }
-
-// * Falta agregar la direccion donde se envio cada compra
 
 export default buyList;

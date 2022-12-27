@@ -457,6 +457,7 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2181_2_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 15,
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2181_1_z.jpg",
@@ -498,6 +499,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2199_1_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 5,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
@@ -539,6 +542,7 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 20,
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
@@ -778,7 +782,7 @@ export const usersData = [
 
 export const ordenBuyArray = [
   {
-    priceTotalDiscount: 150,
+    priceTotalDiscount: (1200000 * 10) + (15000 * 30) + (15000 * 2),
     discount: 20,
     state: true,
     postalCode: 199,
@@ -793,17 +797,17 @@ export const ordenBuyArray = [
       {
         productId: 1,
         quantity: 10,
-        price: 1000,
+        price: 1200000 * 10,
       },
       {
         productId: 2,
         quantity: 30,
-        price: 1000,
+        price: 15000 * 30,
       },
       {
         productId: 3,
         quantity: 2,
-        price: 1000,
+        price: 15000 * 2,
       },
     ]
 
@@ -824,7 +828,7 @@ export const ordenBuyArray = [
       {
         productId: 10,
         quantity: 10,
-        price: 1000,
+        price: 4999 * 10,
       },
       {
         productId: 4,
