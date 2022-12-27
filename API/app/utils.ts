@@ -457,6 +457,7 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2181_2_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 15,
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2181_1_z.jpg",
@@ -498,6 +499,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2199_1_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 5,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
@@ -539,6 +542,7 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 20,
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
