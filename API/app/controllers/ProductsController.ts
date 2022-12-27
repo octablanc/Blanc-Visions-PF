@@ -4,6 +4,8 @@ import { category, data, usersData, roles, ordenBuyArray} from '../utils';
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
+// import { where } from 'sequelize';
+import { Op } from 'sequelize';
 
 // Models
 const Products = DBcontext.models.products;
@@ -177,52 +179,61 @@ export async function paginateProducts(req: Request, res: Response) {
     category = Category we need to filter the products: Shoes, Phones, etc.
   */
   try {
-    if (req.query?.page && req.query?.quantityProducts) {
+    if (req.query?.page && req.query?.quantityProducts && req.query?.discount ) {
       const page = parseInt(req.query.page.toString());
       const quantityProducts = parseInt(req.query.quantityProducts.toString());
-
+      const discount = parseInt(req.query.discount.toString());
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
           throw new Error('The fields can only be greater than 0!');
 
         const { category } = req.query;
 
-        const result = await Products.findAll({
+          const result = await Products.findAll({
+            where: {
+              state: true,
+              discount: {
+                [Op.gte]: discount,
+              }
+            },
+            include: [
+              {
+                model: Categories,
+                where: category
+                  ? {
+                      name: category,
+                    }
+                  : undefined,
+              },
+              {
+                model: Properties,
+                as: 'properties' 
+              }
+            ],
+            attributes: { exclude: ['categoryId'] },
+            offset: quantityProducts * (page - 1),
+            limit: quantityProducts,
+            order: [['id', 'ASC']]
+          });
+
+        const productsAll = await Products.count({
           where: {
             state: true,
-          },
-          include: [
-            {
-              model: Categories,
-              where: category
-                ? {
-                    name: category,
-                  }
-                : undefined,
-            },
-            {
-              model: Properties,
-              as: 'properties' 
+            discount: {
+              [Op.gte]: discount,
             }
-          ],
-          attributes: { exclude: ['categoryId'] },
-          offset: quantityProducts * (page - 1),
-          limit: quantityProducts,
-          order: [['id', 'ASC']]
-        });
-
-        const productsAll = await Products.findAll({
-          where: { state: true },
+          },
           include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
         })
-
-        return res.json({ result, productsLength : productsAll.length});
+        return res.json({ result, productsLength: productsAll });
 
       }
       throw new Error('The fields can only be numbers!');
     }
     throw new Error('Some filed is empty!');
   } catch ({ message }) {
+    console.log("ERROR MSG => ",message)
     return res.status(400).send({ message });
   }
 }
+// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5
