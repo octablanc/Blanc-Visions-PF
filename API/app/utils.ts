@@ -61,6 +61,7 @@ export const data = [
       "https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp",
     state: true,
     categoryId: 1,
+    discount: 15,
     images: [
       {
         url_image:
@@ -111,6 +112,8 @@ export const data = [
       "https://http2.mlstatic.com/D_NQ_NP_822322-MLA48551234826_122021-O.webp",
     state: true,
     categoryId: 1,
+    discount: 0,
+
     images: [
       {
         url_image:
@@ -154,6 +157,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2182_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 20,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2182_1_z.jpg",
@@ -191,6 +196,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1751_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 10,
+    
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1751_1_z.jpg",
@@ -232,6 +239,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 30,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
@@ -273,6 +282,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1489_1_z.jpg",
@@ -314,6 +325,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/300_1_z.jpg",
     state: true,
     categoryId: 3,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/300_1_z.jpg",
@@ -355,6 +368,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2283_1_z.jpg",
     state: true,
     categoryId: 3,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2283_1_z.jpg",
@@ -393,6 +408,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1916_1_z.jpg",
     state: true,
     categoryId: 3,
+    discount: 10,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1916_1_z.jpg",
@@ -431,6 +448,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg",
     state: true,
     categoryId: 2,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg",
@@ -583,6 +602,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2069_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2069_1_z.jpg",
@@ -624,6 +645,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2066_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2066_1_z.jpg",
@@ -661,6 +684,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2059_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2059_1_z.jpg",
@@ -699,6 +724,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 10,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg",
