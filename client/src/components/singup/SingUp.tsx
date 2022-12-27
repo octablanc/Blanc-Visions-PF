@@ -21,10 +21,9 @@ import {
 } from "./styled-components/SingUp.styled";
 
 // Authentication
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 import { postUser } from "../../services/postUser";
-import { useAppDispatch } from "../../redux/app/hooks";
 
 export default function SingUp() {
   const [user, setUser] = useState({
@@ -49,7 +48,6 @@ export default function SingUp() {
     password: '',
   });
 
-  const dispatch = useAppDispatch();
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -70,8 +68,8 @@ export default function SingUp() {
       [target.name]: target.value,
     });
 
-    if (!target.value){
-      if(target.name === 'mail')
+    if (!target.value) {
+      if (target.name === 'mail')
         setError({
           ...error,
           [target.name]: 'Mail is empty!',
@@ -124,52 +122,52 @@ export default function SingUp() {
 
     var hasError = false;
 
-    if (!user.name){
+    if (!user.name) {
       hasError = true;
       newError.name = true;
     }
 
-    if (!user.lastName){
+    if (!user.lastName) {
       hasError = true;
       newError.lastName = true;
     }
 
-    if (!user.imageProfile){
+    if (!user.imageProfile) {
       hasError = true;
       newError.imageProfile = true;
     }
 
-    if (!user.phone){
+    if (!user.phone) {
       hasError = true;
       newError.phone = true;
     }
 
-    if (!user.mail){
+    if (!user.mail) {
       hasError = true;
       newError.mail = 'Mail is empty!';
     }
 
-    if (!user.password){
+    if (!user.password) {
       hasError = true;
       newError.password = 'Password is empty!';
     }
 
-    if(hasError)
+    if (hasError)
       setError(newError);
     else {
       try {
-        console.log(user);
         setBtnLoading(true);
         await createUserWithEmailAndPassword(auth, user.mail, user.password);
         await postUser(user);
+        await signOut(auth);
         await signInWithEmailAndPassword(auth, user.mail, user.password);
         setBtnLoading(false);
       } catch ({ code }) {
         setBtnLoading(false);
 
-        switch(code){
+        switch (code) {
           case 'auth/email-already-in-use':
-            setError({ ...error, mail: 'Mail already registered!'});
+            setError({ ...error, mail: 'Mail already registered!' });
             break;
 
           case 'auth/weak-password':
@@ -182,16 +180,7 @@ export default function SingUp() {
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        sx={{
-          color: "black",
-          fontSize: "20px",
-          textTransform: "capitalize",
-          fontFamily: "'Poppins', sans-serif",
-          fontWeight: "400",
-        }}
-      >
+      <Button onClick={handleOpen}>
         Sing Up
       </Button>
       <Modal
@@ -199,7 +188,7 @@ export default function SingUp() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ overflow: "auto" }}
+        sx={{ backdropFilter: 'blur(10px)' }}
       >
         <Box sx={BoxStyle}>
           <ModalContainer>
@@ -344,7 +333,7 @@ export default function SingUp() {
                 InputProps={{
                   style: { fontSize: fontSizeInput },
                 }}
-                error={error.mail? true : false}
+                error={error.mail ? true : false}
                 helperText={
                   error.mail && (
                     <span style={{ fontSize: "12px" }}>{error.mail}</span>
@@ -385,7 +374,7 @@ export default function SingUp() {
                   helperText={
                     error.password && (
                       <span style={{ fontSize: "12px", position: "absolute" }}>
-                        { error.password }
+                        {error.password}
                       </span>
                     )
                   }
@@ -424,12 +413,12 @@ export default function SingUp() {
                     ),
                   }}
                   error={
-                    user.password && user.password != confirmPassword
+                    user.password && user.password !== confirmPassword
                       ? true
                       : false
                   }
                   helperText={
-                    user.password && user.password != confirmPassword ? (
+                    user.password && user.password !== confirmPassword ? (
                       <span style={{ fontSize: "12px", position: "absolute" }}>
                         Passwords do not match!
                       </span>
@@ -459,12 +448,12 @@ export default function SingUp() {
                     sx={ButtonLog}
                     disabled={
                       (error.imageProfile ||
-                      error.lastName ||
-                      error.mail? true:false ||
-                      error.name || 
-                      error.password? true:false ||
+                        error.lastName ||
+                        error.mail ? true : false ||
+                          error.name ||
+                          error.password ? true : false ||
                       error.phone) ||
-                      (user.password != '' && user.password != confirmPassword)
+                      (user.password !== '' && user.password !== confirmPassword)
                     }
                     onClick={handleSubmit}
                   >Sing Up</Button>
