@@ -12,31 +12,17 @@ function MyBuy() {
   useEffect(() => {
     dispatch(getAllBuy(user.id));
   }, [dispatch]);
-  console.log(myBuys);
   return (
     <div>
       <h1>Mis compras</h1>
       {myBuys.length
-        ? <BuyList myBuys={myBuys} />
+        ? myBuys.map(compras => (
+            <div key={compras.id}>
+              <BuyList compras={compras} />
+            </div>))
         : <Spinner />
-        }
+      }
     </div>
   );
 }
 export default MyBuy;
-
-// user: {
-//   id: 1,
-//   imageProfile: 'http',
-//   name: 'tomas gg',
-//   lastName: 'apellido jhj',
-//   phone: 123123,
-//   mail: 'tomasd@gmail',
-//   password: 'contra11231',
-//   userName: 'tomasUser',
-//   birthday: '2022-12-15',
-//   state: true,
-//   roleId: 1,
-// },
-
-// recibir el id del usuario y buscar sus ordenes de compras

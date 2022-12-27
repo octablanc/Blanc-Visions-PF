@@ -45,7 +45,7 @@ export async function getOrderBuyUserId(req: Request, res: Response) {
           attributes: ['quantity','price']
         },
       ],
-      attributes: ['id','priceTotalDiscount','buy']
+      attributes: ['id','priceTotalDiscount','buy','createdAt']
     });
     
     return res.json({ message: "ORDER BUY .",ordenBuyUser });

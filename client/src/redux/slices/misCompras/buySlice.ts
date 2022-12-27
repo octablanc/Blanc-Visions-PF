@@ -12,13 +12,16 @@ export interface ProductOrder {
 }
 
 export interface BuyState {
+  createdAt: string;
   buy: boolean;
   id: number;
   priceTotalDiscount: number;
-  productOrder: Array<ProductOrder>;
+  productOrders: Array<ProductOrder>;
 }
 export interface NewBuyState{
-  myBuys: BuyState[]
+  myBuys: Array<BuyState>
+  // myBuys: BuyState[]
+
 }
 
 const initialState: NewBuyState = {
