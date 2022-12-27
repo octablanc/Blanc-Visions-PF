@@ -25,13 +25,11 @@ import {
   Product,
   Remove,
 } from "../../styled-components/styles";
-import { openModal } from "../../../../redux/slices/Modal";
 
 export const CartDetail = () => {
   const {
     cartItems,
     itemTotalQuantity,
-    itemTotalAmount,
     cartTotalQuantity,
     cartTotalAmount,
   } = useAppSelector((state) => state.cartState);
@@ -87,49 +85,48 @@ export const CartDetail = () => {
       ) : (
         // ******************************
         <Contain>
-         
           <div>
             <>
-            {/* <Div className='titles'> */}
-            <Div style={{ fontSize: "2rem" }}>
-              <p>Productos</p>
-              <p>Precio</p>
-              <p>Cantidad</p>
-              <p>Total</p>
-            </Div>
-            
+              {/* <Div className='titles'> */}
+              <Div style={{ fontSize: "2rem" }}>
+                <p>Productos</p>
+                <p>Precio</p>
+                <p>Cantidad</p>
+                <p>Total</p>
+              </Div>
 
-            {/* <Div> */}
-            {cartItems?.map((cartItem) => (
-            
-              <Div key={cartItem.id}>                
-                <Product>
-                  <img src={cartItem.image} alt="imagen del producto" />
-                  <div className="product">
-                    <p> {cartItem.name}</p>
-                  </div>
-                </Product>
-                <div>{`${cartItem.price}`}</div>
-                <Quantity>
-                  <Operators>
-                    <button
-                      name="subtract"
-                      onClick={() => handleSubstractItem(cartItem)}
-                    >
-                      -
-                    </button>
-                    <div>{cartItem.cartQuantity}</div>
-                    <button name="add" onClick={() => handleAddItem(cartItem)}>
-                      +
-                    </button>
-                  </Operators>
-                </Quantity>
-                <div>${cartItem.price * cartItem.cartQuantity}</div>
-                <Remove onClick={() => handleRemoveItem(cartItem)}>
-                  Remover
-                </Remove>
-                              </Div>
-              
+              {/* <Div> */}
+              {cartItems?.map((cartItem) => (
+                <Div key={cartItem.id}>
+                  <Product>
+                    <img src={cartItem.image} alt="imagen del producto" />
+                    <div className="product">
+                      <p> {cartItem.name}</p>
+                    </div>
+                  </Product>
+                  <div>{`${cartItem.price}`}</div>
+                  <Quantity>
+                    <Operators>
+                      <button
+                        name="subtract"
+                        onClick={() => handleSubstractItem(cartItem)}
+                      >
+                        -
+                      </button>
+                      <div>{cartItem.cartQuantity}</div>
+                      <button
+                        name="add"
+                        onClick={() => handleAddItem(cartItem)}
+                      >
+                        +
+                      </button>
+                    </Operators>
+                  </Quantity>
+                  <div>${cartItem.price * cartItem.cartQuantity}</div>
+                  <Remove onClick={() => handleRemoveItem(cartItem)}>
+                    Remover
+                  </Remove>
+                </Div>
               ))}
             </>
           </div>

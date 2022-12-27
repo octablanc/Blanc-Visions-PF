@@ -70,6 +70,7 @@ export const cartSlice = createSlice({
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProduct);
+        state.currentProduct.stock -= 1;
         console.log(tempProduct)
       }          
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -127,6 +128,8 @@ export const cartSlice = createSlice({
     getProductDetail(state, action) {
       state.currentProduct = action.payload
     }
+
+
 
   },
 });

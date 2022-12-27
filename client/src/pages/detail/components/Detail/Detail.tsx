@@ -1,7 +1,9 @@
-import { Slider } from "./components/Slider/Slider";
-import Spinner from "../../components/Spinner/Spinner";
-import { AiOutlineStar, AiFillStar } from "../../icons";
-
+//components
+import { Slider } from "../../components/Slider/Slider";
+import Spinner from "../../../../components/Spinner/Spinner";
+//icons
+import { AiOutlineStar, AiFillStar } from "../../../../icons";
+//styles
 import {
   Container,
   Image,
@@ -9,13 +11,12 @@ import {
   CartSection,
   Btn,
 } from "./styled-components/Detail";
-
-import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
-import { useNavigate, useParams } from "react-router-dom";
-
-import { addToCart } from "../../redux/slices/Cart";
-import { getProductById } from "../../redux/slices/Cart";
+//react
 import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+//redux
+import { getProductById, addToCart } from "../../../../redux/slices/Cart";
+import { useAppSelector, useAppDispatch } from "../../../../redux/app/hooks";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -25,10 +26,11 @@ export const Detail = () => {
   console.log(product.id);
 
   useEffect(() => {
+  //falta agregar un modal de producto inexistente!!
     dispatch(getProductById(product.id));
-  }, [dispatch]);
+  }, [dispatch, product.id]);
 
-  const { currentProduct } = useAppSelector((state) => state.cartState);
+  const { currentProduct } = useAppSelector((state: any) => state.cartState);
   const { loading, name, price, description, stock, properties, images } =
     currentProduct;
   console.log(currentProduct);
@@ -66,7 +68,7 @@ export const Detail = () => {
                 <AiOutlineStar />
               </div>
             </div>
-            <p>Descripción</p>
+            <p className="features">Descripción</p>
             <p>{description}</p>
 
             <span className="features">Características</span>
@@ -81,8 +83,8 @@ export const Detail = () => {
             <ul>
               <hr />
               <br />
-              <span className="stock">Unidades disponibles:</span>
-              <span className="stock">{stock}</span>
+              {/* <span className="stock">Unidades disponibles:</span> */}
+              {/* <span className="stock">{stock}</span> */}
             </ul>
             <CartSection>
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
