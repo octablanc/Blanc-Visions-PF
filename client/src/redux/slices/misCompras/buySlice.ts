@@ -4,11 +4,13 @@ export interface Product {
   id: number;
   image: string;
   name: string;
+  price:string;
 }
 export interface ProductOrder {
-  price: number;
-  quantity: number;
-  product: Array<Product>;
+  id:number
+  price: number
+  quantity: number
+  product: Product
 }
 
 export interface BuyState {
@@ -17,10 +19,13 @@ export interface BuyState {
   id: number;
   priceTotalDiscount: number;
   productOrders: Array<ProductOrder>;
+  street:string;
+  height:string;
+  city:string;
 }
+
 export interface NewBuyState{
   myBuys: Array<BuyState>
-  // myBuys: BuyState[]
 
 }
 

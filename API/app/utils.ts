@@ -778,7 +778,7 @@ export const usersData = [
 
 export const ordenBuyArray = [
   {
-    priceTotalDiscount: 150,
+    priceTotalDiscount: (1200000 * 10) + (15000 * 30) + (15000 * 2),
     discount: 20,
     state: true,
     postalCode: 199,
@@ -793,17 +793,17 @@ export const ordenBuyArray = [
       {
         productId: 1,
         quantity: 10,
-        price: 1000,
+        price: 1200000 * 10,
       },
       {
         productId: 2,
         quantity: 30,
-        price: 1000,
+        price: 15000 * 30,
       },
       {
         productId: 3,
         quantity: 2,
-        price: 1000,
+        price: 15000 * 2,
       },
     ]
 
@@ -824,7 +824,7 @@ export const ordenBuyArray = [
       {
         productId: 10,
         quantity: 10,
-        price: 1000,
+        price: 4999 * 10,
       },
       {
         productId: 4,
