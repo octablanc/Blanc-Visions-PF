@@ -1,7 +1,6 @@
-import { Slider } from './components/Slider/Slider';
-
-import { AiOutlineStar, AiFillStar } from '../../icons';
-import line from "./styled-components/imgLine.png";
+import { Slider } from "./components/Slider/Slider";
+import Spinner from "../../components/Spinner/Spinner";
+import { AiOutlineStar, AiFillStar } from "../../icons";
 
 import {
   Container,
@@ -10,26 +9,29 @@ import {
   CartSection,
   Btn,
 } from "./styled-components/Detail";
-import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
-import Spinner from "../../components/Spinner/Spinner";
 
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { addToCart } from "../../redux/slices/Cart";
+import { getProductById } from "../../redux/slices/Cart";
+import { useEffect } from "react";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const product: any = useParams();
+  console.log(useParams());
+  console.log(product.id);
 
-  const { currentProduct } = useAppSelector(
-    (state: any) => state.productsState
-  );
+  useEffect(() => {
+    dispatch(getProductById(product.id));
+  }, [dispatch]);
 
-  const { name, price, description, loading, stock, properties } =
+  const { currentProduct } = useAppSelector((state) => state.cartState);
+  const { loading, name, price, description, stock, properties, images } =
     currentProduct;
-
-  let productProps = properties.map((el: any) => el.name);
-  console.log("properties:", properties);
-  console.log("productProps:", productProps);
+  console.log(currentProduct);
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
@@ -46,9 +48,12 @@ export const Detail = () => {
       ) : (
         <Container>
           <Image>
-            <h3 className="title">{name}</h3>
-            <img src={line} />
-            <Slider />
+            <h3>nombre{name}</h3>
+            <div>
+              <hr />
+            </div>
+            {/* <img src={line} /> */}
+            <Slider loading={loading} images={images} />
           </Image>
           <Info>
             <div className="icons">
@@ -61,8 +66,8 @@ export const Detail = () => {
                 <AiOutlineStar />
               </div>
             </div>
-            {/* <p>Descripción</p>
-            <p>{description}</p> */}
+            <p>Descripción</p>
+            <p>{description}</p>
 
             <span className="features">Características</span>
             {properties?.map((el: any, key: number) => (
@@ -71,14 +76,13 @@ export const Detail = () => {
                 <span className="list">{el.name}</span>
                 <span className="list">{el.value}</span>
               </ul>
-
             ))}
-            
-            <ul> 
-            <hr />
-            <br />             
-            <span className='stock'>Unidades disponibles:</span>
-            <span className='stock'>{stock}</span>
+
+            <ul>
+              <hr />
+              <br />
+              <span className="stock">Unidades disponibles:</span>
+              <span className="stock">{stock}</span>
             </ul>
             <CartSection>
               <Btn name="addToCart" onClick={() => handleAddToCart()}>

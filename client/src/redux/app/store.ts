@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { cartSlice } from '../slices/Cart/cartSlice';
 import { categoriesSlice } from '../slices/categories/categories.slice';
+import { modalSlice } from '../slices/Modal';
 import { productSlice } from '../slices/products/productsSlice';
 import { userSlice } from '../slices/user-authentication';
 
@@ -9,7 +10,8 @@ export const store = configureStore({
     productsState: productSlice.reducer,
     categoriesState: categoriesSlice.reducer,
     cartState: cartSlice.reducer,
-    userState: userSlice.reducer
+    userState: userSlice.reducer,
+    modalState: modalSlice.reducer,
   },
 });
 

@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { NavLink } from 'react-router-dom';
-import { MouseEvent, useEffect } from 'react';
-import { BsArrowLeftSquare } from '../../../../icons';
+import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
+import { NavLink } from "react-router-dom";
+import { MouseEvent, useEffect } from "react";
+import { BsArrowLeftSquare } from "../../../../icons";
 
 import {
   decreaseQuantity,
@@ -9,7 +9,7 @@ import {
   emptyCart,
   getTotal,
   removeFromCart,
-} from '../../../../redux/slices/Cart';
+} from "../../../../redux/slices/Cart";
 
 import {
   Div,
@@ -24,7 +24,8 @@ import {
   Line,
   Product,
   Remove,
-} from '../../styled-components/styles';
+} from "../../styled-components/styles";
+import { openModal } from "../../../../redux/slices/Modal";
 
 export const CartDetail = () => {
   const {
@@ -38,31 +39,31 @@ export const CartDetail = () => {
   // const { currentProduct } = useAppSelector((state) => state.productsState);
   // const { name, image, price } = currentProduct;
 
- const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getTotal(cartItems));
-  }, [itemTotalQuantity, cartTotalQuantity, cartTotalAmount, cartItems, dispatch]);
+  }, [itemTotalQuantity, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
-    if (cartItem.cartQuantity > 1){
-         dispatch(decreaseQuantity(cartItem))
+    if (cartItem.cartQuantity > 1) {
+      dispatch(decreaseQuantity(cartItem));
     } else {
-      if(cartItem.cartQuantity === 1){
-        dispatch(decreaseQuantity(cartItem))
-        dispatch(removeFromCart(cartItem))
+      if (cartItem.cartQuantity === 1) {
+        dispatch(decreaseQuantity(cartItem));
+        dispatch(removeFromCart(cartItem));
       }
-    }   
+    }
   };
 
   const handleAddItem = (cartItem: any) => {
-    if(cartItem.stock === 0){
-      return
+    if (cartItem.stock === 0) {
+      return;
     } else {
-      if(cartItem.stock > 0){
+      if (cartItem.stock > 0) {
         dispatch(increaseQuantity(cartItem));
       }
-    }    
+    }
   };
 
   const handleRemoveItem = (cartItem: any) => {
@@ -76,9 +77,9 @@ export const CartDetail = () => {
   return (
     <Container>
       {cartItems.length < 1 ? (
-        <div className='emptyCart'>
+        <div className="emptyCart">
           <p>Your Cart is empty</p>
-          <NavLink to='/products'>
+          <NavLink to="/products">
             <p>Start Shopping</p>
             <BsArrowLeftSquare />
           </NavLink>
@@ -86,36 +87,39 @@ export const CartDetail = () => {
       ) : (
         // ******************************
         <Contain>
+         
           <div>
+            <>
             {/* <Div className='titles'> */}
-            <Div style={{ fontSize: '2rem' }}>
+            <Div style={{ fontSize: "2rem" }}>
               <p>Productos</p>
               <p>Precio</p>
               <p>Cantidad</p>
               <p>Total</p>
             </Div>
+            
 
             {/* <Div> */}
             {cartItems?.map((cartItem) => (
-              <Div key={cartItem.id}>
+            
+              <Div key={cartItem.id}>                
                 <Product>
-                  <img src={cartItem.image} alt='imagen del producto' />
-                  <div className='product'>
+                  <img src={cartItem.image} alt="imagen del producto" />
+                  <div className="product">
                     <p> {cartItem.name}</p>
                   </div>
                 </Product>
-
                 <div>{`${cartItem.price}`}</div>
                 <Quantity>
                   <Operators>
                     <button
-                      name='subtract'
+                      name="subtract"
                       onClick={() => handleSubstractItem(cartItem)}
                     >
                       -
                     </button>
                     <div>{cartItem.cartQuantity}</div>
-                    <button name='add' onClick={() => handleAddItem(cartItem)}>
+                    <button name="add" onClick={() => handleAddItem(cartItem)}>
                       +
                     </button>
                   </Operators>
@@ -124,8 +128,10 @@ export const CartDetail = () => {
                 <Remove onClick={() => handleRemoveItem(cartItem)}>
                   Remover
                 </Remove>
-              </Div>
-            ))}
+                              </Div>
+              
+              ))}
+            </>
           </div>
           {/* </Div> */}
           <Div2>
@@ -142,7 +148,7 @@ export const CartDetail = () => {
             <Buttons>
               <Btn>Finalizar compra</Btn>
               <div>
-                <NavLink to='/products'>
+                <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>
                 </NavLink>
               </div>

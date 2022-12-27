@@ -1,5 +1,5 @@
 import { MdArrowBackIosNew, MdArrowForwardIos } from '../../../../icons';
-import { BtnNext, BtnPrev } from '../../styled-components/Slider/BtnSlider';
+import { BtnNext, BtnPrev } from './styled-components/BtnSlider';
 
 export const BtnSlider = ({ direction, moveSlide }: any) => {
   if (direction === "next") {
