@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Nav = styled.header`
   background-color: white;
@@ -48,4 +48,18 @@ export const NavInput = styled.input`
 
 export const Spacing = styled.div`
   height: 6rem;
+`;
+
+export const AuthButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+
+  button {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    font-size: 15px;
+    padding: 0px;
+  }
 `;

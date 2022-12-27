@@ -1,18 +1,17 @@
 import { Role } from "./Role.model";
 
 export interface User {
-    map(arg0: (item: any) => JSX.Element): import('react').ReactNode;
-  id: Number;
-  name: String;
-  lastName: String;
-  imageProfile: String;
-  phone: Number;
-  mail: String;
-  password: String;
-  userName: String;
-  birthday: String;
-  state: Boolean;
-  createdAt: String;
-  updatedAt: String;
-  role: Role;
+  id: Number | undefined;
+  name: String | undefined;
+  lastName: String | undefined;
+  imageProfile: String | undefined;
+  phone: Number | undefined;
+  mail: String | undefined;
+  password: String | undefined;
+  userName: String | undefined;
+  birthday: String | undefined;
+  state: Boolean | undefined;
+  createdAt: String | undefined;
+  updatedAt: String | undefined;
+  role: Role | undefined;
 }
