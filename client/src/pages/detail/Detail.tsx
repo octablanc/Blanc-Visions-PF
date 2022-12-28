@@ -84,13 +84,13 @@ export const Detail = () => {
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy">
-                <form action="http://localhost:3002/checkout" method="POST">
-                  <input type="hidden" name="title" value={name} />
-                  <input type="hidden" name="price" value={price} />
-                  <input type="submit" value="Comprar checkout" />
-                </form>
-              </Btn>
+              <form action="http://localhost:3002/checkout" method="POST">
+                <input type="hidden" name="title" value={name} />
+                <input type="hidden" name="price" value={price} />
+                <Btn name="buy">
+                  <button type="submit">Compra checkout</button>
+                </Btn>
+              </form>
             </CartSection>
           </Info>
         </Container>

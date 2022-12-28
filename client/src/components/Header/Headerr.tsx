@@ -8,13 +8,25 @@ import {
   NavOptions,
   Spacing,
   Nav,
+  AuthButtons,
 } from './styled-components/Header.styled';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect } from 'react';
 import { getAllCategories, setCategory } from '../../redux/slices/categories';
 
+// Login, Singup and Logout
+import Login from '../login/Login';
+import LogOut from '../login/components/LogOut';
+import SingUp from '../singup/SingUp';
+import { User } from '../../models/User.model';
+import AccountMenu from './components/AccountMenu';
+
 export const Headerr = () => {
-  const { categories } = useAppSelector(state => state.categoriesState);
+  const userState: User | null = useAppSelector(
+    ({ userState }) => userState.user
+  );
+  const loading = useAppSelector(({ userState }) => userState.loading);
+  const { categories } = useAppSelector((state) => state.categoriesState);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -76,7 +88,7 @@ export const Headerr = () => {
                 <form>
                   <select onChange={handleChange}>
                     <option value=''>All Categories</option>
-                    {categories.map(category => (
+                    {categories.map((category) => (
                       <option key={category.id} value={category.name}>
                         {category.name}
                       </option>
@@ -84,13 +96,22 @@ export const Headerr = () => {
                   </select>
                 </form>
               </li>
-              <li>Sing In</li>
+              {/* <li>{loading ? <></> : !userState? 
+                <AuthButtons>
+                  <Login />
+                  <SingUp/>
+                </AuthButtons> 
+                : 
+                <AccountMenu/> 
+              }</li> */}
+
               <li>Login</li>
               <li>
                 <Link to='/cart'>
-                <BsCart4 />
+                  <BsCart4 />
                 </Link>
               </li>
+              <li>Singup</li>
             </NavOptions>
           </NavMenu>
         </Navbar>

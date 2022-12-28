@@ -20,18 +20,19 @@ import { useNavigate } from 'react-router-dom';
 import { AvatarPic, Field, Fields, FullName, Profilecontainer } from './styled-components/AccountMenu.styled';
 import { useAppSelector } from '../../../redux/app/hooks';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import UserSettings from '../../UserSettings/UserSettings';
 
 export default function AccountMenu() {
   const user = useAppSelector(({userState})=> userState.user);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [ settings, setSettings ] = useState(false); 
   const open = Boolean(anchorEl);
-  const navigate = useNavigate();
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  function handleClose(){
     setAnchorEl(null);
   };
 
@@ -39,14 +40,19 @@ export default function AccountMenu() {
     await signOut(auth);
   }
 
+  function handleClickSettings(){
+    handleClose();
+    setSettings(!settings);
+  }
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
+        <Tooltip title="Account settings" sx={{ position: 'relative' }}>
           <IconButton
             onClick={handleClick}
             size="large"
-            sx={{ ml: 2, position: 'relative'}}
+            sx={{ ml: 2, height: '65px', width: '65px', mt: -2, mb: -2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
@@ -58,8 +64,8 @@ export default function AccountMenu() {
               background: 'white', 
               borderRadius: '50%', 
               position: 'absolute', 
-              bottom: '-12px', 
-              right: '-12px',
+              bottom: '8px', 
+              right: '8px',
               cursor: 'pointer' 
             }}/>
           </IconButton>
@@ -70,14 +76,15 @@ export default function AccountMenu() {
         id="account-menu"
         open={open}
         onClose={handleClose}
+        disableScrollLock
         PaperProps={{
           elevation: 0,
           sx: {
             overflow: 'visible',
             width: '300px',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 3,
-            ml: 1,
+            mt: 0.4,
+            ml: -1,
             '& .MuiAvatar-root': {
               width: 32,
               height: 32,
@@ -89,7 +96,7 @@ export default function AccountMenu() {
               display: 'block',
               position: 'absolute',
               top: 0,
-              right: 14,
+              right: 18,
               width: 10,
               height: 10,
               bgcolor: 'background.paper',
@@ -101,13 +108,6 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {/* <MenuItem sx={{ fontSize: '19px', marginLeft: '2px' }} onClick={()=> navigate('/profile')}>
-          <div style={{ display: 'flex', alignItems: 'center', textAlign: 'center', textTransform: 'capitalize' }}>
-            <Avatar src={avatar}/>
-            <span style={{ marginLeft: '10px' }}>{ fullName }</span>
-          </div>
-        </MenuItem> */}
-
         <Profilecontainer>
           <div style={{ position: 'relative' }}>
             <Avatar src={`${user?.imageProfile}`} style={AvatarPic}/>
@@ -142,7 +142,7 @@ export default function AccountMenu() {
 
               <Field>
                 <LocalPhoneIcon fontSize='large' sx={{ color: '#837575' }}/>
-                <span style={{ marginLeft: '5px', fontSize: 'medium', color: '#1976D2' }}>{ `${user?.phone}` }</span>
+                <span style={{ marginLeft: '5px', fontSize: 'medium', color: '#d88c00' }}>{ `${user?.phone}` }</span>
               </Field>
             </div>
           </Fields>
@@ -158,7 +158,7 @@ export default function AccountMenu() {
           Order Buys
         </MenuItem>
 
-        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={handleClose}>
+        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={handleClickSettings}>
           <ListItemIcon>
             <Settings fontSize="medium" />
           </ListItemIcon>
@@ -170,12 +170,14 @@ export default function AccountMenu() {
           handleClose()
         }}>
           <ListItemIcon>
-            <Logout fontSize="medium" color='primary' />
+            <Logout fontSize="medium" style={{ color: '#d88c00' }} />
           </ListItemIcon>
           Logout
         </MenuItem>
-
       </Menu>
+      {
+        settings? <UserSettings closeButton={handleClickSettings}/> : <></>
+      }
     </>
   );
 }
