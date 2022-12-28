@@ -5,19 +5,19 @@ export const Container = styled.div`
   flex-direction: column;
   .emptyCart {
     margin-top: 2rem;
-    margin-left: 2rem; 
+    margin-left: 2rem;
     display: flex;
-     img{
+    img {
       width: 12rem;
       height: auto;
       margin-right: 2rem;
-     }
-     div {
+    }
+    div {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-     }
+    }
   }
 `;
 
