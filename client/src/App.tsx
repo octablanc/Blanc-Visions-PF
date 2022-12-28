@@ -40,8 +40,9 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='products' element={<Products />} />
-            <Route path='products/create' element={<CreateProduct />} />
-            <Route path='products/crear' element={<CrearProduct />} />
+            {
+              userState?.role?.name === 'admin' && <Route path='/create' element={<CreateProduct />} />
+            }            
             <Route path='products/:id' element={<Detail />} />
             <Route path='cart' element={<Cart />} />
             <Route path='*' element={<NotFound />} />
