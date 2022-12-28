@@ -39,7 +39,7 @@ export const About = () => {
           </p>
           <p>
             <BsWhatsapp className='icons' />
-            <span>+54 1121838240</span>
+            <a href='https://walink.co/bfd3d0'>+54 1121838240</a>
           </p>
           <p>
             <BsFillTelephoneFill className='icons' />
