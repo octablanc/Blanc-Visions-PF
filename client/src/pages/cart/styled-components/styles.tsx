@@ -107,7 +107,19 @@ export const Btn = styled.button`
   color: black;
 `;
 
-export const Buy = styled.button``;
+export const Buy = styled.button`
+  width: 100%;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: black;
+    color: ${(props) => props.theme.colors.primary};
+  }
+`;
 
 export const Remove = styled.button`
   border-radius: 0.5rem;
@@ -115,6 +127,8 @@ export const Remove = styled.button`
   border-left: solid 1px ${(props) => props.theme.colors.primary};
   border-right: solid 1px ${(props) => props.theme.colors.primary};
   padding: 0.5rem 1rem;
+  margin-bottom: 2rem;
+  margin-top: 0rem;
   background-color: transparent;
   color: ${(props) => props.theme.colors.primary};
   display: flex;

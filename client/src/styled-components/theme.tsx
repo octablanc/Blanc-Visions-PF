@@ -6,15 +6,16 @@ interface Props {
   children: React.ReactNode;
 }
 
-const theme = {
+export const theme = {
   fonts: {
     poppins: "'Poppins', sans-serif",
   },
   colors: {
     primary: '#ffa801',
-    secondary: '#FFF4E6',
+    secondary: '#38ada9',
     black: '#000000',
     white: '#FFFFFF',
+    hoverPrimary: '#d88c00'
   },
 };
 
@@ -28,6 +29,7 @@ export interface PropsTheme {
       black: string;
       white: string;
       primary: string;
+      hoverPrimary: string;
     };
   };
 }

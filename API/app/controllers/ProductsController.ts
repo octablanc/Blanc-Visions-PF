@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
-import { category, data, usersData, roles} from '../utils';
-
+import { category, data, usersData, roles, ordenBuyArray } from '../utils';
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
+// import { where } from 'sequelize';
+import { Op } from 'sequelize';
 
 // Models
 const Products = DBcontext.models.products;
@@ -12,6 +13,8 @@ const Images = DBcontext.models.images;
 const Users = DBcontext.models.users;
 const Roles = DBcontext.models.roles;
 
+const OrderBuy = DBcontext.models.orderBuy;
+const ProductOrder = DBcontext.models.productOrder;
 
 const Properties = DBcontext.models.products_properties;
 
@@ -42,14 +45,14 @@ export async function getProducts(req: Request, res: Response) {
         },
         {
           model: Properties,
-          as: 'properties' 
+          as: 'properties',
         },
         {
-          model: Images
+          model: Images,
         },
       ],
       attributes: { exclude: ['categoryId'] },
-      order: [['id', 'ASC']]
+      order: [['id', 'ASC']],
     });
 
     return res.send(result);
@@ -64,15 +67,18 @@ export async function bulk(_req: Request, res: Response) {
     await Categories.bulkCreate(category);
     await Products.bulkCreate(data, {
       include: [
-        { model: Images, as: 'images', },
-        { model: Properties, as: 'properties', },
-      ]
+        { model: Images, as: 'images' },
+        { model: Properties, as: 'properties' },
+      ],
     });
     await Users.bulkCreate(usersData);
-    return res.status(200).json({ message: "Datos harcodeados" });
 
+    await OrderBuy.bulkCreate(ordenBuyArray, {
+      include: [{ model: ProductOrder }, { model: Products }],
+    });
+    return res.status(200).json({ message: 'Datos harcodeados' });
   } catch ({ message }) {
-    console.log("MSG ERR => ",message)
+    console.log('MSG ERR => ', message);
     return res.status(400).send({ message });
   }
 }
@@ -84,15 +90,15 @@ export async function getProductById(req: Request, res: Response) {
     const result = await Products.findByPk(id, {
       include: [
         {
-          model: Categories
+          model: Categories,
         },
         {
           model: Properties,
-          as: 'properties' 
+          as: 'properties',
         },
         {
           model: Images,
-        }
+        },
       ],
       attributes: { exclude: ['categoryId'] },
     });
@@ -109,14 +115,12 @@ export async function postProduct(req: Request, res: Response) {
   try {
     const product = req.body;
 
-    let result = await Products.create(product,
-      {
-        include: {
-          model: Properties,
-          as: 'properties' 
-        }
-      }
-    );
+    let result = await Products.create(product, {
+      include: {
+        model: Properties,
+        as: 'properties',
+      },
+    });
 
     return res.send(result);
   } catch ({ message }) {
@@ -133,8 +137,8 @@ export async function updateProduct(req: Request, res: Response) {
     const productToUpdate = await Products.findByPk(id, {
       include: {
         model: Properties,
-        as: 'properties' 
-      }
+        as: 'properties',
+      },
     });
     if (productToUpdate) {
       await productToUpdate.update(newFields);
@@ -171,10 +175,10 @@ export async function paginateProducts(req: Request, res: Response) {
     category = Category we need to filter the products: Shoes, Phones, etc.
   */
   try {
-    if (req.query?.page && req.query?.quantityProducts) {
+    if (req.query?.page && req.query?.quantityProducts && req.query?.discount) {
       const page = parseInt(req.query.page.toString());
       const quantityProducts = parseInt(req.query.quantityProducts.toString());
-
+      const discount = parseInt(req.query.discount.toString());
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
           throw new Error('The fields can only be greater than 0!');
@@ -184,6 +188,9 @@ export async function paginateProducts(req: Request, res: Response) {
         const result = await Products.findAll({
           where: {
             state: true,
+            discount: {
+              [Op.gte]: discount,
+            },
           },
           include: [
             {
@@ -196,27 +203,38 @@ export async function paginateProducts(req: Request, res: Response) {
             },
             {
               model: Properties,
-              as: 'properties' 
-            }
+              as: 'properties',
+            },
           ],
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
-          order: [['id', 'ASC']]
+          order: [['id', 'ASC']],
         });
 
-        const productsAll = await Products.findAll({
-          where: { state: true },
-          include: [{ model: Categories, where: category ? { name: category } : undefined }], attributes: { exclude: ['categoryId'] },
-        })
-
-        return res.json({ result, productsLength : productsAll.length});
-
+        const productsAll = await Products.count({
+          where: {
+            state: true,
+            discount: {
+              [Op.gte]: discount,
+            },
+          },
+          include: [
+            {
+              model: Categories,
+              where: category ? { name: category } : undefined,
+            },
+          ],
+          attributes: { exclude: ['categoryId'] },
+        });
+        return res.json({ result, productsLength: productsAll });
       }
       throw new Error('The fields can only be numbers!');
     }
     throw new Error('Some filed is empty!');
   } catch ({ message }) {
+    console.log('ERROR MSG => ', message);
     return res.status(400).send({ message });
   }
 }
+// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5
