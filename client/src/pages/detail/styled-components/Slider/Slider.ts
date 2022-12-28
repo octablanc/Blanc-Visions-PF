@@ -6,6 +6,7 @@ export const Container = styled.div`
   height: 40rem;
   margin: 3rem auto 0;
   position: relative;
+  border-radius: 2rem;
   /* overflow: hidden; */
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 `;

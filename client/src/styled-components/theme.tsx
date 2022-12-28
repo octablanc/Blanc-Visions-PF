@@ -12,7 +12,7 @@ export const theme = {
   },
   colors: {
     primary: '#ffa801',
-    secondary: '#FFF4E6',
+    secondary: '#38ada9',
     black: '#000000',
     white: '#FFFFFF',
     hoverPrimary: '#d88c00'

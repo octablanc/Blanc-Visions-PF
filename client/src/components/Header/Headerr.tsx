@@ -1,5 +1,5 @@
 import logo from '../../assets/logo2.svg';
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   NavInput,
@@ -8,7 +8,7 @@ import {
   NavOptions,
   Spacing,
   Nav,
-  AuthButtons
+  AuthButtons,
 } from './styled-components/Header.styled';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect } from 'react';
@@ -26,7 +26,7 @@ export const Headerr = () => {
     ({ userState }) => userState.user
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
-  const { categories } = useAppSelector(state => state.categoriesState);
+  const { categories } = useAppSelector((state) => state.categoriesState);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ export const Headerr = () => {
                 <form>
                   <select onChange={handleChange}>
                     <option value=''>All Categories</option>
-                    {categories.map(category => (
+                    {categories.map((category) => (
                       <option key={category.id} value={category.name}>
                         {category.name}
                       </option>
@@ -104,9 +104,12 @@ export const Headerr = () => {
                 : 
                 <AccountMenu/> 
               }</li>
-{/* 
-              <li>Login</li>
-              <li>Singup</li> */}
+
+              <li>
+                <Link to='/cart'>
+                  <BsCart4 />
+                </Link>
+              </li>
             </NavOptions>
           </NavMenu>
         </Navbar>

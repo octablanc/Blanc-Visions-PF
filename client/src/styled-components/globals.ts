@@ -108,6 +108,9 @@ const GlobalStyles = createGlobalStyle`
   .active {
     border-bottom: 4px solid ${(props): string => props.theme.colors.primary};
   }
+  .transparent{
+    background-color: white;
+  }
 
   @media (min-width: 768px) {
     .max-width-25 {

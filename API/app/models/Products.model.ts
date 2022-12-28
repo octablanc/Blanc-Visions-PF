@@ -30,6 +30,10 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING(400),
         allowNull: false,
       },
+      discount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
       state: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

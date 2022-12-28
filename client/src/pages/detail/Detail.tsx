@@ -1,6 +1,6 @@
-import { Slider } from "./components/Slider/Slider";
+import { Slider } from './components/Slider/Slider';
 
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar } from '../../icons';
 import line from "./styled-components/imgLine.png";
 
 import {
@@ -15,7 +15,6 @@ import Spinner from "../../components/Spinner/Spinner";
 
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../redux/slices/Cart";
-import { ProductProperties } from "./components/productProperties";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -72,10 +71,7 @@ export const Detail = () => {
                 <span className="list">{el.name}</span>
                 <span className="list">{el.value}</span>
               </ul>
-              //  <li value={el.name}>{el.name}</li>
-              // name= {el.name }
-              // value= {el.value}
-              // />
+
             ))}
 
             <ul>
@@ -88,13 +84,13 @@ export const Detail = () => {
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy">
-                <form action="http://localhost:3002/checkout" method="POST">
-                  <input type="hidden" name="title" value={name} />
-                  <input type="hidden" name="price" value={price} />
-                  <input type="submit" value="Comprar checkout" />
-                </form>
-              </Btn>
+              <form action="http://localhost:3002/checkout" method="POST">
+                <input type="hidden" name="title" value={name} />
+                <input type="hidden" name="price" value={price} />
+                <Btn name="buy">
+                  <button type="submit">Compra checkout</button>
+                </Btn>
+              </form>
             </CartSection>
           </Info>
         </Container>
