@@ -3,6 +3,22 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  .emptyCart {
+    margin-top: 2rem;
+    margin-left: 2rem; 
+    display: flex;
+     img{
+      width: 12rem;
+      height: auto;
+      margin-right: 2rem;
+     }
+     div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+     }
+  }
 `;
 
 export const Contain = styled.div`
@@ -118,6 +134,18 @@ export const Buy = styled.button`
     border: none;
     background-color: black;
     color: ${(props) => props.theme.colors.primary};
+  }
+`;
+
+export const Back = styled.button`
+  width: 30rem;
+  border-radius: 0.5rem;
+  border: none;
+  margin: 0.5rem;
+  padding: 1.5rem;
+  background-color: ${(props) => props.theme.colors.secondary};
+  :hover {
+    cursor: pointer;
   }
 `;
 

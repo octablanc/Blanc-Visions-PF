@@ -24,9 +24,11 @@ import {
   Line,
   Product,
   Remove,
+  Back,
   Titles,
 } from '../../styled-components/styles';
 import { display, fontSize } from '@mui/system';
+import cart from '../../styled-components/cart.png'
 
 /*................terminan estilos............... */
 
@@ -93,11 +95,13 @@ export const CartDetail = () => {
     <Container>
       {cartItems.length < 1 ? (
         <div className='emptyCart'>
-          <p>Your Cart is empty</p>
-          <NavLink to='/products'>
-            <p>Start Shopping</p>
-            <BsArrowLeftSquare />
-          </NavLink>
+          <img src={cart} />
+          <div>
+            <p>Tu carrito esta vacío</p>
+            <NavLink to='/products'>
+              <Back>Comienza a comprar...</Back>
+            </NavLink>
+          </div>
         </div>
       ) : (
         // ******************************
