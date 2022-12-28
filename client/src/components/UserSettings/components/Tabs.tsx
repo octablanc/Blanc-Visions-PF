@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -11,22 +11,70 @@ import PasswordIcon from '@mui/icons-material/Password';
 import TabView from './TabView';
 import TextField from '@mui/material/TextField';
 import { ButtonLog, TwoFields } from '../../singup/styled-components/SingUp.styled';
-import { useAppSelector } from '../../../redux/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
 import { Button } from '@mui/material';
+import { theme } from '../../../styled-components/theme';
+import { updateUser } from '../../../services/services';
+import { setUser } from '../../../redux/slices/user-authentication';
 
-export default function Tabs() {
+export default function Tabs({ closeModal } : { closeModal: Function; }) {
     const [value, setValue] = useState('1');
-    const [user, setUser] = useState({ ...useAppSelector(({ userState }) => userState.user) });
+    const getUser = useAppSelector(({ userState }) => () => {
+        return {
+            name: userState.user?.name,
+            lastName: userState.user?.lastName,
+            birthday: userState.user?.birthday,
+            phone: userState.user?.phone,
+            mail: userState.user?.mail,
+            password: userState.user?.password
+        }
+    })
+    const userGlobal = useAppSelector(({ userState })=> userState.user);
+    const [user, setUserState] = useState(getUser());
+    const [changes, setChanges] = useState(false);
+    const dispatch = useAppDispatch();
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
-    };
+        setUserState(getUser());
+    }
+
+    const [error, setError] = useState({
+        name: false,
+        lastName: false,
+        phone: false
+    });
 
     function handleChangeUser(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-        setUser({
+        setUserState({
             ...user,
             [event.target.name]: event.target.value
         });
+
+        if (!event.target.value)
+            setError({
+                ...error,
+                [event.target.name]: true
+            });
+        else
+            setError({
+                ...error,
+                [event.target.name]: false
+            });
+
+        setChanges(true);
+    }
+
+    async function handleSubmit(){
+        if(changes){
+            try {
+                await updateUser(user, userGlobal?.id);
+                dispatch(setUser({ ...userGlobal, ...user }));
+                closeModal();
+            } catch ({ message }) {
+                window.alert(message);
+            }
+        }
     }
 
     return (
@@ -35,13 +83,13 @@ export default function Tabs() {
                 <Box display='flex' flexDirection='row' >
                     <Box sx={BoxTabList}>
                         <Title>Settings</Title>
-                        <TabList onChange={handleChange} aria-label="lab API tabs example" orientation='vertical' 
+                        <TabList onChange={handleChange} aria-label="lab API tabs example" orientation='vertical'
                             sx={{
-                                '& button.Mui-selected': { color: '#ee9b00' }
+                                '& button.Mui-selected': { color: theme.colors.primary }
                             }}
                             TabIndicatorProps={{
                                 sx: {
-                                    backgroundColor: '#ffa801'
+                                    backgroundColor: theme.colors.primary
                                 }
                             }}
                         >
@@ -68,7 +116,13 @@ export default function Tabs() {
                         </TabList>
                     </Box>
 
-                    <Box width='500px' height='400px'>
+                    <Box width='500px' height='400px' sx={{
+                        position: 'relative',
+                        '& p.MuiFormHelperText-root': {
+                            position: 'absolute',
+                            bottom: '-22px'
+                        }
+                    }}>
                         <TabView value={1} title='Account Settings' subtitle={'Settings for your personal information'} content={(
                             <div style={{ width: '100%', height: '100%', padding: '40px' }}>
                                 <TwoFields>
@@ -89,6 +143,15 @@ export default function Tabs() {
                                             }
                                         }}
                                         onChange={handleChangeUser}
+                                        //Error
+                                        error={error.name}
+                                        helperText={
+                                            error.name && (
+                                                <span style={{ fontSize: "12px" }}>
+                                                    First name is empty!
+                                                </span>
+                                            )
+                                        }
                                     />
 
                                     <TextField
@@ -108,6 +171,15 @@ export default function Tabs() {
                                             }
                                         }}
                                         onChange={handleChangeUser}
+                                        //Error
+                                        error={error.lastName}
+                                        helperText={
+                                            error.lastName && (
+                                                <span style={{ fontSize: "12px" }}>
+                                                    Last name is empty!
+                                                </span>
+                                            )
+                                        }
                                     />
                                 </TwoFields>
 
@@ -147,24 +219,34 @@ export default function Tabs() {
                                         }}
                                         sx={{ marginTop: '-3px' }}
                                         onChange={handleChangeUser}
+                                        //Error
+                                        error={error.phone}
+                                        helperText={
+                                            error.phone && (
+                                                <span style={{ fontSize: "12px" }}>
+                                                    Phone is empty!
+                                                </span>
+                                            )
+                                        }
                                     />
                                 </TwoFields>
 
                                 <Button
                                     variant="contained"
-                                    sx={{ 
-                                        ...ButtonLog, 
-                                        backgroundColor: '#ffa801',
+                                    sx={{
+                                        ...ButtonLog,
+                                        backgroundColor: theme.colors.primary,
                                         '&:hover': {
-                                            backgroundColor: '#d88c00'
+                                            backgroundColor: theme.colors.hoverPrimary
                                         }
                                     }}
-                                    
-                                    onClick={()=> console.log(user)}
+                                    onClick={handleSubmit}
+                                    //Error
+                                    disabled={ error.name || error.lastName || error.phone }
                                 >Update Information</Button>
                             </div>
                         )} />
-                        <TabPanel value="2">Item Two</TabPanel>
+                        <TabView value={2} title={'Mail settings'} subtitle={'Change your mail with a confirmation.'} content={(<span>Password</span>)} />
                         <TabPanel value="3">Item Three</TabPanel>
                     </Box>
                 </Box>

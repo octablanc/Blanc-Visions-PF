@@ -61,6 +61,7 @@ export const data = [
       "https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp",
     state: true,
     categoryId: 1,
+    discount: 15,
     images: [
       {
         url_image:
@@ -111,6 +112,8 @@ export const data = [
       "https://http2.mlstatic.com/D_NQ_NP_822322-MLA48551234826_122021-O.webp",
     state: true,
     categoryId: 1,
+    discount: 0,
+
     images: [
       {
         url_image:
@@ -154,6 +157,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2182_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 20,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2182_1_z.jpg",
@@ -191,6 +196,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1751_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 10,
+    
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1751_1_z.jpg",
@@ -232,6 +239,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 30,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
@@ -273,6 +282,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1488_1_z.jpg",
     state: true,
     categoryId: 4,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1489_1_z.jpg",
@@ -314,6 +325,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/300_1_z.jpg",
     state: true,
     categoryId: 3,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/300_1_z.jpg",
@@ -355,6 +368,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2283_1_z.jpg",
     state: true,
     categoryId: 3,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2283_1_z.jpg",
@@ -393,6 +408,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/1916_1_z.jpg",
     state: true,
     categoryId: 3,
+    discount: 10,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/1916_1_z.jpg",
@@ -431,6 +448,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg",
     state: true,
     categoryId: 2,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/640_1_z.jpg",
@@ -457,6 +476,7 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2181_2_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 15,
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2181_1_z.jpg",
@@ -498,6 +518,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2199_1_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 5,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
@@ -539,6 +561,7 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
     state: true,
     categoryId: 1,
+    discount: 20,
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2197_1_z.jpg",
@@ -579,6 +602,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2069_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2069_1_z.jpg",
@@ -620,6 +645,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2066_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2066_1_z.jpg",
@@ -657,6 +684,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2059_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 0,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2059_1_z.jpg",
@@ -695,6 +724,8 @@ export const data = [
     image: "https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg",
     state: true,
     categoryId: 5,
+    discount: 10,
+
     images: [
       {
         url_image: "https://www.digi-zoom.com.ar/images/productos/2109_1_z.jpg",
@@ -773,4 +804,130 @@ export const usersData = [
     state: true,
     roleId: 1,
   },
-];
+]
+
+
+export const ordenBuyArray = [
+  {
+    priceTotalDiscount: (1200000 * 10) + (15000 * 30) + (15000 * 2),
+    discount: 20,
+    state: true,
+    postalCode: 199,
+    street: "calle falsa",
+    height: "12943",
+    city: "varelaa",
+    quantityProducts: 10,
+    dues: 130,
+    userId: 1,
+    buy: true,
+    productOrders: [
+      {
+        productId: 1,
+        quantity: 10,
+        price: 1200000 * 10,
+      },
+      {
+        productId: 2,
+        quantity: 30,
+        price: 15000 * 30,
+      },
+      {
+        productId: 3,
+        quantity: 2,
+        price: 15000 * 2,
+      },
+    ]
+
+  },
+  {
+    priceTotalDiscount: 250,
+    discount: 20,
+    state: true,
+    postalCode: 199,
+    street: "calle falsa",
+    height: "12943",
+    city: "varelaa",
+    quantityProducts: 10,
+    dues: 130,
+    userId: 1,
+    buy: true,
+    productOrders: [
+      {
+        productId: 10,
+        quantity: 10,
+        price: 4999 * 10,
+      },
+      {
+        productId: 4,
+        quantity: 30,
+        price: 1000,
+      },
+      {
+        productId: 4,
+        quantity: 2,
+        price: 1000,
+      },
+    ]
+  },
+  {
+    priceTotalDiscount: 350,
+    discount: 20,
+    state: true,
+    postalCode: 199,
+    street: "calle falsa",
+    height: "12943",
+    city: "varelaa",
+    quantityProducts: 10,
+    dues: 130,
+    userId: 1,
+    buy: true,
+    productOrders: [
+      {
+        productId: 3,
+        quantity: 10,
+        price: 1000,
+      },
+      {
+        productId: 1,
+        quantity: 30,
+        price: 1000,
+      },
+      {
+        productId: 17,
+        quantity: 2,
+        price: 1000,
+      },
+    ]
+  },
+  {
+    priceTotalDiscount: 12323,
+    discount: 321321,
+    state: true,
+    postalCode: 213,
+    street: "reerer falsa",
+    height: "12943",
+    city: "fdsfda",
+    quantityProducts: 100,
+    dues: 130,
+    userId: 2,
+    buy: false,
+    productOrders: [
+      {
+        productId: 10,
+        quantity: 1,
+        price: 1000,
+      },
+      {
+        productId: 3,
+        quantity: 20,
+        price: 1000,
+      },
+      {
+        productId: 6,
+        quantity: 4,
+        price: 1000,
+      },
+    ]
+
+  }
+]

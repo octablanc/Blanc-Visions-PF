@@ -18,6 +18,7 @@ import { auth } from './firebase/firebase.config';
 // Redux
 import { useAppDispatch, useAppSelector } from './redux/app/hooks';
 import { getUser } from './redux/slices/user-authentication';
+import MyBuy from './pages/mybuy/MyBuy';
 
 function App() {
   const userState = useAppSelector(({ userState })=> userState.user);
@@ -46,6 +47,7 @@ function App() {
             <Route path='*' element={<NotFound />} />
             <Route path='profile/' element={<Profile />} />
             <Route path='about' element={<About />} />
+            <Route path='buy' element={<MyBuy />} />{/*Hecho para testear mis compras...*/}
           </Route>
         </Routes>
       </BrowserRouter>

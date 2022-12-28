@@ -85,7 +85,8 @@ export const createNewProduct = (product: any) => {
 export const getProductsPage = (
   page: number,
   quantity: number,
-  category: string | undefined
+  category: string | undefined = undefined,
+  discount: number = 0
 ) => {
   return async (dispatch: any) => {
     try {
@@ -95,16 +96,36 @@ export const getProductsPage = (
       if (category) {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}`
           )
         ).data;
       }
+      // if (category) {
+      //   products = (
+      //     await axios(
+      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
+      //     )
+      //   ).data;
+      // let products;
+      // if (category) {
+      //   products = (
+      //     await axios(
+      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
+      //     )
+      //   ).data;
+      // } else {
+      //   products = (
+      //     await axios(
+      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
+      //     )
+      //   ).data;
+      // }
       dispatch(
         setPagination({
           page,

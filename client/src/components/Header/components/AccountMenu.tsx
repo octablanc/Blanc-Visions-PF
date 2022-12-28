@@ -21,6 +21,7 @@ import { AvatarPic, Field, Fields, FullName, Profilecontainer } from './styled-c
 import { useAppSelector } from '../../../redux/app/hooks';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import UserSettings from '../../UserSettings/UserSettings';
+import { theme } from '../../../styled-components/theme';
 
 export default function AccountMenu() {
   const user = useAppSelector(({userState})=> userState.user);
@@ -142,7 +143,7 @@ export default function AccountMenu() {
 
               <Field>
                 <LocalPhoneIcon fontSize='large' sx={{ color: '#837575' }}/>
-                <span style={{ marginLeft: '5px', fontSize: 'medium', color: '#d88c00' }}>{ `${user?.phone}` }</span>
+                <span style={{ marginLeft: '5px', fontSize: 'medium', color: theme.colors.hoverPrimary }}>{ `${user?.phone}` }</span>
               </Field>
             </div>
           </Fields>
@@ -170,7 +171,7 @@ export default function AccountMenu() {
           handleClose()
         }}>
           <ListItemIcon>
-            <Logout fontSize="medium" style={{ color: '#d88c00' }} />
+            <Logout fontSize="medium" style={{ color: theme.colors.hoverPrimary }} />
           </ListItemIcon>
           Logout
         </MenuItem>

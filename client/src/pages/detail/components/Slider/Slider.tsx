@@ -14,11 +14,6 @@ export const Slider = () => {
   const { currentProduct } = useAppSelector((state) => state.productsState);
   let productImages: any = currentProduct.images.map((el: any) => el.url_image);
 
-  // let miniaturesImages: any = Array.from(productImages).map((el: any) =>
-  //   console.log(el)
-  // );
-  // console.log("miniatures:", miniaturesImages[0]);
-
   const nextSlide = () => {
     if (slideIndex < productImages.length) {
       setSlideIndex(slideIndex + 1);
@@ -35,30 +30,29 @@ export const Slider = () => {
     }
   };
 
-   return (
+  return (
     <Container>
       {productImages ? (
-        
         <Img src={productImages[slideIndex - 1]} alt="" />
       ) : (
         <Img src={"imagen no encontrada"} alt="" />
       )}
-         <div>
-      <BtnSlider className='boton' moveSlide={prevSlide} direction={"prev"} />
-      <BtnSlider className='boton' moveSlide={nextSlide} direction={"next"} />
-      </div> 
-<br />
-<br />
-        <Thumbnails>
-          {Array.from(productImages, (el: any, key: number) => (
-            <Miniatures>
-              <img
-                className={slideIndex - 1 === key ? "img active" : "img pasive"}
-                src={el}
-              />
-            </Miniatures>
-          ))}
-        </Thumbnails>
+      <div>
+        <BtnSlider className="boton" moveSlide={prevSlide} direction={"prev"} />
+        <BtnSlider className="boton" moveSlide={nextSlide} direction={"next"} />
+      </div>
+      <br />
+      <br />
+      <Thumbnails>
+        {Array.from(productImages, (el: any, key: number) => (
+          <Miniatures>
+            <img
+              className={slideIndex - 1 === key ? "img active" : "img pasive"}
+              src={el}
+            />
+          </Miniatures>
+        ))}
+      </Thumbnails>
       {/* </> */}
     </Container>
   );
