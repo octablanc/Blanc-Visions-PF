@@ -26,7 +26,7 @@ export const Products = () => {
   const { page, quantity, category, productsLength } = pagination;
   useEffect(() => {
     if (currentCategory === '') {
-      dispatch(getProductsPage(page, quantity, undefined));
+      dispatch(getProductsPage(page, quantity));
     } else {
       dispatch(getProductsPage(1, quantity, currentCategory));
     }

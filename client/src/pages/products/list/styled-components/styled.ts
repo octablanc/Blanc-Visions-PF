@@ -8,7 +8,11 @@ export const Conteiner = styled.div`
   }
 `;
 export const Card = styled.div`
-  box-shadow: 11px 11px 22px #d9d9d9, -11px -11px 22px #e7e7e7;
+  /* box-shadow: 11px 11px 22px #d9d9d9, -11px -11px 22px #e7e7e7;
+   */
+  /* box-shadow: 24px 29px 88px 0px rgb(0 0 0 / 10%); */
+  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
+  box-shadow: 4px 0px 12px -3px rgba(0, 0, 0, 0.1);
   padding: 0 2rem;
   height: 30rem;
   h4 {
@@ -70,7 +74,7 @@ export const Paginate = styled.div`
 export const ProductsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 2rem;
   /* min-height: 50rem;
    */
   place-items: center;
