@@ -96,17 +96,17 @@ export const Headerr = () => {
                   </select>
                 </form>
               </li>
-              {/* <li>{loading ? <></> : !userState? 
+              <li>{loading ? <></> : !userState? 
                 <AuthButtons>
                   <Login />
                   <SingUp/>
                 </AuthButtons> 
                 : 
                 <AccountMenu/> 
-              }</li> */}
-
+              }</li>
+{/* 
               <li>Login</li>
-              <li>Singup</li>
+              <li>Singup</li> */}
             </NavOptions>
           </NavMenu>
         </Navbar>
