@@ -96,6 +96,13 @@ export const Headerr = () => {
                   </select>
                 </form>
               </li>
+
+              <li>
+                <Link to='/cart'>
+                  <BsCart4 />
+                </Link>
+              </li>
+              
               <li>{loading ? <></> : !userState? 
                 <AuthButtons>
                   <Login />
@@ -104,12 +111,6 @@ export const Headerr = () => {
                 : 
                 <AccountMenu/> 
               }</li>
-
-              <li>
-                <Link to='/cart'>
-                  <BsCart4 />
-                </Link>
-              </li>
             </NavOptions>
           </NavMenu>
         </Navbar>
