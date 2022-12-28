@@ -1,43 +1,50 @@
-import { Request, Response } from "express";
-import DBcontext from "../../config/ConnectionDB";
-const ProductsOrder = DBcontext.models.productOrder;
-const Products = DBcontext.models.Product;
+import DBcontext from '../../config/ConnectionDB'
+import { TypeFunctionExp, ProductOrderIfc } from '../interfaces-type'
+import { Model } from 'sequelize'
+const ProductsOrder = DBcontext.models.productOrder
+const Products = DBcontext.models.Product
 
-
-export async function getProductsOrder(_req: Request, res: Response) {
+export const getProductsOrder: TypeFunctionExp = async (_req, res) => {
   try {
-    const all = await ProductsOrder.findAll({ include: Products });
-    
+    const allProductsOrders: Array<Model> = await ProductsOrder.findAll({
+      include: Products,
+    })
 
-    return res.json({ message: "prodcuto oprder.", all });
+    return res.json({ message: 'Get All Product Order.', allProductsOrders })
   } catch ({ message }) {
-    console.log(message);
-    return res.status(400).send({ message });
+    console.log(message)
+    return res.status(400).send({ message })
   }
 }
 
-export async function getProductsOrderById(req: Request, res: Response) {
+export const getProductsOrderById: TypeFunctionExp = async (req, res) => {
+  const id: number = +req.params.id
   try {
-    // const pk = await ProductsOrder.findByPk(req.params.id, { include: Product });
-    const pk = await ProductsOrder.findAll({
+    const productOrdersFind: Array<Model> = await ProductsOrder.findAll({
       where: {
-        productsId: req.params.id,
-      }});
-    
+        productId: id,
+      },
+    })
 
-    return res.json({ message: "prodcuto oprder.", pk });
+    return res.json({ message: 'Get Producst Order ID.', productOrdersFind })
   } catch ({ message }) {
-    console.log(message);
-    return res.status(400).send({ message });
+    console.log(message)
+    return res.status(400).send({ message })
   }
 }
 
-export async function postProductsOrder(req: Request, res: Response) {
-    try {
-        const createOrderProduct = await ProductsOrder.create(req.body, {include:Products});
-    return res.json({ message: "post oprderprodict.", createOrderProduct});
+export const postProductsOrder: TypeFunctionExp = async (req, res) => {
+  const { productId, quantity, price }: ProductOrderIfc = req.body
+  try {
+    const createOrderProduct: Model = await ProductsOrder.create(
+      { productId, quantity, price },
+      {
+        include: Products,
+      }
+    )
+    return res.json({ message: 'post orderproduct.', createOrderProduct })
   } catch ({ message }) {
-    console.log(message);
-    return res.status(400).send({ message });
+    console.log(message)
+    return res.status(400).send({ message })
   }
 }
