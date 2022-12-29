@@ -86,7 +86,8 @@ export const getProductsPage = (
   page: number,
   quantity: number,
   category: string | undefined = undefined,
-  discount: number = 0
+  discount: number = 0,
+  price: number = 1
 ) => {
   return async (dispatch: any) => {
     try {
@@ -96,13 +97,13 @@ export const getProductsPage = (
       if (category) {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}price=${price}`
           )
         ).data;
       }
