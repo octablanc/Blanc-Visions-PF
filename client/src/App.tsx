@@ -1,15 +1,16 @@
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Layout } from "./components/Layout";
-import { Detail } from "./pages/detail/Detail";
-import { Home } from "./pages/home/Home";
-import { Products } from "./pages/products/list/Products";
-import CreateProduct from "./pages/products/create/CreateProduct";
-import { NotFound } from "./pages/error/NotFound";
-import { CrearProduct } from "./pages/products/create/CrearProduct";
-import { Profile } from "./pages/profile/components/Profile";
-import { Cart } from "./pages/cart/components/Cart/Cart";
-import { About } from "./pages/about/about";
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Layout } from './components/Layout';
+import { Detail } from './pages/detail/Detail';
+import { Home } from './pages/home/Home';
+import { Products } from './pages/products/list/Products';
+import CreateProduct from './pages/products/create/CreateProduct';
+import { NotFound } from './pages/error/NotFound';
+import { CrearProduct } from './pages/products/create/CrearProduct';
+import { Profile } from './pages/profile/components/Profile';
+import { Cart } from './pages/cart/components/Cart/Cart';
+import { About } from './pages/about/about';
+import { Questions } from './pages/questions/Questions'
 
 // Authentication
 import { onAuthStateChanged } from "firebase/auth";
@@ -47,6 +48,7 @@ function App() {
             <Route path='profile/' element={<Profile />} />
             <Route path='about' element={<About />} />
             <Route path='buy' element={<MyBuy />} />{/*Hecho para testear mis compras...*/}
+            <Route path='questions' element={<Questions />} />
           </Route>
         </Routes>
       </BrowserRouter>

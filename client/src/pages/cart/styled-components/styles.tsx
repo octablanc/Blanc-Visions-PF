@@ -123,7 +123,7 @@ export const Btn = styled.button`
   color: black;
 `;
 
-export const Buy = styled.button`
+export const Input = styled.input`
   width: 100%;
   border-radius: 0.5rem;
   margin: 0.5rem;
@@ -133,7 +133,7 @@ export const Buy = styled.button`
     height: 100%;
     border: none;
     background-color: black;
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.secondary};
   }
 `;
 
@@ -152,13 +152,13 @@ export const Back = styled.button`
 export const Remove = styled.button`
   border-radius: 0.5rem;
   border: none;
-  border-left: solid 1px ${(props) => props.theme.colors.primary};
-  border-right: solid 1px ${(props) => props.theme.colors.primary};
+  border-left: solid 1px ${(props) => props.theme.colors.secondary};
+  border-right: solid 1px ${(props) => props.theme.colors.secondary};
   padding: 0.5rem 1rem;
   margin-bottom: 2rem;
   margin-top: 0rem;
   background-color: transparent;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.secondary};
   display: flex;
   justify-content: center;
   :hover {
