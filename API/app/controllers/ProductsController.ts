@@ -174,16 +174,14 @@ export async function paginateProducts(req: Request, res: Response) {
     quantityProducts = Quantity of product that we need per page: 10, 15, 20, etc.
     category = Category we need to filter the products: Shoes, Phones, etc.
   */
-  // yavengo
   try {
-    // if (req.query?.page && req.query?.quantityProducts && req.query?.discount && req.query?.data && req.query?.order) {
-    if (req.query?.page && req.query?.quantityProducts && req.query?.discount) {
+    if (req.query?.page && req.query?.quantityProducts && req.query?.discount && req.query?.data && req.query?.order) {
 
       const page = parseInt(req.query.page.toString());
       const quantityProducts = parseInt(req.query.quantityProducts.toString());
       const discount = parseInt(req.query.discount.toString());
-      // const data :string = req.query.data.toString();
-      // const order: string = req.query.order.toString();
+      const data :string = req.query.data.toString();
+      const order: string = req.query.order.toString();
 
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
@@ -192,7 +190,6 @@ export async function paginateProducts(req: Request, res: Response) {
         const { category } = req.query;
         const { price } = req.query;
 
-        console.log({ page, quantityProducts, discount, category, price })
         const result = await Products.findAll({
           where: {
             state: true,
@@ -220,9 +217,7 @@ export async function paginateProducts(req: Request, res: Response) {
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
-          // order: [[data, order]],
-          order: [['id', 'ASC']],
-
+          order: [[data, order]],
         });
 
         const productsAll = await Products.count({
@@ -253,8 +248,9 @@ export async function paginateProducts(req: Request, res: Response) {
     return res.status(400).send({ message });
   }
 }
-// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5
-// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&
 // http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&data=id&order=ASC
-
+/*
+order : ASC | DESC
+data : id | price | discount
+*/
 
