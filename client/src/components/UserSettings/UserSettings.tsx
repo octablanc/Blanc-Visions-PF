@@ -18,7 +18,6 @@ export default function UserSettings({ closeButton }: { closeButton: Function; }
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             sx={{ backdropFilter: 'blur(10px)' }}
-            
         >
             <Box sx={BoxStyle}>
                 <Tabs closeModal={handleClose}/>
