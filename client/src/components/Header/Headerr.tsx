@@ -32,7 +32,8 @@ export const Headerr = () => {
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setCategory(e.target.value));
+    const value: string | undefined = e.target.value;
+    dispatch(setCategory(value));
     navigate('/products');
   };
 
@@ -86,7 +87,7 @@ export const Headerr = () => {
               </li>
               <li>
                 <form>
-                  <select onChange={handleChange}>
+                  <select onChange={handleChange} id='selectCategory'>
                     <option value=''>All Categories</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.name}>
