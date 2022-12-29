@@ -10,6 +10,7 @@ import { CrearProduct } from './pages/products/create/CrearProduct';
 import { Profile } from './pages/profile/components/Profile';
 import { Cart } from './pages/cart/components/Cart/Cart';
 import { About } from './pages/about/about';
+import { Questions } from './pages/questions/Questions'
 
 // Authentication
 import { onAuthStateChanged } from "firebase/auth";
@@ -48,6 +49,7 @@ function App() {
             <Route path='profile/' element={<Profile />} />
             <Route path='about' element={<About />} />
             <Route path='buy' element={<MyBuy />} />{/*Hecho para testear mis compras...*/}
+            <Route path='questions' element={<Questions />} />
           </Route>
         </Routes>
       </BrowserRouter>
