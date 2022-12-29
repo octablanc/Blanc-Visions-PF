@@ -163,6 +163,10 @@ export default function SingUp() {
             setError({ ...error, mail: 'Mail already registered!' });
             break;
 
+            case 'auth/invalid-email':
+              setError({ ...error, mail: 'Invalid mail!' });
+              break;
+
           case 'auth/weak-password':
             setError({ ...error, password: 'Password should be at least 6 characters!' });
             break;

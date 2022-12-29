@@ -16,8 +16,18 @@ import { Button } from '@mui/material';
 import { theme } from '../../../styled-components/theme';
 import { updateUser } from '../../../services/services';
 import { setUser } from '../../../redux/slices/user-authentication';
+import LoadingButton from "@mui/lab/LoadingButton";
+import CircularProgress from "@mui/material/CircularProgress";
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { signOut, updateEmail } from 'firebase/auth';
+import { auth } from '../../../firebase/firebase.config';
 
-export default function Tabs({ closeModal } : { closeModal: Function; }) {
+// Firebase
+
+export default function Tabs({ closeModal }: { closeModal: Function; }) {
     const [value, setValue] = useState('1');
     const getUser = useAppSelector(({ userState }) => () => {
         return {
@@ -25,25 +35,48 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
             lastName: userState.user?.lastName,
             birthday: userState.user?.birthday,
             phone: userState.user?.phone,
-            mail: userState.user?.mail,
-            password: userState.user?.password
+            mail: '',
+            password: ''
         }
     })
-    const userGlobal = useAppSelector(({ userState })=> userState.user);
+    const userGlobal = useAppSelector(({ userState }) => userState.user);
     const [user, setUserState] = useState(getUser());
     const [changes, setChanges] = useState(false);
     const dispatch = useAppDispatch();
+    const [error, setError] = useState({
+        name: false,
+        lastName: false,
+        phone: false,
+    });
+    const [btnLoading, setBtnLoading] = useState(false);
+
+    // View 2
+    const [mail, setMail] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [errorView2, setErrorView2] = useState('');
+    const [confirmMail, setConfirmMail] = useState('');
+
+    function handleConfirmMail(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+        setConfirmMail(event.target.value);
+    }
+
+    function handleChangeView2(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+        setMail(event.target.value);
+        if (!event.target.value)
+            setErrorView2('Mail is empty!');
+        else if (event.target.value === userGlobal?.mail)
+            setErrorView2('Enter a different email!');
+        else
+            setErrorView2('');
+    }
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
         setUserState(getUser());
+        setMail('');
+        setConfirmMail('');
+        setErrorView2('');
     }
-
-    const [error, setError] = useState({
-        name: false,
-        lastName: false,
-        phone: false
-    });
 
     function handleChangeUser(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
         setUserState({
@@ -65,16 +98,55 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
         setChanges(true);
     }
 
-    async function handleSubmit(){
-        if(changes){
+    async function handleSubmitView1() {
+        if (changes) {
             try {
+                setBtnLoading(true);
                 await updateUser(user, userGlobal?.id);
                 dispatch(setUser({ ...userGlobal, ...user }));
+                setBtnLoading(false);
                 closeModal();
             } catch ({ message }) {
+                setBtnLoading(false);
                 window.alert(message);
             }
         }
+    }
+
+    async function handleSubmitView2() {
+        if (!mail)
+            setErrorView2('Mail is empty');
+        else {
+            try {
+                if (auth.currentUser != null) {
+                    setBtnLoading(true);
+                    await updateEmail(auth.currentUser, mail);
+                    dispatch(setUser({ ...userGlobal, mail }));
+                    await updateUser({ mail }, userGlobal?.id);
+                    setBtnLoading(false);
+                    closeModal();
+                }
+            } catch ({ code }) {
+                setBtnLoading(false);
+
+                switch (code) {
+                    case 'auth/requires-recent-login':
+                        if (window.confirm('Need to log in again to make changes.'))
+                            signOut(auth);
+                        break;
+                    case 'auth/email-already-in-use':
+                        setErrorView2('Mail already in use!');
+                        break;
+                    case 'auth/invalid-email':
+                        setErrorView2('Invalid mail!');
+                        break;
+                }
+            }
+        }
+    }
+
+    function handleClickShow() {
+        setShowPassword(!showPassword);
     }
 
     return (
@@ -116,13 +188,7 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
                         </TabList>
                     </Box>
 
-                    <Box width='500px' height='400px' sx={{
-                        position: 'relative',
-                        '& p.MuiFormHelperText-root': {
-                            position: 'absolute',
-                            bottom: '-22px'
-                        }
-                    }}>
+                    <Box width='500px' height='400px'>
                         <TabView value={1} title='Account Settings' subtitle={'Settings for your personal information'} content={(
                             <div style={{ width: '100%', height: '100%', padding: '40px' }}>
                                 <TwoFields>
@@ -152,6 +218,13 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
                                                 </span>
                                             )
                                         }
+                                        sx={{
+                                            position: 'relative',
+                                            '& p.MuiFormHelperText-root': {
+                                                position: 'absolute',
+                                                bottom: '-22px'
+                                            }
+                                        }}
                                     />
 
                                     <TextField
@@ -180,6 +253,14 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
                                                 </span>
                                             )
                                         }
+
+                                        sx={{
+                                            position: 'relative',
+                                            '& p.MuiFormHelperText-root': {
+                                                position: 'absolute',
+                                                bottom: '-22px'
+                                            }
+                                        }}
                                     />
                                 </TwoFields>
 
@@ -217,7 +298,6 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
                                                 fontSize: '15px'
                                             }
                                         }}
-                                        sx={{ marginTop: '-3px' }}
                                         onChange={handleChangeUser}
                                         //Error
                                         error={error.phone}
@@ -228,25 +308,168 @@ export default function Tabs({ closeModal } : { closeModal: Function; }) {
                                                 </span>
                                             )
                                         }
+                                        sx={{
+                                            marginTop: '-2px',
+                                            position: 'relative',
+                                            '& p.MuiFormHelperText-root': {
+                                                position: 'absolute',
+                                                bottom: '-22px'
+                                            }
+                                        }}
                                     />
                                 </TwoFields>
+                                {
+                                    btnLoading ?
+                                        <LoadingButton
+                                            loading
+                                            variant="outlined"
+                                            size="small"
+                                            sx={{ ...ButtonLog, padding: "25px 25px", backgroundColor: theme.colors.primary }}
+                                            loadingIndicator={
+                                                <CircularProgress size={"20px"} sx={{ color: "#fff" }} />
+                                            }
+                                        />
+                                        :
+                                        <Button
+                                            variant="contained"
+                                            sx={{
+                                                ...ButtonLog,
+                                                backgroundColor: theme.colors.primary,
+                                                '&:hover': {
+                                                    backgroundColor: theme.colors.hoverPrimary
+                                                }
+                                            }}
+                                            onClick={handleSubmitView1}
+                                            //Error
+                                            disabled={error.name || error.lastName || error.phone}
+                                        >Update Information</Button>
+                                }
 
-                                <Button
-                                    variant="contained"
-                                    sx={{
-                                        ...ButtonLog,
-                                        backgroundColor: theme.colors.primary,
-                                        '&:hover': {
-                                            backgroundColor: theme.colors.hoverPrimary
-                                        }
-                                    }}
-                                    onClick={handleSubmit}
-                                    //Error
-                                    disabled={ error.name || error.lastName || error.phone }
-                                >Update Information</Button>
                             </div>
                         )} />
-                        <TabView value={2} title={'Mail settings'} subtitle={'Change your mail with a confirmation.'} content={(<span>Password</span>)} />
+
+
+                        <TabView value={2} title={'Mail settings'} subtitle={'Change your mail with a confirmation.'} content={(
+                            <div style={{
+                                width: '100%',
+                                height: '96%',
+                                padding: '40px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    marginBottom: '-22px',
+                                }}>
+                                    <TextField
+                                        id="change-mail"
+                                        label="Mail"
+                                        variant="standard"
+                                        name='mail'
+                                        value={mail}
+                                        inputProps={{
+                                            style: {
+                                                fontSize: '17px',
+                                                width: '250px'
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: '17px'
+                                            }
+                                        }}
+                                        onChange={handleChangeView2}
+                                        onFocus={handleChangeView2}
+                                        //Error
+                                        error={errorView2 ? true : false}
+                                        helperText={
+                                            errorView2 && (
+                                                <span style={{ fontSize: "13px" }}>
+                                                    {errorView2}
+                                                </span>
+                                            )
+                                        }
+                                        sx={{
+                                            position: 'relative',
+                                            '& p.MuiFormHelperText-root': {
+                                                position: 'absolute',
+                                                bottom: '-22px'
+                                            },
+                                            marginBottom: '30px'
+                                        }}
+                                    />
+
+                                    <TextField
+                                        id="confirm-mail"
+                                        label="Confirm mail"
+                                        variant="standard"
+                                        name='confirmMail'
+                                        value={confirmMail}
+                                        inputProps={{
+                                            style: {
+                                                fontSize: '17px',
+                                                width: '250px'
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: '17px'
+                                            }
+                                        }}
+                                        onChange={handleConfirmMail}
+                                        //Error
+                                        error={mail !== '' && mail !== confirmMail ? true : false}
+                                        helperText={
+                                            mail !== '' && mail !== confirmMail && (
+                                                <span style={{ fontSize: "13px" }}>
+                                                    Mails do not match!
+                                                </span>
+                                            )
+                                        }
+                                        sx={{
+                                            position: 'relative',
+                                            '& p.MuiFormHelperText-root': {
+                                                position: 'absolute',
+                                                bottom: '-22px'
+                                            },
+                                            marginBottom: '20px'
+                                        }}
+                                    />
+                                </div>
+
+                                {
+                                    btnLoading ?
+                                        <LoadingButton
+                                            loading
+                                            variant="outlined"
+                                            size="small"
+                                            sx={{ ...ButtonLog, padding: "25px 25px", backgroundColor: theme.colors.primary }}
+                                            loadingIndicator={
+                                                <CircularProgress size={"20px"} sx={{ color: "#fff" }} />
+                                            }
+                                        />
+                                        :
+                                        <Button
+                                            variant="contained"
+                                            sx={{
+                                                ...ButtonLog,
+                                                backgroundColor: theme.colors.primary,
+                                                '&:hover': {
+                                                    backgroundColor: theme.colors.hoverPrimary
+                                                }
+                                            }}
+                                            //Error
+                                            disabled={errorView2 ? true : false || mail !== '' && mail !== confirmMail ? true : false}
+                                            onClick={handleSubmitView2}
+                                        >Update Information</Button>
+                                }
+                            </div>
+                        )} />
                         <TabPanel value="3">Item Three</TabPanel>
                     </Box>
                 </Box>

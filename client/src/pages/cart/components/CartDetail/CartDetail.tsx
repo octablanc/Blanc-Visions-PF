@@ -24,8 +24,13 @@ import {
   Line,
   Product,
   Remove,
+  Back,
+  Titles,
 } from '../../styled-components/styles';
 import { display, fontSize } from '@mui/system';
+import cart from '../../styled-components/cart.png'
+
+/*................terminan estilos............... */
 
 export const CartDetail = () => {
   const {
@@ -90,23 +95,25 @@ export const CartDetail = () => {
     <Container>
       {cartItems.length < 1 ? (
         <div className='emptyCart'>
-          <p>Your Cart is empty</p>
-          <NavLink to='/products'>
-            <p>Start Shopping</p>
-            <BsArrowLeftSquare />
-          </NavLink>
+          <img src={cart} />
+          <div>
+            <p>Tu carrito esta vacío</p>
+            <NavLink to='/products'>
+              <Back>Comienza a comprar...</Back>
+            </NavLink>
+          </div>
         </div>
       ) : (
         // ******************************
         <Contain>
           <div>
             {/* <Div className='titles'> */}
-            <Div style={{ fontSize: '2rem' }}>
+            <Titles style={{ fontSize: '2rem' }}>
               <p>Productos</p>
               <p>Precio</p>
               <p>Cantidad</p>
               <p>Total</p>
-            </Div>
+            </Titles>
 
             {/* <Div> */}
             {cartItems?.map((cartItem) => (
@@ -135,7 +142,7 @@ export const CartDetail = () => {
                 </Quantity>
                 <div>${cartItem.price * cartItem.cartQuantity}</div>
                 <Remove onClick={() => handleRemoveItem(cartItem)}>
-                  Remover
+                  Eliminar producto
                 </Remove>
               </Div>
             ))}
