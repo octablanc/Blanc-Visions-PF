@@ -1,42 +1,45 @@
-import { Request, Response } from "express";
-import DBcontext from "../../config/ConnectionDB";
-const { images } = DBcontext.models;
+import DBcontext from '../../config/ConnectionDB'
+const { images } = DBcontext.models
+import { Model } from 'sequelize'
+import { TypeFunctionExp } from '../interfaces-type/index'
 // Model
 /*
-{
-  url_image: "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp",
-  state: true,
-  productId: 1,
-}*/
+{ url_image: "https://http2.mlstatic.com/D_NQ_NP_979408-MLA42843661201_072020-O.webp", }*/
 
-export async function postImages(req: Request, res: Response) {
+export const postImages: TypeFunctionExp = async (req, res) => {
+  const url_image: string = req.body.url_image
   try {
-    const imageCreate = await images.create(req.body);
-    return res.json({ message: "Imagenes agregadas.", imageCreate });
+    const imageCreate: Model = await images.create({ url_image })
+    return res.json({ message: 'Imagenes agregadas.', imageCreate })
   } catch ({ message }) {
-    console.log(message);
-    return res.status(400).send({ message });
+    console.log(message)
+    return res.status(400).send({ message })
   }
 }
 
-export async function deleteImages(req: Request, res: Response) {
-  const { id } = req.params;
+export const deleteImages: TypeFunctionExp = async (req, res) => {
+  const id: number = +req.params.id
   try {
-    await images.destroy({ where: { id } });
-    return res.json({ message: "images has been discharged!" });
+    const deleteImg: number = await images.destroy({ where: { id } })
+
+    return res.json({
+      message: deleteImg
+        ? 'the image has been deleted successfully'
+        : 'Could not delete image because it does not exist',
+    })
   } catch ({ message }) {
-    console.log(message);
-    return res.status(400).send({ message });
+    console.log(message)
+    return res.status(400).send({ message })
   }
 }
 
-export async function getImageByPk(req: Request, res: Response) {
-  const { id } = req.params;
+export const getImageByPk: TypeFunctionExp = async (req, res) => {
+  const id: number = +req.params.id
   try {
-    const imageByPk = await images.findByPk(id);
-    return res.json(imageByPk);
+    const imageByPk: Model | null = await images.findByPk(id)
+    return res.json(imageByPk ?? { message: 'Image not found' })
   } catch ({ message }) {
-    console.log(message);
-    return res.status(400).send({ message });
+    console.log(message)
+    return res.status(400).send({ message })
   }
 }

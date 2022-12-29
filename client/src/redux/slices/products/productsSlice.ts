@@ -26,6 +26,10 @@ interface ProductState {
     quantity: number;
     category: undefined | string;
     productsLength: number;
+    discount: number;
+    price: number;
+    data: string;
+    order: string;
   };
   user: UserInfo;
   // detail: Pro;
@@ -91,10 +95,14 @@ const initialState: ProductState = {
     loading: false,
   },
   pagination: {
+    productsLength: 0,
     page: 1,
     quantity: 2,
     category: undefined,
-    productsLength: 0,
+    discount: 0,
+    price: 0,
+    order: 'ASC',
+    data: 'id',
   },
 
   //* Usuario harcodeado para testear el formulario de modificacion
@@ -144,6 +152,12 @@ export const productSlice = createSlice({
       state.pagination.page = action.payload.page;
       state.pagination.category = action.payload.category;
       state.pagination.productsLength = action.payload.productsLength;
+
+      state.pagination.price = action.payload.price;
+      state.pagination.discount = action.payload.discount;
+
+      state.pagination.data= action.payload.data;
+      state.pagination.order = action.payload.order;
     },
     setUser: (state, action) => {
       state.user = action.payload;
