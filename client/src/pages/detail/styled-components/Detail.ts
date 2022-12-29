@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+
+
 export const Container = styled.div`
   /* background: green; */
   width: 90%;
@@ -13,10 +15,6 @@ export const Image = styled.div`
   /* background: red; */
   display: flex;
   flex-direction: column;
-  .title {
-    line-height: normal;
-    font-size: 3rem;
-  }
   .img {
     margin-top: 3rem;
   }

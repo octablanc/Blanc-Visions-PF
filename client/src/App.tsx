@@ -10,10 +10,11 @@ import { CrearProduct } from './pages/products/create/CrearProduct';
 import { Profile } from './pages/profile/components/Profile';
 import { Cart } from './pages/cart/components/Cart/Cart';
 import { About } from './pages/about/about';
+import { Questions } from './pages/questions/Questions'
 
 // Authentication
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from './firebase/firebase.config';
+import { auth } from "./firebase/firebase.config";
 
 // Redux
 import { useAppDispatch, useAppSelector } from './redux/app/hooks';
@@ -21,16 +22,14 @@ import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 
 function App() {
-  const userState = useAppSelector(({ userState })=> userState.user);
+  const userState = useAppSelector(({ userState }) => userState.user);
   const dispatch = useAppDispatch();
 
-  // Set the user logged in the start 
-  useEffect(()=> {
-    onAuthStateChanged(auth, async (user)=>{
-        if(user && !userState)
-          dispatch(getUser(user.email));
-        if(!user)
-          dispatch(getUser(user));
+  // Set the user logged in the start
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user && !userState) dispatch(getUser(user.email));
+      if (!user) dispatch(getUser(user));
     });
   });
 
@@ -49,6 +48,7 @@ function App() {
             <Route path='profile/' element={<Profile />} />
             <Route path='about' element={<About />} />
             <Route path='buy' element={<MyBuy />} />{/*Hecho para testear mis compras...*/}
+            <Route path='questions' element={<Questions />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,16 +1,17 @@
-import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { NavLink } from 'react-router-dom';
-/*............comienzan estilos........... */
 
-import { MouseEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
+import { NavLink } from "react-router-dom";
+import { MouseEvent, useEffect, useState } from "react";
+import { BsArrowLeftSquare } from "../../../../icons";
+
 import {
   decreaseQuantity,
   increaseQuantity,
   emptyCart,
   getTotal,
   removeFromCart,
-} from '../../../../redux/slices/Cart';
-import { BsArrowLeftSquare } from 'react-icons/bs';
+} from "../../../../redux/slices/Cart";
+
 import {
   Div,
   Div2,
@@ -26,41 +27,30 @@ import {
   Remove,
   Back,
   Titles,
+  Input,
 } from '../../styled-components/styles';
 import { display, fontSize } from '@mui/system';
-import cart from '../../styled-components/cart.png'
+import cart from '../../styled-components/cart.png';
 
-/*................terminan estilos............... */
 
 export const CartDetail = () => {
   const {
     cartItems,
     itemTotalQuantity,
-    itemTotalAmount,
+  
     cartTotalQuantity,
     cartTotalAmount,
   } = useAppSelector((state) => state.cartState);
 
-  // const { currentProduct } = useAppSelector((state) => state.productsState);
+ 
+    // const { currentProduct } = useAppSelector((state) => state.productsState);
   // const { name, image, price } = currentProduct;
 
-  // console.log('price:', price);
-  console.log('itemTotalAmount:', itemTotalAmount);
-  console.log('itemTotalQuantity:', itemTotalQuantity);
-  console.log('cartItems:', cartItems);
-
-  const [counter, setCounter] = useState(0);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getTotal(cartItems));
-  }, [
-    itemTotalQuantity,
-    cartTotalQuantity,
-    cartTotalAmount,
-    cartItems,
-    dispatch,
-  ]);
+  }, [itemTotalQuantity, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
     if (cartItem.cartQuantity > 1) {
@@ -99,7 +89,7 @@ export const CartDetail = () => {
           <div>
             <p>Tu carrito esta vacío</p>
             <NavLink to='/products'>
-              <Back>Comienza a comprar...</Back>
+              <Back>Comienza a comprar...</Back>            
             </NavLink>
           </div>
         </div>
@@ -107,6 +97,7 @@ export const CartDetail = () => {
         // ******************************
         <Contain>
           <div>
+            <>
             {/* <Div className='titles'> */}
             <Titles style={{ fontSize: '2rem' }}>
               <p>Productos</p>
@@ -146,6 +137,7 @@ export const CartDetail = () => {
                 </Remove>
               </Div>
             ))}
+          </>
           </div>
           {/* </Div> */}
           <Div2>
@@ -163,9 +155,7 @@ export const CartDetail = () => {
               <form action='http://localhost:3002/checkout' method='POST'>
                 <input type='hidden' name='title' value='nada' />
                 <input type='hidden' name='price' value={cartTotalAmount} />
-                <Btn name='buy'>
-                  <button type='submit'> Finalizar Compra checkout</button>
-                </Btn>
+                <input type='submit'> Finalizar Compra checkout</input>
               </form>
               <div>
                 <NavLink to='/products'>
