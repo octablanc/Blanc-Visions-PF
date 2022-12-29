@@ -1,8 +1,8 @@
 //components
-import { Slider } from "../../components/Slider/Slider";
-import Spinner from "../../../../components/Spinner/Spinner";
+import { Slider } from "./components/Slider/Slider";
+import Spinner from "../../components/Spinner/Spinner";
 //icons
-import { AiOutlineStar, AiFillStar } from "../../../../icons";
+import { AiOutlineStar, AiFillStar } from "../../icons";
 //styles
 import {
   Container,
@@ -15,8 +15,8 @@ import {
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 //redux
-import { getProductById, addToCart } from "../../../../redux/slices/Cart";
-import { useAppSelector, useAppDispatch } from "../../../../redux/app/hooks";
+import { getProductById, addToCart } from "../../redux/slices/Cart";
+import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();

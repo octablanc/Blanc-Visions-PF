@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { Detail } from "./pages/detail/components/Detail/Detail";
+import { Detail } from "./pages/detail/Detail";
 import { Home } from "./pages/home/Home";
 import { Products } from "./pages/products/list/Products";
 import CreateProduct from "./pages/products/create/CreateProduct";
