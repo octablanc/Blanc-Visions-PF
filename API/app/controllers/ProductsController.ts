@@ -184,12 +184,17 @@ export async function paginateProducts(req: Request, res: Response) {
           throw new Error('The fields can only be greater than 0!');
 
         const { category } = req.query;
+        const { price } = req.query;
+        // let newPrice = price?.replace(/[$.]/g,'');
 
         const result = await Products.findAll({
           where: {
             state: true,
             discount: {
               [Op.gte]: discount,
+            },
+            price: {
+              [Op.gte]: price,
             },
           },
           include: [
@@ -217,6 +222,9 @@ export async function paginateProducts(req: Request, res: Response) {
             state: true,
             discount: {
               [Op.gte]: discount,
+            },
+            price: {
+              [Op.gte]: price,
             },
           },
           include: [

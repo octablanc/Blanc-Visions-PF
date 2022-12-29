@@ -43,6 +43,7 @@ export default interface Pro {
   stock: number;
   id_category: number;
   state: Boolean;
+  discount: number;
 }
 export interface UniquePro {
   id: number;
