@@ -1,17 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { cartSlice } from '../slices/Cart/cartSlice';
 import { categoriesSlice } from '../slices/categories/categories.slice';
-import { modalSlice } from '../slices/Modal';
 import { productSlice } from '../slices/products/productsSlice';
 import { userSlice } from '../slices/user-authentication';
-
+import { buySlice } from '../slices/misCompras/buySlice';
 export const store = configureStore({
   reducer: {
     productsState: productSlice.reducer,
     categoriesState: categoriesSlice.reducer,
     cartState: cartSlice.reducer,
     userState: userSlice.reducer,
-    modalState: modalSlice.reducer,
+    buyState: buySlice.reducer
   },
 });
 

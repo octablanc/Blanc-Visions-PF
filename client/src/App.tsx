@@ -16,8 +16,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase.config";
 
 // Redux
-import { useAppDispatch, useAppSelector } from "./redux/app/hooks";
-import { getUser } from "./redux/slices/user-authentication";
+import { useAppDispatch, useAppSelector } from './redux/app/hooks';
+import { getUser } from './redux/slices/user-authentication';
+import MyBuy from './pages/mybuy/MyBuy';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -32,21 +33,23 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="products" element={<Products />} />
-          <Route path="products/create" element={<CreateProduct />} />
-          <Route path="products/crear" element={<CrearProduct />} />
-          <Route path="products/:id" element={<Detail />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="profile/" element={<Profile />} />
-          <Route path="about" element={<About />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path='products' element={<Products />} />
+            {
+              userState?.role?.name === 'admin' && <Route path='/create' element={<CreateProduct />} />
+            }            
+            <Route path='products/:id' element={<Detail />} />
+            <Route path='cart' element={<Cart />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='profile/' element={<Profile />} />
+            <Route path='about' element={<About />} />
+            <Route path='buy' element={<MyBuy />} />{/*Hecho para testear mis compras...*/}
+          </Route>
+        </Routes>
+      </BrowserRouter>
   );
 }
 

@@ -8,9 +8,11 @@ import {
   Thumbnails,
 } from "./styled-components/Slider";
 
+// images: array de imágenes pasado x parámetro
 export const Slider = ({ images, loading }: any) => {
   const [slideIndex, setSlideIndex] = useState<number>(1);
 
+//mapeo el array para acceder a la propiedad en donde están las imágenes
   let productImages: any = images.map((el: any) => el.url_image);
   console.log(images);
 
@@ -56,7 +58,6 @@ export const Slider = ({ images, loading }: any) => {
           </Miniatures>
         ))}
       </Thumbnails>
-      {/* </> */}
     </Container>
   );
 };

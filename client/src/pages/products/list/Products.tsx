@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 // styles
-import { Conteiner, Paginate } from './styled-components/styled';
+import { Conteiner, Paginate, ProductsGrid } from './styled-components/styled';
 //components
 import { Filters } from '../../../components/Filters/Filters';
 //redux
@@ -18,15 +18,15 @@ import 'animate.css';
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading, pagination } = useAppSelector(
-    state => state.productsState
+    (state) => state.productsState
   );
 
-  const { currentCategory } = useAppSelector(state => state.categoriesState);
+  const { currentCategory } = useAppSelector((state) => state.categoriesState);
 
   const { page, quantity, category, productsLength } = pagination;
   useEffect(() => {
     if (currentCategory === '') {
-      dispatch(getProductsPage(page, quantity, undefined));
+      dispatch(getProductsPage(page, quantity));
     } else {
       dispatch(getProductsPage(1, quantity, currentCategory));
     }
@@ -50,12 +50,12 @@ export const Products = () => {
         <Filters />
         <div style={{ justifyContent: 'center' }}>
           <h1 className='text-center'>Nuestros Productos</h1>
-          <div>
+          <ProductsGrid>
             {loading ? (
               <Spinner />
             ) : (
               products.length &&
-              products.map(product => (
+              products.map((product) => (
                 <div
                   key={product.code}
                   className='animate__animated animate__fadeIn'
@@ -64,20 +64,26 @@ export const Products = () => {
                 </div>
               ))
             )}
-          </div>
+          </ProductsGrid>
+          <Paginate className='animate__animated animate__fadeIn'>
+            <button onClick={decrement} disabled={page === 1}>
+              {'<'}
+            </button>
+            <h3>{page}</h3>
 
+            {/* {Math.ceil(productsLength / quantity) !== page && (
+              <button onClick={increment}>{'>'}</button> */}
+            {/* )} */}
+            <button
+              onClick={increment}
+              disabled={Math.ceil(productsLength / quantity) === page}
+            >
+              {'>'}{' '}
+            </button>
+          </Paginate>
           {/* <Pagination /> */}
         </div>
       </Conteiner>
-      <Paginate>
-        {page !== 1 && <button onClick={decrement}>{'<'}</button>}
-
-        <h3>{page}</h3>
-
-        {Math.ceil(productsLength / quantity) !== page && (
-          <button onClick={increment}>{'>'}</button>
-        )}
-      </Paginate>
     </>
   );
 };

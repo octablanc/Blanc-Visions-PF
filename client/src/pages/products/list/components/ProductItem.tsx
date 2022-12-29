@@ -1,6 +1,6 @@
-import { Card, Icons } from '../styled-components/styled';
+import { Card, Icons, CardContent } from '../styled-components/styled';
 import { AiFillStar, AiOutlineStar, BsCart4 } from '../../../../icons';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/app/hooks';
 import { getProductById } from '../../../../redux/slices/products';
 
@@ -26,13 +26,13 @@ export const ProductItem = ({ product }: Props) => {
   // console.log(product);
 
   return (
-    <Card key={code} onClick={() => handleClick(id)}>
+    <Card key={code}>
       <div className='image'>
         <img src={image} alt='notfound' />
       </div>
-      <div>
-        <h3>{name}</h3>
-        <Icons>
+      <CardContent>
+        <h4>{name}</h4>
+        {/* <Icons>
           <div>
             <AiFillStar />
             <AiFillStar />
@@ -43,10 +43,12 @@ export const ProductItem = ({ product }: Props) => {
           <button>
             <BsCart4 />
           </button>
-        </Icons>
-        <p>{description}</p>
+        </Icons> */}
+        <p>{description.slice(0, 60)} ...</p>
+        {/* <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p> */}
+        <button onClick={() => handleClick(id)}> ver mas </button>
         <h3>${price}</h3>
-      </div>
+      </CardContent>
     </Card>
   );
 };

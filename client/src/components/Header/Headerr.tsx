@@ -8,7 +8,7 @@ import {
   NavOptions,
   Spacing,
   Nav,
-  AuthButtons
+  AuthButtons,
 } from './styled-components/Header.styled';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { useEffect } from 'react';
@@ -26,7 +26,7 @@ export const Headerr = () => {
     ({ userState }) => userState.user
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
-  const { categories } = useAppSelector(state => state.categoriesState);
+  const { categories } = useAppSelector((state) => state.categoriesState);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ export const Headerr = () => {
                 <form>
                   <select onChange={handleChange}>
                     <option value=''>All Categories</option>
-                    {categories.map(category => (
+                    {categories.map((category) => (
                       <option key={category.id} value={category.name}>
                         {category.name}
                       </option>
@@ -96,22 +96,21 @@ export const Headerr = () => {
                   </select>
                 </form>
               </li>
-              {/* <li>{loading ? <></> : !userState? 
+
+              <li>
+                <Link to='/cart'>
+                  <BsCart4 />
+                </Link>
+              </li>
+              
+              <li>{loading ? <></> : !userState? 
                 <AuthButtons>
                   <Login />
                   <SingUp/>
                 </AuthButtons> 
                 : 
                 <AccountMenu/> 
-              }</li> */}
-
-              <li>Login</li>
-              <li>Singup</li>
-              <li>
-                <Link to='/cart'>
-                <BsCart4 />
-                </Link>
-              </li>
+              }</li>
             </NavOptions>
           </NavMenu>
         </Navbar>

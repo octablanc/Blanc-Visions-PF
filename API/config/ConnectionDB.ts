@@ -2,15 +2,19 @@ import { Sequelize } from 'sequelize';
 import * as dotenv from 'dotenv';
 
 //Models
-import CartBuy from '../app/models/CartBuy.model';
-import CartSale from '../app/models/CartSale.model';
-import Categories from '../app/models/Categories.model';
-import OrderBuy from '../app/models/OrderBuy.model';
-import Products from '../app/models/Products.model';
-import Roles from '../app/models/Roles.model';
-import Users from '../app/models/Users.model';
-import ProductsProperties from '../app/models/ProductsProperties.model';
-import Images from '../app/models/Images.model';
+import CartBuy from "../app/models/CartBuy.model";
+import CartSale from "../app/models/CartSale.model";
+import Categories from "../app/models/Categories.model";
+import OrderBuy from "../app/models/OrderBuy.model";
+import Products from "../app/models/Products.model";
+import Roles from "../app/models/Roles.model";
+import Users from "../app/models/Users.model";
+import ProductsProperties from "../app/models/ProductsProperties.model";
+import Images from "../app/models/Images.model";
+import ProductOrder from "../app/models/ProductOrder.model";
+
+
+
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -34,19 +38,11 @@ ProductsProperties(DBcontext);
 OrderBuy(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
-Images(DBcontext);
+Images(DBcontext)
+ProductOrder(DBcontext)
 
-const {
-  cartBuy,
-  cartSale,
-  categories,
-  orderBuy,
-  products,
-  roles,
-  users,
-  products_properties,
-  images,
-} = DBcontext.models;
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder } =
+  DBcontext.models;
 
 /*
 Un Usuario puede tener solo 1 Rol. Si el rol es usuario entonces tendra un carrito de compra. Si el Rol es Admin, entonces tendra un carrito de ventas.
@@ -91,5 +87,17 @@ products.hasMany(products_properties, {
   foreignKey: 'productId',
 });
 products_properties.belongsTo(products);
+
+// a user has many purchase orders, and one purchase order belongs to one user
+users.hasMany(orderBuy);
+orderBuy.belongsTo(users);
+
+// a purchase order can have many product orders, and a product order can belong to a purchase order
+orderBuy.hasMany(productOrder);
+productOrder.belongsTo(orderBuy);
+
+// Un producto tiene a una orden de producto, y una orden de producto pertenece a un producto.
+products.hasOne(productOrder);
+productOrder.belongsTo(products);
 
 export default DBcontext;

@@ -26,7 +26,7 @@ export const Detail = () => {
   console.log(product.id);
 
   useEffect(() => {
-  //falta agregar un modal de producto inexistente!!
+    //falta agregar un modal de producto inexistente!!
     dispatch(getProductById(product.id));
   }, [dispatch, product.id]);
 
@@ -47,6 +47,10 @@ export const Detail = () => {
     <div className="container">
       {loading ? (
         <Spinner />
+      ) : currentProduct.id === 0 ? (
+        <div className="emptyId">
+          <h4>No existe un producto con ese Id</h4>
+        </div>
       ) : (
         <Container>
           <Image>

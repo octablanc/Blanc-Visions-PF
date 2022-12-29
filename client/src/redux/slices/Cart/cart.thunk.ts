@@ -1,4 +1,4 @@
-import { addToCart, getProductDetail, removeFromCart } from './cartSlice';
+import { addToCart, getProductDetail } from './cartSlice';
 import axios from 'axios';
 
 
