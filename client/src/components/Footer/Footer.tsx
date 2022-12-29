@@ -1,8 +1,13 @@
-import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
+// import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
 import { useState } from 'react';
-import { BsTwitter } from 'react-icons/bs';
-import { SiTiktok } from 'react-icons/si';
+// import { BsTwitter } from 'react-icons/bs';
+// import { SiTiktok } from 'react-icons/si';
 import { Link } from 'react-router-dom';
+import {
+  BsFillEnvelopeOpenFill,
+  BsWhatsapp,
+  BsFillTelephoneFill,
+} from '../../icons/index';
 import {
   FooterBar,
   GridFooter,
@@ -49,7 +54,9 @@ export const Footer = () => {
             <li>
               <Link to='/'>Inicio</Link>
             </li>
-            <li>Productos</li>
+            <li>
+              <Link to='/products'>Productos</Link>
+            </li>
             <li>
               <Link to='about'>Nosotros</Link>
             </li>
@@ -60,22 +67,35 @@ export const Footer = () => {
         <div>
           <h3>Información</h3>
           <ul>
+            <Link to='/questions'>Preguntas frecuentes</Link>
             <li>Términos y Condiciones</li>
             <li>Privacidad</li>
             <li>Cookies</li>
-            <li>Trabaja con nosotros</li>
           </ul>
         </div>
 
         <div>
-          <h3>Síguenos</h3>
+          <h3>Contactanos</h3>
+          <p>
+            <BsFillEnvelopeOpenFill className='icons' />
+            <span> info@kingcomm.com</span>
+          </p>
+          <p>
+            <BsWhatsapp className='icons' />
+            <a href='https://walink.co/bfd3d0'> +54 1121838240</a>
+          </p>
+          <p>
+            <BsFillTelephoneFill className='icons' />
+            <span> (011) 2100 6019</span>
+          </p>
+          {/* <h3>Síguenos</h3>
           <p>Nuestras redes sociales</p>
           <Icons>
             <AiFillFacebook />
             <BsTwitter />
             <AiOutlineInstagram />
             <SiTiktok />
-          </Icons>
+          </Icons> */}
         </div>
       </GridFooter>
     </FooterBar>

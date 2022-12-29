@@ -26,9 +26,10 @@ import {
   Remove,
   Back,
   Titles,
+  Input,
 } from '../../styled-components/styles';
 import { display, fontSize } from '@mui/system';
-import cart from '../../styled-components/cart.png'
+import cart from '../../styled-components/cart.png';
 
 /*................terminan estilos............... */
 
@@ -163,9 +164,7 @@ export const CartDetail = () => {
               <form action='http://localhost:3002/checkout' method='POST'>
                 <input type='hidden' name='title' value='nada' />
                 <input type='hidden' name='price' value={cartTotalAmount} />
-                <Btn name='buy'>
-                  <button type='submit'> Finalizar Compra checkout</button>
-                </Btn>
+                <input type='submit'> Finalizar Compra checkout</input>
               </form>
               <div>
                 <NavLink to='/products'>
