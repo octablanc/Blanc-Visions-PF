@@ -9,7 +9,20 @@ export const Filters = () => {
   const dispatch = useAppDispatch();
   const { currentCategory } = useAppSelector((state) => state.categoriesState);
   const { pagination } = useAppSelector((state) => state.productsState);
-  const { page, quantity, price, discount } = pagination;
+  const { quantity, price, discount } = pagination;
+
+  const handleFilter = (e: any) => {
+    const { value } = e.target;
+    console.log(value);
+    if (value === 'Mayor Precio') {
+      dispatch(getProductsPage(1, quantity, currentCategory, discount, price));
+    } else if (value === 'Menor Precio') {
+      dispatch(getProductsPage(1, quantity, currentCategory, discount, price));
+    } else {
+      console.log('descuento');
+      dispatch(getProductsPage(1, quantity, currentCategory, discount, price));
+    }
+  };
 
   const handleDiscount = (e: any) => {
     const isH4: boolean = e.target.nodeName === 'H4';
@@ -44,14 +57,14 @@ export const Filters = () => {
     <div>
       <h2>Refina tu busquedad</h2>
       <div>
-        <p>
+        <h2>
           ORDERNAR POR:
-          <select>
-            <option> Menor Precio</option>
-            <option> Mayor Precio</option>
-            <option> Mayor Descuento</option>
+          <select onChange={handleFilter}>
+            <option>Menor Precio</option>
+            <option>Mayor Precio</option>
+            <option>Mayor Descuento</option>
           </select>
-        </p>
+        </h2>
       </div>
       <div>
         <h2>DESCUENTOS</h2>
@@ -76,7 +89,6 @@ export const Filters = () => {
         <p>{currentCategory && currentCategory}</p>
         <p>Price : {price && price}</p>
         <p>Discount: {discount && discount}</p>
-
       </div>
     </div>
   );

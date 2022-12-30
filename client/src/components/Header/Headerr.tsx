@@ -102,15 +102,19 @@ export const Headerr = () => {
                   <BsCart4 />
                 </Link>
               </li>
-              
-              <li>{loading ? <></> : !userState? 
-                <AuthButtons>
-                  <Login />
-                  <SingUp/>
-                </AuthButtons> 
-                : 
-                <AccountMenu/> 
-              }</li>
+
+              <li>
+                {loading ? (
+                  <></>
+                ) : !userState ? (
+                  <AuthButtons>
+                    <Login />
+                    <SingUp />
+                  </AuthButtons>
+                ) : (
+                  <AccountMenu />
+                )}
+              </li>
             </NavOptions>
           </NavMenu>
         </Navbar>

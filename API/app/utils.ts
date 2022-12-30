@@ -274,8 +274,8 @@ export const data = [
   },
   {
     code: 'Pe4k',
-    name: 'Vanguard VEO 2 235 AB BLUE',
-    price: 9700,
+    name: 'VEO 2 235 AB BLUE',
+    price: 8000,
     stock: 1,
     description: `Intuitivo y sencillo de colocar el trípode en la posición deseada: Exclusivo e innovador sistema de columna central que permite configurar la columna central y las patas del trípode en menos de 15 segundos.`,
 
@@ -361,7 +361,7 @@ export const data = [
   {
     code: 'MF12',
     name: 'Godox MF12 Macro Flash',
-    price: 43776,
+    price: 50800,
     stock: 6,
     description: `Diseñado para fotografía de primeros planos, el flash macro MF12 de Godox facilita la fotografía macro. Este cabezal de flash le permite tomar fotografías hermosas y nítidas de sujetos pequeños como plantas, animales e insectos a una distancia extremadamente cercana.`,
 
@@ -400,8 +400,8 @@ export const data = [
   },
   {
     code: 'Fuji',
-    name: 'Godox V1 Flash para Fuji',
-    price: 43776,
+    name: 'V1 Flash para Fuji',
+    price: 35990,
     stock: 6,
     description: `Compatible con Sony ADI / P-TTL, esta luz flexible en la cámara se distingue por su cabeza redonda, que proporciona una luz suave y lisa con una caída gradual que aumenta la salida favorecedora.`,
 
