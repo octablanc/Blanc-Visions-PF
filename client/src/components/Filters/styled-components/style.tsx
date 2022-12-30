@@ -2,9 +2,24 @@ import styled from 'styled-components';
 
 export const FilterContent = styled.div`
   p {
-    box-shadow: 10px -6px 17px -10px #e95f03;
-    background-color: #eed4d4;
     display: inline-block;
-    padding: 0 2rem;
+    background-color: #F7F8F1;
+    padding: .2rem 1.2rem;
+    border: .1px solid #D7D8CF;
+    border-radius: 7px;
+    
+    &:hover{
+      transition:.8s;
+      background-color: #EFEFE9;
+    }
   }
-`;
+  button {
+    all: unset;
+    margin-left: 10px;
+    color: #CCCCC3;
+    &:hover{
+      color: #A1A19E;
+      cursor:pointer;
+    }
+  }
+  `;

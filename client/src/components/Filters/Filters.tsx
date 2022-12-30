@@ -117,6 +117,13 @@ export const Filters = () => {
       );
   };
 
+  const resetPrice = (e: any) => {
+    dispatch(getProductsPage(1, quantity, currentCategory, discount, 0, data,order));
+  }
+  const resetDiscount = (e: any) => {
+    dispatch(getProductsPage(1, quantity, currentCategory, 0, price, data,order));
+  }
+
   return (
     <div>
       <h3>{currentCategory}</h3>
@@ -125,21 +132,19 @@ export const Filters = () => {
         {price !== 0 && (
           <p>
             Desde ${price}
-            <button>x</button>
+            <button onClick={resetPrice}>x</button>
           </p>
         )}
         <br />
 
         {discount !== 0 && (
           <p>
-            Desde {discount}%OFF<button>x</button>
+            Desde {discount}%OFF<button onClick={resetDiscount}>x</button>
           </p>
         )}
 
         <br />
       </FilterContent>
-      <hr />
-
       <hr />
       <div>
         <h3>ORDERNAR POR:</h3>

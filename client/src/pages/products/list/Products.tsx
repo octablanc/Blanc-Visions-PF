@@ -14,6 +14,7 @@ import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
 import 'animate.css';
+import { NotProducts } from './components/NotProducts';
 
 export const Products = () => {
   const dispatch = useAppDispatch();
@@ -61,42 +62,45 @@ export const Products = () => {
 
   return (
     <>
-      <Conteiner className='container'>
+      <Conteiner className="container">
         <Filters />
         <div style={{ justifyContent: 'center' }}>
-          <h1 className='text-center'>Nuestros Productos</h1>
+          <h1 className="text-center">Nuestros Productos</h1>
           <ProductsGrid>
             {loading ? (
               <Spinner />
-            ) : (
-              products.length &&
+            ) : products.length ? (
               products.map((product) => (
                 <div
                   key={product.code}
-                  className='animate__animated animate__fadeIn'
+                  className="animate__animated animate__fadeIn"
                 >
                   <ProductItem product={product} />
                 </div>
               ))
+            ) : (
+              <NotProducts />
             )}
           </ProductsGrid>
-          <Paginate className='animate__animated animate__fadeIn'>
-            <button onClick={decrement} disabled={page === 1}>
-              {'<'}
-            </button>
-            <h3>{page}</h3>
 
-            {/* {Math.ceil(productsLength / quantity) !== page && (
+          {products.length && (
+            <Paginate className="animate__animated animate__fadeIn">
+              <button onClick={decrement} disabled={page === 1}>
+                {'<'}
+              </button>
+              <h3>{page}</h3>
+
+              {/* {Math.ceil(productsLength / quantity) !== page && (
               <button onClick={increment}>{'>'}</button> */}
-            {/* )} */}
-            <button
-              onClick={increment}
-              disabled={Math.ceil(productsLength / quantity) === page}
-            >
-              {'>'}{' '}
-            </button>
-          </Paginate>
-          {/* <Pagination /> */}
+              {/* )} */}
+              <button
+                onClick={increment}
+                disabled={Math.ceil(productsLength / quantity) === page}
+              >
+                {'>'}{' '}
+              </button>
+            </Paginate>
+          )}
         </div>
       </Conteiner>
     </>
