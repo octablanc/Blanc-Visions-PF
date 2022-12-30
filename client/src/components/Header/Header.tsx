@@ -39,7 +39,18 @@ export const Header = () => {
 
   const handleClick = (e: any): void => {
     const value = e.target.innerText;
-    dispatch(getProductsPage(1, quantity, value, discount, price));
+    // dispatch(getProductsPage(1, pagination.quantity, value));
+    dispatch(
+      getProductsPage(
+        1,
+        pagination.quantity,
+        value,
+        0,
+        0,
+        pagination.data,
+        pagination.order
+      )
+    );
   };
   const handleHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (selectActive) {
@@ -56,6 +67,7 @@ export const Header = () => {
   };
 
   useEffect(() => {
+    console.log('HEADERCON UNA R 1 SE ESTA USANDOI => HEADER.tsx');
     dispatch(getAllCategories());
   }, [dispatch]);
 

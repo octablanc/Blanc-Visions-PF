@@ -86,52 +86,27 @@ export const getProductsPage = (
   quantity: number,
   category: string | undefined = undefined,
   discount: number = 0,
-  price: number = 1
-  // data : 'id' | 'discount' | 'price' = 'id',
-  // order: 'ASC' | 'DESC' = 'ASC',
+  price: number = 1,
+  data: string,
+  order: string
 ) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      // console.log({ page, quantity, category, discount, price, data, order });
-      // console.log({ page, quantity, category, discount, price, data, order });
-
       let products;
       if (category) {
         products = (
           await axios(
-            // `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}`
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            // `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}`
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}`
           )
         ).data;
       }
-      // if (category) {
-      //   products = (
-      //     await axios(
-      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
-      //     )
-      //   ).data;
-      // let products;
-      // if (category) {
-      //   products = (
-      //     await axios(
-      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
-      //     )
-      //   ).data;
-      // } else {
-      //   products = (
-      //     await axios(
-      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
-      //     )
-      //   ).data;
-      // }
       dispatch(
         setPagination({
           page,
@@ -139,8 +114,8 @@ export const getProductsPage = (
           productsLength: products.productsLength,
           price,
           discount,
-          // data,
-          // order
+          data,
+          order,
         })
       );
       dispatch(changePage(products.result));

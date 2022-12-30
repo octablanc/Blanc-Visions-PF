@@ -101,8 +101,8 @@ const initialState: ProductState = {
     category: undefined,
     discount: 0,
     price: 0,
-    order: 'ASC',
     data: 'id',
+    order: 'ASC',
   },
 
   //* Usuario harcodeado para testear el formulario de modificacion

@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
+import { setCategory } from '../../redux/slices/categories'; //* DELETE
 import { getProductsPage } from '../../redux/slices/products';
 // import { useEffect } from 'react';
 
@@ -9,29 +10,23 @@ export const Filters = () => {
   const dispatch = useAppDispatch();
   const { currentCategory } = useAppSelector((state) => state.categoriesState);
   const { pagination } = useAppSelector((state) => state.productsState);
-  const { quantity, price, discount } = pagination;
-
-  const handleFilter = (e: any) => {
-    const { value } = e.target;
-    console.log(value);
-    if (value === 'Mayor Precio') {
-      dispatch(getProductsPage(1, quantity, currentCategory, discount, price));
-    } else if (value === 'Menor Precio') {
-      dispatch(getProductsPage(1, quantity, currentCategory, discount, price));
-    } else {
-      console.log('descuento');
-      dispatch(getProductsPage(1, quantity, currentCategory, discount, price));
-    }
-  };
+  const { quantity, price, discount, data, order } = pagination;
 
   const handleDiscount = (e: any) => {
     const isH4: boolean = e.target.nodeName === 'H4';
-    const valueHashtag: string = +isH4
+    const discountHashtag: string = +isH4
       ? e.target.children[0].innerHTML
       : e.target.innerHTML;
     dispatch(
-      getProductsPage(1, quantity, currentCategory, +valueHashtag, price)
-      // getProductsPage(page, quantity, currentCategory, +valueHashtag, price)
+      getProductsPage(
+        1,
+        quantity,
+        currentCategory,
+        +discountHashtag,
+        price,
+        data,
+        order
+      )
     );
   };
 
@@ -48,21 +43,90 @@ export const Filters = () => {
       .join('');
 
     dispatch(
-      getProductsPage(1, quantity, currentCategory, discount, priceFilter)
-      // getProductsPage(page, quantity, currentCategory, discount, priceFilter)
+      getProductsPage(
+        1,
+        quantity,
+        currentCategory,
+        discount,
+        priceFilter,
+        data,
+        order
+      )
     );
+  };
+
+  const ResetFilters = (e: any) => {
+    dispatch(getProductsPage(1, quantity, undefined, 0, 1, 'id', 'ASC'));
+    const selectCategory: any = document.getElementById('selectCategory');
+    selectCategory.selectedIndex = 0;
+    dispatch(setCategory(undefined));
+  };
+
+  const selectTypeOrder = (e: any) => {
+    const typeOrder: string = e.target.value;
+
+    if (typeOrder === 'Elegir Opcion')
+      return dispatch(
+        getProductsPage(
+          1,
+          quantity,
+          currentCategory,
+          discount,
+          price,
+          'id',
+          'ASC'
+        )
+      );
+    if (typeOrder === 'Menor Precio')
+      return dispatch(
+        getProductsPage(
+          1,
+          quantity,
+          currentCategory,
+          discount,
+          price,
+          'price',
+          'ASC'
+        )
+      );
+    if (typeOrder === 'Mayor Precio')
+      return dispatch(
+        getProductsPage(
+          1,
+          quantity,
+          currentCategory,
+          discount,
+          price,
+          'price',
+          'DESC'
+        )
+      );
+    if (typeOrder === 'Mayor Descuento')
+      return dispatch(
+        getProductsPage(
+          1,
+          quantity,
+          currentCategory,
+          discount,
+          price,
+          'discount',
+          'DESC'
+        )
+      );
   };
 
   return (
     <div>
+      <button onClick={ResetFilters}>RESET</button>
       <h2>Refina tu busquedad</h2>
       <div>
         <h2>
           ORDERNAR POR:
-          <select onChange={handleFilter}>
-            <option>Menor Precio</option>
-            <option>Mayor Precio</option>
-            <option>Mayor Descuento</option>
+          <select onChange={selectTypeOrder}>
+            <option>Elegir Opcion</option>
+            <option> Menor Precio</option>
+            <option> Mayor Precio</option>
+            <option> Mayor Descuento</option>
           </select>
         </h2>
       </div>
@@ -86,7 +150,7 @@ export const Filters = () => {
         <span> 6 cuotas sin interes </span>
 
         <h3>FILTERS</h3>
-        <p>{currentCategory && currentCategory}</p>
+        <p>Catagory :{currentCategory && currentCategory}</p>
         <p>Price : {price && price}</p>
         <p>Discount: {discount && discount}</p>
       </div>
