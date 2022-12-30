@@ -156,7 +156,7 @@ export const productSlice = createSlice({
       state.pagination.price = action.payload.price;
       state.pagination.discount = action.payload.discount;
 
-      state.pagination.data= action.payload.data;
+      state.pagination.data = action.payload.data;
       state.pagination.order = action.payload.order;
     },
     setUser: (state, action) => {

@@ -22,17 +22,10 @@ export const Products = () => {
   );
   const { currentCategory } = useAppSelector((state) => state.categoriesState);
 
-  const {
-    page,
-    quantity,
-    productsLength,
-    discount,
-    price,
-    data,
-    order,
-  } = pagination;
+  const { page, quantity, productsLength, discount, price, data, order } =
+    pagination;
   useEffect(() => {
-    dispatch(getProductsPage(1, quantity, currentCategory, 0, 1, 'id', 'ASC'));
+    dispatch(getProductsPage(1, quantity, currentCategory, 0, 0, 'id', 'ASC'));
   }, [dispatch, currentCategory]);
 
   const increment = () => {
@@ -68,10 +61,10 @@ export const Products = () => {
 
   return (
     <>
-      <Conteiner className="container">
+      <Conteiner className='container'>
         <Filters />
         <div style={{ justifyContent: 'center' }}>
-          <h1 className="text-center">Nuestros Productos</h1>
+          <h1 className='text-center'>Nuestros Productos</h1>
           <ProductsGrid>
             {loading ? (
               <Spinner />
@@ -80,14 +73,14 @@ export const Products = () => {
               products.map((product) => (
                 <div
                   key={product.code}
-                  className="animate__animated animate__fadeIn"
+                  className='animate__animated animate__fadeIn'
                 >
                   <ProductItem product={product} />
                 </div>
               ))
             )}
           </ProductsGrid>
-          <Paginate className="animate__animated animate__fadeIn">
+          <Paginate className='animate__animated animate__fadeIn'>
             <button onClick={decrement} disabled={page === 1}>
               {'<'}
             </button>

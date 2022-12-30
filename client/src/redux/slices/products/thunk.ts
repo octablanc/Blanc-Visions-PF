@@ -86,7 +86,7 @@ export const getProductsPage = (
   quantity: number,
   category: string | undefined = undefined,
   discount: number = 0,
-  price: number = 1,
+  price: number = 0,
   data: string,
   order: string
 ) => {

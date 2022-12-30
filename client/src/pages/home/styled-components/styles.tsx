@@ -5,14 +5,23 @@ export const CardContainer = styled.div`
   border-radius: 3rem;
   overflow: hidden;
   .image {
-    height: 28rem;
+    width: 100%;
+    height: 25rem;
     display: flex;
     align-items: center;
     background-color: white;
+    padding: 2rem;
   }
 
   .description {
     padding: 1rem;
+  }
+  h4 {
+    margin: 0;
+  }
+  button {
+    background-color: transparent;
+    border: none;
   }
 `;
 

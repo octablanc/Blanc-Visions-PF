@@ -224,7 +224,6 @@ export async function paginateProducts(req: Request, res: Response) {
           limit: quantityProducts,
           order: [[data, order]],
         });
-        console.log('back', { page, category, price, discount, data, order });
 
         const productsAll = await Products.count({
           where: {

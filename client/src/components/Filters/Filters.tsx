@@ -3,6 +3,8 @@ import { setCategory } from '../../redux/slices/categories'; //* DELETE
 import { getProductsPage } from '../../redux/slices/products';
 // import { useEffect } from 'react';
 
+import { FilterContent } from './styled-components/style';
+
 const listPrice = ['10.000', '50.000', '100.000'];
 const listDiscount = ['10', '20'];
 
@@ -56,7 +58,7 @@ export const Filters = () => {
   };
 
   const ResetFilters = (e: any) => {
-    dispatch(getProductsPage(1, quantity, undefined, 0, 1, 'id', 'ASC'));
+    dispatch(getProductsPage(1, quantity, undefined, 0, 0, 'id', 'ASC'));
     const selectCategory: any = document.getElementById('selectCategory');
     selectCategory.selectedIndex = 0;
     dispatch(setCategory(undefined));
@@ -117,42 +119,51 @@ export const Filters = () => {
 
   return (
     <div>
-      <button onClick={ResetFilters}>RESET</button>
-      <h2>Refina tu busquedad</h2>
+      <h3>{currentCategory}</h3>
+      <h2>Refina tu busqueda: </h2>
+      <FilterContent>
+        {price !== 0 && (
+          <p>
+            Desde ${price}
+            <button>x</button>
+          </p>
+        )}
+        <br />
+
+        {discount !== 0 && (
+          <p>
+            Desde {discount}%OFF<button>x</button>
+          </p>
+        )}
+
+        <br />
+      </FilterContent>
+      <hr />
+
+      <hr />
       <div>
-        <h2>
-          ORDERNAR POR:
-          <select onChange={selectTypeOrder}>
-            <option>Elegir Opcion</option>
-            <option> Menor Precio</option>
-            <option> Mayor Precio</option>
-            <option> Mayor Descuento</option>
-          </select>
-        </h2>
+        <h3>ORDERNAR POR:</h3>
+        <select onChange={selectTypeOrder}>
+          <option>Elegir Opcion</option>
+          <option> Menor Precio</option>
+          <option> Mayor Precio</option>
+          <option> Mayor Descuento</option>
+        </select>
       </div>
       <div>
-        <h2>DESCUENTOS</h2>
+        <h3>DESCUENTOS</h3>
         {listDiscount.map((discount: string) => (
           <h4 onClick={handleDiscount} key={discount}>
             Desde <span>{discount}</span>% OFF
           </h4>
         ))}
 
-        <h2>PRECIO</h2>
+        <h3>PRECIO</h3>
         {listPrice.map((price: string) => (
           <h4 onClick={handlePrice} key={price}>
             A partir de $<span>{price}</span>
           </h4>
         ))}
-
-        <h3>FORMAS DE PAGO</h3>
-        <span> 3 cuotas sin interes </span>
-        <span> 6 cuotas sin interes </span>
-
-        <h3>FILTERS</h3>
-        <p>Catagory :{currentCategory && currentCategory}</p>
-        <p>Price : {price && price}</p>
-        <p>Discount: {discount && discount}</p>
       </div>
     </div>
   );

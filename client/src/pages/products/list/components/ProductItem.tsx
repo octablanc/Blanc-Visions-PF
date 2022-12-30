@@ -23,8 +23,6 @@ export const ProductItem = ({ product }: Props) => {
     dispatch(getProductById(id));
     navigate(`/products/${id}`);
   };
-  // console.log(product);
-
   return (
     <Card key={code}>
       <div className='image'>
@@ -32,27 +30,10 @@ export const ProductItem = ({ product }: Props) => {
       </div>
       <CardContent>
         <h4>{name}</h4>
-        {/* <Icons>
-          <div>
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiOutlineStar />
-          </div>
-          <button>
-            <BsCart4 />
-          </button>
-        </Icons> */}
         <p>{description.slice(0, 60)} ...</p>
-        {/* <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p> */}
         <button onClick={() => handleClick(id)}> ver mas </button>
         <h3>${price}</h3>
-        {discount !== 0 ? (
-          <h2>%{discount} OFF</h2>
-        ) : (
-          <p>No hay productos en esta categoria con descuentos</p>
-        )}
+        <h2>%{discount} OFF</h2>
       </CardContent>
     </Card>
   );
