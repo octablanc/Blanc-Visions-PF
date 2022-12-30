@@ -78,12 +78,13 @@ export default function CreateProduct() {
       [key]: key === 'code' ? (value.length < 6 ? value : product.code) : value,
     });
 
-    setError({
-      ...error,
-      [key]: !value
-        ? `${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`
-        : false,
-    });
+    if(!value)
+      setError({
+        ...error,
+        [key]: !value
+          ? `${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`
+          : false,
+      });
   }
 
   function handlerSubmit() {
@@ -208,6 +209,7 @@ export default function CreateProduct() {
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -230,6 +232,7 @@ export default function CreateProduct() {
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -252,6 +255,7 @@ export default function CreateProduct() {
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -275,6 +279,7 @@ export default function CreateProduct() {
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
@@ -298,6 +303,7 @@ export default function CreateProduct() {
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <FormControl
@@ -320,6 +326,7 @@ export default function CreateProduct() {
               value={product.categoryId}
               sx={{ fontSize: fontSizeInput }}
               onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
             >
               {categories.length ? (
                 categories.map(category => (
@@ -370,6 +377,7 @@ export default function CreateProduct() {
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           {!loading ? (
