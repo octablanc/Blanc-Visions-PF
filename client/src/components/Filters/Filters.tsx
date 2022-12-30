@@ -1,9 +1,16 @@
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
-import { setCategory } from '../../redux/slices/categories'; //* DELETE
 import { getProductsPage } from '../../redux/slices/products';
-// import { useEffect } from 'react';
 
-import { FilterContent } from './styled-components/style';
+import { FilterContent, FilterDiscountPrice } from './styled-components/style';
+import { useState } from 'react';
 
 const listPrice = ['10.000', '50.000', '100.000'];
 const listDiscount = ['10', '20'];
@@ -13,10 +20,11 @@ export const Filters = () => {
   const { currentCategory } = useAppSelector((state) => state.categoriesState);
   const { pagination } = useAppSelector((state) => state.productsState);
   const { quantity, price, discount, data, order } = pagination;
+  const [ordenar, setOrdenar] = useState(''); // MATERIAl
 
   const handleDiscount = (e: any) => {
-    const isH4: boolean = e.target.nodeName === 'H4';
-    const discountHashtag: string = +isH4
+    const isH5: boolean = e.target.nodeName === 'H5';
+    const discountHashtag: string = +isH5
       ? e.target.children[0].innerHTML
       : e.target.innerHTML;
     dispatch(
@@ -33,9 +41,9 @@ export const Filters = () => {
   };
 
   const handlePrice = (e: any) => {
-    const isH4: boolean = e.target.nodeName === 'H4';
+    const isH5: boolean = e.target.nodeName === 'H5';
 
-    const valueHashtag: string = isH4
+    const valueHashtag: string = isH5
       ? e.target.children[0].innerHTML
       : e.target.innerHTML;
 
@@ -57,17 +65,17 @@ export const Filters = () => {
     );
   };
 
-  const ResetFilters = (e: any) => {
-    dispatch(getProductsPage(1, quantity, undefined, 0, 0, 'id', 'ASC'));
-    const selectCategory: any = document.getElementById('selectCategory');
-    selectCategory.selectedIndex = 0;
-    dispatch(setCategory(undefined));
-  };
+  // const ResetFilters = (e: any) => {
+  //   dispatch(getProductsPage(1, quantity, undefined, 0, 0, 'id', 'ASC'));
+  //   const selectCategory: any = document.getElementById('selectCategory');
+  //   selectCategory.selectedIndex = 0;
+  //   dispatch(setCategory(undefined));
+  // };
 
-  const selectTypeOrder = (e: any) => {
-    const typeOrder: string = e.target.value;
-
-    if (typeOrder === 'Elegir Opcion')
+  // const selectTypeOrder = (e: any) => {
+  const selectTypeOrder = (typeOrder: string) => {
+    // const typeOrder: string = e.target.value;
+    if (typeOrder === 'Sin Ordenar')
       return dispatch(
         getProductsPage(
           1,
@@ -118,15 +126,24 @@ export const Filters = () => {
   };
 
   const resetPrice = (e: any) => {
-    dispatch(getProductsPage(1, quantity, currentCategory, discount, 0, data,order));
-  }
+    dispatch(
+      getProductsPage(1, quantity, currentCategory, discount, 0, data, order)
+    );
+  };
   const resetDiscount = (e: any) => {
-    dispatch(getProductsPage(1, quantity, currentCategory, 0, price, data,order));
-  }
+    dispatch(
+      getProductsPage(1, quantity, currentCategory, 0, price, data, order)
+    );
+  };
+
+  const handleChange = (e: SelectChangeEvent) => {
+    setOrdenar(e.target.value as string);
+    selectTypeOrder(e.target.value);
+  };
 
   return (
     <div>
-      <h3>{currentCategory}</h3>
+      <h3 className="category__name">{currentCategory}</h3>
       <h2>Refina tu busqueda: </h2>
       <FilterContent>
         {price !== 0 && (
@@ -142,34 +159,43 @@ export const Filters = () => {
             Desde {discount}%OFF<button onClick={resetDiscount}>x</button>
           </p>
         )}
-
-        <br />
       </FilterContent>
-      <hr />
       <div>
-        <h3>ORDERNAR POR:</h3>
-        <select onChange={selectTypeOrder}>
-          <option>Elegir Opcion</option>
-          <option> Menor Precio</option>
-          <option> Mayor Precio</option>
-          <option> Mayor Descuento</option>
-        </select>
+        {/* <h3>ORDERNAR POR:</h3> */}
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Orden</InputLabel>
+
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={ordenar}
+              label="Orden"
+              onChange={handleChange}
+            >
+              <MenuItem value="Sin Ordenar">Sin Ordenar</MenuItem>
+              <MenuItem value="Menor Precio">Menor Precio</MenuItem>
+              <MenuItem value="Mayor Precio">Mayor Precio</MenuItem>
+              <MenuItem value="Mayor Descuento">Mayor Descuento</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </div>
-      <div>
+      <FilterDiscountPrice>
         <h3>DESCUENTOS</h3>
         {listDiscount.map((discount: string) => (
-          <h4 onClick={handleDiscount} key={discount}>
+          <h5 onClick={handleDiscount} key={discount}>
             Desde <span>{discount}</span>% OFF
-          </h4>
+          </h5>
         ))}
 
         <h3>PRECIO</h3>
         {listPrice.map((price: string) => (
-          <h4 onClick={handlePrice} key={price}>
+          <h5 onClick={handlePrice} key={price}>
             A partir de $<span>{price}</span>
-          </h4>
+          </h5>
         ))}
-      </div>
+      </FilterDiscountPrice>
     </div>
   );
 };
