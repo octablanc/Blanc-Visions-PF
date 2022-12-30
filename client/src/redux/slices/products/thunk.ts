@@ -81,56 +81,41 @@ export const createNewProduct = (product: any) => {
     } catch (err) {}
   };
 };
-
 export const getProductsPage = (
   page: number,
   quantity: number,
   category: string | undefined = undefined,
-  discount: number = 0
+  discount: number = 0,
+  price: number = 0,
+  data: string,
+  order: string
 ) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-
       let products;
       if (category) {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}`
           )
         ).data;
       }
-      // if (category) {
-      //   products = (
-      //     await axios(
-      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
-      //     )
-      //   ).data;
-      // let products;
-      // if (category) {
-      //   products = (
-      //     await axios(
-      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}`
-      //     )
-      //   ).data;
-      // } else {
-      //   products = (
-      //     await axios(
-      //       `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}}`
-      //     )
-      //   ).data;
-      // }
       dispatch(
         setPagination({
           page,
           category,
           productsLength: products.productsLength,
+          price,
+          discount,
+          data,
+          order,
         })
       );
       dispatch(changePage(products.result));

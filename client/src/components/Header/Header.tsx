@@ -6,7 +6,7 @@ import {
   Menu,
   Nav,
   Desplegable,
-  AuthButtons
+  AuthButtons,
 } from './styled-components/styles';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
@@ -33,12 +33,24 @@ export const Header = () => {
     (state) => state.productsState
   );
   const navigate = useNavigate();
-
+  const { discount, price, data, order, quantity } = pagination;
   const dispatch = useAppDispatch();
   const [selectActive, setSelectActive] = useState(false);
+
   const handleClick = (e: any): void => {
     const value = e.target.innerText;
-    dispatch(getProductsPage(1, pagination.quantity, value));
+    // dispatch(getProductsPage(1, pagination.quantity, value));
+    dispatch(
+      getProductsPage(
+        1,
+        pagination.quantity,
+        value,
+        0,
+        0,
+        pagination.data,
+        pagination.order
+      )
+    );
   };
   const handleHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (selectActive) {
@@ -55,6 +67,7 @@ export const Header = () => {
   };
 
   useEffect(() => {
+    console.log('HEADERCON UNA R 1 SE ESTA USANDOI => HEADER.tsx');
     dispatch(getAllCategories());
   }, [dispatch]);
 
@@ -73,8 +86,8 @@ export const Header = () => {
             <Icons>
               <li>
                 <BsFillCartFill />
-              </li> 
-             
+              </li>
+
               {userState && (
                 <li>
                   <div
@@ -85,7 +98,7 @@ export const Header = () => {
                       alignItems: 'center',
                     }}
                   >
-                  {/* <AccountMenu/> */}
+                    {/* <AccountMenu/> */}
                     Mi Cuenta
                   </div>
 
@@ -96,19 +109,24 @@ export const Header = () => {
                       <li onClick={navigatePage}>cerrar sesion</li>
                     </Desplegable>
                   )}
-
                 </li>
               )}
 
-              <li>{loading ? <></> : !userState? 
-                <AuthButtons>
-                  <Login />
-                  <SingUp/>
-                </AuthButtons> 
-                : 
-                <LogOut/>
-                // <></>
-              }</li>
+              <li>
+                {
+                  loading ? (
+                    <></>
+                  ) : !userState ? (
+                    <AuthButtons>
+                      <Login />
+                      <SingUp />
+                    </AuthButtons>
+                  ) : (
+                    <LogOut />
+                  )
+                  // <></>
+                }
+              </li>
             </Icons>
           </Nav>
         </div>

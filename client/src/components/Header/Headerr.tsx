@@ -20,21 +20,24 @@ import LogOut from '../login/components/LogOut';
 import SingUp from '../singup/SingUp';
 import { User } from '../../models/User.model';
 import AccountMenu from './components/AccountMenu';
+import { FilterCategory } from '../FilterCategory';
 
 export const Headerr = () => {
   const userState: User | null = useAppSelector(
     ({ userState }) => userState.user
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
-  const { categories } = useAppSelector((state) => state.categoriesState);
+  // const { categories } = useAppSelector((state) => state.categoriesState);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setCategory(e.target.value));
-    navigate('/products');
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const value: string | undefined = e.target.value;
+  //   console.log(value)
+  //   dispatch(setCategory(value));
+  //   navigate('/products');
+  // };
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -85,16 +88,17 @@ export const Headerr = () => {
                 </NavLink>
               </li>
               <li>
-                <form>
-                  <select onChange={handleChange}>
-                    <option value=''>All Categories</option>
+                {/* <form>
+                  <select onChange={handleChange} id='selectCategory'>
+                    <option value=''>Todas las Categorias</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.name}>
                         {category.name}
                       </option>
                     ))}
                   </select>
-                </form>
+                </form> */}
+                <FilterCategory />
               </li>
 
               <li>
@@ -102,15 +106,19 @@ export const Headerr = () => {
                   <BsCart4 />
                 </Link>
               </li>
-              
-              <li>{loading ? <></> : !userState? 
-                <AuthButtons>
-                  <Login />
-                  <SingUp/>
-                </AuthButtons> 
-                : 
-                <AccountMenu/> 
-              }</li>
+
+              <li>
+                {loading ? (
+                  <></>
+                ) : !userState ? (
+                  <AuthButtons>
+                    <Login />
+                    <SingUp />
+                  </AuthButtons>
+                ) : (
+                  <AccountMenu />
+                )}
+              </li>
             </NavOptions>
           </NavMenu>
         </Navbar>
