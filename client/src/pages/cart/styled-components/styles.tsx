@@ -28,7 +28,7 @@ export const Contain = styled.div`
 `;
 
 export const Div = styled.div`
-  margin-bottom: 2rem;
+  // margin-bottom: 1rem;
   padding-bottom: 1rem;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
@@ -44,6 +44,7 @@ export const Titles = styled.div`
   gap: 3rem;
   align-items: center;
   justify-items: center;
+  font-size: 1.2rem;
 `;
 
 export const Div2 = styled.div`
@@ -103,8 +104,7 @@ export const TotalDiv = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 export const Line = styled.div`
@@ -123,19 +123,30 @@ export const Btn = styled.button`
   color: black;
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  border-radius: 0.5rem;
-  margin: 0.5rem;
-  padding: 0.5rem;
-  input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: black;
-    color: ${(props) => props.theme.colors.secondary};
-  }
+export const BtnCheck = styled.button`
+width: 100%;
+border-radius: 0.5rem;
+margin: 0.5rem;
+padding: 1rem;
+border: none;
+background-color: ${(props) => props.theme.colors.secondary};
+color: white;
+font-size: 1.5rem;
 `;
+
+// export const Input = styled.input`
+//   width: 100%;
+//   border-radius: 0.5rem;
+//   margin: 0.5rem;
+//   padding: 0.5rem;
+//   input {
+//     width: 100%;
+//     height: 100%;
+//     border: none;
+//     background-color: black;
+//     color: ${(props) => props.theme.colors.secondary};
+//   }
+// `;
 
 export const Back = styled.button`
   width: 30rem;
@@ -155,8 +166,8 @@ export const Remove = styled.button`
   border-left: solid 1px ${(props) => props.theme.colors.secondary};
   border-right: solid 1px ${(props) => props.theme.colors.secondary};
   padding: 0.5rem 1rem;
-  margin-bottom: 2rem;
-  margin-top: 0rem;
+  margin-bottom: 1rem;
+  // margin-top: 0rem;
   background-color: transparent;
   color: ${(props) => props.theme.colors.secondary};
   display: flex;

@@ -20,6 +20,7 @@ import { auth } from "./firebase/firebase.config";
 import { useAppDispatch, useAppSelector } from './redux/app/hooks';
 import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
+import { Privacy } from './pages/privacy/Privacy';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -49,6 +50,7 @@ function App() {
             <Route path='about' element={<About />} />
             <Route path='buy' element={<MyBuy />} />{/*Hecho para testear mis compras...*/}
             <Route path='questions' element={<Questions />} />
+            <Route path='privacy' element={<Privacy />} />
           </Route>
         </Routes>
       </BrowserRouter>
