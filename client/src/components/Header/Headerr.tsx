@@ -20,22 +20,24 @@ import LogOut from '../login/components/LogOut';
 import SingUp from '../singup/SingUp';
 import { User } from '../../models/User.model';
 import AccountMenu from './components/AccountMenu';
+import { FilterCategory } from '../FilterCategory';
 
 export const Headerr = () => {
   const userState: User | null = useAppSelector(
     ({ userState }) => userState.user
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
-  const { categories } = useAppSelector((state) => state.categoriesState);
+  // const { categories } = useAppSelector((state) => state.categoriesState);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value: string | undefined = e.target.value;
-    dispatch(setCategory(value));
-    navigate('/products');
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const value: string | undefined = e.target.value;
+  //   console.log(value)
+  //   dispatch(setCategory(value));
+  //   navigate('/products');
+  // };
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -86,16 +88,17 @@ export const Headerr = () => {
                 </NavLink>
               </li>
               <li>
-                <form>
+                {/* <form>
                   <select onChange={handleChange} id='selectCategory'>
-                    <option value=''>All Categories</option>
+                    <option value=''>Todas las Categorias</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.name}>
                         {category.name}
                       </option>
                     ))}
                   </select>
-                </form>
+                </form> */}
+                <FilterCategory />
               </li>
 
               <li>
