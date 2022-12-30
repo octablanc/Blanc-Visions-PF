@@ -7,5 +7,6 @@ export const BoxStyle = {
     transform: 'translate(-50%, -50%)',
     borderRadius: "5px",
     bgcolor: 'background.paper',
-    boxShadow: 24
+    boxShadow: 24,
+    outline: 'none'
 };

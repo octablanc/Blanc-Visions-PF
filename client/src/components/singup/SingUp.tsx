@@ -23,7 +23,7 @@ import {
 // Authentication
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
-import { postUser } from "../../services/postUser";
+import { postUser } from "../../services/services";
 
 export default function SingUp() {
   const [user, setUser] = useState({
@@ -74,6 +74,11 @@ export default function SingUp() {
           ...error,
           [target.name]: 'Mail is empty!',
         });
+      else if (target.name === 'password')
+        setError({
+          ...error,
+          [target.name]: 'Password is empty!',
+        });
       else
         setError({
           ...error,
@@ -84,18 +89,6 @@ export default function SingUp() {
       setError({
         ...error,
         [event.target.name]: false,
-      });
-  }
-
-  function handleInputFocus(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const { target } = event;
-
-    if (!target.value)
-      setError({
-        ...error,
-        [target.name]: true,
       });
   }
 
@@ -170,6 +163,10 @@ export default function SingUp() {
             setError({ ...error, mail: 'Mail already registered!' });
             break;
 
+            case 'auth/invalid-email':
+              setError({ ...error, mail: 'Invalid mail!' });
+              break;
+
           case 'auth/weak-password':
             setError({ ...error, password: 'Password should be at least 6 characters!' });
             break;
@@ -226,7 +223,7 @@ export default function SingUp() {
                   }
                   variant="standard"
                   onChange={handleInput}
-                  onFocus={handleInputFocus}
+                  onFocus={handleInput}
                 />
 
                 <TextField
@@ -250,7 +247,7 @@ export default function SingUp() {
                   }
                   variant="standard"
                   onChange={handleInput}
-                  onFocus={handleInputFocus}
+                  onFocus={handleInput}
                 />
               </TwoFields>
 
@@ -275,7 +272,7 @@ export default function SingUp() {
                 }
                 variant="standard"
                 onChange={handleInput}
-                onFocus={handleInputFocus}
+                onFocus={handleInput}
               />
 
               <TwoFields className="input">
@@ -300,7 +297,7 @@ export default function SingUp() {
                   }
                   variant="standard"
                   onChange={handleInput}
-                  onFocus={handleInputFocus}
+                  onFocus={handleInput}
                 />
 
                 <TextField
@@ -341,7 +338,7 @@ export default function SingUp() {
                 }
                 variant="standard"
                 onChange={handleInput}
-                onFocus={handleInputFocus}
+                onFocus={handleInput}
               />
 
               <TwoFields className="input">
@@ -380,7 +377,7 @@ export default function SingUp() {
                   }
                   variant="standard"
                   onChange={handleInput}
-                  onFocus={handleInputFocus}
+                  onFocus={handleInput}
                 />
 
                 <TextField

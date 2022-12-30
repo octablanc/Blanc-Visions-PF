@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-// import { Footer } from './Footer/Footer';
+import { Footer } from './Footer/Footer';
 // import { Header } from './Header/Header';
 
 import Backdrop from '@mui/material/Backdrop';
@@ -41,7 +41,7 @@ export const Layout = () => {
         <ContainerLayout>
           <Outlet />
         </ContainerLayout>
-        {/* <Footer /> */}
+        <Footer />
       </GridLayout>
     </div>
   );

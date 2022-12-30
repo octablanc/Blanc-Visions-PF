@@ -40,7 +40,7 @@ export const Input = styled.input`
 `;
 
 export const Btn = styled.button`
-  background-color: ${(props) => props.theme.colors.secondary};
+  background-color: ${(props) => props.theme.colors.primary};
   padding: 1rem;
   width: 80%;
   border: none;

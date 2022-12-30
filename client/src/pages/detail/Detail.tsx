@@ -1,8 +1,9 @@
+//components
 import { Slider } from "./components/Slider/Slider";
-
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import line from "./styled-components/imgLine.png";
-
+import Spinner from "../../components/Spinner/Spinner";
+//icons
+import { AiOutlineStar, AiFillStar } from "../../icons";
+//styles
 import {
   Container,
   Image,
@@ -10,27 +11,29 @@ import {
   CartSection,
   Btn,
 } from "./styled-components/Detail";
-import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
-import Spinner from "../../components/Spinner/Spinner";
-
-import { useNavigate } from "react-router-dom";
-import { addToCart } from "../../redux/slices/Cart";
-import { ProductProperties } from "./components/productProperties";
+//react
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+//redux
+import { getProductById, addToCart } from "../../redux/slices/Cart";
+import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const product: any = useParams();
+  console.log(useParams());
+  console.log(product.id);
 
-  const { currentProduct } = useAppSelector(
-    (state: any) => state.productsState
-  );
+  useEffect(() => {
+    //falta agregar un modal de producto inexistente!!
+    dispatch(getProductById(product.id));
+  }, [dispatch, product.id]);
 
-  const { name, price, description, loading, stock, properties } =
+  const { currentProduct } = useAppSelector((state: any) => state.cartState);
+  const { loading, name, price, description, stock, properties, images } =
     currentProduct;
-
-  let productProps = properties.map((el: any) => el.name);
-  console.log("properties:", properties);
-  console.log("productProps:", productProps);
+  console.log(currentProduct);
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
@@ -44,12 +47,19 @@ export const Detail = () => {
     <div className="container">
       {loading ? (
         <Spinner />
+      ) : currentProduct.id === 0 ? (
+        <div className="emptyId">
+          <h4>No existe un producto con ese Id</h4>
+        </div>
       ) : (
         <Container>
           <Image>
-            <h3 className="title">{name}</h3>
-            <img src={line} />
-            <Slider />
+            <h3>nombre{name}</h3>
+            <div>
+              <hr />
+            </div>
+            {/* <img src={line} /> */}
+            <Slider loading={loading} images={images} />
           </Image>
           <Info>
             <div className="icons">
@@ -62,8 +72,8 @@ export const Detail = () => {
                 <AiOutlineStar />
               </div>
             </div>
-            {/* <p>Descripción</p>
-            <p>{description}</p> */}
+            <p className="features">Descripción</p>
+            <p>{description}</p>
 
             <span className="features">Características</span>
             {properties?.map((el: any, key: number) => (
@@ -72,29 +82,21 @@ export const Detail = () => {
                 <span className="list">{el.name}</span>
                 <span className="list">{el.value}</span>
               </ul>
-              //  <li value={el.name}>{el.name}</li>
-              // name= {el.name }
-              // value= {el.value}
-              // />
             ))}
 
             <ul>
               <hr />
               <br />
-              <span className="stock">Unidades disponibles:</span>
-              <span className="stock">{stock}</span>
+              {/* <span className="stock">Unidades disponibles:</span> */}
+              {/* <span className="stock">{stock}</span> */}
             </ul>
             <CartSection>
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <form action="http://localhost:3002/checkout" method="POST">
-                <input type="hidden" name="title" value={name} />
-                <input type="hidden" name="price" value={price} />
-                <Btn name="buy">
-                  <button type="submit">Compra checkout</button>
-                </Btn>
-              </form>
+              <Btn name="buy" onClick={handleCheckOut}>
+                Comprar
+              </Btn>
             </CartSection>
           </Info>
         </Container>

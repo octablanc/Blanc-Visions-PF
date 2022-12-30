@@ -12,6 +12,7 @@ import Users from "../app/models/Users.model";
 import ProductsProperties from "../app/models/ProductsProperties.model";
 import Images from "../app/models/Images.model";
 import OffersModel from "../app/models/Offers.model";
+import ProductOrder from "../app/models/ProductOrder.model";
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -37,6 +38,7 @@ OrderBuy(DBcontext);
 Roles(DBcontext);
 Users(DBcontext);
 Images(DBcontext);
+ProductOrder(DBcontext);
 
 const {
   cartBuy,
@@ -48,6 +50,7 @@ const {
   users,
   products_properties,
   images,
+  productOrder,
   offers,
 } = DBcontext.models;
 
@@ -98,5 +101,16 @@ products_properties.belongsTo(products);
 // A products can have a single offers, offers can have many products (one to many).
 offers.hasMany(products);
 products.belongsTo(offers);
+// a user has many purchase orders, and one purchase order belongs to one user
+users.hasMany(orderBuy);
+orderBuy.belongsTo(users);
+
+// a purchase order can have many product orders, and a product order can belong to a purchase order
+orderBuy.hasMany(productOrder);
+productOrder.belongsTo(orderBuy);
+
+// Un producto tiene a una orden de producto, y una orden de producto pertenece a un producto.
+products.hasOne(productOrder);
+productOrder.belongsTo(products);
 
 export default DBcontext;

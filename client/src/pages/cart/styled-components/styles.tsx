@@ -3,12 +3,22 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  // .titles {
-  //   display: grid;
-  //   grid-template-columns: 2fr 1fr 1fr 1fr;
-  //   font-size: 2rem;
-  //   align-items: center;
-  // }
+  .emptyCart {
+    margin-top: 2rem;
+    margin-left: 2rem;
+    display: flex;
+    img {
+      width: 12rem;
+      height: auto;
+      margin-right: 2rem;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `;
 
 export const Contain = styled.div`
@@ -18,7 +28,17 @@ export const Contain = styled.div`
 `;
 
 export const Div = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 1px solid grey;
+`;
+
+export const Titles = styled.div`
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   gap: 3rem;
@@ -53,8 +73,8 @@ export const Operators = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-column-gap: 1rem;
+  justify-content: center;
   border-color: #c2ad94;
-  margin-top: -2rem;
   width: 10rem;
   div {
     font-size: 1.5rem;
@@ -64,7 +84,7 @@ export const Operators = styled.div`
   button {
     border: none;
     color: #8b7c69;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     background: transparent;
     cursor: pointer;
@@ -98,13 +118,50 @@ export const Btn = styled.button`
   border-radius: 0.5rem;
   margin: 0.5rem;
   padding: 0.5rem;
-  background-color: black;
-  color: white;
+  border: none;
+  background-color: ${(props) => props.theme.colors.primary};
+  color: black;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: black;
+    color: ${(props) => props.theme.colors.secondary};
+  }
+`;
+
+export const Back = styled.button`
+  width: 30rem;
+  border-radius: 0.5rem;
+  border: none;
+  margin: 0.5rem;
+  padding: 1.5rem;
+  background-color: ${(props) => props.theme.colors.secondary};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const Remove = styled.button`
   border-radius: 0.5rem;
+  border: none;
+  border-left: solid 1px ${(props) => props.theme.colors.secondary};
+  border-right: solid 1px ${(props) => props.theme.colors.secondary};
   padding: 0.5rem 1rem;
-  background-color: black;
-  color: white;
+  margin-bottom: 2rem;
+  margin-top: 0rem;
+  background-color: transparent;
+  color: ${(props) => props.theme.colors.secondary};
+  display: flex;
+  justify-content: center;
+  :hover {
+    cursor: pointer;
+  }
 `;
