@@ -67,10 +67,14 @@ export const Footer = () => {
         <div>
           <h3>Información</h3>
           <ul>
-            <Link to='/questions'>Preguntas frecuentes</Link>
+            <li>
+              <Link to='/questions'>Preguntas frecuentes</Link>
+            </li>
+            <li>
+              <Link to='/privacy'>Politica de privacidad</Link>
+            </li>
             <li>Términos y Condiciones</li>
-            <li>Privacidad</li>
-            <li>Cookies</li>
+            {/* <li>Cookies</li> */}
           </ul>
         </div>
 
