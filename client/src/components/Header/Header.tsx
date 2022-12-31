@@ -16,7 +16,7 @@ import { getAllCategories } from '../../redux/slices/categories';
 
 // Login, Singup and Logout
 import Login from '../login/Login';
-import LogOut from '../login/components/LogOut';
+// import LogOut from '../login/components/LogOut';
 import SingUp from '../singup/SingUp';
 import { User } from '../../models/User.model';
 import AccountMenu from './components/AccountMenu';

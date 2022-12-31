@@ -19,14 +19,15 @@ import { NotProducts } from './components/NotProducts';
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading, pagination } = useAppSelector(
-    (state) => state.productsState
+    state => state.productsState
   );
-  const { currentCategory } = useAppSelector((state) => state.categoriesState);
+  const { currentCategory } = useAppSelector(state => state.categoriesState);
 
   const { page, quantity, productsLength, discount, price, data, order } =
     pagination;
   useEffect(() => {
     dispatch(getProductsPage(1, quantity, currentCategory, 0, 0, 'id', 'ASC'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentCategory]);
 
   const increment = () => {
@@ -62,18 +63,18 @@ export const Products = () => {
 
   return (
     <>
-      <Conteiner className="container">
+      <Conteiner className='container'>
         <Filters />
         <div style={{ justifyContent: 'center' }}>
-          <h1 className="text-center">Nuestros Productos</h1>
+          <h1 className='text-center'>Nuestros Productos</h1>
           <ProductsGrid>
             {loading ? (
               <Spinner />
             ) : products.length ? (
-              products.map((product) => (
+              products.map(product => (
                 <div
                   key={product.code}
-                  className="animate__animated animate__fadeIn"
+                  className='animate__animated animate__fadeIn'
                 >
                   <ProductItem product={product} />
                 </div>
@@ -84,7 +85,7 @@ export const Products = () => {
           </ProductsGrid>
 
           {products.length && (
-            <Paginate className="animate__animated animate__fadeIn">
+            <Paginate className='animate__animated animate__fadeIn'>
               <button onClick={decrement} disabled={page === 1}>
                 {'<'}
               </button>

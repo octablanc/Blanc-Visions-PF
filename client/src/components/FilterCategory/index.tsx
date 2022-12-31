@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../redux/app/hooks';
 import { setCategory } from '../../redux/slices/categories';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 export const FilterCategory = () => {
   const { categories, currentCategory } = useAppSelector(
