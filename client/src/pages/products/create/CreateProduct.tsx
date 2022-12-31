@@ -6,7 +6,8 @@ import {
   FormConteiner,
   Image,
   Fields,
-  IconAdd
+  IconAdd,
+  Miniatures
 } from "./styled-components/CreateProduct.styled";
 
 // Material UI
@@ -35,6 +36,7 @@ import { postProduct } from "../services/products.service";
 import { Slider } from "../../detail/components/Slider/Slider";
 import { uploadFile } from "../../../firebase/firebase.config";
 import { Product } from "./models/product";
+import Miniature from "./components/Miniature";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -168,37 +170,39 @@ export default function CreateProduct() {
   ];
 
   //----------- octa
-  function handleChangeInputImage(target:EventTarget & HTMLInputElement){
+  function handleChangeInputImage(target: EventTarget & HTMLInputElement) {
     var newFiles = [];
 
-    if(target.files?.length){
-      for(var i=0; i<target.files.length; i++){
-        newFiles[i] = target.files[i];
-      }
-
-      Promise.map(
-        newFiles,
-        (file)=> uploadFile(file)
-      ).then((images)=> setProduct({...product, images: [...product.images, ...images]}));
-    }
+    if (target.files?.length)
+      uploadFile(target.files[0])
+        .then((url) => setProduct({ ...product, images: [...product.images, { url_image: url }] }));
   }
   //---------- octa
 
   return (
     <FormConteiner className="container">
       <Image>
-        <div>
-          <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({target})=> handleChangeInputImage(target)}/>
-          <IconAdd>
-            <AddIcon style={{
-              fontSize: '60px',
-              padding: '10px',
-              borderRadius: '3px',
-              color: '#bdc3d1'
-            }} onClick={()=> inputFile?.click()}/>
-          </IconAdd>
-        </div>
-        
+
+        <Miniatures>
+
+          {
+            product.images.length>0 && product.images.map((image:any, index:number)=> <Miniature imageUrl={image.url_image} id={index}/>)
+          } 
+          
+
+          <div>
+            <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
+            <IconAdd>
+              <AddIcon style={{
+                fontSize: '60px',
+                padding: '10px',
+                borderRadius: '3px',
+                color: '#bdc3d1'
+              }} onClick={() => inputFile?.click()} />
+            </IconAdd>
+          </div>
+
+        </Miniatures>
       </Image>
 
       <Fields>
