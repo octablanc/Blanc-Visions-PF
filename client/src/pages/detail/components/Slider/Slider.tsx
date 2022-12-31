@@ -37,10 +37,10 @@ export const Slider = ({ images, loading }: any) => {
       <div className='box'>
       {loading ? (
         <Spinner />
-      ) : productImages ? (
+      ) : productImages.length ? (
         <Img className='img' src={productImages[slideIndex - 1]} alt="" />
       ) : (
-        <Img className='img' src={"imagen no encontrada"} alt="" />
+        <Img className='img' src={"imagen no encontrada"} alt="wrong image" />
       )}
 
       <div className='buttons'>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Promise } from 'bluebird';
 
 // Styled Components
 import {
   FormConteiner,
   Image,
   Fields,
+  IconAdd
 } from "./styled-components/CreateProduct.styled";
 
 // Material UI
@@ -20,6 +22,7 @@ import {
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import AddIcon from '@mui/icons-material/Add';
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,6 +32,9 @@ import { Navigation } from "swiper";
 import { getAllCategories } from "../../../redux/slices/products";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
 import { postProduct } from "../services/products.service";
+import { Slider } from "../../detail/components/Slider/Slider";
+import { uploadFile } from "../../../firebase/firebase.config";
+import { Product } from "./models/product";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -38,13 +44,12 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export default function CreateProduct() {
-  const [product, setProduct] = useState({
+  const [product, setProduct] = useState<Product>({
     code: "",
     name: "",
     price: "",
     stock: "",
     description: "",
-    image: "",
     categoryId: "",
     state: true,
     images: [],
@@ -55,7 +60,6 @@ export default function CreateProduct() {
     price: "",
     stock: "",
     description: "",
-    image: "",
     categoryId: "",
     images: [],
   });
@@ -69,6 +73,8 @@ export default function CreateProduct() {
   );
   const [loading, setLoading] = useState(false);
 
+  var inputFile: HTMLInputElement | null = null;
+
   // Get all categories
   useEffect(() => {
     if (!categories.length) dispatch(getAllCategories());
@@ -80,7 +86,7 @@ export default function CreateProduct() {
       [key]: key === "code" ? (value.length < 6 ? value : product.code) : value,
     });
 
-    if(!value)
+    if (!value)
       setError({
         ...error,
         [key]: !value
@@ -88,6 +94,8 @@ export default function CreateProduct() {
           : false,
       });
   }
+
+
 
   function handlerSubmit() {
     var newError = error;
@@ -110,16 +118,6 @@ export default function CreateProduct() {
     if (!product.description) {
       hasError = true;
       newError = { ...newError, description: "." };
-    }
-
-    if (!product.image) {
-      hasError = true;
-      newError = { ...newError, image: "Image cannot be empty." };
-    }
-
-    if (!product.images) {
-      hasError = true;
-      newError = { ...newError, image: "Image cannot be empty." };
     }
 
     if (!product.name) {
@@ -158,40 +156,49 @@ export default function CreateProduct() {
       price: "",
       stock: "",
       description: "",
-      image: "",
       categoryId: "",
       state: true,
       images: [],
     });
   }
 
+  const ImagesTest = [
+    { url_image: 'https://d320djwtwnl5uo.cloudfront.net/recetas/share/share_fpa6sn8vqc_empanadas.jpg' },
+    { url_image: 'https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp' },
+  ];
+
+  //----------- octa
+  function handleChangeInputImage(target:EventTarget & HTMLInputElement){
+    var newFiles = [];
+
+    if(target.files?.length){
+      for(var i=0; i<target.files.length; i++){
+        newFiles[i] = target.files[i];
+      }
+
+      Promise.map(
+        newFiles,
+        (file)=> uploadFile(file)
+      ).then((images)=> setProduct({...product, images: [...product.images, ...images]}));
+    }
+  }
+  //---------- octa
+
   return (
     <FormConteiner className="container">
       <Image>
-        <Swiper
-          navigation={true}
-          modules={[Navigation]}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          {product.image ? (
-            <SwiperSlide
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "400px",
-              }}
-            >
-              <img src={product.image} alt="Product Image" />
-            </SwiperSlide>
-          ) : (
-            <></>
-          )}
-        </Swiper>
+        <div>
+          <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({target})=> handleChangeInputImage(target)}/>
+          <IconAdd>
+            <AddIcon style={{
+              fontSize: '60px',
+              padding: '10px',
+              borderRadius: '3px',
+              color: '#bdc3d1'
+            }} onClick={()=> inputFile?.click()}/>
+          </IconAdd>
+        </div>
+        
       </Image>
 
       <Fields>
@@ -214,29 +221,6 @@ export default function CreateProduct() {
             helperText={
               error.name && (
                 <span style={{ fontSize: "13px" }}>{error.name}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Image"
-            name="image"
-            value={product.image}
-            placeholder="Image URL"
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-            }}
-            variant="outlined"
-            error={error.image ? true : false}
-            helperText={
-              error.image && (
-                <span style={{ fontSize: "13px" }}>{error.image}</span>
               )
             }
             onChange={e => handlerChange(e.target.name, e.target.value)}
@@ -403,18 +387,16 @@ export default function CreateProduct() {
                 error.categoryId
                   ? true
                   : false || error.code
-                  ? true
-                  : false || error.description
-                  ? true
-                  : false || error.image
-                  ? true
-                  : false || error.name
-                  ? true
-                  : false || error.price
-                  ? true
-                  : false || error.stock
-                  ? true
-                  : false
+                    ? true
+                    : false || error.description
+                      ? true
+                      : false || error.name
+                        ? true
+                        : false || error.price
+                          ? true
+                          : false || error.stock
+                            ? true
+                            : false
               }
             >
               Create
