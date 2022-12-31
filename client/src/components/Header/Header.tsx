@@ -1,27 +1,26 @@
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo2.svg';
+import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
+import { Link, NavLink } from 'react-router-dom';
 import {
-  CategoriesBar,
-  Icons,
-  Input,
-  Menu,
+  NavInput,
+  Navbar,
+  NavMenu,
+  NavOptions,
+  Spacing,
   Nav,
-  Desplegable,
   AuthButtons,
-} from './styled-components/styles';
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-import { Link } from 'react-router-dom';
-import { getAllCategories, getProductsPage } from '../../redux/slices/products';
+} from './styled-components/Header.styled';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getAllCategories } from '../../redux/slices/categories';
+
+// Login, Singup and Logout
 import Login from '../login/Login';
 import LogOut from '../login/components/LogOut';
-
-// Interfaces
-import { User } from '../../models/User.model';
 import SingUp from '../singup/SingUp';
+import { User } from '../../models/User.model';
 import AccountMenu from './components/AccountMenu';
-import { BsFillCartFill } from 'react-icons/bs';
+import { FilterCategory } from '../FilterCategory';
 
 export const Header = () => {
   const userState: User | null = useAppSelector(
@@ -29,122 +28,82 @@ export const Header = () => {
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
 
-  const { categories, pagination } = useAppSelector(
-    (state) => state.productsState
-  );
-  const navigate = useNavigate();
-  const { discount, price, data, order, quantity } = pagination;
   const dispatch = useAppDispatch();
-  const [selectActive, setSelectActive] = useState(false);
-
-  const handleClick = (e: any): void => {
-    const value = e.target.innerText;
-    // dispatch(getProductsPage(1, pagination.quantity, value));
-    dispatch(
-      getProductsPage(
-        1,
-        pagination.quantity,
-        value,
-        0,
-        0,
-        pagination.data,
-        pagination.order
-      )
-    );
-  };
-  const handleHover = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (selectActive) {
-      return setSelectActive(false);
-    }
-    setSelectActive(true);
-  };
-  const navigatePage = (e: any) => {
-    const { innerText } = e.target;
-    console.log(innerText);
-    if (innerText !== 'perfil') return console.log(innerText);
-    navigate(`/profile`);
-    setSelectActive(false);
-  };
 
   useEffect(() => {
-    console.log('HEADERCON UNA R 1 SE ESTA USANDOI => HEADER.tsx');
     dispatch(getAllCategories());
   }, [dispatch]);
 
   return (
     <>
-      <Menu>
-        <div className='container'>
-          <Nav>
-            <div>
-              <img src={logo} alt='kingcomm' onClick={() => navigate(`/`)} />
-            </div>
+      <Nav>
+        <Navbar className='container'>
+          <Link to='/'>
+            <img src={logo} alt='kingcomm' />
+          </Link>
+
+          <NavMenu>
             <form>
-              <Input type='text' placeholder='Busca tu producto' />
+              <NavInput type='text' placeholder='Buscar producto' />
               <HiOutlineMagnifyingGlass />
             </form>
-            <Icons>
+            <NavOptions>
               <li>
-                <BsFillCartFill />
+                <NavLink
+                  to='/'
+                  className={({ isActive }) =>
+                    isActive ? 'active' : undefined
+                  }
+                >
+                  Inicio
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to='/products'
+                  className={({ isActive }) =>
+                    isActive ? 'active' : undefined
+                  }
+                >
+                  Productos
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to='/about'
+                  className={({ isActive }) =>
+                    isActive ? 'active' : undefined
+                  }
+                >
+                  Nosotros
+                </NavLink>
               </li>
 
-              {userState && (
-                <li>
-                  <div
-                    onClick={handleHover}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {/* <AccountMenu/> */}
-                    Mi Cuenta
-                  </div>
-
-                  {selectActive && (
-                    <Desplegable>
-                      <li onClick={navigatePage}>perfil</li>
-                      <li onClick={navigatePage}>compras</li>
-                      <li onClick={navigatePage}>cerrar sesion</li>
-                    </Desplegable>
-                  )}
-                </li>
-              )}
+              <FilterCategory />
 
               <li>
-                {
-                  loading ? (
-                    <></>
-                  ) : !userState ? (
-                    <AuthButtons>
-                      <Login />
-                      <SingUp />
-                    </AuthButtons>
-                  ) : (
-                    <LogOut />
-                  )
-                  // <></>
-                }
+                <Link to='/cart'>
+                  <BsCart4 />
+                </Link>
               </li>
-            </Icons>
-          </Nav>
-        </div>
-        <CategoriesBar>
-          <div className='container'>
-            <ul>
-              {categories &&
-                categories.map((category) => (
-                  <li key={category.id}>
-                    <Link to={'/products'} onClick={(e) => handleClick(e)}>
-                      {category.name}
-                    </Link>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </CategoriesBar>
-      </Menu>
+
+              <li>
+                {loading ? (
+                  <></>
+                ) : !userState ? (
+                  <AuthButtons>
+                    <Login />
+                    <SingUp />
+                  </AuthButtons>
+                ) : (
+                  <AccountMenu />
+                )}
+              </li>
+            </NavOptions>
+          </NavMenu>
+        </Navbar>
+      </Nav>
+      <Spacing></Spacing>
     </>
   );
 };

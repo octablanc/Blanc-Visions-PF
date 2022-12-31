@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Nav = styled.header`
   background-color: white;
@@ -23,7 +23,9 @@ export const NavMenu = styled.div`
 
 export const NavOptions = styled.ul`
   display: flex;
+  align-items: center;
   gap: 2.5rem;
+  margin: 0;
 
   li {
     text-transform: uppercase;
