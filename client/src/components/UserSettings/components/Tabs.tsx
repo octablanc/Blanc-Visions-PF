@@ -721,7 +721,7 @@ export default function Tabs({ closeModal }: { closeModal: Function; }) {
                                                 newPassword && newPassword !== confirmPassword ? true : false
                                             }
                                             onClick={handleSubmitView3}
-                                        >Update Mail</Button>
+                                        >Update Password</Button>
                                 }
                             </div>
                         )} />

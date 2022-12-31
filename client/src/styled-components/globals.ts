@@ -112,6 +112,11 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
   }
 
+
+  .swiper-pagination-bullet-active {
+    background-color: ${(props): string => props.theme.colors.primary};
+  }
+
   @media (min-width: 768px) {
     .max-width-25 {
       max-width: 25rem;

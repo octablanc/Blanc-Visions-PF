@@ -15,25 +15,32 @@ import Logout from '@mui/icons-material/Logout';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase/firebase.config";
+import { auth, uploadFile } from "../../../firebase/firebase.config";
 import { useNavigate } from 'react-router-dom';
 import { AvatarPic, Field, Fields, FullName, Profilecontainer } from './styled-components/AccountMenu.styled';
-import { useAppSelector } from '../../../redux/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import UserSettings from '../../UserSettings/UserSettings';
 import { theme } from '../../../styled-components/theme';
+import { setUser } from '../../../redux/slices/user-authentication';
+import { updateUser } from '../../../services/services';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function AccountMenu() {
-  const user = useAppSelector(({userState})=> userState.user);
+  const user = useAppSelector(({ userState }) => userState.user);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [ settings, setSettings ] = useState(false); 
+  const [settings, setSettings] = useState(false);
   const open = Boolean(anchorEl);
+  var inputFile: HTMLInputElement | null;
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+
 
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
   };
 
-  function handleClose(){
+  function handleClose() {
     setAnchorEl(null);
   };
 
@@ -41,9 +48,23 @@ export default function AccountMenu() {
     await signOut(auth);
   }
 
-  function handleClickSettings(){
+  function handleClickSettings() {
     handleClose();
     setSettings(!settings);
+  }
+
+  async function handleUpload(target: EventTarget & HTMLInputElement) {
+    try {
+      if (user) {
+        setLoading(true);
+        var result = (await uploadFile(target.files && target.files[0]));
+        dispatch(setUser({ ...user, imageProfile: result }));
+        await updateUser({ imageProfile: result }, user.id);
+        setLoading(false);
+      }
+    } catch ({ message }) {
+      console.log(message);
+    }
   }
 
   return (
@@ -59,16 +80,16 @@ export default function AccountMenu() {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar sx={{ width: 45, height: 45, position: 'absolute' }} src={`${user?.imageProfile}`} />
-            <ExpandCircleDownIcon style={{  
-              width: '18px', 
-              height: '18px', 
-              background: 'white', 
-              borderRadius: '50%', 
-              position: 'absolute', 
-              bottom: '8px', 
+            <ExpandCircleDownIcon style={{
+              width: '18px',
+              height: '18px',
+              background: 'white',
+              borderRadius: '50%',
+              position: 'absolute',
+              bottom: '8px',
               right: '8px',
-              cursor: 'pointer' 
-            }}/>
+              cursor: 'pointer'
+            }} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -111,20 +132,38 @@ export default function AccountMenu() {
       >
         <Profilecontainer>
           <div style={{ position: 'relative' }}>
-            <Avatar src={`${user?.imageProfile}`} style={AvatarPic}/>
-            <CameraAltIcon style={{ 
-              position: 'absolute', 
-              width: '30px', 
-              height: '30px', 
+            {
+              loading &&
+              <div style={{
+                position: 'absolute', zIndex: '2',
+                width: '120px',
+                height: '120px',
+                backgroundColor: '#00000081',
+                left: '5px',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <CircularProgress size={'3rem'} style={{ color: 'white' }} />
+              </div>
+            }
+            <Avatar src={`${user?.imageProfile}`} style={{ ...AvatarPic, zIndex: '1' }} />
+            <CameraAltIcon style={{
+              position: 'absolute',
+              width: '30px',
+              height: '30px',
               backgroundColor: 'white',
-              color: 'grey', 
+              color: 'grey',
               borderRadius: '50%',
-              bottom: '8px', 
-              right: '8px', 
+              bottom: '8px',
+              right: '8px',
               padding: '5px',
-              boxShadow: "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px" ,
-              cursor: 'pointer'
-            }}/>
+              boxShadow: "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+              cursor: 'pointer',
+              zIndex: '3'
+            }} onClick={() => inputFile?.click()} />
+            <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleUpload(target)} />
           </div>
           <FullName>{`${user?.name} ${user?.lastName}`}</FullName>
 
@@ -132,18 +171,18 @@ export default function AccountMenu() {
           <Fields>
             <div>
               <Field>
-                <EmailIcon fontSize='large' sx={{ color: '#837575' }}/>
-                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>{ user?.mail }</span>
+                <EmailIcon fontSize='large' sx={{ color: '#837575' }} />
+                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>{user?.mail}</span>
               </Field>
 
               <Field>
-                <CakeIcon fontSize='large' sx={{ color: '#837575' }}/>
-                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>{ `${user?.birthday}` }</span>
+                <CakeIcon fontSize='large' sx={{ color: '#837575' }} />
+                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>{`${user?.birthday}`}</span>
               </Field>
 
               <Field>
-                <LocalPhoneIcon fontSize='large' sx={{ color: '#837575' }}/>
-                <span style={{ marginLeft: '5px', fontSize: 'medium', color: theme.colors.hoverPrimary }}>{ `${user?.phone}` }</span>
+                <LocalPhoneIcon fontSize='large' sx={{ color: '#837575' }} />
+                <span style={{ marginLeft: '5px', fontSize: 'medium', color: theme.colors.hoverPrimary }}>{`${user?.phone}`}</span>
               </Field>
             </div>
           </Fields>
@@ -166,7 +205,7 @@ export default function AccountMenu() {
           Settings
         </MenuItem>
 
-        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={()=> {
+        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={() => {
           handleLogOut()
           handleClose()
         }}>
@@ -177,7 +216,7 @@ export default function AccountMenu() {
         </MenuItem>
       </Menu>
       {
-        settings? <UserSettings closeButton={handleClickSettings}/> : <></>
+        settings ? <UserSettings closeButton={handleClickSettings} /> : <></>
       }
     </>
   );

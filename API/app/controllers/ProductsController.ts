@@ -202,21 +202,34 @@ export async function paginateProducts(req: Request, res: Response) {
     category = Category we need to filter the products: Shoes, Phones, etc.
   */
   try {
-    if (req.query?.page && req.query?.quantityProducts && req.query?.discount) {
+    if (
+      req.query?.page &&
+      req.query?.quantityProducts &&
+      req.query?.discount &&
+      req.query?.data &&
+      req.query?.order
+    ) {
       const page = parseInt(req.query.page.toString());
       const quantityProducts = parseInt(req.query.quantityProducts.toString());
       const discount = parseInt(req.query.discount.toString());
+      const data: string = req.query.data.toString();
+      const order: string = req.query.order.toString();
+
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
           throw new Error('The fields can only be greater than 0!');
 
         const { category } = req.query;
+        const { price } = req.query;
 
         const result = await Products.findAll({
           where: {
             state: true,
             discount: {
               [Op.gte]: discount,
+            },
+            price: {
+              [Op.gte]: price,
             },
           },
           include: [
@@ -236,7 +249,7 @@ export async function paginateProducts(req: Request, res: Response) {
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
-          order: [['id', 'ASC']],
+          order: [[data, order]],
         });
 
         const productsAll = await Products.count({
@@ -244,6 +257,9 @@ export async function paginateProducts(req: Request, res: Response) {
             state: true,
             discount: {
               [Op.gte]: discount,
+            },
+            price: {
+              [Op.gte]: price,
             },
           },
           include: [
@@ -264,4 +280,8 @@ export async function paginateProducts(req: Request, res: Response) {
     return res.status(400).send({ message });
   }
 }
-// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5
+// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&data=id&order=ASC
+/*
+order : ASC | DESC
+data : id | price | discount
+*/

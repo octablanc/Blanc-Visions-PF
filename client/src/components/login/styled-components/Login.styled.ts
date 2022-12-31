@@ -8,7 +8,10 @@ export const BoxStyle = {
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "5px",
-    textAlign: "center"
+    textAlign: "center",
+    'h2:after':{
+        backgroundColor: 'transparent'
+    }
 };
 
 export const ModalContainer = styled.div`

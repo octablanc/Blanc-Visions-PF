@@ -1,1 +1,0 @@
-Here you will find all global components, such as a search bar that you will use on different pages.

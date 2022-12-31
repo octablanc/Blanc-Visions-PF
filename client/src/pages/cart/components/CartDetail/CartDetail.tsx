@@ -27,7 +27,8 @@ import {
   Remove,
   Back,
   Titles,
-  Input,
+  // Input,
+  BtnCheck,
 } from '../../styled-components/styles';
 import { display, fontSize } from '@mui/system';
 import cart from '../../styled-components/cart.png';
@@ -99,7 +100,7 @@ export const CartDetail = () => {
           <div>
             <>
             {/* <Div className='titles'> */}
-            <Titles style={{ fontSize: '2rem' }}>
+            <Titles>
               <p>Productos</p>
               <p>Precio</p>
               <p>Cantidad</p>
@@ -155,7 +156,7 @@ export const CartDetail = () => {
               <form action='http://localhost:3002/checkout' method='POST'>
                 <input type='hidden' name='title' value='nada' />
                 <input type='hidden' name='price' value={cartTotalAmount} />
-                <input type='submit'> Finalizar Compra checkout</input>
+                <BtnCheck type='submit'> Finalizar compra</BtnCheck>
               </form>
               <div>
                 <NavLink to='/products'>
