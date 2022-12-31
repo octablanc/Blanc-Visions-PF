@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // Styled Components
 import {
   FormConteiner,
   Image,
   Fields,
-} from './styled-components/CreateProduct.styled';
+} from "./styled-components/CreateProduct.styled";
 
 // Material UI
 import {
@@ -17,45 +17,47 @@ import {
   FormControl,
   Button,
   Snackbar,
-} from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 // Swiper
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
 
 // Actions
-import { getAllCategories } from '../../../redux/slices/products';
-import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
-import { postProduct } from '../services/products.service';
+import { getAllCategories } from "../../../redux/slices/products";
+import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
+import { postProduct } from "../services/products.service";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
 ) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function CreateProduct() {
   const [product, setProduct] = useState({
-    code: '',
-    name: '',
-    price: '',
-    stock: '',
-    description: '',
-    image: '',
-    categoryId: '',
+    code: "",
+    name: "",
+    price: "",
+    stock: "",
+    description: "",
+    image: "",
+    categoryId: "",
     state: true,
+    images: [],
   });
   const [error, setError] = useState({
-    code: '',
-    name: '',
-    price: '',
-    stock: '',
-    description: '',
-    image: '',
-    categoryId: '',
+    code: "",
+    name: "",
+    price: "",
+    stock: "",
+    description: "",
+    image: "",
+    categoryId: "",
+    images: [],
   });
   const [open, setOpen] = useState(false);
   var hasError = false;
@@ -75,7 +77,7 @@ export default function CreateProduct() {
   function handlerChange(key: any, value: any) {
     setProduct({
       ...product,
-      [key]: key === 'code' ? (value.length < 6 ? value : product.code) : value,
+      [key]: key === "code" ? (value.length < 6 ? value : product.code) : value,
     });
 
     setError({
@@ -91,42 +93,47 @@ export default function CreateProduct() {
 
     if (!product.categoryId) {
       hasError = true;
-      newError = { ...newError, categoryId: 'Category cannot be empty.' };
+      newError = { ...newError, categoryId: "Category cannot be empty." };
     }
 
     if (!product.code) {
       hasError = true;
-      newError = { ...newError, code: 'Code cannot be empty.' };
+      newError = { ...newError, code: "Code cannot be empty." };
     }
 
     if (product.code.length < 5) {
       hasError = true;
-      newError = { ...newError, code: 'Code requires 5 characters.' };
+      newError = { ...newError, code: "Code requires 5 characters." };
     }
 
     if (!product.description) {
       hasError = true;
-      newError = { ...newError, description: '.' };
+      newError = { ...newError, description: "." };
     }
 
     if (!product.image) {
       hasError = true;
-      newError = { ...newError, image: 'Image cannot be empty.' };
+      newError = { ...newError, image: "Image cannot be empty." };
+    }
+
+    if (!product.images) {
+      hasError = true;
+      newError = { ...newError, image: "Image cannot be empty." };
     }
 
     if (!product.name) {
       hasError = true;
-      newError = { ...newError, name: 'Name cannot be empty.' };
+      newError = { ...newError, name: "Name cannot be empty." };
     }
 
     if (!product.price) {
       hasError = true;
-      newError = { ...newError, price: 'Price cannot be empty.' };
+      newError = { ...newError, price: "Price cannot be empty." };
     }
 
     if (!product.stock) {
       hasError = true;
-      newError = { ...newError, stock: 'Stock cannot be empty.' };
+      newError = { ...newError, stock: "Stock cannot be empty." };
     }
 
     if (hasError) setError(newError);
@@ -135,7 +142,7 @@ export default function CreateProduct() {
   }
 
   function handleClose(event?: React.SyntheticEvent | Event, reason?: string) {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -145,39 +152,40 @@ export default function CreateProduct() {
   function submit() {
     postProduct(product, setLoading, setOpen);
     setProduct({
-      code: '',
-      name: '',
-      price: '',
-      stock: '',
-      description: '',
-      image: '',
-      categoryId: '',
+      code: "",
+      name: "",
+      price: "",
+      stock: "",
+      description: "",
+      image: "",
+      categoryId: "",
       state: true,
+      images: [],
     });
   }
 
   return (
-    <FormConteiner className='container'>
+    <FormConteiner className="container">
       <Image>
         <Swiper
           navigation={true}
           modules={[Navigation]}
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
           {product.image ? (
             <SwiperSlide
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '400px',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "400px",
               }}
             >
-              <img src={product.image} alt='Product Image' />
+              <img src={product.image} alt="Product Image" />
             </SwiperSlide>
           ) : (
             <></>
@@ -192,121 +200,121 @@ export default function CreateProduct() {
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label='Name'
-            name='name'
+            label="Name"
+            name="name"
             value={product.name}
-            placeholder='Product name'
-            sx={{ m: 1, width: '100%' }}
+            placeholder="Product name"
+            sx={{ m: 1, width: "100%" }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
-            variant='outlined'
+            variant="outlined"
             error={error.name ? true : false}
             helperText={
               error.name && (
-                <span style={{ fontSize: '13px' }}>{error.name}</span>
+                <span style={{ fontSize: "13px" }}>{error.name}</span>
               )
             }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label='Image'
-            name='image'
+            label="Image"
+            name="image"
             value={product.image}
-            placeholder='Image URL'
-            sx={{ m: 1, width: '100%' }}
+            placeholder="Image URL"
+            sx={{ m: 1, width: "100%" }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
-            variant='outlined'
+            variant="outlined"
             error={error.image ? true : false}
             helperText={
               error.image && (
-                <span style={{ fontSize: '13px' }}>{error.image}</span>
+                <span style={{ fontSize: "13px" }}>{error.image}</span>
               )
             }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label='Code'
-            name='code'
+            label="Code"
+            name="code"
             value={product.code}
-            sx={{ m: 1, width: '100%' }}
+            sx={{ m: 1, width: "100%" }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
-            placeholder='Code of 5 characters'
-            variant='outlined'
+            placeholder="Code of 5 characters"
+            variant="outlined"
             error={error.code ? true : false}
             helperText={
               error.code && (
-                <span style={{ fontSize: '13px' }}>{error.code}</span>
+                <span style={{ fontSize: "13px" }}>{error.code}</span>
               )
             }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label='Price'
-            name='price'
+            label="Price"
+            name="price"
             value={product.price}
-            placeholder='$'
-            sx={{ m: 1, width: '100%' }}
+            placeholder="$"
+            sx={{ m: 1, width: "100%" }}
             InputProps={{
               style: { fontSize: fontSizeInput },
-              type: 'number',
+              type: "number",
             }}
-            variant='outlined'
+            variant="outlined"
             error={error.price ? true : false}
             helperText={
               error.price && (
-                <span style={{ fontSize: '13px' }}>{error.price}</span>
+                <span style={{ fontSize: "13px" }}>{error.price}</span>
               )
             }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label='Stock'
-            name='stock'
+            label="Stock"
+            name="stock"
             value={product.stock}
-            placeholder='Product stock'
-            sx={{ m: 1, width: '100%' }}
+            placeholder="Product stock"
+            sx={{ m: 1, width: "100%" }}
             InputProps={{
               style: { fontSize: fontSizeInput },
-              type: 'number',
+              type: "number",
             }}
-            variant='outlined'
+            variant="outlined"
             error={error.stock ? true : false}
             helperText={
               error.stock && (
-                <span style={{ fontSize: '13px' }}>{error.stock}</span>
+                <span style={{ fontSize: "13px" }}>{error.stock}</span>
               )
             }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           <FormControl
             fullWidth
-            sx={{ margin: '8px' }}
+            sx={{ margin: "8px" }}
             error={error.categoryId ? true : false}
           >
             <InputLabel
-              id='demo-simple-select-label'
+              id="demo-simple-select-label"
               sx={{
                 fontSize: fontSizeLabel,
               }}
@@ -314,15 +322,15 @@ export default function CreateProduct() {
               Category
             </InputLabel>
             <Select
-              labelId='demo-simple-select-label'
-              name='categoryId'
-              label='Category '
+              labelId="demo-simple-select-label"
+              name="categoryId"
+              label="Category "
               value={product.categoryId}
               sx={{ fontSize: fontSizeInput }}
-              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onChange={(e) => handlerChange(e.target.name, e.target.value)}
             >
               {categories.length ? (
-                categories.map(category => (
+                categories.map((category) => (
                   <MenuItem
                     value={parseInt(category.id.toString())}
                     sx={{
@@ -338,7 +346,7 @@ export default function CreateProduct() {
             </Select>
             {error.categoryId ? (
               <FormHelperText>
-                <span style={{ fontSize: '13px' }}>
+                <span style={{ fontSize: "13px" }}>
                   Category cannot be empty
                 </span>
                 .
@@ -349,12 +357,12 @@ export default function CreateProduct() {
           </FormControl>
 
           <TextField
-            name='description'
-            label='Description'
+            name="description"
+            label="Description"
             multiline
             value={product.description}
             rows={4}
-            sx={{ m: 1, width: '100%' }}
+            sx={{ m: 1, width: "100%" }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
@@ -364,22 +372,22 @@ export default function CreateProduct() {
             error={error.description ? true : false}
             helperText={
               error.description && (
-                <span style={{ fontSize: '13px' }}>
+                <span style={{ fontSize: "13px" }}>
                   Description cannot be empty.
                 </span>
               )
             }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onChange={(e) => handlerChange(e.target.name, e.target.value)}
           />
 
           {!loading ? (
             <Button
-              variant='contained'
-              color='success'
+              variant="contained"
+              color="success"
               sx={{
-                width: '100%',
-                margin: '8px',
-                height: '50px',
+                width: "100%",
+                margin: "8px",
+                height: "50px",
                 fontSize: fontSizeInput,
               }}
               onClick={handlerSubmit}
@@ -406,12 +414,12 @@ export default function CreateProduct() {
           ) : (
             <LoadingButton
               loading
-              variant='outlined'
+              variant="outlined"
               sx={{
-                width: '100%',
-                margin: '8px',
-                height: '50px',
-                backgroundColor: '#66BB6A',
+                width: "100%",
+                margin: "8px",
+                height: "50px",
+                backgroundColor: "#66BB6A",
               }}
             />
           )}
@@ -419,8 +427,8 @@ export default function CreateProduct() {
           {!loading && (
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
               <Alert
-                severity='success'
-                sx={{ width: '100%', fontSize: fontSizeInput }}
+                severity="success"
+                sx={{ width: "100%", fontSize: fontSizeInput }}
               >
                 Product successfully published!
               </Alert>

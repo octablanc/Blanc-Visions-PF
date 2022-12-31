@@ -34,20 +34,20 @@ export const Slider = ({ images, loading }: any) => {
 
   return (
     <Container>
+      <div className='box'>
       {loading ? (
         <Spinner />
       ) : productImages ? (
-        <Img src={productImages[slideIndex - 1]} alt="" />
+        <Img className='img' src={productImages[slideIndex - 1]} alt="" />
       ) : (
-        <Img src={"imagen no encontrada"} alt="" />
+        <Img className='img' src={"imagen no encontrada"} alt="" />
       )}
 
-      <div>
+      <div className='buttons'>
         <BtnSlider className="boton" moveSlide={prevSlide} direction={"prev"} />
         <BtnSlider className="boton" moveSlide={nextSlide} direction={"next"} />
       </div>
-      <br />
-      <br />
+
       <Thumbnails>
         {Array.from(productImages, (el: any, key: number) => (
           <Miniatures>
@@ -58,6 +58,7 @@ export const Slider = ({ images, loading }: any) => {
           </Miniatures>
         ))}
       </Thumbnails>
+      </div>
     </Container>
   );
 };

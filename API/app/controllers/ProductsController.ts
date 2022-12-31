@@ -111,23 +111,50 @@ export async function getProductById(req: Request, res: Response) {
   }
 }
 
+// export async function postProduct(req: Request, res: Response) {
+//   try {
+//     const product = req.body;
+
+//     let result = await Products.create(product, {
+//        include: {
+//         model: Properties,
+//         as: 'properties',
+//       },     
+//     });
+// return res.send(result);
+// } catch ({ message }) {
+//   console.log(message);
+//   return res.status(400).send({ message });
+// }
+// }
+
 export async function postProduct(req: Request, res: Response) {
   try {
     const product = req.body;
 
     let result = await Products.create(product, {
-      include: {
-        model: Properties,
-        as: 'properties',
-      },
-    });
-
+   include: [
+        {
+          model: Categories,
+          // as: 'categories'
+        },
+        {
+          model: Properties,
+          as: 'properties',
+        },
+        {
+          model: Images,
+          
+        },
+      ]}
+      )
     return res.send(result);
   } catch ({ message }) {
     console.log(message);
     return res.status(400).send({ message });
   }
 }
+    
 
 export async function updateProduct(req: Request, res: Response) {
   try {
