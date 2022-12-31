@@ -37,6 +37,7 @@ import { Slider } from "../../detail/components/Slider/Slider";
 import { uploadFile } from "../../../firebase/firebase.config";
 import { Product } from "./models/product";
 import Miniature from "./components/Miniature";
+import MiniatureLoading from "./components/MiniatureLoading";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -74,6 +75,7 @@ export default function CreateProduct() {
     ({ categoriesState }) => categoriesState
   );
   const [loading, setLoading] = useState(false);
+  const [miniatureLoading, setMiniatureLoading] = useState(false);
 
   var inputFile: HTMLInputElement | null = null;
 
@@ -169,27 +171,39 @@ export default function CreateProduct() {
     { url_image: 'https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp' },
   ];
 
-  //----------- octa
   function handleChangeInputImage(target: EventTarget & HTMLInputElement) {
     var newFiles = [];
 
-    if (target.files?.length)
+    if (target.files?.length){
+      setMiniatureLoading(true);
       uploadFile(target.files[0])
-        .then((url) => setProduct({ ...product, images: [...product.images, { url_image: url }] }));
+        .then((url) => {
+          setProduct({ ...product, images: [...product.images, { url_image: url }] });
+          setMiniatureLoading(false);
+        });
+    }
   }
-  //---------- octa
+
+  function handleDeleteImage(id:number){
+    setProduct({
+      ...product,
+      images: product.images.filter((value:any, index:number)=> index!=id)
+    });
+  }
 
   return (
     <FormConteiner className="container">
       <Image>
 
         <Miniatures>
+          {
+            product.images.length>0 && product.images.map((image:any, index:number)=> <Miniature imageUrl={image.url_image} id={index} deleteImage={handleDeleteImage}/>)
+          } 
 
           {
-            product.images.length>0 && product.images.map((image:any, index:number)=> <Miniature imageUrl={image.url_image} id={index}/>)
-          } 
+            miniatureLoading && <MiniatureLoading/>
+          }
           
-
           <div>
             <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
             <IconAdd>
