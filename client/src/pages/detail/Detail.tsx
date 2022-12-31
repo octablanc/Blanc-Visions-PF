@@ -58,19 +58,20 @@ export const Detail = () => {
             <div>
               <hr />
             </div>
-            {/* <img src={line} /> */}
+          
             <Slider loading={loading} images={images} />
+          
           </Image>
           <Info>
             <div className="icons">
               <h3>{`$${price}`}</h3>
-              <div>
+              {/* <div>
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiOutlineStar />
-              </div>
+              </div> */}
             </div>
             <p className="features">Descripción</p>
             <p>{description}</p>
