@@ -17,7 +17,7 @@ export const Image = styled.div`
   flex-direction: column;
   .img {
     margin-top: 3rem;
-  }
+  }  
 `;
 
 export const Info = styled.div`

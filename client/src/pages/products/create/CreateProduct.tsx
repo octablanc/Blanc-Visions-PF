@@ -29,6 +29,7 @@ import { Navigation } from "swiper";
 import { getAllCategories } from "../../../redux/slices/products";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
 import { postProduct } from "../services/products.service";
+import { Slider } from "../../detail/components/Slider/Slider";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -164,34 +165,15 @@ export default function CreateProduct() {
       images: [],
     });
   }
+  const ImagesTest = [     { url_image: 'https://d320djwtwnl5uo.cloudfront.net/recetas/share/share_fpa6sn8vqc_empanadas.jpg' },     { url_image: 'https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp' },   ];
 
   return (
     <FormConteiner className="container">
       <Image>
-        <Swiper
-          navigation={true}
-          modules={[Navigation]}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          {product.image ? (
-            <SwiperSlide
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "400px",
-              }}
-            >
-              <img src={product.image} alt="Product Image" />
-            </SwiperSlide>
-          ) : (
-            <></>
-          )}
-        </Swiper>
+
+        
+        
+   
       </Image>
 
       <Fields>
