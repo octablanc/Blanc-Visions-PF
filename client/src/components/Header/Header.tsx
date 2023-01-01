@@ -21,6 +21,7 @@ import SingUp from '../singup/SingUp';
 import { User } from '../../models/User.model';
 import AccountMenu from './components/AccountMenu';
 import { FilterCategory } from '../FilterCategory';
+import { FormSearch } from '../Search/FormSearch';
 
 export const Header = () => {
   const userState: User | null = useAppSelector(
@@ -43,10 +44,7 @@ export const Header = () => {
           </Link>
 
           <NavMenu>
-            <form>
-              <NavInput type='text' placeholder='Buscar producto' />
-              <HiOutlineMagnifyingGlass />
-            </form>
+            <FormSearch />
             <NavOptions>
               <li>
                 <NavLink

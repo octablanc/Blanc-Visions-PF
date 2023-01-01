@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
   overflow: hidden;
   .image {
     width: 100%;
-    height: 25rem;
+    height: 22rem;
     display: flex;
     align-items: center;
     background-color: white;
