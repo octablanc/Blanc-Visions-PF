@@ -8,6 +8,7 @@ import {
   emptyCart,
   getTotal,
   removeFromCart,
+  getDiscountTotal,
 } from "../../../../redux/slices/Cart";
 
 import {
@@ -58,7 +59,7 @@ export const CartDetail = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getTotal(cartItems));
+    dispatch(getDiscountTotal(cartItems));
   }, [itemTotalQuantity, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
