@@ -29,6 +29,8 @@ export const Products = () => {
   useEffect(() => {
     // search === ''
     //   ?
+    const selectOrder: any = document.getElementById('selectOrder');
+    selectOrder.selectedIndex = 0;
     dispatch(
       getProductsPage(1, quantity, currentCategory, 0, 0, 'id', 'ASC', search)
     );
@@ -70,11 +72,11 @@ export const Products = () => {
 
   return (
     <>
-      <Conteiner className='container'>
+      <Conteiner className="container">
         <Filters />
         <div style={{ justifyContent: 'center' }}>
           {products.length > 0 && (
-            <h1 className='text-center'>Nuestros Productos</h1>
+            <h1 className="text-center">Nuestros Productos</h1>
           )}
 
           {loading ? (
@@ -84,7 +86,7 @@ export const Products = () => {
               {products.map((product) => (
                 <div
                   key={product.code}
-                  className='animate__animated animate__fadeIn'
+                  className="animate__animated animate__fadeIn"
                 >
                   <ProductItem product={product} />
                 </div>
@@ -95,7 +97,7 @@ export const Products = () => {
           )}
 
           {products.length > 0 && (
-            <Paginate className='animate__animated animate__fadeIn'>
+            <Paginate className="animate__animated animate__fadeIn">
               <button onClick={decrement} disabled={page === 1}>
                 {'<'}
               </button>

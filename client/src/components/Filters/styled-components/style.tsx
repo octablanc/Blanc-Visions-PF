@@ -35,7 +35,7 @@ export const FilterDiscountPrice = styled.div`
     font-weight: bold;
   }
   h5 {
-    background-color: #FCFCFC;
+    background-color: #fcfcfc;
     padding-left: 3px;
     border-radius: 3px;
     cursor: pointer;
@@ -43,5 +43,20 @@ export const FilterDiscountPrice = styled.div`
       transition: 0.3s;
       background-color: #f5f2f2;
     }
+  }
+`;
+
+export const ContainerSelectOrder = styled.select`
+  width: 100%;
+  border-radius: 5px;
+  height: 35px;
+  padding: 6px;
+  border: 1px solid #b4b3b3;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  &:hover {
+    border: 1px solid black;
+  }
+  &:focus {
+    border: 2px solid #1c1cab;
   }
 `;
