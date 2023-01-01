@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/app/hooks';
 import { getProductById } from '../../../../redux/slices/products';
-import { CardContainer } from '../../styled-components/styles';
+import { CardContainer, CardImage } from '../../styled-components/styles';
 import {
   CardContent,
   CardTitle,
@@ -33,9 +33,9 @@ export const Card = ({ product }: Props) => {
   let priceDiscount = price - resultDiscount;
   return (
     <CardContainer onClick={() => handleClick(id)}>
-      <div className='image'>
+      <CardImage>
         <img src={image} alt='productImage' />
-      </div>
+      </CardImage>
       <CardContent className='padding'>
         <CardTitle>{name}</CardTitle>
         <CardPrice>

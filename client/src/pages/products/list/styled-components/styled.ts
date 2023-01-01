@@ -14,7 +14,7 @@ export const Card = styled.div`
   /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
   box-shadow: 4px 0px 12px -3px rgba(0, 0, 0, 0.1);
   padding: 0 2rem;
-  height: 30rem;
+  min-height: 25rem;
   /* h4 {
     line-height: normal;
     font-size: 1.8rem;
@@ -73,16 +73,15 @@ export const Paginate = styled.div`
   }
 `;
 export const ProductsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  /* min-height: 50rem;
-   */
-  place-items: center;
+  @media (min-width: 480px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
 `;
 
 export const CardContent = styled.div`
-  padding: 0 0.3rem;
+  /* padding: 0 0.3rem; */
   h3 {
     /* color: ${(props) => props.theme.colors.secondary}; */
     font-weight: 400;
