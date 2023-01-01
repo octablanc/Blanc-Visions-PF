@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const Container = styled.div`
   /* background: green; */
   width: 90%;
@@ -17,7 +15,7 @@ export const Image = styled.div`
   flex-direction: column;
   .img {
     margin-top: 3rem;
-  }  
+  }
 `;
 
 export const Info = styled.div`
@@ -26,9 +24,23 @@ export const Info = styled.div`
   flex-direction: column;
   margin: 6rem 0rem 0rem 0rem;
   .icons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    .infoProm {  
+      display: flex;
+      flex-direction: column;
+      .labelProm {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .label{
+        color:grey;
+      }
+      .priceProm {
+        text-decoration: line-through;
+        color: grey;
+      }
+    }
   }
   .features {
     font-size: 1.8rem;
@@ -37,12 +49,24 @@ export const Info = styled.div`
   .list {
     margin-left: 2rem;
   }
-  .stock{
+  .stock {
     color: grey;
     margin-left: 1rem;
   }
 `;
 
+export const Promotion = styled.div`
+  background: blue;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  /* flex-direction: row;
+justify-content: space-between; */
+  .infoProm {
+    background: yellowgreen;
+    display: flex;
+    flex-direction: column;
+  }
+`;
 export const CartSection = styled.div`
   display: flex;
   flex-direction: column;

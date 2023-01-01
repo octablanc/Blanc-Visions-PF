@@ -36,6 +36,20 @@ export const Div = styled.div`
   align-items: center;
   justify-items: center;
   border-bottom: 1px solid grey;
+  .discountPrice{
+  margin-top: 2.3rem;
+  display: flex;
+  justify-content: center;
+  };
+  .labelProm{
+    color: grey;
+    font-size: 1.2rem;
+    display: flex;
+    align-content: space-between;    
+  };
+  .priceProm{
+    text-decoration: line-through;
+  }
 `;
 
 export const Titles = styled.div`

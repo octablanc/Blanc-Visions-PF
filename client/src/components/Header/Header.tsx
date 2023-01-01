@@ -21,17 +21,20 @@ import SingUp from '../singup/SingUp';
 import { User } from '../../models/User.model';
 import AccountMenu from './components/AccountMenu';
 import { FilterCategory } from '../FilterCategory';
+import { getTotal } from '../../redux/slices/Cart';
 
 export const Header = () => {
   const userState: User | null = useAppSelector(
     ({ userState }) => userState.user
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
+  const { cartItems, cartTotalQuantity } = useAppSelector((state) => state.cartState)
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllCategories());
+    dispatch(getTotal(cartItems))
   }, [dispatch]);
 
   return (
@@ -84,6 +87,7 @@ export const Header = () => {
               <li>
                 <Link to='/cart'>
                   <BsCart4 />
+                  <span>{cartTotalQuantity}</span>
                 </Link>
               </li>
 

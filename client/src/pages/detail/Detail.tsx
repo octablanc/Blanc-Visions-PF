@@ -10,6 +10,7 @@ import {
   Info,
   CartSection,
   Btn,
+  Promotion,
 } from "./styled-components/Detail";
 //react
 import { useEffect } from "react";
@@ -17,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 //redux
 import { getProductById, addToCart } from "../../redux/slices/Cart";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
+import { Sales } from "../home/components/Sales/Sales";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -31,8 +33,17 @@ export const Detail = () => {
   }, [dispatch, product.id]);
 
   const { currentProduct } = useAppSelector((state: any) => state.cartState);
-  const { loading, name, price, description, stock, properties, images } =
-    currentProduct;
+  const {
+    loading,
+    name,
+    price,
+    description,
+    stock,
+    properties,
+    images,
+    discount,
+  } = currentProduct;
+  let priceProm = Math.ceil(price * (1 - discount / 100));
   console.log(currentProduct);
 
   const handleAddToCart = () => {
@@ -41,7 +52,7 @@ export const Detail = () => {
   };
 
   //Falta declarar función para checkOut
-  const handleCheckOut = () => {};
+  const handleCheckOut = () => { };
 
   return (
     <div className="container">
@@ -54,17 +65,32 @@ export const Detail = () => {
       ) : (
         <Container>
           <Image>
-            <h3>nombre{name}</h3>
+            <h3>{name}</h3>
             <div>
               <hr />
             </div>
-          
+
             <Slider loading={loading} images={images} />
-          
           </Image>
           <Info>
-            <div className="icons">
-              <h3>{`$${price}`}</h3>
+            <div>
+              {discount === 0 ? (
+                <h3>{`$${price}`}</h3>
+              ) : (
+                <div className="icons">
+                  <h3> {`$${priceProm}`} </h3>
+                  <div className="infoProm">
+                    <div className='labelProm'>
+                      <span> Ahorras</span>
+                      <span>$ {`${price - priceProm}`}</span>
+                    </div>
+                    <div className='labelProm'>
+                      <span className='label'>Antes</span>
+                      <span className='priceProm'>{`$${priceProm}`}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
               {/* <div>
                 <AiFillStar />
                 <AiFillStar />
@@ -99,9 +125,14 @@ export const Detail = () => {
                 Comprar
               </Btn>
             </CartSection>
-          </Info>
-        </Container>
+          </Info>          
+        </Container>       
       )}
+      <br />
+      <hr />
+      <br />
+      <Sales />
+      <br />
     </div>
   );
 };

@@ -18,8 +18,9 @@ export interface BoughtPro {
   cartQuantity: number;
   name: string;
   code: string;
-  image: string;
+  image: string; 
   price: number;
+  discount: number;
   stock: number;
   state: Boolean;
   loading: boolean; 
@@ -47,6 +48,7 @@ const initialState: CartState = {
     description: '',
     image: '',
     price: 0,
+    discount: 0,
     stock: 0,
     entrega: '',
     id_category: 0,
@@ -57,7 +59,6 @@ const initialState: CartState = {
     loading: false,
   }
 };
-
 
 export const cartSlice = createSlice({
   name: "cart",

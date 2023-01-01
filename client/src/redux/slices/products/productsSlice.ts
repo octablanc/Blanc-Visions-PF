@@ -56,6 +56,7 @@ export interface UniquePro {
   description: string;
   image: string;
   price: number;
+  discount: number;
   entrega: string;
   stock: number;
   id_category: number;
@@ -85,6 +86,7 @@ const initialState: ProductState = {
     description: '',
     image: '',
     price: 0,
+    discount: 0,
     stock: 0,
     entrega: '',
     id_category: 0,
