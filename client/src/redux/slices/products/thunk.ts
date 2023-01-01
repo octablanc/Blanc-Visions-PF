@@ -88,22 +88,37 @@ export const getProductsPage = (
   discount: number = 0,
   price: number = 0,
   data: string,
-  order: string
+  order: string,
+  name: string = ''
 ) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
       let products;
+      if (category && name) {
+        products = (
+          await axios(
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+          )
+        ).data;
+      }
+      if (name.trim().length > 0) {
+        products = (
+          await axios(
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+          )
+        ).data;
+      }
       if (category) {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}`
+            `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       }
@@ -116,6 +131,7 @@ export const getProductsPage = (
           discount,
           data,
           order,
+          name,
         })
       );
       dispatch(changePage(products.result));

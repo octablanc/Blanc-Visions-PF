@@ -104,6 +104,9 @@ const GlobalStyles = createGlobalStyle`
   .text-center {
     text-align: center;
   }
+  .padding{
+    padding: 1rem;
+  }
 
   .active {
     border-bottom: 4px solid ${(props): string => props.theme.colors.primary};

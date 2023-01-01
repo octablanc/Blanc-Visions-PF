@@ -1,4 +1,9 @@
-import { Card, CardContent } from '../styled-components/styled';
+import {
+  Card,
+  CardContent,
+  CardPrice,
+  CardTitle,
+} from '../styled-components/styled';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/app/hooks';
 import { getProductById } from '../../../../redux/slices/products';
@@ -23,17 +28,29 @@ export const ProductItem = ({ product }: Props) => {
     dispatch(getProductById(id));
     navigate(`/products/${id}`);
   };
+
+  let resultDiscount = (price * discount) / 100;
+  let priceDiscount = price - resultDiscount;
   return (
-    <Card key={code}>
+    <Card key={code} onClick={() => handleClick(id)}>
       <div className='image'>
         <img src={image} alt='notfound' />
       </div>
       <CardContent>
-        <h4>{name}</h4>
+        <CardTitle>{name}</CardTitle>
         <p>{description.slice(0, 60)} ...</p>
-        <button onClick={() => handleClick(id)}> ver mas </button>
-        <h3>${price}</h3>
-        <h2>%{discount} OFF</h2>
+        <CardPrice>
+          {discount !== 0 ? (
+            <>
+              <h4>${price} </h4>
+              <h3>
+                ${priceDiscount} <span>{discount}% OFF</span>
+              </h3>
+            </>
+          ) : (
+            <h3>${price}</h3>
+          )}
+        </CardPrice>
       </CardContent>
     </Card>
   );

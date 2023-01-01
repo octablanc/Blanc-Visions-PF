@@ -18,6 +18,7 @@ export interface UserInfo {
 // Define a type for the slice state
 interface ProductState {
   products: Pro[];
+  search: string;
   categories: Cat[];
   currentProduct: UniquePro;
   loading: boolean;
@@ -30,6 +31,7 @@ interface ProductState {
     price: number;
     data: string;
     order: string;
+    name: string;
   };
   user: UserInfo;
   // detail: Pro;
@@ -77,8 +79,10 @@ export interface Cat {
 // Define the initial state using that type
 const initialState: ProductState = {
   products: [],
+
   categories: [],
   loading: false,
+  search: '',
   currentProduct: {
     id: 0,
     name: '',
@@ -99,12 +103,13 @@ const initialState: ProductState = {
   pagination: {
     productsLength: 0,
     page: 1,
-    quantity: 2,
+    quantity: 4,
     category: undefined,
     discount: 0,
     price: 0,
     data: 'id',
     order: 'ASC',
+    name: '',
   },
 
   //* Usuario harcodeado para testear el formulario de modificacion
@@ -160,6 +165,10 @@ export const productSlice = createSlice({
 
       state.pagination.data = action.payload.data;
       state.pagination.order = action.payload.order;
+      state.pagination.name = action.payload.name;
+    },
+    search: (state, action) => {
+      state.search = action.payload;
     },
     setUser: (state, action) => {
       state.user = action.payload;
@@ -181,6 +190,7 @@ export const {
   productOffCategories,
   setPagination,
   setUser,
+  search,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

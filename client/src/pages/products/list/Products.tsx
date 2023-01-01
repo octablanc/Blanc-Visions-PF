@@ -19,16 +19,23 @@ import { NotProducts } from './components/NotProducts';
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading, pagination } = useAppSelector(
-    state => state.productsState
+    (state) => state.productsState
   );
-  const { currentCategory } = useAppSelector(state => state.categoriesState);
-
+  const { currentCategory } = useAppSelector((state) => state.categoriesState);
+  const { search } = useAppSelector((state) => state.productsState);
   const { page, quantity, productsLength, discount, price, data, order } =
     pagination;
+
   useEffect(() => {
-    dispatch(getProductsPage(1, quantity, currentCategory, 0, 0, 'id', 'ASC'));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, currentCategory]);
+    // search === ''
+    //   ?
+    const selectOrder: any = document.getElementById('selectOrder');
+    selectOrder.selectedIndex = 0;
+    dispatch(
+      getProductsPage(1, quantity, currentCategory, 0, 0, 'id', 'ASC', search)
+    );
+    // : dispatch(getSearchProducts(1, quantity, currentCategory, search));
+  }, [dispatch, currentCategory, search]);
 
   const increment = () => {
     if (Math.ceil(productsLength / quantity) > page) {
@@ -40,7 +47,8 @@ export const Products = () => {
           discount,
           price,
           data,
-          order
+          order,
+          search
         )
       );
     }
@@ -55,7 +63,8 @@ export const Products = () => {
           discount,
           price,
           data,
-          order
+          order,
+          search
         )
       );
     }
@@ -63,37 +72,36 @@ export const Products = () => {
 
   return (
     <>
-      <Conteiner className='container'>
+      <Conteiner className="container">
         <Filters />
         <div style={{ justifyContent: 'center' }}>
-          <h1 className='text-center'>Nuestros Productos</h1>
-          <ProductsGrid>
-            {loading ? (
-              <Spinner />
-            ) : products.length ? (
-              products.map(product => (
+          {products.length > 0 && (
+            <h1 className="text-center">Nuestros Productos</h1>
+          )}
+
+          {loading ? (
+            <Spinner />
+          ) : products.length > 0 ? (
+            <ProductsGrid>
+              {products.map((product) => (
                 <div
                   key={product.code}
-                  className='animate__animated animate__fadeIn'
+                  className="animate__animated animate__fadeIn"
                 >
                   <ProductItem product={product} />
                 </div>
-              ))
-            ) : (
-              <NotProducts />
-            )}
-          </ProductsGrid>
+              ))}
+            </ProductsGrid>
+          ) : (
+            <NotProducts />
+          )}
 
-          {products.length && (
-            <Paginate className='animate__animated animate__fadeIn'>
+          {products.length > 0 && (
+            <Paginate className="animate__animated animate__fadeIn">
               <button onClick={decrement} disabled={page === 1}>
                 {'<'}
               </button>
-              <h3>{page}</h3>
-
-              {/* {Math.ceil(productsLength / quantity) !== page && (
-              <button onClick={increment}>{'>'}</button> */}
-              {/* )} */}
+              {Math.ceil(productsLength / quantity) && <h3>{page}</h3>}
               <button
                 onClick={increment}
                 disabled={Math.ceil(productsLength / quantity) === page}
