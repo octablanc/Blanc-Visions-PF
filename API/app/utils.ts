@@ -101,7 +101,7 @@ export const data = [
   },
   {
     code: 'F027',
-    name: 'Canon EOS Rebel Kit T7 + lente 18-55mm IS II DSLR color negro',
+    name: 'canon eos rebel kit T7',
     price: 15000,
     stock: 30,
     description: ` 
@@ -149,7 +149,7 @@ export const data = [
   },
   {
     code: 'Peak',
-    name: 'Peak Design Tripode para viaje de aluminio CB-5-150-AL',
+    name: 'peak design tripode',
     price: 15000,
     stock: 2,
     description: `Los fotógrafos que busquen un trípode bellamente diseñado con una gran relación resistencia / tamaño y peso apreciarán el trípode de viaje de aluminio de Peak Design. De inspiración arquitectónica y con un peso de solo 3.4 libras, este innovador trípode reduce el volumen plegado gracias a las patas que se almacenan más juntas que los trípodes tradicionales.`,
@@ -189,7 +189,7 @@ export const data = [
   },
   {
     code: 'Pakd',
-    name: 'Vanguard VESTA 204AP',
+    name: 'vanguard vesta 204AP',
     price: 18500,
     stock: 7,
     description: `El kit de trípode de aluminio de 4 secciones VESTA 204AP utiliza una rótula ergonómica PH-23 fluida y un sistema bloqueo de patas de clip fácil y rápido de ajustar. Cree imágenes atractivas conectando fácilmente su equipo con la zapata rápida Vanguard QS-29 y desconecte rápidamente su equipo con el sistema de liberación rápida. Suba, baje y realice ajustes precisos a cualquier altura.`,
@@ -231,7 +231,7 @@ export const data = [
   },
   {
     code: 'VGSO',
-    name: 'Vanguard VK 203 APM',
+    name: 'vanguard vk 203 APM',
     price: 9700,
     stock: 5,
     description: `Es una serie simple de trípodes de aluminio con un diseño compacto y elegante. Diseñado para principiantes, es simple e intuitivo de operar. Pueden arreglar fácilmente los pies con un tipo de bloqueo de palanca, operación difícil no es necesaria. Además, dado que puede estirarse a la altura de la línea del ojo en el estado más extendido, puedes usarla con casi todas las cámaras útiles, incluso si no disparas mientras te agachas con un pequeño trípode.`,
@@ -274,7 +274,7 @@ export const data = [
   },
   {
     code: 'Pe4k',
-    name: 'Vanguard VEO 2 235 AB BLUE',
+    name: 'vanguard veo 2 235',
     price: 9700,
     stock: 1,
     description: `Intuitivo y sencillo de colocar el trípode en la posición deseada: Exclusivo e innovador sistema de columna central que permite configurar la columna central y las patas del trípode en menos de 15 segundos.`,
@@ -317,7 +317,7 @@ export const data = [
   },
   {
     code: 'db00',
-    name: 'Nikon SB-700 Flash',
+    name: 'nikon sb-700 flash',
     price: 100200,
     stock: 17,
     description: `Unidad Speedlight portátil y versátil i-TTL Speedlight - Optimizada para usar con el Sistema de Iluminación Creativa (Creative Lighting System, CLS) de Nikon.
@@ -360,7 +360,7 @@ export const data = [
   },
   {
     code: 'MF12',
-    name: 'Godox MF12 Macro Flash',
+    name: 'godox mf12 macro flash',
     price: 43776,
     stock: 6,
     description: `Diseñado para fotografía de primeros planos, el flash macro MF12 de Godox facilita la fotografía macro. Este cabezal de flash le permite tomar fotografías hermosas y nítidas de sujetos pequeños como plantas, animales e insectos a una distancia extremadamente cercana.`,
@@ -400,7 +400,7 @@ export const data = [
   },
   {
     code: 'Fuji',
-    name: 'Godox V1 Flash para Fuji',
+    name: 'godox v1 flash para fuji',
     price: 43776,
     stock: 6,
     description: `Compatible con Sony ADI / P-TTL, esta luz flexible en la cámara se distingue por su cabeza redonda, que proporciona una luz suave y lisa con una caída gradual que aumenta la salida favorecedora.`,
@@ -440,7 +440,7 @@ export const data = [
   },
   {
     code: 'goro',
-    name: 'Go Pro Soporte para tabla de bodyboard',
+    name: 'go pro soporte',
     price: 11000,
     stock: 6,
     description: `Monta la GoPro en tu tabla de bodyboard, tu tabla de surf soft-top, tu tabla de surf de espuma o tu paddle surf para capturar tu sesión desde el tubo hasta la playa. Graba metraje POV envolvente o dirige la cámara de nuevo hacia ti para capturar autorretratos mientras haces surf o paddle surf.`,
@@ -468,7 +468,7 @@ export const data = [
   },
   {
     code: 'reel',
-    name: 'CANON EOS REBEL T7 / 1500D (18-55 MM) IMPORTACION PROPIA',
+    name: 'kodac flo r12',
     price: 4999,
     stock: 6,
     description: `Sensor CMOS APS-C de 24.1MP y procesador de imagen DIGIC 4+ En el corazón del Rebel T7 se encuentra un sensor APS-C CMOS de 24.1MP y un procesador de imagen DIGIC 4+, que se combinan para proporcionar tanto velocidad en todo el sistema de la cámara como una calidad de imagen notable.`,
@@ -510,7 +510,7 @@ export const data = [
   },
   {
     code: 'na9d',
-    name: 'Canon EOS 90D Body Importacion Oficial',
+    name: 'canon marc',
     price: 4999,
     stock: 6,
     description: `Desde el momento en el que la luz pasa a través del objetivo, la EOS 5D Mark IV capta cada matiz, color y detalle. Una vez más, Canon ha introducido más detalle en cada dimensión gracias a un nuevo sensor capaz de una claridad extraordinaria`,
@@ -553,7 +553,7 @@ export const data = [
   },
   {
     code: 'na9fd',
-    name: 'Canon EOS 5D Mark IV (24-105 mm IS USM) Importacion Oficial',
+    name: 'canon iv',
     price: 4999,
     stock: 6,
     description: `La EOS 5D Mark IV incluye un sistema de enfoque avanzado y medición que capta y realiza un seguimiento de cada momento en cuanto se produce, incluso con una iluminación difícil.`,
@@ -595,7 +595,7 @@ export const data = [
   },
   {
     code: 'SNCO',
-    name: 'SYNCO MICRÓFONO LAVALIER CON CABLE SY-S6R-LAV',
+    name: 'sinco microfono liver',
     price: 4999,
     stock: 6,
     description: `SYNCO Lav-S6R es un micrófono lavalier XLR omnidireccional, con alta sensibilidad y bajo ruido propio para capturar un sonido natural claro. Funciona con cámaras, videocámaras, grabadoras de audio y mezcladores`,
@@ -637,7 +637,7 @@ export const data = [
   },
   {
     code: 'SYe1',
-    name: 'Synco Micrófono de sonido en vivo SY-E10-MIC',
+    name: 'synco micrófono de sonido',
     price: 4999,
     stock: 6,
     description: `El Synco Mic-E10 es un micrófono diseñado para voces e instrumentos. Ofrece un patrón polar cardioide para minimizar la captación fuera del eje, así como un cuerpo de aleación de aluminio que minimiza la interferencia eléctrica`,
@@ -676,7 +676,7 @@ export const data = [
   },
   {
     code: 'SYM',
-    name: 'Synco Kit de transmisión en vivo SY-M1P-Mic',
+    name: 'synco kit de transmisión en vivo SY-M1P-Mic',
     price: 4999,
     stock: 6,
     description: `Equipado con cables para usar con cámaras y dispositivos móviles, el micrófono ultracompacto de cañón de montaje en cámara Synco Mic-M1 ofrece una direccionalidad mejorada en comparación con el micrófono integrado de su dispositivo para una mejor captura de sus sujetos en disparos`,
@@ -715,7 +715,7 @@ export const data = [
   },
   {
     code: 'Gdox',
-    name: 'Godox Micrófono de escopeta compacto VD-Mic',
+    name: 'godox microfono de escopeta compacto VD-Mic',
     price: 4999,
     stock: 16,
     description: `
@@ -752,7 +752,7 @@ export const data = [
   //****************************************************************************** */
   {
     code: 'EF50USM',
-    name: 'Canon EF 50mm f/1.4 USM',
+    name: 'canon ef 50mm f/1.4 USM',
     price: 272220,
     stock: 5,
     description: `
@@ -788,7 +788,7 @@ export const data = [
   },
   {
     code: 'AF508D',
-    name: 'Nikon AF 50mm f/1.8 D',
+    name: 'nikon af 50mm f/1.8 D',
     price: 53670,
     stock: 9,
     description: `
@@ -828,7 +828,7 @@ export const data = [
   },
   {
     code: 'ML30BI',
-    name: 'Godox Luz LED delicada ML30BI 150 (Bi-Color) Kit de 2 luces',
+    name: 'godox luz ML30BI',
     price: 365690,
     stock: 3,
     description: `
@@ -860,7 +860,7 @@ export const data = [
   },
   {
     code: 'LF308D',
-    name: 'Godox LF308D Luz de video LED de luz diurna con sincronización de flash',
+    name: 'godox luz de video nocturna',
     price: 46520,
     stock: 8,
     description: `
@@ -893,7 +893,7 @@ export const data = [
   },
   {
     code: '320EX',
-    name: 'Canon Speedlite 320EX',
+    name: 'canon speedlite 320EX',
     price: 32720,
     stock: 2,
     description: `
@@ -940,7 +940,7 @@ export const data = [
   },
   {
     code: 'CFUSB3',
-    name: 'SanDisk Lector Professional Multi Card Sd Microsd Cf Usb 3 en 1',
+    name: 'sanDisk lector professional',
     price: 11015,
     stock: 7,
     description: `
@@ -974,7 +974,7 @@ export const data = [
   },
   {
     code: 'SDEPM',
-    name: 'SanDisk 32GB Extreme Pro Micro sdxc u3 4k 100MB/s',
+    name: 'sandisk extreme pro',
     price: 7990,
     stock: 5,
     description: `
@@ -1008,7 +1008,7 @@ export const data = [
   },
   {
     code: 'EFPS6500c',
-    name: 'Easycover Funda protectora para Sony A6500 Camuflado',
+    name: 'easycover funda protectora ',
     price: 12990,
     stock: 3,
     description: `
@@ -1048,7 +1048,7 @@ export const data = [
   },
   {
     code: 'TTPRHD',
-    name: 'Think Tank Photo Raincover Hydrophobia D 24-70 V3',
+    name: 'think tank photo raincover',
     price: 19790,
     stock: 5,
     description: `
@@ -1088,7 +1088,7 @@ export const data = [
   },
   {
     code: 'VMV2',
-    name: 'Vanguard Monopie VEO 2 AM 264 TR',
+    name: 'vanguard monopie veo',
     price: 39780,
     stock: 5,
     description: `
@@ -1128,7 +1128,7 @@ export const data = [
   },
   {
     code: 'VV235R',
-    name: 'Vanguard VEO 2 235 AB RED',
+    name: 'vanguard 235 ab red',
     price: 23540,
     stock: 5,
     description: `
@@ -1169,7 +1169,7 @@ export const data = [
 
   {
     code: 'GTWHM1',
-    name: 'Godox Transmisor de mano inalámbrico WH-M1',
+    name: 'godox transmisor de mano inalámbrico WH-M1',
     price: 52660,
     stock: 5,
     description: `
@@ -1206,7 +1206,7 @@ export const data = [
   },
   {
     code: 'SSMIUHF',
-    name: 'Synco Sistema de micrófono inalámbrico UHF 1-disparador-2 SY-T3-Wmic',
+    name: 'synco sistema de micrófono inalámbrico',
     price: 104520,
     stock: 7,
     description: `
