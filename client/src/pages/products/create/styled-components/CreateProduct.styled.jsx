@@ -30,6 +30,7 @@ export const IconAdd = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 3px;
+    margin-right: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 0px 6px;
     transition: 0.1s;
     cursor: pointer;
@@ -40,9 +41,8 @@ export const IconAdd = styled.div`
 `;
 
 export const Miniatures = styled.div`
-    padding: 10px 0px 10px 10px;
+    padding: 20px 10px 20px 20px;
     display: flex;
-    width: 290px;
     flex-wrap: wrap;
     border-radius: 5px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;

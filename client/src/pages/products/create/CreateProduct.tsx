@@ -24,6 +24,7 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import AddIcon from '@mui/icons-material/Add';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 // Actions
 import { getAllCategories } from "../../../redux/slices/products";
@@ -35,6 +36,7 @@ import { Product } from "./models/product";
 import Miniature from "./components/Miniature";
 import MiniatureLoading from "./components/MiniatureLoading";
 import SliderCreate from "./components/SliderCreate";
+import { TwoFields } from "../../../components/singup/styled-components/SingUp.styled";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -171,6 +173,7 @@ export default function CreateProduct() {
 
     if (target.files?.length) {
       setMiniatureLoading(true);
+      console.log(target.files[0]);
       uploadFile(target.files[0])
         .then((url) => {
           setProduct({ ...product, images: [...product.images, { url_image: url }] });
@@ -202,18 +205,18 @@ export default function CreateProduct() {
           }
 
           {
-            product.images.length === 3 && miniatureLoading || product.images.length == 4? <></> :
-            <div>
-              <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
-              <IconAdd>
-                <AddIcon style={{
-                  fontSize: '60px',
-                  padding: '10px',
-                  borderRadius: '3px',
-                  color: '#bdc3d1'
-                }} onClick={() => inputFile?.click()} />
-              </IconAdd>
-            </div>
+            product.images.length === 3 && miniatureLoading || product.images.length == 4 ? <></> :
+              <div>
+                <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
+                <IconAdd>
+                  <AddPhotoAlternateIcon style={{
+                    fontSize: '60px',
+                    padding: '10px',
+                    borderRadius: '3px',
+                    color: '#bdc3d1'
+                  }} onClick={() => inputFile?.click()} />
+                </IconAdd>
+              </div>
           }
 
         </Miniatures>
@@ -245,125 +248,134 @@ export default function CreateProduct() {
             onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Code"
-            name="code"
-            value={product.code}
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-            }}
-            placeholder="Code of 5 characters"
-            variant="outlined"
-            error={error.code ? true : false}
-            helperText={
-              error.code && (
-                <span style={{ fontSize: "13px" }}>{error.code}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Price"
-            name="price"
-            value={product.price}
-            placeholder="$"
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-              type: "number",
-            }}
-            variant="outlined"
-            error={error.price ? true : false}
-            helperText={
-              error.price && (
-                <span style={{ fontSize: "13px" }}>{error.price}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Stock"
-            name="stock"
-            value={product.stock}
-            placeholder="Product stock"
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-              type: "number",
-            }}
-            variant="outlined"
-            error={error.stock ? true : false}
-            helperText={
-              error.stock && (
-                <span style={{ fontSize: "13px" }}>{error.stock}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <FormControl
-            fullWidth
-            sx={{ margin: "8px" }}
-            error={error.categoryId ? true : false}
-          >
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{
-                fontSize: fontSizeLabel,
+          <TwoFields>
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
               }}
-            >
-              Category
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              name="categoryId"
-              label="Category "
-              value={product.categoryId}
-              sx={{ fontSize: fontSizeInput }}
+              label="Code"
+              name="code"
+              value={product.code}
+              sx={{ m: 1, width: "100%" }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+              }}
+              placeholder="Code of 5 characters"
+              variant="outlined"
+              error={error.code ? true : false}
+              helperText={
+                error.code && (
+                  <span style={{ fontSize: "13px" }}>{error.code}</span>
+                )
+              }
               onChange={e => handlerChange(e.target.name, e.target.value)}
               onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
+
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
+              }}
+              label="Price"
+              name="price"
+              value={product.price}
+              placeholder="$"
+              sx={{ m: 1, width: "100%" }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+                type: "number",
+              }}
+              variant="outlined"
+              error={error.price ? true : false}
+              helperText={
+                error.price && (
+                  <span style={{ fontSize: "13px" }}>{error.price}</span>
+                )
+              }
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
+
+          </TwoFields>
+
+          <TwoFields>
+
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
+              }}
+              label="Stock"
+              name="stock"
+              value={product.stock}
+              placeholder="Product stock"
+              sx={{ m: 1, width: "100%" }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+                type: "number",
+              }}
+              variant="outlined"
+              error={error.stock ? true : false}
+              helperText={
+                error.stock && (
+                  <span style={{ fontSize: "13px" }}>{error.stock}</span>
+                )
+              }
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
+            <FormControl
+              fullWidth
+              sx={{ margin: "8px" }}
+              error={error.categoryId ? true : false}
             >
-              {categories.length ? (
-                categories.map((category) => (
-                  <MenuItem
-                    value={parseInt(category.id.toString())}
-                    sx={{
-                      fontSize: fontSizeInput,
-                    }}
-                  >
-                    {category.name}
-                  </MenuItem>
-                ))
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{
+                  fontSize: fontSizeLabel,
+                }}
+              >
+                Category
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                name="categoryId"
+                label="Category "
+                value={product.categoryId}
+                sx={{ fontSize: fontSizeInput }}
+                onChange={e => handlerChange(e.target.name, e.target.value)}
+                onFocus={e => handlerChange(e.target.name, e.target.value)}
+              >
+                {categories.length ? (
+                  categories.map((category) => (
+                    <MenuItem
+                      value={parseInt(category.id.toString())}
+                      sx={{
+                        fontSize: fontSizeInput,
+                      }}
+                    >
+                      {category.name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </Select>
+              {error.categoryId ? (
+                <FormHelperText>
+                  <span style={{ fontSize: "13px" }}>
+                    Category cannot be empty
+                  </span>
+                  .
+                </FormHelperText>
               ) : (
                 <></>
               )}
-            </Select>
-            {error.categoryId ? (
-              <FormHelperText>
-                <span style={{ fontSize: "13px" }}>
-                  Category cannot be empty
-                </span>
-                .
-              </FormHelperText>
-            ) : (
-              <></>
-            )}
-          </FormControl>
+            </FormControl>
+
+
+          </TwoFields>
+
+
 
           <TextField
             name="description"
