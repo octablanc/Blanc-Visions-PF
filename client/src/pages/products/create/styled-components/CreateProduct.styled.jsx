@@ -3,18 +3,22 @@ import styled from "styled-components";
 export const FormConteiner = styled.div`
     display: grid;
     justify-content: center;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 42% 57%;
     width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
     max-height: 1000px;
-    box-shadow: 24px 29px 88px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 `;
 
 export const Image = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
+    padding: 50px 0px 40px 40px;
 `;
 
 export const Fields = styled.div`
@@ -36,8 +40,9 @@ export const IconAdd = styled.div`
 `;
 
 export const Miniatures = styled.div`
-    padding: 10px;
+    padding: 10px 0px 10px 10px;
     display: flex;
+    width: 290px;
     flex-wrap: wrap;
     border-radius: 5px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
@@ -49,8 +54,9 @@ export const MiniatureBackground = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 3px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 0px 6px;
     background-size: cover;
+    background-position: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     background-position: center;
     cursor: pointer;
 `;
@@ -73,3 +79,80 @@ export const MiniatureContent = styled.div`
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 0px 6px;
     }
 `;
+
+
+/// Slider
+export const SliderContainer = styled.div`
+    position: relative;
+    width: 464px;
+    height: 400px;
+    margin-bottom : 38px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    transition: 0.1s;
+`;
+
+export const SliderContent = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transition: 0.2s;
+    opacity: 0;
+
+    :hover {
+        opacity: 1;
+    }
+`;
+
+export const ButtonPrev = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: #00000092;
+    border-radius: 50%;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: 0.1s;
+
+    :hover {
+        background-color: #000000b9;
+    }
+`;
+
+export const ButtonNext = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: #00000092;
+    border-radius: 50%;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: 0.1s;
+
+    :hover {
+        background-color: #000000b9;
+    }
+`;
+
+export const Views = styled.div`
+    position: absolute;
+    bottom: 20px;
+    left: calc(50% - 30px);
+    color: white;
+    background-color: #000000a0;
+    padding: 5px;
+    border-radius: 3px;
+    width: 60px;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 13px;
+`;
+

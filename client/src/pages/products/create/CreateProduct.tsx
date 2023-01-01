@@ -25,10 +25,6 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import AddIcon from '@mui/icons-material/Add';
 
-// Swiper
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
-
 // Actions
 import { getAllCategories } from "../../../redux/slices/products";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
@@ -38,6 +34,7 @@ import { uploadFile } from "../../../firebase/firebase.config";
 import { Product } from "./models/product";
 import Miniature from "./components/Miniature";
 import MiniatureLoading from "./components/MiniatureLoading";
+import SliderCreate from "./components/SliderCreate";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -51,6 +48,7 @@ export default function CreateProduct() {
     code: "",
     name: "",
     price: "",
+    image: 'asd',
     stock: "",
     description: "",
     categoryId: "",
@@ -90,16 +88,13 @@ export default function CreateProduct() {
       [key]: key === "code" ? (value.length < 6 ? value : product.code) : value,
     });
 
-    if (!value)
-      setError({
-        ...error,
-        [key]: !value
-          ? `${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`
-          : false,
-      });
+    setError({
+      ...error,
+      [key]: !value
+        ? `${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`
+        : false,
+    });
   }
-
-
 
   function handlerSubmit() {
     var newError = error;
@@ -148,7 +143,6 @@ export default function CreateProduct() {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   }
 
@@ -158,6 +152,7 @@ export default function CreateProduct() {
       code: "",
       name: "",
       price: "",
+      image: '',
       stock: "",
       description: "",
       categoryId: "",
@@ -167,14 +162,14 @@ export default function CreateProduct() {
   }
 
   const ImagesTest = [
-    { url_image: 'https://d320djwtwnl5uo.cloudfront.net/recetas/share/share_fpa6sn8vqc_empanadas.jpg' },
-    { url_image: 'https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp' },
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQckaIE_TK4UYSEGZGMgHHpmEy9em0rO2x0h1ThLcGRJ0_58nYZY9sp2is0EMFzc6DjphQ&usqp=CAU',
+    'https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp',
   ];
 
   function handleChangeInputImage(target: EventTarget & HTMLInputElement) {
     var newFiles = [];
 
-    if (target.files?.length){
+    if (target.files?.length) {
       setMiniatureLoading(true);
       uploadFile(target.files[0])
         .then((url) => {
@@ -184,10 +179,10 @@ export default function CreateProduct() {
     }
   }
 
-  function handleDeleteImage(id:number){
+  function handleDeleteImage(id: number) {
     setProduct({
       ...product,
-      images: product.images.filter((value:any, index:number)=> index!=id)
+      images: product.images.filter((value: any, index: number) => index != id)
     });
   }
 
@@ -195,26 +190,31 @@ export default function CreateProduct() {
     <FormConteiner className="container">
       <Image>
 
+        <SliderCreate images={product.images.map((image: any) => image.url_image)} />
+
         <Miniatures>
           {
-            product.images.length>0 && product.images.map((image:any, index:number)=> <Miniature imageUrl={image.url_image} id={index} deleteImage={handleDeleteImage}/>)
-          } 
+            product.images.length > 0 && product.images.map((image: any, index: number) => <Miniature imageUrl={image.url_image} id={index} deleteImage={handleDeleteImage} />)
+          }
 
           {
-            miniatureLoading && <MiniatureLoading/>
+            miniatureLoading && <MiniatureLoading />
           }
-          
-          <div>
-            <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
-            <IconAdd>
-              <AddIcon style={{
-                fontSize: '60px',
-                padding: '10px',
-                borderRadius: '3px',
-                color: '#bdc3d1'
-              }} onClick={() => inputFile?.click()} />
-            </IconAdd>
-          </div>
+
+          {
+            product.images.length === 3 && miniatureLoading || product.images.length == 4? <></> :
+            <div>
+              <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
+              <IconAdd>
+                <AddIcon style={{
+                  fontSize: '60px',
+                  padding: '10px',
+                  borderRadius: '3px',
+                  color: '#bdc3d1'
+                }} onClick={() => inputFile?.click()} />
+              </IconAdd>
+            </div>
+          }
 
         </Miniatures>
       </Image>
