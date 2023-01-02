@@ -98,27 +98,27 @@ export const getProductsPage = (
       if (category && name) {
         products = (
           await axios(
-            `https://blanc-visions-pf-octablanc.vercel.app/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       }
       if (name.trim().length > 0) {
         products = (
           await axios(
-            `https://blanc-visions-pf-octablanc.vercel.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       }
       if (category) {
         products = (
           await axios(
-            `https://blanc-visions-pf-octablanc.vercel.app/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            `https://blanc-visions-pf-octablanc.vercel.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       }
