@@ -54,6 +54,7 @@ export async function getProducts(req: Request, res: Response) {
         },
         {
           model: Ratings,
+          attributes: ['commentary', 'score', 'createdAt', 'productId']
         },
       ],
       attributes: { exclude: ['categoryId'] },
@@ -74,7 +75,7 @@ export async function bulk(_req: Request, res: Response) {
       include: [
         { model: Images, as: 'images' },
         { model: Properties, as: 'properties' },
-        { model: Ratings, as: 'ratings' },
+        {model: Ratings,  as: 'ratings' }
       ],
     });
     await Users.bulkCreate(usersData);

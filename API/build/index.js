@@ -32,7 +32,7 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-// import axios from "axios";
+const axios_1 = __importDefault(require("axios"));
 const mercadopago = require("mercadopago");
 const body_parser_1 = __importDefault(require("body-parser"));
 module.exports = function runApp() {
@@ -108,6 +108,7 @@ module.exports = function runApp() {
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
             console.log("Server listening on port " + PORT);
+            axios_1.default.post('http://localhost:3001/products/bulk');
         });
     });
 };

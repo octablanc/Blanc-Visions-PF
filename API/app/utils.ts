@@ -53,7 +53,6 @@ export const category = [
 export const data = [
   {
     ratings: [{
-      userId: 1,
       score: 1,
       commentary: 'primer cometario jejejeje',
     }],

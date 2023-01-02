@@ -27,6 +27,7 @@ const Roles = ConnectionDB_1.default.models.roles;
 const OrderBuy = ConnectionDB_1.default.models.orderBuy;
 const ProductOrder = ConnectionDB_1.default.models.productOrder;
 const Properties = ConnectionDB_1.default.models.products_properties;
+const Ratings = ConnectionDB_1.default.models.ratings;
 function getProducts(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         /*
@@ -58,11 +59,15 @@ function getProducts(req, res) {
                     {
                         model: Images,
                     },
+                    {
+                        model: Ratings,
+                        attributes: ['commentary', 'score', 'createdAt', 'productId']
+                    },
                 ],
                 attributes: { exclude: ['categoryId'] },
                 order: [['id', 'ASC']],
             });
-            return res.send(result);
+            return res.send({ result });
         }
         catch ({ message }) {
             return res.status(400).send({ message });
@@ -79,6 +84,7 @@ function bulk(_req, res) {
                 include: [
                     { model: Images, as: 'images' },
                     { model: Properties, as: 'properties' },
+                    { model: Ratings, as: 'ratings' }
                 ],
             });
             yield Users.bulkCreate(utils_1.usersData);
@@ -110,6 +116,9 @@ function getProductById(req, res) {
                     {
                         model: Images,
                     },
+                    {
+                        model: Ratings
+                    }
                 ],
                 attributes: { exclude: ['categoryId'] },
             });
