@@ -122,7 +122,7 @@ export const Detail = () => {
               {/* <Btn name="buy" onClick={handleCheckOut}>
                 Comprar
               </Btn> */}
-              <form action="http://localhost:3002/checkout" method="POST">
+              <form action="http://localhost:3001/checkout" method="POST">
                 <input
                   type="hidden"
                   name="title"

@@ -3,15 +3,15 @@ import axios from "axios";
 
 export const getAllBuy = (id: number) => {
   return async (dispatch: any) => {
-    if (id) {
-      try {
-        let { ordenBuyUser } = (
-          await axios(`http://localhost:3001/order-buy/user/${id}`)
-        ).data;
-        dispatch(allBuy(ordenBuyUser));
-      } catch ({ message }) {
-        console.log(message);
-      }
+    if(id){
+    try {
+      let { ordenBuyUser } = (
+        await axios(`https://blanc-visions-pf-kingcomm.up.railway.app/order-buy/user/${id}`)
+      ).data;
+      dispatch(allBuy(ordenBuyUser));
+    } catch ({ message }) {
+      console.log(message);
     }
+  }
   };
 };

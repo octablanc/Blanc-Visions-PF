@@ -100,6 +100,8 @@ export const CartDetail = () => {
     }
   };
 
+  console.log(cartItems);
+
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
   };
@@ -242,11 +244,11 @@ export const CartDetail = () => {
                   value={`Productos (${cartTotalQuantity})`}
                 />
                 <input type="hidden" name="price" value={cartTotalAmount} />
-                <BtnCheck type="submit">
+                <BtnCheck type="submit" onClick={handleSubmit}>
                   {" "}
                   Finalizar compra
                 </BtnCheck>
-                <button onClick={handleSubmit}>check</button>
+                {/* <button onClick={handleSubmit}>check</button> */}
               </form>
 
               {success ? (
