@@ -54,14 +54,14 @@ export const data = [
   {
     code: 'F0021',
     name: 'sony alfha 7',
-    price: 1200000,
+    price: 100,
     stock: 50,
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
     image:
       'https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp',
     state: true,
     categoryId: 1,
-    discount: 15,
+    discount: 0,
     images: [
       {
         url_image:
@@ -1207,7 +1207,7 @@ export const data = [
   {
     code: 'SSMIUHF',
     name: 'synco sistema de micrófono inalámbrico',
-    price: 104520,
+    price: 1,
     stock: 7,
     description: `
     El Synco WMic-T3 es un sistema de micrófono lavalier inalámbrico para montaje en cámara que ofrece una solución flexible y completa para videógrafos, vloggers y periodistas móviles que necesitan grabar dos sujetos en cámaras, videocámaras o dispositivos móviles como teléfonos inteligentes y tabletas, incluso en grandes distancias.`,
@@ -1215,7 +1215,7 @@ export const data = [
     image: 'https://www.digi-zoom.com.ar/images/productos/2058_1_z.jpg',
     state: true,
     categoryId: 5,
-    discount: 30,
+    discount: 0,
 
     images: [
       {

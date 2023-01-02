@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface Product {
   id: number;
   image: string;
   name: string;
-  price:string;
+  price: string;
 }
 export interface ProductOrder {
-  id:number
-  price: number
-  quantity: number
-  product: Product
+  id: number;
+  price: number;
+  quantity: number;
+  product: Product;
 }
 
 export interface BuyState {
@@ -19,14 +19,13 @@ export interface BuyState {
   id: number;
   priceTotalDiscount: number;
   productOrders: Array<ProductOrder>;
-  street:string;
-  height:string;
-  city:string;
+  street: string;
+  height: string;
+  city: string;
 }
 
-export interface NewBuyState{
-  myBuys: Array<BuyState>
-
+export interface NewBuyState {
+  myBuys: Array<BuyState>;
 }
 
 const initialState: NewBuyState = {
@@ -34,7 +33,7 @@ const initialState: NewBuyState = {
 };
 
 export const buySlice = createSlice({
-  name: "buys",
+  name: 'buys',
   initialState,
   reducers: {
     allBuy: (state, action) => {
