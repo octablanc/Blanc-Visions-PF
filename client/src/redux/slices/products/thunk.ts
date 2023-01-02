@@ -161,7 +161,7 @@ export const getProductsDiscountPage = (
 
       products = (
         await axios(
-          `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+          `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
         )
       ).data;
 
