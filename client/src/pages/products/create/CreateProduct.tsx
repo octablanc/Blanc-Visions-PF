@@ -7,7 +7,8 @@ import {
   Image,
   Fields,
   IconAdd,
-  Miniatures
+  Miniatures,
+  PropertyContainer
 } from "./styled-components/CreateProduct.styled";
 
 // Material UI
@@ -24,6 +25,7 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import AddIcon from '@mui/icons-material/Add';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 // Actions
 import { getAllCategories } from "../../../redux/slices/products";
@@ -35,6 +37,9 @@ import { Product } from "./models/product";
 import Miniature from "./components/Miniature";
 import MiniatureLoading from "./components/MiniatureLoading";
 import SliderCreate from "./components/SliderCreate";
+import { TwoFields } from "../../../components/singup/styled-components/SingUp.styled";
+import { Property } from "./models/properties.model";
+import Properties from "./components/Properties";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -54,6 +59,7 @@ export default function CreateProduct() {
     categoryId: "",
     state: true,
     images: [],
+    properties: []
   });
   const [error, setError] = useState({
     code: "",
@@ -64,10 +70,18 @@ export default function CreateProduct() {
     categoryId: "",
     images: [],
   });
+  const [property, setProperty] = useState<Property>({
+    name: '',
+    value: '',
+  });
+  const [propertyError, setPropertyError] = useState({
+    name: false,
+    value: false,
+  });
   const [open, setOpen] = useState(false);
   var hasError = false;
-  const fontSizeLabel = 17;
-  const fontSizeInput = 15;
+  const fontSizeLabel = 15;
+  const fontSizeInput = 14;
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector(
     ({ categoriesState }) => categoriesState
@@ -136,6 +150,7 @@ export default function CreateProduct() {
 
     if (hasError) setError(newError);
 
+    
     if (!hasError) submit();
   }
 
@@ -147,7 +162,7 @@ export default function CreateProduct() {
   }
 
   function submit() {
-    postProduct(product, setLoading, setOpen);
+    postProduct({...product, image: product.images.length? product.images[0].url_image : 'https://www.manchesterdirect.com.au/assets/themes/QCS_D/img/default_product.gif?1667962863'}, setLoading, setOpen);
     setProduct({
       code: "",
       name: "",
@@ -158,6 +173,7 @@ export default function CreateProduct() {
       categoryId: "",
       state: true,
       images: [],
+      properties: []
     });
   }
 
@@ -171,6 +187,7 @@ export default function CreateProduct() {
 
     if (target.files?.length) {
       setMiniatureLoading(true);
+      console.log(target.files[0]);
       uploadFile(target.files[0])
         .then((url) => {
           setProduct({ ...product, images: [...product.images, { url_image: url }] });
@@ -183,6 +200,63 @@ export default function CreateProduct() {
     setProduct({
       ...product,
       images: product.images.filter((value: any, index: number) => index != id)
+    });
+  }
+
+  function handleChangeProperty(target: EventTarget & (HTMLInputElement | HTMLTextAreaElement)) {
+    setProperty({
+      ...property,
+      [target.name]: target.value
+    });
+
+    if (!target.value)
+      setPropertyError({
+        ...propertyError,
+        [target.name]: true
+      });
+    else
+      setPropertyError({
+        ...propertyError,
+        [target.name]: false
+      });
+  }
+
+  function addProperty() {
+    const newPropertyError = {
+      name: false,
+      value: false
+    };
+    var hasError = false;
+
+    if (!property.name){
+      hasError = true;
+      newPropertyError.name = true;
+    }
+
+    if (!property.value){
+      hasError = true;
+      newPropertyError.value = true;
+    }
+
+    if(hasError)
+      setPropertyError(newPropertyError);
+    else {
+      setProduct({
+        ...product,
+        properties: [...product.properties, property]
+      });
+
+      setProperty({
+        name: '',
+        value: ''
+      });
+    }
+  }
+
+  function deleteProperty(id: number) {
+    setProduct({
+      ...product,
+      properties: [...product.properties.filter((value, index) => index !== id)]
     });
   }
 
@@ -202,18 +276,18 @@ export default function CreateProduct() {
           }
 
           {
-            product.images.length === 3 && miniatureLoading || product.images.length == 4? <></> :
-            <div>
-              <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
-              <IconAdd>
-                <AddIcon style={{
-                  fontSize: '60px',
-                  padding: '10px',
-                  borderRadius: '3px',
-                  color: '#bdc3d1'
-                }} onClick={() => inputFile?.click()} />
-              </IconAdd>
-            </div>
+            product.images.length === 3 && miniatureLoading || product.images.length == 4 ? <></> :
+              <div>
+                <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleChangeInputImage(target)} />
+                <IconAdd>
+                  <AddPhotoAlternateIcon style={{
+                    fontSize: '60px',
+                    padding: '10px',
+                    borderRadius: '3px',
+                    color: '#bdc3d1'
+                  }} onClick={() => inputFile?.click()} />
+                </IconAdd>
+              </div>
           }
 
         </Miniatures>
@@ -230,11 +304,20 @@ export default function CreateProduct() {
             name="name"
             value={product.name}
             placeholder="Product name"
-            sx={{ m: 1, width: "100%" }}
+            sx={{
+              position: 'relative',
+              '& p.MuiFormHelperText-root': {
+                position: 'absolute',
+                bottom: '-22px',
+                left: '0px'
+              },
+              m: 1, width: "100%",
+              marginBottom: '20px'
+            }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
-            variant="outlined"
+            variant="standard"
             error={error.name ? true : false}
             helperText={
               error.name && (
@@ -245,133 +328,264 @@ export default function CreateProduct() {
             onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Code"
-            name="code"
-            value={product.code}
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-            }}
-            placeholder="Code of 5 characters"
-            variant="outlined"
-            error={error.code ? true : false}
-            helperText={
-              error.code && (
-                <span style={{ fontSize: "13px" }}>{error.code}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Price"
-            name="price"
-            value={product.price}
-            placeholder="$"
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-              type: "number",
-            }}
-            variant="outlined"
-            error={error.price ? true : false}
-            helperText={
-              error.price && (
-                <span style={{ fontSize: "13px" }}>{error.price}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label="Stock"
-            name="stock"
-            value={product.stock}
-            placeholder="Product stock"
-            sx={{ m: 1, width: "100%" }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-              type: "number",
-            }}
-            variant="outlined"
-            error={error.stock ? true : false}
-            helperText={
-              error.stock && (
-                <span style={{ fontSize: "13px" }}>{error.stock}</span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <FormControl
-            fullWidth
-            sx={{ margin: "8px" }}
-            error={error.categoryId ? true : false}
-          >
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{
-                fontSize: fontSizeLabel,
+          <TwoFields>
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
               }}
-            >
-              Category
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              name="categoryId"
-              label="Category "
-              value={product.categoryId}
-              sx={{ fontSize: fontSizeInput }}
+              label="Code"
+              name="code"
+              value={product.code}
+
+              sx={{
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px'
+                },
+                m: 1, width: "100%",
+                marginBottom: '10px'
+              }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+              }}
+              placeholder="Code of 5 characters"
+              variant="standard"
+              error={error.code ? true : false}
+              helperText={
+                error.code && (
+                  <span style={{ fontSize: "13px", whiteSpace: 'nowrap' }}>{error.code}</span>
+                )
+              }
               onChange={e => handlerChange(e.target.name, e.target.value)}
               onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
+
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
+              }}
+              label="Price"
+              name="price"
+              value={product.price}
+              placeholder="$"
+              sx={{
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px'
+                },
+                m: 1, width: "100%",
+                marginBottom: '10px'
+              }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+                type: "number",
+              }}
+              variant="standard"
+              error={error.price ? true : false}
+              helperText={
+                error.price && (
+                  <span style={{ fontSize: "13px" }}>{error.price}</span>
+                )
+              }
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
+
+          </TwoFields>
+
+          <TwoFields>
+
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
+              }}
+              label="Stock"
+              name="stock"
+              value={product.stock}
+              placeholder="Product stock"
+              sx={{
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px'
+                },
+                m: 1, width: "100%",
+                marginBottom: '10px'
+              }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+                type: "number",
+              }}
+              variant="standard"
+              error={error.stock ? true : false}
+              helperText={
+                error.stock && (
+                  <span style={{ fontSize: "13px" }}>{error.stock}</span>
+                )
+              }
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
+
+            <FormControl
+              fullWidth
+              sx={{ margin: "8px" }}
+              error={error.categoryId ? true : false}
             >
-              {categories.length ? (
-                categories.map((category) => (
-                  <MenuItem
-                    value={parseInt(category.id.toString())}
-                    sx={{
-                      fontSize: fontSizeInput,
-                    }}
-                  >
-                    {category.name}
-                  </MenuItem>
-                ))
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{
+                  fontSize: fontSizeLabel,
+                }}
+              >
+                Category
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                name="categoryId"
+                label="Category "
+                value={product.categoryId}
+                sx={{ fontSize: fontSizeInput }}
+                onChange={e => handlerChange(e.target.name, e.target.value)}
+                onFocus={e => handlerChange(e.target.name, e.target.value)}
+                variant='standard'
+              >
+                {categories.length ? (
+                  categories.map((category) => (
+                    <MenuItem
+                      value={parseInt(category.id.toString())}
+                      sx={{
+                        fontSize: fontSizeInput,
+                      }}
+                    >
+                      {category.name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </Select>
+              {error.categoryId ? (
+                <FormHelperText>
+                  <span style={{ fontSize: "13px" }}>
+                    Category cannot be empty
+                  </span>
+                  .
+                </FormHelperText>
               ) : (
                 <></>
               )}
-            </Select>
-            {error.categoryId ? (
-              <FormHelperText>
-                <span style={{ fontSize: "13px" }}>
-                  Category cannot be empty
-                </span>
-                .
-              </FormHelperText>
-            ) : (
-              <></>
-            )}
-          </FormControl>
+            </FormControl>
+
+
+          </TwoFields>
+
+          <PropertyContainer>
+            <TextField
+              id="property-name"
+              label="Property"
+              variant="standard"
+              name="name"
+              value={property.name}
+              error={propertyError.name}
+              sx={{
+                width: 'calc(49% - 37px)',
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px'
+                },
+                marginBottom: '10px'
+              }}
+              InputLabelProps={{
+                style: {
+                  fontSize: fontSizeInput
+                }
+              }}
+              InputProps={{
+                style: {
+                  fontSize: fontSizeInput
+                }
+              }}
+              helperText={
+                propertyError.name && (
+                  <span style={{ fontSize: "13px" }}>Property is empty!</span>
+                )
+              }
+              onChange={({ target }) => handleChangeProperty(target)}
+              onFocus={({ target }) => handleChangeProperty(target)}
+            />
+
+            <TextField
+              id="property-value"
+              label="Value"
+              variant="standard"
+              name="value"
+              value={property.value}
+              error={propertyError.value}
+              sx={{
+                width: 'calc(49% - 37px)',
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px'
+                },
+                marginBottom: '10px'
+              }}
+              InputLabelProps={{
+                style: {
+                  fontSize: fontSizeInput
+                }
+              }}
+              InputProps={{
+                style: {
+                  fontSize: fontSizeInput
+                }
+              }}
+              helperText={
+                propertyError.value && (
+                  <span style={{ fontSize: "13px" }}>Value is empty!</span>
+                )
+              }
+              onChange={({ target }) => handleChangeProperty(target)}
+              onFocus={({ target }) => handleChangeProperty(target)}
+            />
+
+            <Button 
+              variant="contained" 
+              style={{ marginLeft: '30px', marginBottom: '10px' }} 
+              onClick={addProperty}
+              disabled={propertyError.name || propertyError.value}
+            >Add</Button>
+          </PropertyContainer>
+
+          <Properties properties={product.properties} deleteProperty={deleteProperty} />
 
           <TextField
             name="description"
             label="Description"
             multiline
             value={product.description}
-            rows={4}
-            sx={{ m: 1, width: "100%" }}
+            variant='standard'
+            rows={3}
+            sx={{
+              position: 'relative',
+              '& p.MuiFormHelperText-root': {
+                position: 'absolute',
+                bottom: '-22px',
+                left: '0px'
+              },
+              m: 1, width: "100%",
+              marginBottom: '20px',
+              marginTop: '20px'
+            }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
