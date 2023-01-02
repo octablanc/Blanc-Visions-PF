@@ -70,7 +70,7 @@ module.exports = function runApp() {
         },
       ],
       back_urls: {
-        success: "http://localhost:3000/ ",
+        success: "https://kingcomm.vercel.app/buy",
         failure: "http://localhost:3000/",
         pending: "http://localhost:3000/",
       },
