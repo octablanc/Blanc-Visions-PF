@@ -129,7 +129,7 @@ export const CartDetail = () => {
       quantityProducts: cartTotalQuantity,
       dues: 130,
       userId: user?.id,
-      buy: false,
+      buy: true,
       productOrders: cartItems.map((prod: any) => {
         return {
           productId: prod.id,
