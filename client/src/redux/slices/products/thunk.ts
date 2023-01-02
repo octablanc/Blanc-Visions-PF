@@ -108,7 +108,7 @@ export const getProductsPage = (
             `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
-      }
+      } 
       if (category) {
         products = (
           await axios(
