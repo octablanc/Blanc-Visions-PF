@@ -75,7 +75,7 @@ module.exports = function runApp() {
         pending: "http://localhost:3000/",
       },
       notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
-      // auto_return: 'approved',
+      auto_return: 'approved',
     };
 
     mercadopago.preferences
