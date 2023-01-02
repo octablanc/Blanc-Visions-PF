@@ -10,8 +10,7 @@ import {
   Info,
   CartSection,
   Btn,
-  Promotion,
-} from "./styled-components/Detail";
+ } from "./styled-components/Detail";
 //react
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -58,7 +57,7 @@ export const Detail = () => {
     <div className="container">
       {loading ? (
         <Spinner />
-      ) : currentProduct.id === 0 ? (
+      ) : currentProduct?.id === 0 ? (
         <div className="emptyId">
           <h4>No existe un producto con ese Id</h4>
         </div>
