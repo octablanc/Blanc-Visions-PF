@@ -89,7 +89,7 @@ export default function Login() {
   return (
     <div>
       <Button onClick={handleOpen} sx={{ marginRight: '1rem' }}>
-        Log In
+        Iniciar sesion
       </Button>
       <Modal
         open={open}
@@ -186,7 +186,7 @@ export default function Login() {
                         loadingIndicator={<CircularProgress size={'20px'} sx={{ color: '#fff' }} />}
                       /> : <Button variant="contained" sx={ButtonLog} onClick={handleSubmit}>Iniciar Sesion</Button>
                   }
-                  <ForgetPassword>Forgot your password?</ForgetPassword>
+                  <ForgetPassword>Olvidaste tu contraseña?</ForgetPassword>
                 </div>
               </LoginContainer>
               <CreateContainer>
@@ -194,7 +194,7 @@ export default function Login() {
                   No tienes una cuenta? <span onClick={()=> {
                     handleClose()
                     openSingUp()
-                  }} >Create una</span>
+                  }} >Registrate</span>
                 </p>
               </CreateContainer>
             </div>

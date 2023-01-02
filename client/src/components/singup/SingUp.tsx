@@ -79,12 +79,12 @@ export default function SingUp() {
       if (target.name === 'mail')
         setError({
           ...error,
-          [target.name]: 'Mail is empty!',
+          [target.name]: 'Mail esta vacio!',
         });
       else if (target.name === 'password')
         setError({
           ...error,
-          [target.name]: 'Password is empty!',
+          [target.name]: 'Contraseña esta vacia!',
         });
       else
         setError({
@@ -144,12 +144,12 @@ export default function SingUp() {
 
     if (!user.mail) {
       hasError = true;
-      newError.mail = 'Mail is empty!';
+      newError.mail = 'Mail esta vacio!';
     }
 
     if (!user.password) {
       hasError = true;
-      newError.password = 'Password is empty!';
+      newError.password = 'Password esta vacia!';
     }
 
     if (hasError)
@@ -169,15 +169,15 @@ export default function SingUp() {
 
         switch (code) {
           case 'auth/email-already-in-use':
-            setError({ ...error, mail: 'Mail already registered!' });
+            setError({ ...error, mail: 'Mail ya registrado!' });
             break;
 
             case 'auth/invalid-email':
-              setError({ ...error, mail: 'Invalid mail!' });
+              setError({ ...error, mail: 'Mail invalido!' });
               break;
 
           case 'auth/weak-password':
-            setError({ ...error, password: 'Password should be at least 6 characters!' });
+            setError({ ...error, password: 'La contraseña debe tener al menos 6 caracteres!' });
             break;
         }
       }
@@ -186,9 +186,9 @@ export default function SingUp() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>
-        Sing Up
-      </Button>
+      {/* <Button onClick={handleOpen}>
+        Registrarse
+      </Button> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -208,17 +208,17 @@ export default function SingUp() {
             </div>
 
             <Fields>
-              <Tittle>Sing Up</Tittle>
+              <Tittle>Regristrate</Tittle>
 
               <TwoFields className="input">
                 <TextField
                   InputLabelProps={{
                     style: { fontSize: fontSizeLabel },
                   }}
-                  label="First name"
+                  label="Nombre"
                   name="name"
                   value={user.name}
-                  placeholder="type your first name"
+                  placeholder="escribe tu nombre"
                   InputProps={{
                     style: { fontSize: fontSizeInput },
                   }}
@@ -226,7 +226,7 @@ export default function SingUp() {
                   helperText={
                     error.name && (
                       <span style={{ fontSize: "12px" }}>
-                        First name is empty!
+                        Nombre esta vacio!
                       </span>
                     )
                   }
@@ -239,10 +239,10 @@ export default function SingUp() {
                   InputLabelProps={{
                     style: { fontSize: fontSizeLabel },
                   }}
-                  label="Last name"
+                  label="Apellido"
                   name="lastName"
                   value={user.lastName}
-                  placeholder="type your last name"
+                  placeholder="escribe tu apellido"
                   InputProps={{
                     style: { fontSize: fontSizeInput },
                   }}
@@ -250,7 +250,7 @@ export default function SingUp() {
                   helperText={
                     error.lastName && (
                       <span style={{ fontSize: "12px" }}>
-                        Last name is empty!
+                        Apellido esta vacio!
                       </span>
                     )
                   }
@@ -265,10 +265,10 @@ export default function SingUp() {
                 InputLabelProps={{
                   style: { fontSize: fontSizeLabel },
                 }}
-                label="Image"
+                label="Foto de perfil"
                 name="imageProfile"
                 value={user.imageProfile}
-                placeholder="type your image"
+                placeholder="Coloca tu foto de perfil"
                 sx={{ width: "100%" }}
                 InputProps={{
                   style: { fontSize: fontSizeInput },
@@ -276,7 +276,7 @@ export default function SingUp() {
                 error={error.imageProfile}
                 helperText={
                   error.imageProfile && (
-                    <span style={{ fontSize: "12px" }}>Image is empty!</span>
+                    <span style={{ fontSize: "12px" }}>Foto de perfil esta vacia!</span>
                   )
                 }
                 variant="standard"
@@ -289,11 +289,11 @@ export default function SingUp() {
                   InputLabelProps={{
                     style: { fontSize: fontSizeLabel },
                   }}
-                  label="Phone"
+                  label="Telefono"
                   name="phone"
                   value={user.phone}
                   type="number"
-                  placeholder="type your phone"
+                  placeholder="escribe tu telefono"
                   sx={{ width: "100%" }}
                   InputProps={{
                     style: { fontSize: fontSizeInput },
@@ -301,7 +301,7 @@ export default function SingUp() {
                   error={error.phone}
                   helperText={
                     error.phone && (
-                      <span style={{ fontSize: "12px" }}>Phone is empty!</span>
+                      <span style={{ fontSize: "12px" }}>Telefono esta vacio!</span>
                     )
                   }
                   variant="standard"
@@ -311,7 +311,7 @@ export default function SingUp() {
 
                 <TextField
                   name="birthday"
-                  label="Birthday"
+                  label="Fecha de nacimiento"
                   type="date"
                   value={user.birthday}
                   InputLabelProps={{
@@ -334,7 +334,7 @@ export default function SingUp() {
                 label="Mail"
                 name="mail"
                 value={user.mail}
-                placeholder="type your mail"
+                placeholder="escribe tu mail"
                 sx={{ width: "100%" }}
                 InputProps={{
                   style: { fontSize: fontSizeInput },
@@ -355,11 +355,11 @@ export default function SingUp() {
                   InputLabelProps={{
                     style: { fontSize: fontSizeLabel },
                   }}
-                  label="Password"
+                  label="Contraseña"
                   name="password"
                   value={user.password}
                   type={showPassword ? "text" : "password"}
-                  placeholder="type your password"
+                  placeholder="escribe tu contraseña"
                   InputProps={{
                     style: { fontSize: fontSizeInput },
                     endAdornment: user.password ? (
@@ -393,11 +393,11 @@ export default function SingUp() {
                   InputLabelProps={{
                     style: { fontSize: fontSizeLabel },
                   }}
-                  label="Confirm password"
+                  label="Confirmar contraseña"
                   name="password"
                   value={confirmPassword}
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="confirm your password"
+                  placeholder="confirma tu contraseña"
                   InputProps={{
                     style: { fontSize: fontSizeInput },
                     endAdornment: confirmPassword ? (
@@ -426,7 +426,7 @@ export default function SingUp() {
                   helperText={
                     user.password && user.password !== confirmPassword ? (
                       <span style={{ fontSize: "12px", position: "absolute" }}>
-                        Passwords do not match!
+                        Contraseña no coincide!
                       </span>
                     ) : (
                       <></>
@@ -462,7 +462,7 @@ export default function SingUp() {
                       (user.password !== '' && user.password !== confirmPassword)
                     }
                     onClick={handleSubmit}
-                  >Sing Up</Button>
+                  >Registrarme</Button>
               }
             </Fields>
           </ModalContainer>

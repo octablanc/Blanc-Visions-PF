@@ -34,6 +34,7 @@ export default function AccountMenu() {
   var inputFile: HTMLInputElement | null;
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
 
   function handleClick(event: React.MouseEvent<HTMLElement>) {
@@ -191,7 +192,7 @@ export default function AccountMenu() {
 
         <Divider style={{ backgroundColor: '#E5E5E5' }} />
 
-        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={handleClose}>
+        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={()=> {handleClose(); navigate('/buy')}}>
           <ListItemIcon>
             <ShoppingBasketIcon fontSize="medium" />
           </ListItemIcon>
