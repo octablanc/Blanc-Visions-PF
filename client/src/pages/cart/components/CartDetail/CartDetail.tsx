@@ -35,6 +35,7 @@ import React from "react";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
 import { BOLD_WEIGHT } from "jest-matcher-utils";
+import { FlashMsg } from "../FlashMsg/FlashMsg";
 
 type Snackbar = {
   open: boolean;
@@ -54,12 +55,13 @@ export const CartDetail = () => {
     useAppSelector((state) => state.cartState);
 
   const [open, setOpen] = useState(true);
-  // const [ msg, setMsg ] = useState('');
+  const[success, setSuccess] = useState(true);
+  const [ msg, setMsg ] = useState('');
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getDiscountTotal(cartItems));
+    dispatch(getDiscountTotal(cartItems));    
   }, [itemTotalQuantity, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
@@ -81,6 +83,8 @@ export const CartDetail = () => {
     } else {
       if (cartItem.stock > 0) {
         dispatch(increaseQuantity(cartItem));
+        // setSuccess(true);
+        // setMsg('Producto agregado al carrito');
       }
     }
   };
@@ -197,12 +201,15 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <form action="http://localhost:3002/checkout" method="POST">
-                <input type="hidden" name="title" value="nada" />
+              <form action="http://localhost:3001/checkout" method="POST">
+                <input type="hidden" name="title" value={`Productos (${cartTotalQuantity})`} />
                 <input type="hidden" name="price" value={cartTotalAmount} />
                 <BtnCheck type="submit"> Finalizar compra</BtnCheck>
               </form>
-              {
+             
+              {success ? <FlashMsg msg='Tienes productos en tu carrito'>{msg}</FlashMsg>: ''}
+
+              {/* {
                 <Snackbar
                   open={open}
                   autoHideDuration={3000}
@@ -215,7 +222,7 @@ export const CartDetail = () => {
                     Producto agregado al carrito
                   </Alert>
                 </Snackbar>
-              }
+              } */}
               <div>
                 <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>
