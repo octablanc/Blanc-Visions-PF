@@ -37,7 +37,7 @@ export const Footer = () => {
   return (
     <FooterBar>
       <GridFooter className='container'>
-        <Newsletter>
+        {/* <Newsletter>
           <h4>Recibí las últimas novedades</h4>
           <Input
             placeholder='Ingresá tu email'
@@ -46,10 +46,10 @@ export const Footer = () => {
             onChange={handleChange}
           />
           <Btn onSubmit={handleSubmit}>Suscribirme</Btn>
-        </Newsletter>
+        </Newsletter> */}
 
         <div>
-          <h3>Categorías</h3>
+          {/* <h3>Categorías</h3> */}
           <ul>
             <li>
               <Link to='/'>Inicio</Link>
@@ -60,7 +60,6 @@ export const Footer = () => {
             <li>
               <Link to='about'>Nosotros</Link>
             </li>
-            {/* <li>Contacto</li> */}
           </ul>
         </div>
 
@@ -71,12 +70,11 @@ export const Footer = () => {
               <Link to='/questions'>Preguntas frecuentes</Link>
             </li>
             <li>
-              <Link to='/privacy'>Politica de privacidad</Link>
+              <Link to='/privacy'>Política de privacidad</Link>
             </li>
             <li>
               <Link to='/termsyconditions'>Términos y Condiciones</Link>
             </li>
-            {/* <li>Cookies</li> */}
           </ul>
         </div>
 
