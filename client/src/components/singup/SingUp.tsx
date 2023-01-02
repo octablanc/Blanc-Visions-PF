@@ -21,9 +21,15 @@ import {
 } from "./styled-components/SingUp.styled";
 
 // Authentication
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 import { postUser } from "../../services/services";
+
+function setOpenSingUp(setOpen:Function){
+  return ()=> {setOpen(true);}
+}
+
+export var openSingUp = ()=> {};
 
 export default function SingUp() {
   const [user, setUser] = useState({
@@ -57,6 +63,7 @@ export default function SingUp() {
   const handleClose = () => setOpen(false);
   const fontSizeLabel = 18;
   const fontSizeInput = 16;
+  openSingUp = setOpenSingUp(setOpen);
 
   function handleInput(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -151,6 +158,8 @@ export default function SingUp() {
       try {
         setBtnLoading(true);
         await createUserWithEmailAndPassword(auth, user.mail, user.password);
+        if(auth.currentUser)
+          await sendEmailVerification(auth.currentUser);
         await postUser(user);
         await signOut(auth);
         await signInWithEmailAndPassword(auth, user.mail, user.password);

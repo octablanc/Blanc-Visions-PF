@@ -1,3 +1,5 @@
+import { Property } from "./properties.model";
+
 export interface Product {
   code: string;
   name: string;
@@ -8,4 +10,5 @@ export interface Product {
   categoryId: string;
   state: true;
   images: any;
+  properties: Property[];
 }
