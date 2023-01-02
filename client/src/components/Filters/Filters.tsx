@@ -1,16 +1,11 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { getProductsPage } from '../../redux/slices/products';
 
-import { FilterContent, FilterDiscountPrice } from './styled-components/style';
-import { useState } from 'react';
+import {
+  FilterContent,
+  FilterDiscountPrice,
+  ContainerSelectOrder,
+} from './styled-components/style';
 
 const listPrice = ['10.000', '50.000', '100.000'];
 const listDiscount = ['10', '20'];
@@ -20,7 +15,6 @@ export const Filters = () => {
   const { currentCategory } = useAppSelector((state) => state.categoriesState);
   const { pagination } = useAppSelector((state) => state.productsState);
   const { quantity, price, discount, data, order } = pagination;
-  const [ordenar, setOrdenar] = useState(''); // MATERIAl
 
   const handleDiscount = (e: any) => {
     const isH5: boolean = e.target.nodeName === 'H5';
@@ -72,21 +66,9 @@ export const Filters = () => {
   //   dispatch(setCategory(undefined));
   // };
 
-  // const selectTypeOrder = (e: any) => {
-  const selectTypeOrder = (typeOrder: string) => {
-    // const typeOrder: string = e.target.value;
-    if (typeOrder === 'Sin Ordenar')
-      return dispatch(
-        getProductsPage(
-          1,
-          quantity,
-          currentCategory,
-          discount,
-          price,
-          'id',
-          'ASC'
-        )
-      );
+  const selectTypeOrder = (e: any) => {
+    const typeOrder: string = e.target.value;
+
     if (typeOrder === 'Menor Precio')
       return dispatch(
         getProductsPage(
@@ -123,6 +105,18 @@ export const Filters = () => {
           'DESC'
         )
       );
+
+    return dispatch(
+      getProductsPage(
+        1,
+        quantity,
+        currentCategory,
+        discount,
+        price,
+        'id',
+        'ASC'
+      )
+    );
   };
 
   const resetPrice = (e: any) => {
@@ -134,11 +128,6 @@ export const Filters = () => {
     dispatch(
       getProductsPage(1, quantity, currentCategory, 0, price, data, order)
     );
-  };
-
-  const handleChange = (e: SelectChangeEvent) => {
-    setOrdenar(e.target.value as string);
-    selectTypeOrder(e.target.value);
   };
 
   return (
@@ -161,25 +150,13 @@ export const Filters = () => {
         )}
       </FilterContent>
       <div>
-        {/* <h3>ORDERNAR POR:</h3> */}
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Orden</InputLabel>
-
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={ordenar}
-              label="Orden"
-              onChange={handleChange}
-            >
-              <MenuItem value="Sin Ordenar">Sin Ordenar</MenuItem>
-              <MenuItem value="Menor Precio">Menor Precio</MenuItem>
-              <MenuItem value="Mayor Precio">Mayor Precio</MenuItem>
-              <MenuItem value="Mayor Descuento">Mayor Descuento</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+        <h3>ORDERNAR POR:</h3>
+        <ContainerSelectOrder onChange={selectTypeOrder} id="selectOrder">
+          <option value="Sin Ordenar">Sin Ordenar</option>
+          <option value="Menor Precio">Menor Precio</option>
+          <option value="Mayor Precio">Mayor Precio</option>
+          <option value="Mayor Descuento">Mayor Descuento</option>
+        </ContainerSelectOrder>
       </div>
       <FilterDiscountPrice>
         <h3>DESCUENTOS</h3>

@@ -119,7 +119,7 @@ export async function getProductById(req: Request, res: Response) {
 //        include: {
 //         model: Properties,
 //         as: 'properties',
-//       },     
+//       },
 //     });
 // return res.send(result);
 // } catch ({ message }) {
@@ -133,7 +133,7 @@ export async function postProduct(req: Request, res: Response) {
     const product = req.body;
 
     let result = await Products.create(product, {
-   include: [
+      include: [
         {
           model: Categories,
           // as: 'categories'
@@ -144,17 +144,15 @@ export async function postProduct(req: Request, res: Response) {
         },
         {
           model: Images,
-          
         },
-      ]}
-      )
+      ],
+    });
     return res.send(result);
   } catch ({ message }) {
     console.log(message);
     return res.status(400).send({ message });
   }
 }
-    
 
 export async function updateProduct(req: Request, res: Response) {
   try {
@@ -194,6 +192,11 @@ export async function deleteProduct(req: Request, res: Response) {
   }
 }
 
+/*
+order : ASC | DESC
+data : id | price | discount
+*/
+
 export async function paginateProducts(req: Request, res: Response) {
   /*
     Querys: 
@@ -219,8 +222,8 @@ export async function paginateProducts(req: Request, res: Response) {
         if (page < 1 && quantityProducts < 1)
           throw new Error('The fields can only be greater than 0!');
 
-        const { category } = req.query;
-        const { price } = req.query;
+        const { category, price, name } = req.query;
+        const nameLow = name?.toString().toLowerCase();
 
         const result = await Products.findAll({
           where: {
@@ -230,6 +233,9 @@ export async function paginateProducts(req: Request, res: Response) {
             },
             price: {
               [Op.gte]: price,
+            },
+            name: {
+              [Op.substring]: `${nameLow}`,
             },
           },
           include: [
@@ -261,6 +267,9 @@ export async function paginateProducts(req: Request, res: Response) {
             price: {
               [Op.gte]: price,
             },
+            name: {
+              [Op.substring]: `${nameLow}`,
+            },
           },
           include: [
             {
@@ -280,8 +289,5 @@ export async function paginateProducts(req: Request, res: Response) {
     return res.status(400).send({ message });
   }
 }
-// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&data=id&order=ASC
-/*
-order : ASC | DESC
-data : id | price | discount
-*/
+
+// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&data=id&order=ASC&name=''
