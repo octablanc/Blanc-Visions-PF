@@ -4,7 +4,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import DBcontext from "./config/ConnectionDB";
 import router from "./app/routes";
-// import axios from "axios";
+import axios from "axios";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
@@ -95,6 +95,7 @@ module.exports = function runApp() {
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
       console.log("Server listening on port " + PORT);
+      axios.post('http://localhost:3001/products/bulk')
     });
   });
 }

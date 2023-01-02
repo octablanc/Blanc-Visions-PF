@@ -12,6 +12,8 @@ import Users from "../app/models/Users.model";
 import ProductsProperties from "../app/models/ProductsProperties.model";
 import Images from "../app/models/Images.model";
 import ProductOrder from "../app/models/ProductOrder.model";
+import Ratings from "../app/models/Ratings.model";
+
 
 
 
@@ -40,8 +42,9 @@ Roles(DBcontext);
 Users(DBcontext);
 Images(DBcontext)
 ProductOrder(DBcontext)
+Ratings(DBcontext);
 
-const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder } =
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder, ratings} =
   DBcontext.models;
 
 /*
@@ -99,5 +102,9 @@ productOrder.belongsTo(orderBuy);
 // Un producto tiene a una orden de producto, y una orden de producto pertenece a un producto.
 products.hasOne(productOrder);
 productOrder.belongsTo(products);
+
+
+products.hasMany(ratings);
+ratings.belongsTo(products);
 
 export default DBcontext;

@@ -52,6 +52,11 @@ export const category = [
 // Audio y Video  5
 export const data = [
   {
+    ratings: [{
+      userId: 1,
+      score: 1,
+      commentary: 'primer cometario jejejeje',
+    }],
     code: 'F0021',
     name: 'Sony alfha 7',
     price: 100,
