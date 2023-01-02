@@ -34,11 +34,11 @@ export const Info = styled.div`
         justify-content: space-evenly;
       }
       .label{
-        color:grey;
+        color: ${(props) => props.theme.colors.secondary};
       }
       .priceProm {
         text-decoration: line-through;
-        color: grey;
+        color: ${(props) => props.theme.colors.secondary};
       }
     }
   }
@@ -55,18 +55,6 @@ export const Info = styled.div`
   }
 `;
 
-export const Promotion = styled.div`
-  background: blue;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  /* flex-direction: row;
-justify-content: space-between; */
-  .infoProm {
-    background: yellowgreen;
-    display: flex;
-    flex-direction: column;
-  }
-`;
 export const CartSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,7 +68,7 @@ export const Btn = styled.button`
   padding: 0.8rem;
   margin: 0.5rem;
   border-radius: 8px;
-  background: black;
+  background: ${(props) => props.theme.colors.secondary};
   color: white;
   border: none;
   cursor: pointer;

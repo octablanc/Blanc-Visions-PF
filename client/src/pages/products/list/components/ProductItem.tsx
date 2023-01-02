@@ -29,7 +29,7 @@ export const ProductItem = ({ product }: Props) => {
     navigate(`/products/${id}`);
   };
 
-  let resultDiscount = (price * discount) / 100;
+  let resultDiscount = Math.ceil((price * discount) / 100);
   let priceDiscount = price - resultDiscount;
   return (
     <Card key={code} onClick={() => handleClick(id)}>
