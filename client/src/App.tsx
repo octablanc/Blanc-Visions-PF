@@ -20,6 +20,7 @@ import { useAppDispatch, useAppSelector } from './redux/app/hooks';
 import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
+import { Terms } from './pages/terms/Terms';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -51,6 +52,7 @@ function App() {
           {/*Hecho para testear mis compras...*/}
           <Route path='questions' element={<Questions />} />
           <Route path='privacy' element={<Privacy />} />
+          <Route path='termsyconditions' element={<Terms />} />
         </Route>
       </Routes>
     </BrowserRouter>
