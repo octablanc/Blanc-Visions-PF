@@ -95,4 +95,3 @@ DBcontext.sync({ force: true }).then(() => {
   });
 });
 
-//hola
