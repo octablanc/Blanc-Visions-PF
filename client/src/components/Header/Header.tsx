@@ -2,7 +2,6 @@ import logo from '../../assets/logo2.svg';
 import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
 import { Link, NavLink } from 'react-router-dom';
 import {
-  NavInput,
   Navbar,
   NavMenu,
   NavOptions,
@@ -29,13 +28,15 @@ export const Header = () => {
     ({ userState }) => userState.user
   );
   const loading = useAppSelector(({ userState }) => userState.loading);
-  const { cartItems, cartTotalQuantity } = useAppSelector((state) => state.cartState)
+  const { cartItems, cartTotalQuantity } = useAppSelector(
+    state => state.cartState
+  );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllCategories());
-    dispatch(getTotal(cartItems))
+    dispatch(getTotal(cartItems));
   }, [dispatch]);
 
   return (

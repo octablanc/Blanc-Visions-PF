@@ -8,6 +8,7 @@ import {
   productOffCategories,
   setPagination,
   setUser,
+  changeDiscountPage,
 } from './productsSlice';
 import { UserInfo } from './productsSlice';
 import axios from 'axios';
@@ -135,6 +136,48 @@ export const getProductsPage = (
         })
       );
       dispatch(changePage(products.result));
+    } catch (error) {
+      console.log('EROR=>', error);
+    } finally {
+      dispatch(startLoadingProducts(false));
+    }
+  };
+};
+
+export const getProductsDiscountPage = (
+  page: number,
+  quantity: number,
+  category: string | undefined = undefined,
+  discount: number = 0,
+  price: number = 0,
+  data: string,
+  order: string,
+  name: string = ''
+) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingProducts(true));
+      let products;
+
+      products = (
+        await axios(
+          `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+        )
+      ).data;
+
+      dispatch(
+        setPagination({
+          page,
+          category,
+          productsLength: products.productsLength,
+          price,
+          discount,
+          data,
+          order,
+          name,
+        })
+      );
+      dispatch(changeDiscountPage(products.result));
     } catch (error) {
       console.log('EROR=>', error);
     } finally {

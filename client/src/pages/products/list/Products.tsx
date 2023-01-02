@@ -19,10 +19,10 @@ import { NotProducts } from './components/NotProducts';
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading, pagination } = useAppSelector(
-    (state) => state.productsState
+    state => state.productsState
   );
-  const { currentCategory } = useAppSelector((state) => state.categoriesState);
-  const { search } = useAppSelector((state) => state.productsState);
+  const { currentCategory } = useAppSelector(state => state.categoriesState);
+  const { search } = useAppSelector(state => state.productsState);
   const { page, quantity, productsLength, discount, price, data, order } =
     pagination;
 
@@ -72,21 +72,21 @@ export const Products = () => {
 
   return (
     <>
-      <Conteiner className="container">
+      <Conteiner className='container'>
         <Filters />
         <div style={{ justifyContent: 'center' }}>
           {products.length > 0 && (
-            <h1 className="text-center">Nuestros Productos</h1>
+            <h1 className='text-center'>Nuestros Productos</h1>
           )}
 
           {loading ? (
             <Spinner />
           ) : products.length > 0 ? (
             <ProductsGrid>
-              {products.map((product) => (
+              {products.map(product => (
                 <div
                   key={product.code}
-                  className="animate__animated animate__fadeIn"
+                  className='animate__animated animate__fadeIn'
                 >
                   <ProductItem product={product} />
                 </div>
@@ -97,7 +97,7 @@ export const Products = () => {
           )}
 
           {products.length > 0 && (
-            <Paginate className="animate__animated animate__fadeIn">
+            <Paginate className='animate__animated animate__fadeIn'>
               <button onClick={decrement} disabled={page === 1}>
                 {'<'}
               </button>

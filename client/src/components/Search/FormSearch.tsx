@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { HiOutlineMagnifyingGlass } from '../../icons';
 import { useAppDispatch } from '../../redux/app/hooks';
 import { search } from '../../redux/slices/products';
+import { Input } from './styled-components/styles';
 
 export const FormSearch = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export const FormSearch = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
+      <Input
         value={nameProducts}
         type='text'
         placeholder='Buscar producto'
