@@ -8,7 +8,7 @@ import router from "./app/routes";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
-module.exports = function runApp() {
+function runApp() {
   dotenv.config();
   const { PORT } = process.env || 3001;
   const app = express();
@@ -47,7 +47,7 @@ module.exports = function runApp() {
       "APP_USR-3248474346383256-121911-3cd56dfa5c4fdc916795b79a085dd93c-1266633934",
   });
 
-  app.post("/notification/:id", (req, res) => {
+  app.post("/notification", (req, res) => {
     try {
       const notification = req.body;
       console.log(notification);
@@ -74,7 +74,7 @@ module.exports = function runApp() {
         failure: "http://localhost:3000/",
         pending: "http://localhost:3000/",
       },
-      notification_url: "http://localhost:3001/notification/1",
+      notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
       // auto_return: 'approved',
     };
 
@@ -95,9 +95,10 @@ module.exports = function runApp() {
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
       console.log("Server listening on port " + PORT);
-      // axios.post(
-      //   "https://blanc-visions-pf-kingcomm.up.railway.app/products/bulk"
-      // );
     });
   });
 }
+
+runApp();
+
+module.exports = runApp;
