@@ -85,6 +85,8 @@ export const CartDetail = () => {
     }
   };
 
+  console.log(cartItems);
+
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
   };

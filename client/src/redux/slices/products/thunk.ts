@@ -160,7 +160,7 @@ export const updateUser = (user: UserInfo) => {
         roleId,
       } = user;
 
-      let updateUser = await axios.put(`http://localhost:3001/users/${id}`, {
+      let updateUser = await axios.put(`https://blanc-visions-pf-kingcomm.up.railway.app/users/${id}`, {
         imageProfile,
         name,
         lastName,
