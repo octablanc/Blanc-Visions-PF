@@ -35,7 +35,7 @@ const routes_1 = __importDefault(require("./app/routes"));
 // import axios from "axios";
 const mercadopago = require("mercadopago");
 const body_parser_1 = __importDefault(require("body-parser"));
-function runApp() {
+module.exports = function runApp() {
     dotenv.config();
     const { PORT } = process.env || 3001;
     const app = (0, express_1.default)();
@@ -110,6 +110,4 @@ function runApp() {
             console.log("Server listening on port " + PORT);
         });
     });
-}
-runApp();
-module.exports = runApp;
+};

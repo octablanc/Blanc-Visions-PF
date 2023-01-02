@@ -8,7 +8,7 @@ import router from "./app/routes";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
-function runApp() {
+module.exports = function runApp() {
   dotenv.config();
   const { PORT } = process.env || 3001;
   const app = express();
@@ -98,7 +98,3 @@ function runApp() {
     });
   });
 }
-
-runApp();
-
-module.exports = runApp;
