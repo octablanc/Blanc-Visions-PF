@@ -19,7 +19,11 @@ export const FlashMsg = ({ msg }: any) => {
   return (
     <div>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert severity="success" onClose={handleClose}>
+        <Alert 
+        severity="success" 
+        onClose={handleClose}
+        sx={{ width: "100%", fontSize: 12 }}
+        >
           {msg}
         </Alert>
       </Snackbar>

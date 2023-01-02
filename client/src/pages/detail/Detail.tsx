@@ -10,9 +10,9 @@ import {
   Info,
   CartSection,
   Btn,
- } from "./styled-components/Detail";
+} from "./styled-components/Detail";
 //react
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 //redux
 import { getProductById, addToCart } from "../../redux/slices/Cart";
@@ -27,11 +27,13 @@ export const Detail = () => {
   console.log(product.id);
 
   useEffect(() => {
-    //falta agregar un modal de producto inexistente!!
     dispatch(getProductById(product.id));
   }, [dispatch, product.id]);
 
-  const { currentProduct } = useAppSelector((state: any) => state.cartState);
+  const { currentProduct, cartTotalAmount, cartTotalQuantity } = useAppSelector(
+    (state: any) => state.cartState
+  );
+
   const {
     loading,
     name,
@@ -49,9 +51,6 @@ export const Detail = () => {
     dispatch(addToCart(currentProduct));
     navigate("/cart");
   };
-
-  //Falta declarar función para checkOut
-  const handleCheckOut = () => { };
 
   return (
     <div className="container">
@@ -79,13 +78,13 @@ export const Detail = () => {
                 <div className="icons">
                   <h3> {`$${priceProm}`} </h3>
                   <div className="infoProm">
-                    <div className='labelProm'>
+                    <div className="labelProm">
                       <span> Ahorras</span>
                       <span>$ {`${price - priceProm}`}</span>
                     </div>
-                    <div className='labelProm'>
-                      <span className='label'>Antes</span>
-                      <span className='priceProm'>{`$${priceProm}`}</span>
+                    <div className="labelProm">
+                      <span className="label">Antes</span>
+                      <span className="priceProm">{`$${priceProm}`}</span>
                     </div>
                   </div>
                 </div>
@@ -120,12 +119,21 @@ export const Detail = () => {
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
-              <Btn name="buy" onClick={handleCheckOut}>
+              {/* <Btn name="buy" onClick={handleCheckOut}>
                 Comprar
-              </Btn>
+              </Btn> */}
+              <form action="http://localhost:3001/checkout" method="POST">
+                <input
+                  type="hidden"
+                  name="title"
+                  value={`Productos (${cartTotalQuantity})`}
+                />
+                <input type="hidden" name="price" value={cartTotalAmount} />
+                <Btn type="submit">Comprar</Btn>
+              </form>
             </CartSection>
-          </Info>          
-        </Container>       
+          </Info>
+        </Container>
       )}
       <br />
       <hr />

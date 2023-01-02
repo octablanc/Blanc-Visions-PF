@@ -12,7 +12,7 @@ export function getUser( mail: string | null ){
         else {
             try {
                 dispatch(setLoading(true));
-                const data:User = (await axios.get(`http://localhost:3001/users?mail=${mail}`)).data;
+                const data:User = (await axios.get(`https://blanc-visions-pf-kingcomm.up.railway.app/users?mail=${mail}`)).data;
                 dispatch(setUser(data));
             } catch ({ message }) {
                 signOut(auth);

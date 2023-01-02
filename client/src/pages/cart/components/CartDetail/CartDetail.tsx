@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { NavLink } from 'react-router-dom';
-import { MouseEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
+import { NavLink } from "react-router-dom";
+import { MouseEvent, useEffect, useState } from "react";
 
 import {
   decreaseQuantity,
@@ -9,7 +9,8 @@ import {
   getTotal,
   removeFromCart,
   getDiscountTotal,
-} from '../../../../redux/slices/Cart';
+  BoughtPro,
+} from "../../../../redux/slices/Cart";
 
 import {
   Div,
@@ -28,13 +29,15 @@ import {
   Titles,
   // Input,
   BtnCheck,
-} from '../../styled-components/styles';
-import { display, fontSize } from '@mui/system';
-import cart from '../../styled-components/cart.png';
-import React from 'react';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import { Snackbar } from '@mui/material';
-import { BOLD_WEIGHT } from 'jest-matcher-utils';
+} from "../../styled-components/styles";
+import { display, fontSize } from "@mui/system";
+import cart from "../../styled-components/cart.png";
+import React from "react";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { Snackbar } from "@mui/material";
+import { BOLD_WEIGHT } from "jest-matcher-utils";
+import { FlashMsg } from "../FlashMsg/FlashMsg";
+import { postOrderBuy } from "../../../../services/services";
 
 type Snackbar = {
   open: boolean;
@@ -46,15 +49,25 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
 ) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export const CartDetail = () => {
-  const { cartItems, itemTotalQuantity, cartTotalQuantity, cartTotalAmount } =
-    useAppSelector((state) => state.cartState);
+  const {
+    cartItems,
+    itemTotalQuantity,
+    cartTotalQuantity,
+    cartTotalAmount,
+    currentProduct,
+  } = useAppSelector((state) => state.cartState);
+
+  const  user  = useAppSelector(({userState})=> userState.user);
+  
+  const { discount } = currentProduct;
 
   const [open, setOpen] = useState(true);
-  // const [ msg, setMsg ] = useState('');
+  const [success, setSuccess] = useState(true);
+  const [msg, setMsg] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -81,9 +94,13 @@ export const CartDetail = () => {
     } else {
       if (cartItem.stock > 0) {
         dispatch(increaseQuantity(cartItem));
+        // setSuccess(true);
+        // setMsg('Producto agregado al carrito');
       }
     }
   };
+
+  console.log(cartItems);
 
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
@@ -94,20 +111,44 @@ export const CartDetail = () => {
   };
 
   const handleClose = (reason: any) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
 
+  const handleSubmit = () => {
+    const orderBuy = {
+      priceTotalDiscount: cartTotalAmount,
+      discount: discount,
+      state: true,
+      postalCode: 199,
+      street: "calle falsa",
+      height: "12943",
+      city: "varelaa",
+      quantityProducts: cartTotalQuantity,
+      dues: 130,
+      userId: user?.id,
+      buy: true,
+      productOrders: cartItems.map((prod: any) => {
+        return {
+          productId: prod.id,
+          quantity: prod.cartQuantity,
+          price: prod.price,
+        };
+      }),
+    };
+    postOrderBuy(orderBuy);
+  };
+
   return (
     <Container>
       {cartItems.length < 1 ? (
-        <div className='emptyCart'>
+        <div className="emptyCart">
           <img src={cart} />
           <div>
             <p>Tu carrito esta vacío</p>
-            <NavLink to='/products'>
+            <NavLink to="/products">
               <Back>Comienza a comprar...</Back>
             </NavLink>
           </div>
@@ -127,8 +168,8 @@ export const CartDetail = () => {
               {cartItems?.map((cartItem) => (
                 <Div key={cartItem.id}>
                   <Product>
-                    <img src={cartItem.image} alt='imagen del producto' />
-                    <div className='product'>
+                    <img src={cartItem.image} alt="imagen del producto" />
+                    <div className="product">
                       <p> {cartItem.name}</p>
                     </div>
                   </Product>
@@ -136,28 +177,28 @@ export const CartDetail = () => {
                     <div>{`${cartItem.price}`}</div>
                   ) : (
                     <div>
-                      <div className='discountPrice'>
+                      <div className="discountPrice">
                         {`${Math.ceil(
                           cartItem.price * (1 - cartItem.discount / 100)
                         )}`}
                       </div>
-                      <div className='labelProm'>
+                      <div className="labelProm">
                         <span>Antes:</span>
-                        <span className='priceProm'>{`${cartItem.price}`}</span>
+                        <span className="priceProm">{`${cartItem.price}`}</span>
                       </div>
                     </div>
                   )}
                   <Quantity>
                     <Operators>
                       <button
-                        name='subtract'
+                        name="subtract"
                         onClick={() => handleSubstractItem(cartItem)}
                       >
                         -
                       </button>
                       <div>{cartItem.cartQuantity}</div>
                       <button
-                        name='add'
+                        name="add"
                         onClick={() => handleAddItem(cartItem)}
                       >
                         +
@@ -196,12 +237,27 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <form action='http://localhost:3001/checkout' method='POST'>
-                <input type='hidden' name='title' value='nada' />
-                <input type='hidden' name='price' value={cartTotalAmount} />
-                <BtnCheck type='submit'> Finalizar compra</BtnCheck>
+              <form action="http://localhost:3001/checkout" method="POST">
+                <input
+                  type="hidden"
+                  name="title"
+                  value={`Productos (${cartTotalQuantity})`}
+                />
+                <input type="hidden" name="price" value={cartTotalAmount} />
+                <BtnCheck type="submit" onClick={handleSubmit}>
+                  {" "}
+                  Finalizar compra
+                </BtnCheck>
+                {/* <button onClick={handleSubmit}>check</button> */}
               </form>
-              {
+
+              {success ? (
+                <FlashMsg msg="Tienes productos en tu carrito">{msg}</FlashMsg>
+              ) : (
+                ""
+              )}
+
+              {/* {
                 <Snackbar
                   open={open}
                   autoHideDuration={3000}
@@ -214,9 +270,9 @@ export const CartDetail = () => {
                     Producto agregado al carrito
                   </Alert>
                 </Snackbar>
-              }
+              } */}
               <div>
-                <NavLink to='/products'>
+                <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>
                 </NavLink>
               </div>

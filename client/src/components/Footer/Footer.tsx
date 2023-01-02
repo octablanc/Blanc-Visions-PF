@@ -73,7 +73,9 @@ export const Footer = () => {
             <li>
               <Link to='/privacy'>Politica de privacidad</Link>
             </li>
-            <li>Términos y Condiciones</li>
+            <li>
+              <Link to='/termsyconditions'>Términos y Condiciones</Link>
+            </li>
             {/* <li>Cookies</li> */}
           </ul>
         </div>

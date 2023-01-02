@@ -58,7 +58,7 @@ module.exports = function runApp() {
   });
   app.post("/checkout", (req, res) => {
     // Crea un objeto de preferencia, "Orden de compra"
-    console.log("estoy en mecado pago", req.body);
+    // console.log("estoy en mecado pago", req.body);
     let preference = {
       items: [
         {
