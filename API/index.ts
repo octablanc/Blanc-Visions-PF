@@ -91,7 +91,7 @@ app.post('/checkout', (req, res) => {
 DBcontext.sync({ force: true }).then(() => {
   app.listen(PORT, () => {
     console.log('Server listening on port ' + PORT);
-    axios.post('http://localhost:3001/products/bulk');
+    // axios.post('http://localhost:3001/products/bulk');
   });
 });
 
