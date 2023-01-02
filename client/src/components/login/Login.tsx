@@ -26,6 +26,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 // Authentication
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
+import { openSingUp } from "../singup/SingUp";
 
 
 export default function Login() {
@@ -190,7 +191,10 @@ export default function Login() {
               </LoginContainer>
               <CreateContainer>
                 <p>
-                  Do not have an account? <span>Create one</span>
+                  Do not have an account? <span onClick={()=> {
+                    handleClose()
+                    openSingUp()
+                  }} >Create one</span>
                 </p>
               </CreateContainer>
             </div>
