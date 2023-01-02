@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
-import { NavLink } from "react-router-dom";
-import { MouseEvent, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
+import { NavLink } from 'react-router-dom';
+import { MouseEvent, useEffect, useState } from 'react';
 
 import {
   decreaseQuantity,
@@ -9,7 +9,7 @@ import {
   getTotal,
   removeFromCart,
   getDiscountTotal,
-} from "../../../../redux/slices/Cart";
+} from '../../../../redux/slices/Cart';
 
 import {
   Div,
@@ -47,7 +47,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
 ) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 export const CartDetail = () => {
@@ -78,7 +78,7 @@ export const CartDetail = () => {
   const handleAddItem = (cartItem: any) => {
     if (cartItem.stock === 0) {
       // Cuando esté actualizado el stock!!!
-      // setMsg('Stock agotado')   
+      // setMsg('Stock agotado')
       return;
     } else {
       if (cartItem.stock > 0) {
@@ -98,7 +98,7 @@ export const CartDetail = () => {
   };
 
   const handleClose = (reason: any) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -107,11 +107,11 @@ export const CartDetail = () => {
   return (
     <Container>
       {cartItems.length < 1 ? (
-        <div className="emptyCart">
+        <div className='emptyCart'>
           <img src={cart} />
           <div>
             <p>Tu carrito esta vacío</p>
-            <NavLink to="/products">
+            <NavLink to='/products'>
               <Back>Comienza a comprar...</Back>
             </NavLink>
           </div>
@@ -131,8 +131,8 @@ export const CartDetail = () => {
               {cartItems?.map((cartItem) => (
                 <Div key={cartItem.id}>
                   <Product>
-                    <img src={cartItem.image} alt="imagen del producto" />
-                    <div className="product">
+                    <img src={cartItem.image} alt='imagen del producto' />
+                    <div className='product'>
                       <p> {cartItem.name}</p>
                     </div>
                   </Product>
@@ -140,28 +140,28 @@ export const CartDetail = () => {
                     <div>{`${cartItem.price}`}</div>
                   ) : (
                     <div>
-                      <div className="discountPrice">
+                      <div className='discountPrice'>
                         {`${Math.ceil(
                           cartItem.price * (1 - cartItem.discount / 100)
                         )}`}
                       </div>
-                      <div className="labelProm">
+                      <div className='labelProm'>
                         <span>Antes:</span>
-                        <span className="priceProm">{`${cartItem.price}`}</span>
+                        <span className='priceProm'>{`${cartItem.price}`}</span>
                       </div>
                     </div>
                   )}
                   <Quantity>
                     <Operators>
                       <button
-                        name="subtract"
+                        name='subtract'
                         onClick={() => handleSubstractItem(cartItem)}
                       >
                         -
                       </button>
                       <div>{cartItem.cartQuantity}</div>
                       <button
-                        name="add"
+                        name='add'
                         onClick={() => handleAddItem(cartItem)}
                       >
                         +
@@ -183,7 +183,6 @@ export const CartDetail = () => {
                   </Remove>
 
                   {/* {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''} */}
-                  
                 </Div>
               ))}
             </>
@@ -216,15 +215,15 @@ export const CartDetail = () => {
                   onClose={handleClose}
                 >
                   <Alert
-                    severity="success"
-                    sx={{ width: "100%", fontSize: 12 }}
+                    severity='success'
+                    sx={{ width: '100%', fontSize: 12 }}
                   >
                     Producto agregado al carrito
                   </Alert>
                 </Snackbar>
               } */}
               <div>
-                <NavLink to="/products">
+                <NavLink to='/products'>
                   <Btn>Continuar comprando</Btn>
                 </NavLink>
               </div>

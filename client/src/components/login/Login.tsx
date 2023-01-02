@@ -123,7 +123,7 @@ export default function Login() {
                     label="Mail"
                     name="mail"
                     value={user.mail}
-                    placeholder="type your mail"
+                    placeholder="escribe tu mail"
                     sx={Mail}
                     InputProps={{
                       style: { fontSize: fontSizeInput }
@@ -131,7 +131,7 @@ export default function Login() {
                     error={error.mail ? true : false}
                     helperText={
                       (error.mail && (
-                        <span style={{ fontSize: '12px' }}>User not found!</span>
+                        <span style={{ fontSize: '12px' }}>Usuario no encontrado!</span>
                       ))
                     }
                     variant="standard"
@@ -142,11 +142,11 @@ export default function Login() {
                     InputLabelProps={{
                       style: { fontSize: fontSizeLabel },
                     }}
-                    label="Password"
+                    label="Contraseña"
                     name="password"
                     value={user.password}
                     type={showPassword ? "text" : "password"}
-                    placeholder="type your password"
+                    placeholder="escribe tu contraseña"
                     sx={Password}
                     InputProps={{
                       style: { fontSize: fontSizeInput },
@@ -161,7 +161,7 @@ export default function Login() {
                     error={error.password ? true : false}
                     helperText={
                       (error.password && (
-                        <span style={{ fontSize: '12px', position: 'absolute' }}>Wrong password!</span>
+                        <span style={{ fontSize: '12px', position: 'absolute' }}>Contraseña incorrecta!</span>
                       ))
                     }
                     variant="standard"
@@ -184,17 +184,17 @@ export default function Login() {
                         size="small"
                         sx={{ ...ButtonLog, backgroundColor: '#1976D2' }}
                         loadingIndicator={<CircularProgress size={'20px'} sx={{ color: '#fff' }} />}
-                      /> : <Button variant="contained" sx={ButtonLog} onClick={handleSubmit}>Log In</Button>
+                      /> : <Button variant="contained" sx={ButtonLog} onClick={handleSubmit}>Iniciar Sesion</Button>
                   }
                   <ForgetPassword>Forgot your password?</ForgetPassword>
                 </div>
               </LoginContainer>
               <CreateContainer>
                 <p>
-                  Do not have an account? <span onClick={()=> {
+                  No tienes una cuenta? <span onClick={()=> {
                     handleClose()
                     openSingUp()
-                  }} >Create one</span>
+                  }} >Create una</span>
                 </p>
               </CreateContainer>
             </div>

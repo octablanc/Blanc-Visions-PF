@@ -5,11 +5,15 @@ import BuyList from './components/BuyList';
 
 function MyBuy() {
   const { myBuys } = useAppSelector((state) => state.buyState);
-
   const dispatch = useAppDispatch();
+  const userState = useAppSelector(({ userState }) => userState.user);
+  let idToSearch: number;
+  if (userState && userState.id)
+    idToSearch = parseInt(userState?.id.toString());
+
   useEffect(() => {
-    dispatch(getAllBuy(7));
-  }, [dispatch]);
+    dispatch(getAllBuy(idToSearch));
+  }, [dispatch, userState]);
   return (
     <div className='container'>
       <h1>Mis compras</h1>
