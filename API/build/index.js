@@ -85,12 +85,12 @@ module.exports = function runApp() {
                 },
             ],
             back_urls: {
-                success: "http://localhost:3000/ ",
+                success: "https://kingcomm.vercel.app/buy",
                 failure: "http://localhost:3000/",
                 pending: "http://localhost:3000/",
             },
-            notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
-            // auto_return: 'approved',
+            notification_url: "https://kingcomm.vercel.app/buy",
+            auto_return: 'approved',
         };
         mercadopago.preferences
             .create(preference)

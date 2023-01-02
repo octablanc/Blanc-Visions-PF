@@ -74,7 +74,7 @@ module.exports = function runApp() {
         failure: "http://localhost:3000/",
         pending: "http://localhost:3000/",
       },
-      notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
+      notification_url: "https://kingcomm.vercel.app/buy",
       auto_return: 'approved',
     };
 
