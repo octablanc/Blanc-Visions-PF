@@ -4,13 +4,13 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import DBcontext from "./config/ConnectionDB";
 import router from "./app/routes";
-// import axios from "axios";
+import axios from "axios";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
 module.exports = (function runApp() {
   dotenv.config();
-  const { PORT, BACKEND_URL } = process.env;
+  const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
   const app = express();
 
   app.use(morgan("dev"));
@@ -104,7 +104,7 @@ module.exports = (function runApp() {
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
       console.log("Server listening " + BACKEND_URL);
-      // setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
+      setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
     });
   });
 }());
