@@ -1425,7 +1425,7 @@ export const data = [
       {
         url_image: 'https://www.digi-zoom.com.ar/images/productos/1658_4_z.jpg',
       },
-    ],
+    ], 
     properties: [
       {
         name: 'Admite: ',
