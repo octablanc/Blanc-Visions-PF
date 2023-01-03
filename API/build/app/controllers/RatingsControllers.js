@@ -18,11 +18,11 @@ const Ratings = ConnectionDB_1.default.models.ratings;
 const User = ConnectionDB_1.default.models.user;
 const getRatings = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield Ratings.findAll({ include: User });
-        return res.send({ result });
+        const allRatings = yield Ratings.findAll({ include: User });
+        return res.json({ allRatings });
     }
     catch ({ message }) {
-        return res.status(400).send({ message });
+        return res.status(400).json({ message });
     }
 });
 exports.getRatings = getRatings;
@@ -35,10 +35,10 @@ const postRating = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             productId,
             createdAt,
         });
-        return res.send({ RatingCreated });
+        return res.json({ RatingCreated });
     }
     catch ({ message }) {
-        return res.status(400).send({ message });
+        return res.status(400).json({ message });
     }
 });
 exports.postRating = postRating;
@@ -46,14 +46,14 @@ const deleteRating = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const id = +req.params.id;
         const deleted = yield Ratings.destroy({ where: { id } });
-        return res.send({
+        return res.json({
             message: deleted
                 ? `comentario eliminado con exito. id => ${id}`
-                : `No se pudo encontrar el comentario con el ID ${id}`
+                : `No se pudo encontrar el comentario con el ID ${id}`,
         });
     }
     catch ({ message }) {
-        return res.status(400).send({ message });
+        return res.status(400).json({ message });
     }
 });
 exports.deleteRating = deleteRating;

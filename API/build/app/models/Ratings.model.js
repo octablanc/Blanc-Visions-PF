@@ -5,11 +5,10 @@ exports.default = (sequelize) => {
     sequelize.define('ratings', {
         score: {
             type: sequelize_1.DataTypes.INTEGER,
-            allowNull: false,
+            // allowNull: false,
         },
         commentary: {
             type: sequelize_1.DataTypes.STRING,
-            allowNull: false,
         },
     }, { freezeTableName: true });
 };

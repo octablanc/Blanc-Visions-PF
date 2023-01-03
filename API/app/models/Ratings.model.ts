@@ -6,11 +6,10 @@ export default (sequelize: Sequelize) => {
     {
       score: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        // allowNull: false,
       },
       commentary: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     { freezeTableName: true }

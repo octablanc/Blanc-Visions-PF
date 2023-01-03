@@ -17,7 +17,7 @@ export const getAllProducts = () => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let products = (await axios(`https://blanc-visions-pf-octablanc.vercel.app/products`)).data;
+      let products = (await axios(`${process.env.REACT_APP_BACKEND_URL}/products`)).data;
       dispatch(getProducts(products));
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ export const getProductById = (id: number) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let productsId = (await axios(`https://blanc-visions-pf-octablanc.vercel.app/products/${id}`))
+      let productsId = (await axios(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`))
         .data;
       dispatch(detailProduct(productsId));
     } catch (error) {
@@ -46,7 +46,7 @@ export const getAllCategories = () => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let categories = (await axios(`https://blanc-visions-pf-octablanc.vercel.app/categories`)).data;
+      let categories = (await axios(`${process.env.REACT_APP_BACKEND_URL}/categories`)).data;
       dispatch(getCategories(categories));
     } catch (err) {
       console.log(err);
@@ -60,7 +60,7 @@ export const getProductCategories = (value: string) => {
     try {
       dispatch(startLoadingProducts(true));
       let productByCategories = (
-        await axios(`https://blanc-visions-pf-octablanc.vercel.app/products?category=${value}`)
+        await axios(`${process.env.REACT_APP_BACKEND_URL}/products?category=${value}`)
       ).data.result;
       dispatch(productOffCategories(productByCategories));
     } catch (err) {
@@ -75,7 +75,7 @@ export const createNewProduct = (product: any) => {
   return async (dispatch: any) => {
     try {
       let newProduct = await axios.post(
-        `https://blanc-visions-pf-octablanc.vercel.app/products`,
+        `${process.env.REACT_APP_BACKEND_URL}/products`,
         product
       );
       dispatch(createProduct(newProduct));
@@ -99,27 +99,27 @@ export const getProductsPage = (
       if (category && name) {
         products = (
           await axios(
-            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `${process.env.REACT_APP_BACKEND_URL}/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       }
       if (name.trim().length > 0) {
         products = (
           await axios(
-            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `${process.env.REACT_APP_BACKEND_URL}/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       } 
       if (category) {
         products = (
           await axios(
-            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `${process.env.REACT_APP_BACKEND_URL}/products/paginate?page=${page}&quantityProducts=${quantity}&category=${category}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       } else {
         products = (
           await axios(
-            `https://blanc-visions-pf-kingcomm.up.railway.app/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+            `${process.env.REACT_APP_BACKEND_URL}/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
       }
@@ -161,7 +161,7 @@ export const getProductsDiscountPage = (
 
       products = (
         await axios(
-          `http://localhost:3001/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
+          `${process.env.REACT_APP_BACKEND_URL}/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
         )
       ).data;
 
@@ -203,7 +203,7 @@ export const updateUser = (user: UserInfo) => {
         roleId,
       } = user;
 
-      let updateUser = await axios.put(`https://blanc-visions-pf-kingcomm.up.railway.app/users/${id}`, {
+      let updateUser = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`, {
         imageProfile,
         name,
         lastName,

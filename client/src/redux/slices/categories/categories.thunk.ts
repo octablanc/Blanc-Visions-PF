@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export function getAllCategories() {
   return async (dispatch: any) => {
-    const { data } = await axios.get(`https://blanc-visions-pf-kingcomm.up.railway.app/categories`);
+    const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/categories`);
     dispatch(getCategories(data));
   };
 }

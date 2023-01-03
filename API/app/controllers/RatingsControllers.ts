@@ -6,10 +6,10 @@ const User = DBcontext.models.user;
 
 export const getRatings: TypeFunctionExp = async (_req, res) => {
   try {
-    const result = await Ratings.findAll({ include: User });
-    return res.send({ result });
+    const allRatings = await Ratings.findAll({ include: User });
+    return res.json({ allRatings });
   } catch ({ message }) {
-    return res.status(400).send({ message });
+    return res.status(400).json({ message });
   }
 };
 
@@ -22,9 +22,9 @@ export const postRating: TypeFunctionExp = async (req, res) => {
       productId,
       createdAt,
     });
-    return res.send({ RatingCreated });
+    return res.json({ RatingCreated });
   } catch ({ message }) {
-    return res.status(400).send({ message });
+    return res.status(400).json({ message });
   }
 };
 
@@ -33,12 +33,12 @@ export const deleteRating: TypeFunctionExp = async (req, res) => {
     const id: number = +req.params.id;
 
     const deleted: number = await Ratings.destroy({ where: { id } });
-      return res.send({
-          message: deleted
-              ? `comentario eliminado con exito. id => ${id}`
-              : `No se pudo encontrar el comentario con el ID ${id}`
-            });
+    return res.json({
+      message: deleted
+        ? `comentario eliminado con exito. id => ${id}`
+        : `No se pudo encontrar el comentario con el ID ${id}`,
+    });
   } catch ({ message }) {
-    return res.status(400).send({ message });
+    return res.status(400).json({ message });
   }
 };

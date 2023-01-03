@@ -35,9 +35,9 @@ const routes_1 = __importDefault(require("./app/routes"));
 const axios_1 = __importDefault(require("axios"));
 const mercadopago = require("mercadopago");
 const body_parser_1 = __importDefault(require("body-parser"));
-module.exports = function runApp() {
+module.exports = (function runApp() {
     dotenv.config();
-    const { PORT } = process.env || 3001;
+    const { PORT, BACKEND_URL } = process.env || 3001;
     const app = (0, express_1.default)();
     app.use((0, morgan_1.default)("dev"));
     app.use((0, cors_1.default)());
@@ -85,12 +85,12 @@ module.exports = function runApp() {
                 },
             ],
             back_urls: {
-                success: "http://localhost:3000/ ",
+                success: "https://kingcomm.vercel.app/buy",
                 failure: "http://localhost:3000/",
                 pending: "http://localhost:3000/",
             },
-            notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
-            // auto_return: 'approved',
+            notification_url: "https://kingcomm.vercel.app/buy",
+            auto_return: 'approved',
         };
         mercadopago.preferences
             .create(preference)
@@ -108,7 +108,12 @@ module.exports = function runApp() {
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
             console.log("Server listening on port " + PORT);
+<<<<<<< HEAD
             axios_1.default.post('http://localhost:3001/products/bulk');
+=======
+            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), 30000);
+>>>>>>> c26fa40791e1b8e8ebb602e5fdf10ae6b7a2347a
         });
     });
-};
+}());
+//
