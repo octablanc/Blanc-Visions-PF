@@ -28,12 +28,11 @@ const getRatings = (_req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getRatings = getRatings;
 const postRating = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { score, commentary, productId, createdAt } = req.body;
+        const { score, commentary, productId } = req.body;
         const RatingCreated = yield Ratings.create({
             score,
             commentary,
             productId,
-            createdAt,
         });
         return res.json({ RatingCreated });
     }
