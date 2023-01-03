@@ -237,7 +237,7 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <form action="http://localhost:3001/checkout" method="POST">
+              <form action="https://blanc-visions-pf-kingcomm.up.railway.app/checkout" method="POST">
                 <input
                   type="hidden"
                   name="title"

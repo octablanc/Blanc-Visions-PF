@@ -32,12 +32,12 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-// import axios from "axios";
+const axios_1 = __importDefault(require("axios"));
 const mercadopago = require("mercadopago");
 const body_parser_1 = __importDefault(require("body-parser"));
-module.exports = function runApp() {
+module.exports = (function runApp() {
     dotenv.config();
-    const { PORT } = process.env || 3001;
+    const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
     const app = (0, express_1.default)();
     app.use((0, morgan_1.default)("dev"));
     app.use((0, cors_1.default)());
@@ -73,7 +73,7 @@ module.exports = function runApp() {
     });
     app.post("/checkout", (req, res) => {
         // Crea un objeto de preferencia, "Orden de compra"
-        console.log("estoy en mecado pago", req.body);
+        // console.log("estoy en mecado pago", req.body);
         let preference = {
             items: [
                 {
@@ -85,12 +85,12 @@ module.exports = function runApp() {
                 },
             ],
             back_urls: {
-                success: "http://localhost:3000/ ",
+                success: "https://kingcomm.vercel.app/buy",
                 failure: "http://localhost:3000/",
                 pending: "http://localhost:3000/",
             },
-            notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
-            // auto_return: 'approved',
+            notification_url: "https://kingcomm.vercel.app/buy",
+            auto_return: 'approved',
         };
         mercadopago.preferences
             .create(preference)
@@ -107,7 +107,9 @@ module.exports = function runApp() {
     // Makes the connection to the data base.
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
-            console.log("Server listening on port " + PORT);
+            console.log("Server listening " + BACKEND_URL);
+            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND ? TIMEOUT_BACKEND : '30000'));
         });
     });
-};
+}());
+//

@@ -4,18 +4,27 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import DBcontext from "./config/ConnectionDB";
 import router from "./app/routes";
-// import axios from "axios";
+import axios from "axios";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
-module.exports = function runApp() {
+module.exports = (function runApp() {
   dotenv.config();
-  const { PORT } = process.env || 3001;
+  const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
   const app = express();
 
   app.use(morgan("dev"));
   app.use(cors());
   app.use(express.json());
+  app.set('trust proxy', true);
+  app.use('/', (req, res, next)=>{
+    var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+    if(req.res?.statusCode){
+      console.log("\x1b[40m\x1b[33m", `${req.method} ${req.url}` + `${res?.statusCode>199? "\x1b[32m" : (res?.statusCode>299?"\x1b[34m" : "\x1b[31m")} ${res?.statusCode} \x1b[0m`)  
+      console.log(`\x1b[40m\x1b[35m IP: (${ip}  DATE: ${Date().toString().slice(0, 25)})\x1b[0m`);
+    }
+    next();
+  });
 
   app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
   app.use(bodyParser.json({ limit: "50mb" }));
@@ -58,7 +67,7 @@ module.exports = function runApp() {
   });
   app.post("/checkout", (req, res) => {
     // Crea un objeto de preferencia, "Orden de compra"
-    console.log("estoy en mecado pago", req.body);
+    // console.log("estoy en mecado pago", req.body);
     let preference = {
       items: [
         {
@@ -70,12 +79,12 @@ module.exports = function runApp() {
         },
       ],
       back_urls: {
-        success: "http://localhost:3000/ ",
+        success: "https://kingcomm.vercel.app/buy",
         failure: "http://localhost:3000/",
         pending: "http://localhost:3000/",
       },
-      notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
-      // auto_return: 'approved',
+      notification_url: "https://kingcomm.vercel.app/buy",
+      auto_return: 'approved',
     };
 
     mercadopago.preferences
@@ -94,7 +103,9 @@ module.exports = function runApp() {
   // Makes the connection to the data base.
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
-      console.log("Server listening on port " + PORT);
+      console.log("Server listening " + BACKEND_URL);
+      setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
     });
   });
-}
+}());
+//

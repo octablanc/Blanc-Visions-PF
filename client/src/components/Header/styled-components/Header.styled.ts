@@ -59,9 +59,9 @@ export const AuthButtons = styled.div`
 
   button {
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 800;
     color: black;
-    font-size: 15px;
+    font-size: 13px;
     padding: 0px;
   }
 `;
