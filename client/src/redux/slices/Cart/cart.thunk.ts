@@ -6,7 +6,7 @@ const { HOST } = process.env;
 
 export const addProduct = (id: number) => {
   return async (dispatch: any) => {
-    const product = await axios.get(`https://blanc-visions-pf-kingcomm.up.railway.app/products/${id}`);
+    const product = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`);
     dispatch(addToCart(product));
   };
 }
@@ -14,7 +14,7 @@ export const addProduct = (id: number) => {
 export const getProductById = (id: number) => {
   return async (dispatch: any) => {
     try {
-      const product = (await axios.get(`https://blanc-visions-pf-kingcomm.up.railway.app/products/${id}`)).data;
+      const product = (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)).data;
       dispatch(getProductDetail(product))
       console.log(product)
     } catch (error) {
