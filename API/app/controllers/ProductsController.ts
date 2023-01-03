@@ -17,6 +17,8 @@ const OrderBuy = DBcontext.models.orderBuy;
 const ProductOrder = DBcontext.models.productOrder;
 
 const Properties = DBcontext.models.products_properties;
+const Ratings = DBcontext.models.ratings;
+
 
 export async function getProducts(req: Request, res: Response) {
   /*
@@ -50,12 +52,16 @@ export async function getProducts(req: Request, res: Response) {
         {
           model: Images,
         },
+        {
+          model: Ratings,
+          attributes: ['commentary', 'score', 'createdAt', 'productId']
+        },
       ],
       attributes: { exclude: ['categoryId'] },
       order: [['id', 'ASC']],
     });
 
-    return res.send(result);
+    return res.send({ result });
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
@@ -69,6 +75,7 @@ export async function bulk(_req: Request, res: Response) {
       include: [
         { model: Images, as: 'images' },
         { model: Properties, as: 'properties' },
+        {model: Ratings,  as: 'ratings' }
       ],
     });
     await Users.bulkCreate(usersData);
@@ -99,6 +106,9 @@ export async function getProductById(req: Request, res: Response) {
         {
           model: Images,
         },
+        {
+          model: Ratings
+        }
       ],
       attributes: { exclude: ['categoryId'] },
     });

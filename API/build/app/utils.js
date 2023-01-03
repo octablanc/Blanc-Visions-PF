@@ -54,6 +54,10 @@ exports.category = [
 // Audio y Video  5
 exports.data = [
     {
+        ratings: [{
+                score: 1,
+                commentary: 'primer cometario jejejeje',
+            }],
         code: 'F0021',
         name: 'Sony alfha 7',
         price: 100,
