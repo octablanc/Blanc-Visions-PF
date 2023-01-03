@@ -4,13 +4,13 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import DBcontext from "./config/ConnectionDB";
 import router from "./app/routes";
-// import axios from "axios";
+import axios from "axios";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
-module.exports = function runApp() {
+module.exports = (function runApp() {
   dotenv.config();
-  const { PORT } = process.env || 3001;
+  const { PORT, BACKEND_URL } = process.env || 3001;
   const app = express();
 
   app.use(morgan("dev"));
@@ -70,12 +70,12 @@ module.exports = function runApp() {
         },
       ],
       back_urls: {
-        success: "http://localhost:3000/ ",
+        success: "https://kingcomm.vercel.app/buy",
         failure: "http://localhost:3000/",
         pending: "http://localhost:3000/",
       },
-      notification_url: "https://blanc-visions-pf-kingcomm.up.railway.app/notification",
-      // auto_return: 'approved',
+      notification_url: "https://kingcomm.vercel.app/buy",
+      auto_return: 'approved',
     };
 
     mercadopago.preferences
@@ -95,6 +95,8 @@ module.exports = function runApp() {
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
       console.log("Server listening on port " + PORT);
+      setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), 30000);
     });
   });
-}
+}());
+//

@@ -6,7 +6,7 @@ export const getAllBuy = (id: number) => {
     if(id){
     try {
       let { ordenBuyUser } = (
-        await axios(`https://blanc-visions-pf-kingcomm.up.railway.app/order-buy/user/${id}`)
+        await axios(`${process.env.REACT_APP_BACKEND_URL}/order-buy/user/${id}`)
       ).data;
       dispatch(allBuy(ordenBuyUser));
     } catch ({ message }) {

@@ -22,7 +22,7 @@ export interface ProductOrderIfc {
 
 export async function postUser(user: object){
     try {
-        await axios.post('https://blanc-visions-pf-kingcomm.up.railway.app/users', user);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users`, user);
     } catch (error) {
         console.log(error);
     }
@@ -30,7 +30,7 @@ export async function postUser(user: object){
 
 export async function updateUser(user: object, id: Number | undefined) {
     try {
-        await axios.put('https://blanc-visions-pf-kingcomm.up.railway.app/users/' + id, user);
+        await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/` + id, user);
     } catch ({message}) {
         console.log(message);
     }
@@ -38,7 +38,7 @@ export async function updateUser(user: object, id: Number | undefined) {
 
 export async function postOrderBuy(orderBuy: Object) {
     try {
-        await axios.post('https://blanc-visions-pf-kingcomm.up.railway.app/order-buy', orderBuy);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order-buy`, orderBuy);
     } catch ({message}) {
         console.log(message);
     }
