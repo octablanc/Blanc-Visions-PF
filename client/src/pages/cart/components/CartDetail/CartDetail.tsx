@@ -63,7 +63,7 @@ export const CartDetail = () => {
 
   const  user  = useAppSelector(({userState})=> userState.user);
   
-  const { discount } = currentProduct;
+  const { discount, stock } = currentProduct;
 
   const [open, setOpen] = useState(true);
   const [success, setSuccess] = useState(true);
@@ -87,12 +87,12 @@ export const CartDetail = () => {
   };
 
   const handleAddItem = (cartItem: any) => {
-    if (cartItem.stock === 0) {
+    if (stock === 0) {
       // Cuando esté actualizado el stock!!!
       // setMsg('Stock agotado')
       return;
     } else {
-      if (cartItem.stock > 0) {
+      if (stock > 0) {
         dispatch(increaseQuantity(cartItem));
         // setSuccess(true);
         // setMsg('Producto agregado al carrito');

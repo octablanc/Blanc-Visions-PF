@@ -112,9 +112,9 @@ export const Detail = () => {
             <ul>
               <hr />
               <br />
-              {/* <span className="stock">Unidades disponibles:</span> */}
-              {/* <span className="stock">{stock}</span> */}
-            </ul>
+              <span className="stock">Unidades disponibles:</span> 
+               <span className="stock">{stock}</span> 
+            </ul> 
             <CartSection>
               <Btn name="addToCart" onClick={() => handleAddToCart()}>
                 Agregar al carrito

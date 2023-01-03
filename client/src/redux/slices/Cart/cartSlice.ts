@@ -147,12 +147,12 @@ export const cartSlice = createSlice({
       state.cartTotalAmount = total;
     },
 
-    purchase(state, action) {
-      const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      // state.cartItems[itemIndex]
-    },
+    // purchase(state, action) {
+    //   const itemIndex = state.cartItems.findIndex(
+    //     (item) => item.id === action.payload.id
+    //   );
+    //   state.cartItems[itemIndex]
+    // },
 
     getProductDetail(state, action) {
       state.currentProduct = action.payload;
