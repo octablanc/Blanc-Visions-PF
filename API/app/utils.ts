@@ -1209,7 +1209,7 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=VWpkYVQzdXRSU01kYUNubGorelZ5b0EzVjVtdXVkTzNpTmRiZ2xjNDlKUT0
   },
   {
-    code: 'SSMIUHF',
+    code: 'SSMIUH',
     name: 'synco sistema de micrófono inalámbrico',
     price: 1,
     stock: 7,
@@ -1534,7 +1534,7 @@ export const data = [
   },
   
   {
-    code: 'TTPS8',
+    code: 'TTPS9',
     name: 'Think Tank Photo StoryTeller 8',
     price: 24480,
     stock: 8,
