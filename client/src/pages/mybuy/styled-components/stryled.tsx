@@ -1,5 +1,38 @@
 import styled from 'styled-components';
 
+export const BoxStyle = {
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  marginTop: '12rem',
+  width: 800,
+  // height: 500,
+  backgroundColor: 'white',
+  borderRadius: '5px',
+};
+export const ModalContainer = styled.div`
+   transform: 'translate(-50%, -50%)'
+   display:flex;
+   justify-content: center;
+   text-align: center;
+   padding-top:1rem;
+   padding-bottom:5rem;
+   img{
+    width : 12rem;
+   }
+   .nameProduct{
+    font-size: medium;
+   }
+   .MuiRating-root{
+    font-size: 5rem;
+   }
+   textarea{
+     resize: none;
+   }
+   textarea:focus{
+    border: 1px solid red; // ACA
+  }
+ `;
+//  ! ACA
 export const BuyContainer = styled.div`
   display: flex;
   height: 10rem;
