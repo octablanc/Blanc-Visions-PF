@@ -10,7 +10,7 @@ import bodyParser from "body-parser";
 
 module.exports = (function runApp() {
   dotenv.config();
-  const { PORT, BACKEND_URL } = process.env || 3001;
+  const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
   const app = express();
 
   app.use(morgan("dev"));
@@ -94,8 +94,8 @@ module.exports = (function runApp() {
   // Makes the connection to the data base.
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
-      console.log("Server listening on port " + PORT);
-      setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), 30000);
+      console.log("Server listening " + BACKEND_URL);
+      setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
     });
   });
 }());
