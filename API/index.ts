@@ -95,7 +95,7 @@ module.exports = (function runApp() {
   DBcontext.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
       console.log("Server listening on port " + PORT);
-      axios.post(`${BACKEND_URL}/products/bulk`, {});
+      setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), 10000);
     });
   });
 }());

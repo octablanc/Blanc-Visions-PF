@@ -108,7 +108,7 @@ module.exports = (function runApp() {
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
             console.log("Server listening on port " + PORT);
-            axios_1.default.post(`${BACKEND_URL}/products/bulk`, {});
+            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), 10000);
         });
     });
 }());
