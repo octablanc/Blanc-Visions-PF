@@ -4,13 +4,13 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import DBcontext from "./config/ConnectionDB";
 import router from "./app/routes";
-import axios from "axios";
+// import axios from "axios";
 const mercadopago = require("mercadopago");
 import bodyParser from "body-parser";
 
 module.exports = (function runApp() {
   dotenv.config();
-  const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
+  const { PORT, BACKEND_URL } = process.env;
   const app = express();
 
   app.use(morgan("dev"));

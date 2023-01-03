@@ -32,12 +32,12 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-const axios_1 = __importDefault(require("axios"));
+// import axios from "axios";
 const mercadopago = require("mercadopago");
 const body_parser_1 = __importDefault(require("body-parser"));
 module.exports = (function runApp() {
     dotenv.config();
-    const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
+    const { PORT, BACKEND_URL } = process.env;
     const app = (0, express_1.default)();
     app.use((0, morgan_1.default)("dev"));
     app.use((0, cors_1.default)());
@@ -118,7 +118,7 @@ module.exports = (function runApp() {
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
             console.log("Server listening " + BACKEND_URL);
-            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND ? TIMEOUT_BACKEND : '30000'));
+            // setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
         });
     });
 }());
