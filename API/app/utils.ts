@@ -1236,7 +1236,7 @@ export const data = [
       {
         name: 'Entrada de micrófono: ',
         value: 'línea de 3,5 mm en el transmisor',
-      },
+      },  
       {
         name: 'Salida principal: ',
         value: '3,5 mm en el receptor',
