@@ -37,16 +37,18 @@ export const Footer = () => {
   return (
     <FooterBar>
       <GridFooter className='container'>
-        {/* <Newsletter>
-          <h4>Recibí las últimas novedades</h4>
-          <Input
-            placeholder='Ingresá tu email'
-            name='mail'
-            value={input.mail}
-            onChange={handleChange}
-          />
-          <Btn onSubmit={handleSubmit}>Suscribirme</Btn>
-        </Newsletter> */}
+        <Newsletter>
+          <form>
+            <h4>Recibí las últimas novedades</h4>
+            <Input
+              placeholder='Ingresá tu email'
+              name='mail'
+              value={input.mail}
+              onChange={handleChange}
+            />
+            <Btn onSubmit={handleSubmit}>Suscribirme</Btn>
+          </form>
+        </Newsletter>
 
         <div>
           {/* <h3>Categorías</h3> */}
