@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -10,25 +10,33 @@ import {
 } from '../styled-components/stryled';
 import { postRating } from '../../../services/services';
 import { Alert } from '@mui/lab';
+import { useAppSelector } from '../../../redux/app/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export default function Calification({
   productName,
   productImg,
   productId,
+  ratings,
 }: {
   productName: string;
   productImg: string;
   productId: number;
+  ratings: Array<{ userId: number }>;
 }) {
-  // const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const userState = useAppSelector(({ userState }) => userState.user);
   const [form, setForm] = useState({
     score: 1,
     commentary: '',
     productId: productId,
+    // userId: userState?.id
+    userId: 1,
   });
+  const userOpinion = ratings.some((rat) => rat.userId === userState?.id);
+
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -40,17 +48,23 @@ export default function Calification({
   };
 
   const postFormRating = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // postRating(form);
+    postRating(form);
     setOpen(false);
     setOpenAlert(true);
-    setTimeout(() => setOpenAlert(false), 3000);
+    setTimeout(() => {
+      setOpenAlert(false);
+      navigate('/');
+    }, 1500);
   };
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained">
-        Dar Opinion
+      <Button
+        onClick={handleOpen}
+        variant="contained"
+        disabled={userOpinion ? true : false}
+      >
+        {userOpinion ? 'Ya opinó' : 'Dar Opinion'}
       </Button>
       <Modal
         open={open}

@@ -24,6 +24,7 @@ interface RatingIfc {
   commentary: string;
   score: number;
   productId: number;
+  userId: number | undefined | null;
 }
 
 export async function postUser(user: object) {
@@ -57,6 +58,7 @@ export const postRating = async ({
   score,
   commentary,
   productId,
+  userId,
 }: RatingIfc) => {
   try {
     // const ratingCreate = (
@@ -64,6 +66,7 @@ export const postRating = async ({
         score,
         commentary,
         productId,
+        userId,
       })
     // ).data;
   } catch ({ message }) {

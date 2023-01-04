@@ -1,17 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 export interface Product {
   id: number;
   image: string;
   name: string;
-  // price: string;
-  // price: number;
+  ratings: Array<{userId:number}>
+
 }
 export interface ProductOrder {
   id: number;
   price: number;
   quantity: number;
   product: Product;
+
 }
 
 export interface BuyState {
@@ -30,6 +32,7 @@ export interface NewBuyState {
   rating: {
     score: number
     commentary: string
+    
   }
 }
 

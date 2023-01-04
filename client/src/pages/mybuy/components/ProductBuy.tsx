@@ -10,7 +10,6 @@ import Calification from './Calification';
 export interface Props {
   prodBuy: ProductOrder;
 }
-
 function ProductBuy({ prodBuy }: Props) {
   const { id, product, quantity, price } = prodBuy;
   const priceProduct = price / quantity;
@@ -32,7 +31,7 @@ function ProductBuy({ prodBuy }: Props) {
         </Button>
       </Link>
 
-      <Calification productName={product.name} productImg={product.image} productId={product.id} />
+      <Calification productName={product.name} productImg={product.image} productId={product.id} ratings={product.ratings} />
       
     </BuyContainer>
   );

@@ -1,10 +1,11 @@
-import DBcontext from '../../config/ConnectionDB'
-import { TypeFunctionExp, OrderBuyIfc } from '../interfaces-type'
-import { Model } from 'sequelize'
+import DBcontext from '../../config/ConnectionDB';
+import { TypeFunctionExp, OrderBuyIfc } from '../interfaces-type';
+import { Model } from 'sequelize';
 
-const orderBuy = DBcontext.models.orderBuy
-const ProductOrder = DBcontext.models.productOrder
-const Products = DBcontext.models.products
+const orderBuy = DBcontext.models.orderBuy;
+const ProductOrder = DBcontext.models.productOrder;
+const Products = DBcontext.models.products;
+const Ratings = DBcontext.models.ratings;
 
 export const getOrderBuy: TypeFunctionExp = async (_req, res) => {
   try {
@@ -22,23 +23,35 @@ export const getOrderBuy: TypeFunctionExp = async (_req, res) => {
         },
       ],
       attributes: ['userId', 'id', 'priceTotalDiscount'],
-    })
-    return res.json({ message: 'ORDER BUY .', all })
+    });
+    return res.json({ message: 'ORDER BUY .', all });
   } catch ({ message }) {
-    console.log(message)
-    return res.status(400).send({ message })
+    console.log(message);
+    return res.status(400).send({ message });
   }
-}
+};
 
 export const getOrderBuyUserId: TypeFunctionExp = async (req, res) => {
-  const userId: number = +req.params.userId
+  const userId: number = +req.params.userId;
   try {
+    console.log('USER');
     const ordenBuyUser: Array<Model> = await orderBuy.findAll({
       where: { userId, buy: true },
       include: [
         {
           model: ProductOrder,
-          include: [{ model: Products, attributes: ['id', 'name', 'image'] }],
+          include: [
+            {
+              model: Products,
+              attributes: ['id', 'name', 'image'],
+              include: [
+                {
+                  model: Ratings,
+                  attributes: ['userId']
+                }
+              ],
+            },
+          ],
           attributes: ['id', 'quantity', 'price'],
         },
       ],
@@ -51,17 +64,17 @@ export const getOrderBuyUserId: TypeFunctionExp = async (req, res) => {
         'height',
         'city',
       ],
-    })
+    });
 
-    return res.json({ message: 'ORDER BUY .', ordenBuyUser })
+    return res.json({ message: 'ORDER BUY .', ordenBuyUser });
   } catch ({ message }) {
-    console.log(message)
-    return res.status(400).send({ message })
+    console.log(message);
+    return res.status(400).send({ message });
   }
-}
+};
 
 export const getCartUser: TypeFunctionExp = async (req, res) => {
-  const userId: number = +req.params
+  const userId: number = +req.params;
   try {
     const ordenBuyUser: Array<Model> = await orderBuy.findAll({
       where: { userId, buy: false },
@@ -78,29 +91,29 @@ export const getCartUser: TypeFunctionExp = async (req, res) => {
         },
       ],
       attributes: ['id', 'priceTotalDiscount', 'buy'],
-    })
+    });
 
-    return res.json({ message: 'ORDER BUY .', ordenBuyUser })
+    return res.json({ message: 'ORDER BUY .', ordenBuyUser });
   } catch ({ message }) {
-    console.log(message)
-    return res.status(400).send({ message })
+    console.log(message);
+    return res.status(400).send({ message });
   }
-}
+};
 
 export const setOrderBuy: TypeFunctionExp = async (req, res) => {
-  const id: number = +req.params.id
+  const id: number = +req.params.id;
   try {
-    const orderBuyId: Model | null = await orderBuy.findByPk(id)
+    const orderBuyId: Model | null = await orderBuy.findByPk(id);
 
-    await orderBuyId?.update({ buy: true })
-    await orderBuyId?.save()
+    await orderBuyId?.update({ buy: true });
+    await orderBuyId?.save();
 
-    return res.json({ message: 'ORDER BUY .' })
+    return res.json({ message: 'ORDER BUY .' });
   } catch ({ message }) {
-    console.log(message)
-    return res.status(400).send({ message })
+    console.log(message);
+    return res.status(400).send({ message });
   }
-}
+};
 
 export const postOrderBuy: TypeFunctionExp = async (req, res) => {
   const {
@@ -115,7 +128,7 @@ export const postOrderBuy: TypeFunctionExp = async (req, res) => {
     userId,
     buy,
     productOrders,
-  }: OrderBuyIfc = req.body
+  }: OrderBuyIfc = req.body;
   try {
     const orderBuyCreate: Model = await orderBuy.create(
       {
@@ -132,13 +145,13 @@ export const postOrderBuy: TypeFunctionExp = async (req, res) => {
         productOrders,
       },
       { include: [{ model: ProductOrder }, { model: Products }] }
-    )
-    return res.json({ message: 'ORDER BUY .', orderBuyCreate })
+    );
+    return res.json({ message: 'ORDER BUY .', orderBuyCreate });
   } catch ({ message }) {
-    console.log(message)
-    return res.status(400).send({ message })
+    console.log(message);
+    return res.status(400).send({ message });
   }
-}
+};
 
 // {
 //   "priceTotalDiscount":12390321,
