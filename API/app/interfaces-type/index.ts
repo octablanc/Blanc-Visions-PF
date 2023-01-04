@@ -29,4 +29,5 @@ export interface RatingIfc {
   score: number;
   commentary: string;
   productId: number;
+  userId: number;
 }

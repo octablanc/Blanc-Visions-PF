@@ -52,10 +52,6 @@ export async function getProducts(req: Request, res: Response) {
         {
           model: Images,
         },
-        {
-          model: Ratings,
-          attributes: ['commentary', 'score', 'createdAt', 'productId']
-        },
       ],
       attributes: { exclude: ['categoryId'] },
       order: [['id', 'ASC']],
@@ -71,6 +67,8 @@ export async function bulk(_req: Request, res: Response) {
   try {
     await Roles.bulkCreate(roles);
     await Categories.bulkCreate(category);
+    
+    await Users.bulkCreate(usersData);
     await Products.bulkCreate(data, {
       include: [
         { model: Images, as: 'images' },
@@ -78,8 +76,7 @@ export async function bulk(_req: Request, res: Response) {
         {model: Ratings,  as: 'ratings' }
       ],
     });
-    await Users.bulkCreate(usersData);
-
+    
     await OrderBuy.bulkCreate(ordenBuyArray, {
       include: [{ model: ProductOrder }, { model: Products }],
     });
@@ -107,8 +104,9 @@ export async function getProductById(req: Request, res: Response) {
           model: Images,
         },
         {
-          model: Ratings
-        }
+          model: Ratings,
+          attributes: {exclude: ['updatedAt']},
+        },
       ],
       attributes: { exclude: ['categoryId'] },
     });

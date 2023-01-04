@@ -15,12 +15,13 @@ export const getRatings: TypeFunctionExp = async (_req, res) => {
 
 export const postRating: TypeFunctionExp = async (req, res) => {
   try {
-    const { score, commentary, productId }: RatingIfc = req.body;
+    const { score, commentary, productId, userId }: RatingIfc = req.body;
     const RatingCreated = await Ratings.create({
       score,
       commentary,
       productId,
-    });
+      userId
+    },{include:User});
     return res.json({ RatingCreated });
   } catch ({ message }) {
     return res.status(400).json({ message });

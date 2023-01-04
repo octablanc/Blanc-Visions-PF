@@ -53,8 +53,9 @@ export const category = [
 export const data = [
   {
     ratings: [{
+      userId:2,
       score: 1,
-      commentary: 'primer cometario jejejeje',
+      commentary: 'Este producto es una merda',
     }],
     code: 'F0021',
     name: 'Sony alfha 7',
