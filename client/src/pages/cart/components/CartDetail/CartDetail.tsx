@@ -74,7 +74,7 @@ export const CartDetail = () => {
   };
 
   const handleAddItem = (cartItem: any) => {
-    if (cartItem.cartQuantity === stock) {
+    if (cartItem.stock === 0) {
       dispatch(manteinQuantity(cartItem));
       setSuccess(true)
       setMsg('Stock agotado')      
@@ -177,7 +177,7 @@ export const CartDetail = () => {
 
                       <div className="labelProm">
                         <span>Disponible:</span>
-                        <span className="priceProm">{`${stock - cartItem.cartQuantity}`}</span>
+                        <span className="priceProm">{cartItem.stock === 0 ? 'Agotado' : cartItem.stock}</span>
                       </div>
 
                       <button
