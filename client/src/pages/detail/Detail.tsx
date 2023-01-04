@@ -84,7 +84,7 @@ export const Detail = () => {
                     </div>
                     <div className="labelProm">
                       <span className="label">Antes</span>
-                      <span className="priceProm">{`$${priceProm}`}</span>
+                      <span className="priceProm">{`$${price}`}</span>
                     </div>
                   </div>
                 </div>

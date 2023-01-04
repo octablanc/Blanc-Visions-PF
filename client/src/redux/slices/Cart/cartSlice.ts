@@ -8,6 +8,7 @@ export interface CartState {
   itemTotalAmount: number;
   cartTotalQuantity: number;
   cartTotalAmount: number;
+  itemStock: number;
   loading: boolean;
   localStorage: CurrentStorage[];
   currentProduct: UniquePro;
@@ -39,6 +40,7 @@ const initialState: CartState = {
   itemTotalAmount: 0,
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
+  itemStock: 0, 
   loading: false,
   localStorage: [],
   currentProduct: {
@@ -73,7 +75,9 @@ export const cartSlice = createSlice({
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProduct);
-        state.currentProduct.stock -= 1;
+        // state.currentProduct.stock -= 1;
+        state.itemStock = state.cartItems[itemIndex].stock -= 1;
+
         console.log(tempProduct);
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -92,7 +96,10 @@ export const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      state.itemTotalAmount = state.cartItems[itemIndex].cartQuantity -= 1;
+      state.itemTotalQuantity = state.cartItems[itemIndex].cartQuantity -= 1;
+      // state.currentProduct.stock += 1;
+      state.itemStock = state.cartItems[itemIndex].stock += 1;
+      
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
@@ -101,8 +108,24 @@ export const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       state.itemTotalQuantity = state.cartItems[itemIndex].cartQuantity += 1;
+      state.currentProduct.stock -= 1;
+      state.itemStock = state.cartItems[itemIndex].stock -= 1;
+      console.log('itemStock:',state.itemStock)
+      console.log('currentProductStock:',state.currentProduct.stock)
+      console.log('state.cartItems[itemIndex].stock:',state.cartItems[itemIndex].stock)
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+   
+    manteinQuantity(state, action){
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.itemTotalQuantity = state.cartItems[itemIndex].cartQuantity;
+      state.cartItems[itemIndex].stock = 0
+      // state.itemStock = 0;
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+
 
     emptyCart(state, action) {
       state.cartItems = [];
@@ -165,6 +188,7 @@ export const {
   removeFromCart,
   decreaseQuantity,
   increaseQuantity,
+  manteinQuantity,
   emptyCart,
   getTotal,
   getDiscountTotal,

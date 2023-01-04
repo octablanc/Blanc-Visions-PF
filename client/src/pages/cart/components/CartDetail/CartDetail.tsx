@@ -6,10 +6,10 @@ import {
   decreaseQuantity,
   increaseQuantity,
   emptyCart,
-  getTotal,
   removeFromCart,
   getDiscountTotal,
   BoughtPro,
+  manteinQuantity,
 } from "../../../../redux/slices/Cart";
 
 import {
@@ -34,23 +34,10 @@ import { display, fontSize } from "@mui/system";
 import cart from "../../styled-components/cart.png";
 import React from "react";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { Snackbar } from "@mui/material";
 import { BOLD_WEIGHT } from "jest-matcher-utils";
 import { FlashMsg } from "../FlashMsg/FlashMsg";
 import { postOrderBuy } from "../../../../services/services";
 
-type Snackbar = {
-  open: boolean;
-  msg: string;
-  autoHideDuration: number | null;
-};
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export const CartDetail = () => {
   const {
@@ -60,19 +47,19 @@ export const CartDetail = () => {
     cartTotalAmount,
     currentProduct,
   } = useAppSelector((state) => state.cartState);
+  const { discount, stock } = currentProduct;
 
   const  user  = useAppSelector(({userState})=> userState.user);
   
-  const { discount, stock } = currentProduct;
-
-  const [open, setOpen] = useState(true);
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDiscountTotal(cartItems));
+    setSuccess(true);
+    setMsg('Tienes productos en tu carrito')
   }, [itemTotalQuantity, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
@@ -87,20 +74,18 @@ export const CartDetail = () => {
   };
 
   const handleAddItem = (cartItem: any) => {
-    if (stock === 0) {
-      // Cuando esté actualizado el stock!!!
-      // setMsg('Stock agotado')
-      return;
+    if (cartItem.cartQuantity === stock) {
+      dispatch(manteinQuantity(cartItem));
+      setSuccess(true)
+      setMsg('Stock agotado')      
     } else {
       if (stock > 0) {
-        dispatch(increaseQuantity(cartItem));
-        // setSuccess(true);
-        // setMsg('Producto agregado al carrito');
+        dispatch(increaseQuantity(cartItem));     
       }
     }
   };
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
@@ -110,14 +95,7 @@ export const CartDetail = () => {
     dispatch(emptyCart(e));
   };
 
-  const handleClose = (reason: any) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const handleSubmit = () => {
+   const handleSubmit = () => {
     const orderBuy = {
       priceTotalDiscount: cartTotalAmount,
       discount: discount,
@@ -164,7 +142,6 @@ export const CartDetail = () => {
                 <p>Cantidad</p>
                 <p>Total</p>
               </Titles>
-
               {cartItems?.map((cartItem) => (
                 <Div key={cartItem.id}>
                   <Product>
@@ -197,6 +174,12 @@ export const CartDetail = () => {
                         -
                       </button>
                       <div>{cartItem.cartQuantity}</div>
+
+                      <div className="labelProm">
+                        <span>Disponible:</span>
+                        <span className="priceProm">{`${stock - cartItem.cartQuantity}`}</span>
+                      </div>
+
                       <button
                         name="add"
                         onClick={() => handleAddItem(cartItem)}
@@ -204,27 +187,23 @@ export const CartDetail = () => {
                         +
                       </button>
                     </Operators>
-                  </Quantity>
+                  </Quantity>            
+
                   {cartItem.discount === 0 ? (
                     <div>${cartItem.price * cartItem.cartQuantity}</div>
                   ) : (
                     <div>
-                      $
-                      {Math.ceil(
-                        cartItem.price * (1 - cartItem.discount / 100)
-                      ) * cartItem.cartQuantity}
+                      ${Math.ceil(cartItem.price * (1 - cartItem.discount / 100)) * cartItem.cartQuantity}
                     </div>
                   )}
                   <Remove onClick={() => handleRemoveItem(cartItem)}>
                     Eliminar producto
-                  </Remove>
-
-                  {/* {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''} */}
+                  </Remove>       
+                  {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''}           
                 </Div>
               ))}
             </>
           </div>
-
           <Div2>
             <TotalDiv>
               <Line>
@@ -248,29 +227,7 @@ export const CartDetail = () => {
                   {" "}
                   Finalizar compra
                 </BtnCheck>
-                {/* <button onClick={handleSubmit}>check</button> */}
-              </form>
-
-              {success ? (
-                <FlashMsg msg="Tienes productos en tu carrito">{msg}</FlashMsg>
-              ) : (
-                ""
-              )}
-
-              {/* {
-                <Snackbar
-                  open={open}
-                  autoHideDuration={3000}
-                  onClose={handleClose}
-                >
-                  <Alert
-                    severity='success'
-                    sx={{ width: '100%', fontSize: 12 }}
-                  >
-                    Producto agregado al carrito
-                  </Alert>
-                </Snackbar>
-              } */}
+              </form>          
               <div>
                 <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>
