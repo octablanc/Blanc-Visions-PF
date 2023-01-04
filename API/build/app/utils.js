@@ -1149,7 +1149,7 @@ exports.data = [
         // https://www.digi-zoom.com.ar/productos_detalle.php?i=VWpkYVQzdXRSU01kYUNubGorelZ5b0EzVjVtdXVkTzNpTmRiZ2xjNDlKUT0
     },
     {
-        code: 'SSMIUHF',
+        code: 'SSMIUH',
         name: 'synco sistema de micrófono inalámbrico',
         price: 1,
         stock: 7,
@@ -1185,6 +1185,504 @@ exports.data = [
             },
         ],
         // https://www.digi-zoom.com.ar/productos_detalle.php?i=Y082M291S2VSSGJkYTFXdWZkQ2ppN3E2M0IrMllaRXFvSm0vckNIV3NuUT0
+    },
+    {
+        code: 'SAA73',
+        name: 'Sony Alpha A7 III con 28-70mm (Garantia Sony Argentina)',
+        price: 198050,
+        stock: 7,
+        description: `
+    Distinguida por su diseño de sensor actualizado, la cámara digital sin espejo Alpha a7 III de Sony es una cámara completa, adecuada para aplicaciones de fotos y video en una variedad de situaciones de trabajo. Refinados para mejorar la velocidad y el rendimiento con poca luz, el sensor CMOS BSI de 24.2MP de fotograma completo de Exmor R y el procesador de imagen BIONZ X combinan una impresionante velocidad de disparo continuo de 10 fps`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1872_1_z.jpg',
+        state: true,
+        categoryId: 1,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1872_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1872_4_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1872_5_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Adaptador de: ',
+                value: 'CA AC-UUD12 / FE 28-70 mm f / 3.5-5.6 OSS',
+            },
+            {
+                name: 'Rango de sensibilidad: ',
+                value: 'ISO 100-51200 a ISO 50-204800',
+            },
+            {
+                name: 'Sensor: ',
+                value: 'CMOS Exmor R BSI de 24.2MP',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=VGpTWWRGYUFPZlJ4NlE3TzdBdUtBZkNFMkhMMUpaNnZPSW1iOE5MdlFrVT0
+    },
+    {
+        code: 'NZ50M',
+        name: 'Nikon Z50 Mirrorless Body',
+        price: 203750,
+        stock: 2,
+        description: `
+    Con un diseño especialmente elegante, la Nikon Z 50 es una cámara digital sin espejo de formato DX que gira alrededor de la montura Z versátil. Capaz tanto de imágenes fijas como de video, la Z 50 cuenta con un sensor CMOS de 20.9MP y un procesador de imagen EXPEED 6, que permite un rendimiento rápido de hasta 11 fps, un sistema de AF híbrido confiable de 209 puntos con detección de ojos y un notable rendimiento con poca luz. a ISO 51200.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1980_1_z.jpg',
+        state: true,
+        categoryId: 1,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1980_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1980_4_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1980_6_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Tipo de sensor: ',
+                value: 'CMOS',
+            },
+            {
+                name: 'Máxima resolución: ',
+                value: '21.51 MP: 5568 x 3712',
+            },
+            {
+                name: 'Resoluciôn:',
+                value: '21 MegaPixel',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=V2xNeW5UZUFsNUhlM2R2Q3ZSQkJIZFQ2RVhReVhqZVBLWEF0dFJJazZudz0
+    },
+    {
+        code: 'NZ7M',
+        name: 'Nikon Z 7 Mirrorless 24-70mm f 4 kit',
+        price: 232683,
+        stock: 5,
+        description: `
+    Nikon ha dado el siguiente paso en su viaje de imágenes con la cámara sin espejo Z 7, llamada "The Perfectionist", y el revolucionario Sistema Z. Esta cámara de formato FX de alta resolución presenta el montaje Z, un diseño de gran diámetro con una distancia de brida corta de 16 mm que permite a Nikon crear cámaras compactas pero potentes y desarrollar ópticas más avanzadas.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1765_1_z.jpg',
+        state: true,
+        categoryId: 1,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1765_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1765_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1765_5_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Tipo de sensor: ',
+                value: 'CMOS',
+            },
+            {
+                name: 'Máxima resolución: ',
+                value: '45 MP: 8256 x 5504',
+            },
+            {
+                name: 'Resoluciôn:',
+                value: '45 MegaPixel',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=RzVCTlh1Nm56b1R5SE9iRXpUYlVnaWlpZkhhc0FpYXlYRnFabzFXaEVoND0
+    },
+    {
+        code: 'GAD200',
+        name: 'Godox AD200Pro Pocket Flash Kit',
+        price: 232683,
+        stock: 5,
+        description: `
+    Una versión mejorada de su predecesor, el kit de flash de bolsillo AD200Pro TTL de Godox está construido alrededor de una fuente de flash única con un cabezal de flash estándar y un cabezal de bombilla desnuda que le da la opción de dos cualidades de luz claramente diferentes.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1755_1_z.jpg',
+        state: true,
+        categoryId: 3,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1755_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1755_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1755_4_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Admite: ',
+                value: 'Nikon, Canon, Sony TTL',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: '6.7 x 3.0 x 2.0" / 172 x 75 x 54 mm (sin cabeza de flash)',
+            },
+            {
+                name: 'Modos de flash::',
+                value: 'Manual, TTL y Multi (estroboscópico)',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=dVplNDdQOU5MZmpaVEJuVWhOcDFOZUI3YmN5K3NPaWFvRFZNejE5dDJ0MD0
+    },
+    {
+        code: 'YSTTL',
+        name: 'Yongnuo Speedlite TTL YN686EX-RT',
+        price: 59670,
+        stock: 14,
+        description: `
+    Lleno de características y alimentado por un paquete especializado de baterías de litio, el YN686EX-RT TTL Speedlite de Yongnuo puede ofrecer un rendimiento y una velocidad excepcionales. El flash también viene equipado con un sistema de radio de 2.4GHz compatible con Canon, lo que le permite operar como maestro o esclavo para otras unidades sin ningún problema.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1658_1_z.jpg',
+        state: true,
+        categoryId: 3,
+        discount: 12,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1658_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1658_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1658_4_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Admite: ',
+                value: 'Canon',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: '2.5 x 3.1 x 8.3" / 64.0 x 78.0 x 210.0 mm',
+            },
+            {
+                name: 'Tiempo de reciclaje:',
+                value: '1,5 segundos a plena potencia',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=UTg0VHU4UzB0RDVYU1dNM3A1cU5GYXlzZElGWTY4UUFBY3RTczBPNUtsbz0
+    },
+    {
+        code: 'GKMF12',
+        name: 'Godox Kit de 2 luces de flash macro MF12',
+        price: 103670,
+        stock: 8,
+        description: `
+    Diseñado para fotografía de primeros planos, el kit de 2 luces con flash macro MF12 de Godox facilita la fotografía macro. Los cabezales de flash le permiten tomar fotografías hermosas y nítidas de sujetos pequeños como plantas, animales e insectos a una distancia extremadamente cercana. Los cabezales de flash MF12 se pueden montar en los soportes de flash incluidos y cuentan con cabezales ajustables para un posicionamiento rápido.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/2284_1_z.jpg',
+        state: true,
+        categoryId: 3,
+        discount: 5,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/2284_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/2284_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/2284_4_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Admite: ',
+                value: 'Canon, FUJIFIM, Olympus, Panasonic',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: '3,2 x 3,0 x 2,5" / 81,0 x 76,5 x 64,3 mm (Cabezal de flash individual)',
+            },
+            {
+                name: 'Tiempo de reciclaje:',
+                value: '0,01 a 1,7 segundos',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=K0ZTY0RMUmFybUp3azZFRFFmU09haE5na3NOcnpyRW5LS1RkNSs2dW5qND0
+    },
+    {
+        code: 'TTPS8',
+        name: 'Think Tank Photo StoryTeller 8',
+        price: 24480,
+        stock: 8,
+        description: `
+    El StoryTeller 8 de Think Tank, un bolso estructurado diseñado para accesibilidad, es un bolso diseñado para sostener una cámara DSLR o cámara sin espejo junto con hasta cuatro pequeños zooms estándar o lentes principales, una tableta de 8" y otros accesorios. `,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1600_1_z.jpg',
+        state: true,
+        categoryId: 2,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1600_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1600_6_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1600_8_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sostiene: ',
+                value: 'cámara réflex digital, 2-4 lentes, tableta de 8',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: 'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
+            },
+            {
+                name: 'Colores:',
+                value: 'Negro',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=eXdmYXdTWXg4M1I3UHYwWkt3LzAxRE9WUmtyRGltYVU3aGNCRlJUNmpoYz0
+    },
+    {
+        code: 'TTPS9',
+        name: 'Think Tank Photo StoryTeller 8',
+        price: 24480,
+        stock: 8,
+        description: `
+    El StoryTeller 8 de Think Tank, un bolso estructurado diseñado para accesibilidad, es un bolso diseñado para sostener una cámara DSLR o cámara sin espejo junto con hasta cuatro pequeños zooms estándar o lentes principales, una tableta de 8" y otros accesorios. `,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1600_1_z.jpg',
+        state: true,
+        categoryId: 2,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1600_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1600_6_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1600_8_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sostiene: ',
+                value: 'cámara réflex digital, 2-4 lentes, tableta de 8',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: 'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
+            },
+            {
+                name: 'Colores:',
+                value: 'Negro',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=eXdmYXdTWXg4M1I3UHYwWkt3LzAxRE9WUmtyRGltYVU3aGNCRlJUNmpoYz0
+    },
+    {
+        code: 'TTPUA5',
+        name: 'Think Tank Photo Urban Approach 5',
+        price: 19150,
+        stock: 11,
+        description: `
+    Mochila de hombro para mantener un bajo perfil donde cabe una mirrorless (cámara sin espejo) y una tablet de 8"`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/778_1_z.jpg',
+        state: true,
+        categoryId: 2,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/778_7_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/778_8_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/778_9_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sostiene: ',
+                value: 'cámaras sin espejo con lentes y lentes 1-3',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: 'Interior: 9.4 x 3.9 x 7.1" / 24 x 10 x 18 cm - Exterior: 10.2 x 5.5 x 7.9" / 26 x 14 x 20 cm',
+            },
+            {
+                name: 'Colores:',
+                value: 'Negro',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=RUoxR21TQllTR0tNSGhQc0RVWnlrMWdCVDRhYkpEaHRRMmRxYUh0Z0Mwcz0
+    },
+    {
+        code: 'TTPMM5',
+        name: 'Think Tank Photo Mirrorless Movers 5',
+        price: 13290,
+        stock: 5,
+        description: `
+    Una funda compacta diseñada para camaras mirrorless (sin espejo, este modelo permite 1 pequeño cuerpo con un pequeño teleobjetivo o panqueque (pancake) incorporado.
+
+CARACTERÍSTICAS PRINCIPALES:
+Diseñado desde cero para las cámaras sin espejo y súper zoom.
+Ranura posterior que le permite llevar el Mover en su propio cinturón o en un speed belt Think Tank Photo Pro.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/784_1_z.jpg',
+        state: true,
+        categoryId: 2,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/784_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/784_4_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/784_5_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sostiene: ',
+                value: 'cámaras sin zoom y súper zoom',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: 'Internas: 3.5 x 4.7 x 3.1" / 9 x 12 x 8 cm Exteriores: 4.7 x 5.9 x 3.9 / 12 x 15 x 10 cm',
+            },
+            {
+                name: 'Colores:',
+                value: 'Negro, gris',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=TmVFUXZEUDdSSDV1Z1h1aVNSYmoyai9CNDgvZ0ZvTE52T05TcEE3KzZiZz0
+    },
+    {
+        code: 'HC-MDH2',
+        name: 'Panasonic Camcorder HC-MDH2 AVCDHD',
+        price: 256290,
+        stock: 5,
+        description: `
+    La Panasonic HC-MDH2 AVCHD Camcorder es compatible con las normas PAL. Filma Full HD 1080p, utilizando la versión 2 de compresión AVCHD a 28 Mb/s. También dispara 1080i 50 de grabación a 24 Mb/s, así como mayores tasas de compresión que permite tiempos de grabación más largos. La cámara también puede grabar secuencias de SD, por lo que se integra en un flujo de trabajo SD o HD.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/583_1_z.jpg',
+        state: true,
+        categoryId: 5,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/583_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/583_3_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/583_1_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sensor Full HD: ',
+                value: '1 / 2.33',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: '8.07 x 8.54 x 18.85" / 205 x 217 x 479 mm',
+            },
+            {
+                name: 'Colores:',
+                value: 'Negro',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=M2lIaG5kYWU5MGhYbHhHTzFSSEF5TmV6OUxaR3ZnWk11emxid2N6bERTRT0
+    },
+    {
+        code: 'AG-UX90',
+        name: 'Panasonic AG-UX90 4K/HD Professional Camcorder',
+        price: 283690,
+        stock: 2,
+        description: `
+    La videocámara profesional Panasonic AG-UX90 4K / HD graba UHD 4K a hasta 30p, y FHD hasta 60p en modo de cuadro variable. La cámara admite 59.94, que es análoga a NTSC, lo que hace que la cámara sea compatible con los estándares de emisión de EE. UU. Cuenta con un zoom óptico 15x integrado y un sensor de 1", y puede grabar UHD 4K y Full HD en MOV y MP4. La cámara también es capaz de grabar HD en el formato AVCHD.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1431_1_z.jpg',
+        state: true,
+        categoryId: 5,
+        discount: 0,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1431_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1431_5_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1431_6_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sensor Full HD: ',
+                value: '59.94 / 29.97 / 23.98p',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: '6.7 x 7.7 x 13.4" / 16.9 x 19.5 x 34.0 cm (excluyendo protuberancias)',
+            },
+            {
+                name: 'Colores:',
+                value: 'Negro',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=C
+    },
+    {
+        code: 'VIXIA',
+        name: 'Canon VIXIA HF G20 Camcorder',
+        price: 185549,
+        stock: 8,
+        description: `
+    La videocámara Full HD VIXIA HF G20 de Canon de 32GB graba video Full HD de 1920 x 1080 a 60i, en 24p y 30p nativos. Con la opción de velocidad de cuadros de 24p, puede darle a su metraje una apariencia cinematográfica. Usando Cinema-Looks Filters puedes mejorar ese aspecto de la película con múltiples filtros ajustables incorporados.`,
+        image: 'https://www.digi-zoom.com.ar/images/productos/1442_1_z.jpg',
+        state: true,
+        categoryId: 5,
+        discount: 15,
+        images: [
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1442_2_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1442_4_z.jpg',
+            },
+            {
+                url_image: 'https://www.digi-zoom.com.ar/images/productos/1442_5_z.jpg',
+            },
+        ],
+        properties: [
+            {
+                name: 'Sensor: ',
+                value: 'HD CMOS Canon HD de 2,37 megapíxeles',
+            },
+            {
+                name: 'Dimensiones: ',
+                value: '3.0 x 3.1 x 6.3" / 7.6 x 7.9 x 16.0 cm',
+            },
+            {
+                name: 'Lente de video:',
+                value: 'HD original Canon 10x',
+            },
+        ],
+        // https://www.digi-zoom.com.ar/productos_detalle.php?i=RUVQbi9BZWtWeHFnYThxVkpXK29TTXl2SCtTT3I0NFFhcjNBQmtFR3ZnZz0
     },
 ];
 exports.usersData = [

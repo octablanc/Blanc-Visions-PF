@@ -26,15 +26,14 @@ function ProductBuy({ prodBuy }: Props) {
           {quantity} x {priceProduct}
         </p>
       </BuyContent>
-      <Link to={`/products/${product.id}`}>
+      <Link to={`/products/${product.id}`}  className='btn__comprar'>
         <Button variant="contained" size="large">
           Volver a comprar
         </Button>
       </Link>
 
-      <Button variant="contained" size="large">
-        <Calification productName={product.name} productImg={product.image} />
-      </Button>
+      <Calification productName={product.name} productImg={product.image} productId={product.id} />
+      
     </BuyContainer>
   );
 }
