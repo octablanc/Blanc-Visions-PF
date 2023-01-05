@@ -51,19 +51,12 @@ export const Footer = () => {
             <h4>Recibí las últimas novedades</h4>
             <Input
               placeholder='Ingresá tu email'
-<<<<<<< HEAD
-=======
               type='email'
->>>>>>> e236a12518508ee58b84e2443c2eae21d7bb8651
               name='mail'
               value={input.mail}
               onChange={handleChange}
             />
-<<<<<<< HEAD
-            <Btn onSubmit={handleSubmit}>Suscribirme</Btn>
-=======
             <Btn onSubmit={() => handleSubmit}>Suscribirme</Btn>
->>>>>>> e236a12518508ee58b84e2443c2eae21d7bb8651
           </form>
         </Newsletter>
 

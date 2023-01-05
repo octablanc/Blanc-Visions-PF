@@ -38,8 +38,6 @@ import cart from "../../styled-components/cart.png";
 import { FlashMsg } from "../FlashMsg/FlashMsg";
 import { postOrderBuy } from "../../../../services/services";
 
-
-
 export const CartDetail = () => {
   const {
     cartItems,
@@ -50,7 +48,7 @@ export const CartDetail = () => {
   } = useAppSelector((state) => state.cartState);
   const { discount, stock } = currentProduct;
 
-  const  user  = useAppSelector(({userState})=> userState.user);
+  const { user, localUser } = useAppSelector((state) => state.userState);
   
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
@@ -184,7 +182,7 @@ export const CartDetail = () => {
                     </Operators>
                     <div className="labelProm">
                         <span>Stock:</span>
-                        <span >{cartItem.stock === 0 ? 'Agotado' : cartItem.stock}</span>
+                        <span >{cartItem.stock === 0 ? ' Agotado' : cartItem.stock}</span>
                       </div>
                   </Quantity>            
 

@@ -84,7 +84,7 @@ export const cartSlice = createSlice({
           state.cartItems.push(tempProduct);
         }
       }
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));      
     },
 
     removeFromCart(state, action) {
@@ -173,6 +173,10 @@ export const cartSlice = createSlice({
     getProductDetail(state, action) {
       state.currentProduct = action.payload;
     },
+     
+    cleanDetail(state, action){
+      state.currentProduct = action.payload;
+    }
   },
 });
 
@@ -185,4 +189,5 @@ export const {
   emptyCart,
   getDiscountTotal,
   getProductDetail,
+  cleanDetail,
 } = cartSlice.actions;

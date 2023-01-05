@@ -16,7 +16,7 @@ export const getProductById = (id: number) => {
     try {
       const product = (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)).data;
       dispatch(getProductDetail(product))
-      // console.log(product)
+      console.log(product)
     } catch (error) {
       console.log('Error:', error)
     }   
