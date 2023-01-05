@@ -21,6 +21,7 @@ import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
+import { Dashboard } from './pages/Dashboard/Dashboard';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -43,7 +44,10 @@ function App() {
           <Route index element={<Home />} />
           <Route path='products' element={<Products />} />
           {userState?.role?.name === 'admin' && (
+            // <Routes>
+            //   <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/create' element={<CreateProduct />} />
+            // </Routes>
           )}
           <Route path='products/:id' element={<Detail />} />
           <Route path='cart' element={<Cart />} />
