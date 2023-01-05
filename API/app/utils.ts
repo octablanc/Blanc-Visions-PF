@@ -1892,7 +1892,7 @@ export const ordenBuyArray = [
         price: 1000,
       },
       {
-        productId: 4,
+        productId: 5,
         quantity: 2,
         price: 1000,
       },
