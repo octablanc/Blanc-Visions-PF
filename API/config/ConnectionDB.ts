@@ -11,8 +11,8 @@ import Roles from "../app/models/Roles.model";
 import Users from "../app/models/Users.model";
 import ProductsProperties from "../app/models/ProductsProperties.model";
 import Images from "../app/models/Images.model";
-import OffersModel from "../app/models/Offers.model";
 import ProductOrder from "../app/models/ProductOrder.model";
+import OffersModel from "../app/models/Offers.model";
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
