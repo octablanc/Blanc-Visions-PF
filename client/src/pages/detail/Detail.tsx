@@ -22,15 +22,15 @@ import {
 } from "../../redux/slices/Cart";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import { Sales } from "../home/components/Sales/Sales";
-import Login from "../../components/login/Login";
+// import Login from "../../components/login/Login";
 import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product: any = useParams();
-  const [ success, setSuccess ] = useState(false)
-  const [ msg, setMsg ] = useState('')
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const resetDetail = () => {
     return {
@@ -82,10 +82,10 @@ export const Detail = () => {
   const { currentProduct, cartTotalAmount, cartTotalQuantity } = useAppSelector(
     (state: any) => state.cartState
   );
-  const { localUser, user } = useAppSelector((state) => state.userState);
+  const { loading, user } = useAppSelector((state) => state.userState);
 
   const {
-    loading,
+    // loading,
     name,
     price,
     description,
@@ -104,9 +104,8 @@ export const Detail = () => {
 
   const handleLogin = () => {
     setSuccess(true);
-    setMsg('login')
-  }
-   
+    setMsg("login");
+  };
 
   return (
     <div className="container">
@@ -179,9 +178,9 @@ export const Detail = () => {
                 <Btn name="login" onClick={() => handleLogin()}>
                   Agregar al carrito
                 </Btn>
-              )}                         
-                         {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''}
-        
+              )}
+              {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
+
               <form action="http://localhost:3001/checkout" method="POST">
                 <input
                   type="hidden"

@@ -1,4 +1,3 @@
-
 import {
   Button,
   Dialog,
@@ -29,8 +28,7 @@ const Transition = React.forwardRef<JSX.Element, SlideProps>(
 
 export const FlashMsg = ({ msg }: any) => {
   let success = "Tienes productos en tu carrito";
-  let agotado = "Stock agotado";
-
+  let login = "login";
   const [open, setOpen] = useState(true);
   const handleClose = (reason: any) => {
     if (reason === "clickaway") {
@@ -38,11 +36,8 @@ export const FlashMsg = ({ msg }: any) => {
     }
     setOpen(false);
   };
- 
-  const handleHidden = () => {
 
-  }
-  
+  const handleHidden = () => {};
 
   return (
     <div>
@@ -56,7 +51,31 @@ export const FlashMsg = ({ msg }: any) => {
             {msg}
           </Alert>
         </Snackbar>
-      ) : ( msg === agotado ? (
+      ) : msg === login ? (
+        <Dialog
+          open={open}
+          // TransitionComponent ={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Inicio de sesión requerida
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Ok
+            </Button>
+            {/* <Login /> */}
+            <Button onClick={handleClose} color="primary">
+              Cerrar
+            </Button>
+          </DialogActions>
+        </Dialog>
+      ) : (
         <Dialog
           open={open}
           keepMounted
@@ -81,26 +100,6 @@ export const FlashMsg = ({ msg }: any) => {
             </Button>
           </DialogActions>
         </Dialog>
-      ) : (
-        <Dialog
-          open={open}
-          // TransitionComponent ={Transition}
-          keepMounted
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Inicio de sesión requerida
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Login />
-            <Button onClick={handleClose} color="primary"> Cerrar</Button>
-          </DialogActions>
-        </Dialog>
-      )
       )}
     </div>
   );
