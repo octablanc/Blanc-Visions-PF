@@ -38,6 +38,11 @@ export const FlashMsg = ({ msg }: any) => {
     }
     setOpen(false);
   };
+ 
+  const handleHidden = () => {
+
+  }
+  
 
   return (
     <div>
