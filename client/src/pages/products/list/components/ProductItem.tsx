@@ -1,6 +1,10 @@
-import { Card, Icons, CardContent } from '../styled-components/styled';
-import { AiFillStar, AiOutlineStar, BsCart4 } from '../../../../icons';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  Card,
+  CardContent,
+  CardPrice,
+  CardTitle,
+} from '../styled-components/styled';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/app/hooks';
 import { getProductById } from '../../../../redux/slices/products';
 
@@ -12,10 +16,11 @@ interface Props {
     image: string;
     description: string;
     price: number;
+    discount: number;
   };
 }
 export const ProductItem = ({ product }: Props) => {
-  const { id, name, description, image, code, price } = product;
+  const { id, name, description, image, code, price, discount } = product;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -23,31 +28,29 @@ export const ProductItem = ({ product }: Props) => {
     dispatch(getProductById(id));
     navigate(`/products/${id}`);
   };
-  // console.log(product);
 
+  let resultDiscount = Math.ceil((price * discount) / 100);
+  let priceDiscount = price - resultDiscount;
   return (
-    <Card key={code}>
+    <Card key={code} onClick={() => handleClick(id)}>
       <div className='image'>
         <img src={image} alt='notfound' />
       </div>
       <CardContent>
-        <h4>{name}</h4>
-        {/* <Icons>
-          <div>
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiOutlineStar />
-          </div>
-          <button>
-            <BsCart4 />
-          </button>
-        </Icons> */}
+        <CardTitle>{name}</CardTitle>
         <p>{description.slice(0, 60)} ...</p>
-        {/* <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p> */}
-        <button onClick={() => handleClick(id)}> ver mas </button>
-        <h3>${price}</h3>
+        <CardPrice>
+          {discount !== 0 ? (
+            <>
+              <h4>${price} </h4>
+              <h3>
+                ${priceDiscount} <span>{discount}% OFF</span>
+              </h3>
+            </>
+          ) : (
+            <h3>${price}</h3>
+          )}
+        </CardPrice>
       </CardContent>
     </Card>
   );

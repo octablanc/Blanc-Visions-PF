@@ -18,6 +18,8 @@ export interface UserInfo {
 // Define a type for the slice state
 interface ProductState {
   products: Pro[];
+  discountProducts: Pro[];
+  search: string;
   categories: Cat[];
   currentProduct: UniquePro;
   loading: boolean;
@@ -26,6 +28,11 @@ interface ProductState {
     quantity: number;
     category: undefined | string;
     productsLength: number;
+    discount: number;
+    price: number;
+    data: string;
+    order: string;
+    name: string;
   };
   user: UserInfo;
   // detail: Pro;
@@ -43,6 +50,7 @@ export default interface Pro {
   stock: number;
   id_category: number;
   state: Boolean;
+  discount: number;
 }
 export interface UniquePro {
   id: number;
@@ -51,6 +59,7 @@ export interface UniquePro {
   description: string;
   image: string;
   price: number;
+  discount: number;
   entrega: string;
   stock: number;
   id_category: number;
@@ -71,8 +80,10 @@ export interface Cat {
 // Define the initial state using that type
 const initialState: ProductState = {
   products: [],
+  discountProducts: [],
   categories: [],
   loading: false,
+  search: '',
   currentProduct: {
     id: 0,
     name: '',
@@ -80,6 +91,7 @@ const initialState: ProductState = {
     description: '',
     image: '',
     price: 0,
+    discount: 0,
     stock: 0,
     entrega: '',
     id_category: 0,
@@ -90,10 +102,15 @@ const initialState: ProductState = {
     loading: false,
   },
   pagination: {
-    page: 1,
-    quantity: 2,
-    category: undefined,
     productsLength: 0,
+    page: 1,
+    quantity: 4,
+    category: undefined,
+    discount: 0,
+    price: 0,
+    data: 'id',
+    order: 'ASC',
+    name: '',
   },
 
   //* Usuario harcodeado para testear el formulario de modificacion
@@ -143,6 +160,19 @@ export const productSlice = createSlice({
       state.pagination.page = action.payload.page;
       state.pagination.category = action.payload.category;
       state.pagination.productsLength = action.payload.productsLength;
+
+      state.pagination.price = action.payload.price;
+      state.pagination.discount = action.payload.discount;
+
+      state.pagination.data = action.payload.data;
+      state.pagination.order = action.payload.order;
+      state.pagination.name = action.payload.name;
+    },
+    search: (state, action) => {
+      state.search = action.payload;
+    },
+    changeDiscountPage: (state, action) => {
+      state.discountProducts = action.payload;
     },
     setUser: (state, action) => {
       state.user = action.payload;
@@ -164,6 +194,8 @@ export const {
   productOffCategories,
   setPagination,
   setUser,
+  search,
+  changeDiscountPage,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

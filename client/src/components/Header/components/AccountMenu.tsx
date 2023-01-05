@@ -25,6 +25,7 @@ import { theme } from '../../../styled-components/theme';
 import { setUser } from '../../../redux/slices/user-authentication';
 import { updateUser } from '../../../services/services';
 import CircularProgress from '@mui/material/CircularProgress';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function AccountMenu() {
   const user = useAppSelector(({ userState }) => userState.user);
@@ -34,6 +35,7 @@ export default function AccountMenu() {
   var inputFile: HTMLInputElement | null;
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
 
   function handleClick(event: React.MouseEvent<HTMLElement>) {
@@ -191,12 +193,21 @@ export default function AccountMenu() {
 
         <Divider style={{ backgroundColor: '#E5E5E5' }} />
 
-        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={handleClose}>
-          <ListItemIcon>
-            <ShoppingBasketIcon fontSize="medium" />
-          </ListItemIcon>
-          Order Buys
-        </MenuItem>
+        {
+          user?.role?.name === 'admin' ?
+            <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={() => { handleClose(); navigate('/create') }}>
+              <ListItemIcon>
+                <AddShoppingCartIcon fontSize="medium" />
+              </ListItemIcon>
+              Create product
+            </MenuItem> :
+            <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={() => { handleClose(); navigate('/buy') }}>
+              <ListItemIcon>
+                <ShoppingBasketIcon fontSize="medium" />
+              </ListItemIcon>
+              Order Buys
+            </MenuItem>
+        }
 
         <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={handleClickSettings}>
           <ListItemIcon>

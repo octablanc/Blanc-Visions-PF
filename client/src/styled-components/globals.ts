@@ -104,12 +104,20 @@ const GlobalStyles = createGlobalStyle`
   .text-center {
     text-align: center;
   }
+  .padding{
+    padding: 1rem;
+  }
 
   .active {
     border-bottom: 4px solid ${(props): string => props.theme.colors.primary};
   }
   .transparent{
     background-color: white;
+  }
+
+
+  .swiper-pagination-bullet-active {
+    background-color: ${(props): string => props.theme.colors.primary};
   }
 
   @media (min-width: 768px) {

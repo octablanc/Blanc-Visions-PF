@@ -7,6 +7,7 @@ import {
   deleteProduct,
   paginateProducts,
   bulk,
+  // searchProducts,
 } from '../controllers/ProductsController';
 
 const router = express.Router();

@@ -11,10 +11,7 @@ export const BtnNext = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  position: absolute;
-  bottom: -22%;
-  right: 43%;
-  transform: translateY(-60%);
+  margin: 0.2rem; 
 `;
 
 export const BtnPrev = styled.button`
@@ -28,8 +25,5 @@ export const BtnPrev = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  position: absolute;
-  bottom: -22%;
-  left: 43%;
-  transform: translateY(-60%);
+  margin: 0.2rem;  
 `;

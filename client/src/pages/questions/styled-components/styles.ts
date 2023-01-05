@@ -5,7 +5,6 @@ export const Container = styled.div`
 `;
 
 export const QyA = styled.div`
-    // background-color: bisque;
     h4 {
         font-weight: bold;
         font-size: 2rem;
@@ -13,5 +12,6 @@ export const QyA = styled.div`
     };
     p {
         text-decoration: underline;
+        font-weight: bold;
     };
 `;

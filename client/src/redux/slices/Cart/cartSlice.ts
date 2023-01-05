@@ -20,9 +20,10 @@ export interface BoughtPro {
   code: string;
   image: string;
   price: number;
+  discount: number;
   stock: number;
   state: Boolean;
-  loading: boolean; 
+  loading: boolean;
 }
 interface CurrentStorage {
   getItem(key: string): string | null;
@@ -39,58 +40,66 @@ const initialState: CartState = {
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
   loading: false,
-  localStorage: [],  
+  localStorage: [],
   currentProduct: {
     id: 0,
-    name: '',
-    code: '',
-    description: '',
-    image: '',
+    name: "",
+    code: "",
+    description: "",
+    image: "",
     price: 0,
+    discount: 0,
     stock: 0,
-    entrega: '',
+    entrega: "",
     id_category: 0,
     state: true,
-    category: '',
+    category: "",
     properties: [],
     images: [],
     loading: false,
-  }
+  },
 };
-
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addToCart(state, action) {
-      const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProduct);
         state.currentProduct.stock -= 1;
-        console.log(tempProduct)
-      }          
+        console.log(tempProduct);
+      }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     removeFromCart(state, action) {
-      const itemRemoved = state.cartItems.filter((item) => item.id !== action.payload.id);
+      const itemRemoved = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
       state.cartItems = itemRemoved;
       // console.log(itemRemoved);
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     decreaseQuantity(state, action) {
-      const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
       state.itemTotalAmount = state.cartItems[itemIndex].cartQuantity -= 1;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     increaseQuantity(state, action) {
-      const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
       state.itemTotalQuantity = state.cartItems[itemIndex].cartQuantity += 1;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
@@ -120,17 +129,34 @@ export const cartSlice = createSlice({
       state.cartTotalAmount = total;
     },
 
+    getDiscountTotal(state, action) {
+      let { total, quantity } = state.cartItems.reduce(
+        (cartTotal, cartItem) => {
+          const { price, discount, cartQuantity } = cartItem;
+          const itemTotal = price * (1 - discount / 100) * cartQuantity;
+          cartTotal.total += itemTotal;
+          cartTotal.quantity += cartQuantity;
+          return cartTotal;
+        },
+        {
+          total: 0,
+          quantity: 0,
+        }
+      );
+      state.cartTotalQuantity = quantity;
+      state.cartTotalAmount = total;
+    },
+
     purchase(state, action) {
-      const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id)
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
       // state.cartItems[itemIndex]
     },
 
     getProductDetail(state, action) {
-      state.currentProduct = action.payload
-    }
-
-
-
+      state.currentProduct = action.payload;
+    },
   },
 });
 
@@ -141,5 +167,6 @@ export const {
   increaseQuantity,
   emptyCart,
   getTotal,
-  getProductDetail
+  getDiscountTotal,
+  getProductDetail,
 } = cartSlice.actions;

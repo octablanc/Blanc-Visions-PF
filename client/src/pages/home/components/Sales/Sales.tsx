@@ -2,37 +2,44 @@ import { Card } from './Card';
 import { useEffect } from 'react';
 import { SalesContainer } from '../../styled-components/styles';
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { getAllProducts } from '../../../../redux/slices/products';
+import { getProductsDiscountPage } from '../../../../redux/slices/products';
 import Spinner from '../../../../components/Spinner/Spinner';
+// import { ProductItem } from '../../../products/list/components/ProductItem';
+// import { Card } from '@mui/material';
 
 export const Sales = () => {
   const dispatch = useAppDispatch();
-  const { loading, products } = useAppSelector(state => state.productsState);
-
+  const { loading, discountProducts } = useAppSelector(
+    state => state.productsState
+  );
+  const { currentCategory } = useAppSelector(state => state.categoriesState);
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getProductsDiscountPage(1, 8, '', 0, 1, 'discount', 'DESC'));
   }, [dispatch]);
   return (
     <>
       <div className='container'>
-        <h3 className='text-center'>SALES</h3>
+        <h3 className='text-center'>Descuentos que no te podes perder :</h3>
         <SalesContainer>
           {loading ? (
+            <Spinner />
+          ) : (
+            discountProducts.map(product => (
+              <Card product={product} key={product.code} />
+            ))
+          )}
+          {/* {loading ? (
             <Spinner />
           ) : (
             products &&
             products
               .slice(0, 4)
-              .map(product => (
+              .map((product) => (
                 <Card
-                  key={product.id}
-                  id={product.id}
-                  name={product.name}
-                  img={product.image}
-                  price={product.price}
+                 product={product}
                 />
               ))
-          )}
+          )} */}
         </SalesContainer>
       </div>
     </>

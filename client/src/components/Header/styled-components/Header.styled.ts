@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Nav = styled.header`
   background-color: white;
@@ -23,7 +23,9 @@ export const NavMenu = styled.div`
 
 export const NavOptions = styled.ul`
   display: flex;
+  align-items: center;
   gap: 2.5rem;
+  margin: 0;
 
   li {
     text-transform: uppercase;
@@ -57,9 +59,9 @@ export const AuthButtons = styled.div`
 
   button {
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 800;
     color: black;
-    font-size: 15px;
+    font-size: 13px;
     padding: 0px;
   }
 `;

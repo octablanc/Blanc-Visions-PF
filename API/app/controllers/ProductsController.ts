@@ -111,17 +111,42 @@ export async function getProductById(req: Request, res: Response) {
   }
 }
 
+// export async function postProduct(req: Request, res: Response) {
+//   try {
+//     const product = req.body;
+
+//     let result = await Products.create(product, {
+//        include: {
+//         model: Properties,
+//         as: 'properties',
+//       },
+//     });
+// return res.send(result);
+// } catch ({ message }) {
+//   console.log(message);
+//   return res.status(400).send({ message });
+// }
+// }
+
 export async function postProduct(req: Request, res: Response) {
   try {
     const product = req.body;
 
     let result = await Products.create(product, {
-      include: {
-        model: Properties,
-        as: 'properties',
-      },
+      include: [
+        {
+          model: Categories,
+          // as: 'categories'
+        },
+        {
+          model: Properties,
+          as: 'properties',
+        },
+        {
+          model: Images,
+        },
+      ],
     });
-
     return res.send(result);
   } catch ({ message }) {
     console.log(message);
@@ -167,6 +192,11 @@ export async function deleteProduct(req: Request, res: Response) {
   }
 }
 
+/*
+order : ASC | DESC
+data : id | price | discount
+*/
+
 export async function paginateProducts(req: Request, res: Response) {
   /*
     Querys: 
@@ -175,21 +205,37 @@ export async function paginateProducts(req: Request, res: Response) {
     category = Category we need to filter the products: Shoes, Phones, etc.
   */
   try {
-    if (req.query?.page && req.query?.quantityProducts && req.query?.discount) {
+    if (
+      req.query?.page &&
+      req.query?.quantityProducts &&
+      req.query?.discount &&
+      req.query?.data &&
+      req.query?.order
+    ) {
       const page = parseInt(req.query.page.toString());
       const quantityProducts = parseInt(req.query.quantityProducts.toString());
       const discount = parseInt(req.query.discount.toString());
+      const data: string = req.query.data.toString();
+      const order: string = req.query.order.toString();
+
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
           throw new Error('The fields can only be greater than 0!');
 
-        const { category } = req.query;
+        const { category, price, name } = req.query;
+        const nameLow = name?.toString().toLowerCase();
 
         const result = await Products.findAll({
           where: {
             state: true,
             discount: {
               [Op.gte]: discount,
+            },
+            price: {
+              [Op.gte]: price,
+            },
+            name: {
+              [Op.substring]: `${nameLow}`,
             },
           },
           include: [
@@ -209,7 +255,7 @@ export async function paginateProducts(req: Request, res: Response) {
           attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
-          order: [['id', 'ASC']],
+          order: [[data, order]],
         });
 
         const productsAll = await Products.count({
@@ -217,6 +263,12 @@ export async function paginateProducts(req: Request, res: Response) {
             state: true,
             discount: {
               [Op.gte]: discount,
+            },
+            price: {
+              [Op.gte]: price,
+            },
+            name: {
+              [Op.substring]: `${nameLow}`,
             },
           },
           include: [
@@ -237,4 +289,5 @@ export async function paginateProducts(req: Request, res: Response) {
     return res.status(400).send({ message });
   }
 }
-// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5
+
+// http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&data=id&order=ASC&name=''

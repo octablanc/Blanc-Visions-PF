@@ -54,7 +54,7 @@ export const Slider = () => {
         navigation
         autoplay={{
           delay: 2300,
-          // pauseOnMouseEnter: true,
+          pauseOnMouseEnter: true,
           disableOnInteraction: false,
         }}
         pagination={{

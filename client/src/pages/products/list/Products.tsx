@@ -14,33 +14,59 @@ import { ProductItem } from './components/ProductItem';
 import Spinner from '../../../components/Spinner/Spinner';
 
 import 'animate.css';
+import { NotProducts } from './components/NotProducts';
 
 export const Products = () => {
   const dispatch = useAppDispatch();
   const { products, loading, pagination } = useAppSelector(
-    (state) => state.productsState
+    state => state.productsState
   );
+  const { currentCategory } = useAppSelector(state => state.categoriesState);
+  const { search } = useAppSelector(state => state.productsState);
+  const { page, quantity, productsLength, discount, price, data, order } =
+    pagination;
 
-  const { currentCategory } = useAppSelector((state) => state.categoriesState);
-
-  const { page, quantity, category, productsLength } = pagination;
   useEffect(() => {
-    if (currentCategory === '') {
-      dispatch(getProductsPage(page, quantity));
-    } else {
-      dispatch(getProductsPage(1, quantity, currentCategory));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, currentCategory]);
+    // search === ''
+    //   ?
+    const selectOrder: any = document.getElementById('selectOrder');
+    selectOrder.selectedIndex = 0;
+    dispatch(
+      getProductsPage(1, quantity, currentCategory, 0, 0, 'id', 'ASC', search)
+    );
+    // : dispatch(getSearchProducts(1, quantity, currentCategory, search));
+  }, [dispatch, currentCategory, search]);
 
   const increment = () => {
     if (Math.ceil(productsLength / quantity) > page) {
-      dispatch(getProductsPage(page + 1, quantity, category)); // TODO CAMBIAR
+      dispatch(
+        getProductsPage(
+          page + 1,
+          quantity,
+          currentCategory,
+          discount,
+          price,
+          data,
+          order,
+          search
+        )
+      );
     }
   };
   const decrement = () => {
     if (page > 1) {
-      dispatch(getProductsPage(page - 1, quantity, category)); // TODO CAMBIAR
+      dispatch(
+        getProductsPage(
+          page - 1,
+          quantity,
+          currentCategory,
+          discount,
+          price,
+          data,
+          order,
+          search
+        )
+      );
     }
   };
 
@@ -49,39 +75,41 @@ export const Products = () => {
       <Conteiner className='container'>
         <Filters />
         <div style={{ justifyContent: 'center' }}>
-          <h1 className='text-center'>Nuestros Productos</h1>
-          <ProductsGrid>
-            {loading ? (
-              <Spinner />
-            ) : (
-              products.length &&
-              products.map((product) => (
+          {products.length > 0 && (
+            <h1 className='text-center'>Nuestros Productos</h1>
+          )}
+
+          {loading ? (
+            <Spinner />
+          ) : products.length > 0 ? (
+            <ProductsGrid>
+              {products.map(product => (
                 <div
                   key={product.code}
                   className='animate__animated animate__fadeIn'
                 >
                   <ProductItem product={product} />
                 </div>
-              ))
-            )}
-          </ProductsGrid>
-          <Paginate className='animate__animated animate__fadeIn'>
-            <button onClick={decrement} disabled={page === 1}>
-              {'<'}
-            </button>
-            <h3>{page}</h3>
+              ))}
+            </ProductsGrid>
+          ) : (
+            <NotProducts />
+          )}
 
-            {/* {Math.ceil(productsLength / quantity) !== page && (
-              <button onClick={increment}>{'>'}</button> */}
-            {/* )} */}
-            <button
-              onClick={increment}
-              disabled={Math.ceil(productsLength / quantity) === page}
-            >
-              {'>'}{' '}
-            </button>
-          </Paginate>
-          {/* <Pagination /> */}
+          {products.length > 0 && (
+            <Paginate className='animate__animated animate__fadeIn'>
+              <button onClick={decrement} disabled={page === 1}>
+                {'<'}
+              </button>
+              {Math.ceil(productsLength / quantity) && <h3>{page}</h3>}
+              <button
+                onClick={increment}
+                disabled={Math.ceil(productsLength / quantity) === page}
+              >
+                {'>'}{' '}
+              </button>
+            </Paginate>
+          )}
         </div>
       </Conteiner>
     </>
