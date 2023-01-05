@@ -10,6 +10,12 @@ export interface ProductOrderIfc {
   quantity: number;
   price: number;
 }
+export interface ProductOrderCartIfc {
+  productId: number;
+  quantity: number;
+  price: number;
+  userId: number;
+}
 
 export interface OrderBuyIfc {
   priceTotalDiscount: number;
