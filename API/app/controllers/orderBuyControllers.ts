@@ -1,6 +1,8 @@
 import DBcontext from '../../config/ConnectionDB';
 import { TypeFunctionExp, OrderBuyIfc } from '../interfaces-type';
 import { Model } from 'sequelize';
+//TODO =>  CUANDO EL USUARIO COMPRE LO DEL CARRITO, AÑADIRLO A LA ORDEN BUY Y ELIMINAR EL CARRITO DE LA DB DEL USER
+// SI EL PRODUCT ORDER LO HACEMOS COMO CARRITO
 
 const orderBuy = DBcontext.models.orderBuy;
 const ProductOrder = DBcontext.models.productOrder;
