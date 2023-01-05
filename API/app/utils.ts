@@ -1787,7 +1787,7 @@ export const usersData = [
     name: 'tomas 1',
     lastName: 'apellido 1',
     imageProfile:
-      'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg',
+      'https://varelainforma.com.ar/uploads/noticias/5/2021/04/20210415031617_whatsapp-image-2021-04-15-at-03-09-55.jpeg',
     mail: 'tomas@gmail.com',
     password: 'tomas123',
     phone: 11232323,
@@ -1800,7 +1800,7 @@ export const usersData = [
     name: 'flor 1',
     lastName: 'flor apellido 1',
     imageProfile:
-      'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg',
+      'https://pps.whatsapp.net/v/t61.24694-24/311499126_5964794790232330_3443309141836419_n.jpg?ccb=11-4&oh=01_AdTKBCwH6HSld3YgpQ2EhrFRy8Y-q8GZ1VsLlxdhH5oNsQ&oe=63C422D9',
     mail: 'flor@gmail.com',
     password: 'flor123',
     phone: 3213123,
@@ -1836,6 +1836,8 @@ export const usersData = [
     roleId: 1,
   },
 ];
+
+// https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg
 
 export const ordenBuyArray = [
   {
@@ -1939,22 +1941,22 @@ export const ordenBuyArray = [
     quantityProducts: 100,
     dues: 130,
     userId: 2,
-    buy: false,
+    buy: true,
     productOrders: [
       {
-        productId: 10,
-        quantity: 1,
-        price: 1000,
+        productId: 1,
+        quantity: 10,
+        price: 1200000 * 10,
+      },
+      {
+        productId: 2,
+        quantity: 30,
+        price: 15000 * 30,
       },
       {
         productId: 3,
-        quantity: 20,
-        price: 1000,
-      },
-      {
-        productId: 6,
-        quantity: 4,
-        price: 1000,
+        quantity: 2,
+        price: 15000 * 2,
       },
     ],
   },
