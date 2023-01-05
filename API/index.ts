@@ -11,6 +11,7 @@ import bodyParser from "body-parser";
 module.exports = (function runApp() {
   dotenv.config();
   const { PORT, BACKEND_URL } = process.env;
+
   const app = express();
 
   app.use(morgan("dev"));
@@ -83,7 +84,7 @@ module.exports = (function runApp() {
         failure: "http://localhost:3000/",
         pending: "http://localhost:3000/",
       },
-      notification_url: "https://kingcomm.vercel.app/buy",
+      notification_url: "https://kingcomm.vercel.app/buy",      
       auto_return: 'approved',
     };
 

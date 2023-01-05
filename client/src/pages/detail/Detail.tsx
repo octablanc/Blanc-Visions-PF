@@ -15,27 +15,77 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 //redux
-import { getProductById, addToCart } from "../../redux/slices/Cart";
+import {
+  getProductById,
+  addToCart,
+  cleanDetail,
+} from "../../redux/slices/Cart";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import { Sales } from "../home/components/Sales/Sales";
+// import Login from "../../components/login/Login";
+import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product: any = useParams();
-  console.log(useParams());
-  console.log(product.id);
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const resetDetail = () => {
+    return {
+      id: 0,
+      name: "",
+      code: "",
+      description: "",
+      image: "",
+      price: 0,
+      priceProm: 0,
+      discount: 0,
+      stock: 0,
+      entrega: "",
+      id_category: 0,
+      state: true,
+      category: "",
+      properties: [],
+      images: [],
+      loading: false,
+    };
+  };
 
   useEffect(() => {
+    let detailCleaned = {
+      id: 0,
+      name: "",
+      code: "",
+      description: "",
+      image: "",
+      price: 0,
+      priceProm: 0,
+      discount: 0,
+      stock: 0,
+      entrega: "",
+      id_category: 0,
+      state: true,
+      category: "",
+      properties: [],
+      images: [],
+      loading: false,
+    };
     dispatch(getProductById(product.id));
+    // return () => {resetDetail()}
+    return () => {
+      dispatch(cleanDetail(detailCleaned));
+    };
   }, [dispatch, product.id]);
 
   const { currentProduct, cartTotalAmount, cartTotalQuantity } = useAppSelector(
     (state: any) => state.cartState
   );
+  const { loading, user } = useAppSelector((state) => state.userState);
 
   const {
-    loading,
+    // loading,
     name,
     price,
     description,
@@ -45,11 +95,16 @@ export const Detail = () => {
     discount,
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
-  console.log(currentProduct);
+  // console.log(currentProduct);
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
     navigate("/cart");
+  };
+
+  const handleLogin = () => {
+    setSuccess(true);
+    setMsg("login");
   };
 
   return (
@@ -67,7 +122,6 @@ export const Detail = () => {
             <div>
               <hr />
             </div>
-
             <Slider loading={loading} images={images} />
           </Image>
           <Info>
@@ -84,7 +138,7 @@ export const Detail = () => {
                     </div>
                     <div className="labelProm">
                       <span className="label">Antes</span>
-                      <span className="priceProm">{`$${priceProm}`}</span>
+                      <span className="priceProm">{` $${price}`}</span>
                     </div>
                   </div>
                 </div>
@@ -109,19 +163,24 @@ export const Detail = () => {
               </ul>
             ))}
 
-            <ul>
+            {/* <ul>
               <hr />
               <br />
-              {/* <span className="stock">Unidades disponibles:</span> */}
-              {/* <span className="stock">{stock}</span> */}
-            </ul>
+              <span className="stock">Unidades disponibles:</span>
+              <span className="stock">{stock}</span>
+            </ul> */}
             <CartSection>
-              <Btn name="addToCart" onClick={() => handleAddToCart()}>
-                Agregar al carrito
-              </Btn>
-              {/* <Btn name="buy" onClick={handleCheckOut}>
-                Comprar
-              </Btn> */}
+              {user ? (
+                <Btn name="addToCart" onClick={() => handleAddToCart()}>
+                  Agregar al carrito
+                </Btn>
+              ) : (
+                <Btn name="login" onClick={() => handleLogin()}>
+                  Agregar al carrito
+                </Btn>
+              )}
+              {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
+
               <form action="http://localhost:3001/checkout" method="POST">
                 <input
                   type="hidden"
