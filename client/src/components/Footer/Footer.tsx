@@ -32,7 +32,16 @@ export const Footer = () => {
     console.log(input);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    event.preventDefault();
+    // if(input) {
+      
+    //   //add to firebase
+    //   db.collection("emails").add({
+    //     email: input,
+    //   })
+    // }
+  };
 
   return (
     <FooterBar>
@@ -42,11 +51,12 @@ export const Footer = () => {
             <h4>Recibí las últimas novedades</h4>
             <Input
               placeholder='Ingresá tu email'
+              type='email'
               name='mail'
               value={input.mail}
               onChange={handleChange}
             />
-            <Btn onSubmit={handleSubmit}>Suscribirme</Btn>
+            <Btn onSubmit={() => handleSubmit}>Suscribirme</Btn>
           </form>
         </Newsletter>
 

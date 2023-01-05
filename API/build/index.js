@@ -32,26 +32,16 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-// import axios from "axios";
+const axios_1 = __importDefault(require("axios"));
 const mercadopago = require("mercadopago");
 const body_parser_1 = __importDefault(require("body-parser"));
 module.exports = (function runApp() {
     dotenv.config();
-    const { PORT, BACKEND_URL, /* TIMEOUT_BACKEND*/ } = process.env;
+    const { PORT, BACKEND_URL, TIMEOUT_BACKEND } = process.env;
     const app = (0, express_1.default)();
     app.use((0, morgan_1.default)("dev"));
     app.use((0, cors_1.default)());
     app.use(express_1.default.json());
-    app.set('trust proxy', true);
-    app.use('/', (req, res, next) => {
-        var _a;
-        var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-        if ((_a = req.res) === null || _a === void 0 ? void 0 : _a.statusCode) {
-            console.log("\x1b[40m\x1b[33m", `${req.method} ${req.url}` + `${(res === null || res === void 0 ? void 0 : res.statusCode) > 199 ? "\x1b[32m" : ((res === null || res === void 0 ? void 0 : res.statusCode) > 299 ? "\x1b[34m" : "\x1b[31m")} ${res === null || res === void 0 ? void 0 : res.statusCode} \x1b[0m`);
-            console.log(`\x1b[40m\x1b[35m IP: (${ip}  DATE: ${Date().toString().slice(0, 25)})\x1b[0m`);
-        }
-        next();
-    });
     app.use(body_parser_1.default.urlencoded({ extended: true, limit: "50mb" }));
     app.use(body_parser_1.default.json({ limit: "50mb" }));
     app.use((req, res, next) => {
@@ -118,7 +108,7 @@ module.exports = (function runApp() {
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
             console.log("Server listening " + BACKEND_URL);
-            // setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
+            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND ? TIMEOUT_BACKEND : '30000'));
         });
     });
 }());

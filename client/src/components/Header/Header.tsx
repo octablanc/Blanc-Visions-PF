@@ -23,7 +23,14 @@ import { FilterCategory } from '../FilterCategory';
 import { getTotal } from '../../redux/slices/Cart';
 import { FormSearch } from '../Search/FormSearch';
 
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { createTheme } from '@mui/material/styles';
+
 export const Header = () => {
+
   const userState: User | null = useAppSelector(
     ({ userState }) => userState.user
   );
@@ -38,6 +45,15 @@ export const Header = () => {
     dispatch(getAllCategories());
     dispatch(getTotal(cartItems));
   }, [dispatch]);
+
+  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
   return (
     <>
@@ -84,10 +100,13 @@ export const Header = () => {
               <FilterCategory />
 
               <li>
-                <Link to='/cart'>
-                  <BsCart4 />
-                  <span>{cartTotalQuantity}</span>
-                </Link>
+                <IconButton aria-label="cart">
+                  <StyledBadge badgeContent={cartTotalQuantity} color="primary">
+                    <Link to='/cart'>
+                      <BsCart4 />
+                    </Link>
+                  </StyledBadge>
+                </IconButton>
               </li>
 
               <li>
