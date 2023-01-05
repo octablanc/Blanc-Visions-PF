@@ -23,17 +23,13 @@ export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product: any = useParams();
-  console.log(useParams());
-  console.log(product.id);
-
+  
   useEffect(() => {
     dispatch(getProductById(product.id));
   }, [dispatch, product.id]);
 
-  const { currentProduct, cartTotalAmount, cartTotalQuantity } = useAppSelector(
-    (state: any) => state.cartState
-  );
-
+  const { currentProduct, cartTotalAmount, cartTotalQuantity } = useAppSelector((state: any) => state.cartState);
+  
   const {
     loading,
     name,
@@ -45,11 +41,11 @@ export const Detail = () => {
     discount,
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
-  console.log(currentProduct);
+  // console.log(currentProduct);
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(currentProduct));
-    navigate("/cart");
+  const handleAddToCart = () => {        
+    dispatch(addToCart(currentProduct))
+    navigate("/cart");  
   };
 
   return (
@@ -84,7 +80,7 @@ export const Detail = () => {
                     </div>
                     <div className="labelProm">
                       <span className="label">Antes</span>
-                      <span className="priceProm">{`$${price}`}</span>
+                      <span className="priceProm">{` $${price}`}</span>
                     </div>
                   </div>
                 </div>

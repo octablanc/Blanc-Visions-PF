@@ -8,7 +8,7 @@ import {
   emptyCart,
   removeFromCart,
   getDiscountTotal,
-  BoughtPro,
+  // BoughtPro,
   manteinQuantity,
 } from "../../../../redux/slices/Cart";
 
@@ -30,11 +30,11 @@ import {
   // Input,
   BtnCheck,
 } from "../../styled-components/styles";
-import { display, fontSize } from "@mui/system";
+// import { display, fontSize } from "@mui/system";
 import cart from "../../styled-components/cart.png";
-import React from "react";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { BOLD_WEIGHT } from "jest-matcher-utils";
+// import React from "react";
+// import MuiAlert, { AlertProps } from "@mui/material/Alert";
+// import { BOLD_WEIGHT } from "jest-matcher-utils";
 import { FlashMsg } from "../FlashMsg/FlashMsg";
 import { postOrderBuy } from "../../../../services/services";
 
@@ -79,13 +79,11 @@ export const CartDetail = () => {
       setSuccess(true)
       setMsg('Stock agotado')      
     } else {
-      if (stock > 0) {
+      if (cartItem.stock > 0) {
         dispatch(increaseQuantity(cartItem));     
       }
     }
   };
-
-  // console.log(cartItems);
 
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
@@ -173,20 +171,18 @@ export const CartDetail = () => {
                       >
                         -
                       </button>
-                      <div>{cartItem.cartQuantity}</div>
-
-                      <div className="labelProm">
-                        <span>Disponible:</span>
-                        <span className="priceProm">{cartItem.stock === 0 ? 'Agotado' : cartItem.stock}</span>
-                      </div>
-
+                      <div>{cartItem.cartQuantity}</div>                    
                       <button
                         name="add"
                         onClick={() => handleAddItem(cartItem)}
                       >
                         +
-                      </button>
+                      </button>                      
                     </Operators>
+                    <div className="labelProm">
+                        <span>Stock:</span>
+                        <span >{cartItem.stock === 0 ? 'Agotado' : cartItem.stock}</span>
+                      </div>
                   </Quantity>            
 
                   {cartItem.discount === 0 ? (
