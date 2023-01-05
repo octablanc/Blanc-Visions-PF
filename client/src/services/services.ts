@@ -61,14 +61,14 @@ export const postRating = async ({
   userId,
 }: RatingIfc) => {
   try {
-    // const ratingCreate = (
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/ratings`, {
-        score,
-        commentary,
-        productId,
-        userId,
-      })
-    // ).data;
+    console.log({userId})
+    if(userId === null) return 1;
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/ratings`, {
+      score,
+      commentary,
+      productId,
+      userId,
+    });
   } catch ({ message }) {
     console.log(message);
   }

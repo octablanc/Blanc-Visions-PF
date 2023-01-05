@@ -9,7 +9,6 @@ export const BoxStyle = {
   borderRadius: '5px',
 };
 
-
 export const ModalContainer = styled.form`
 transform: 'translate(-50%, -50%)'
 display:flex;
@@ -44,13 +43,16 @@ padding-bottom:5rem;
   }
  `;
 export const BuyContainer = styled.div`
-margin: 0 5rem;
+  margin: 0 5rem;
   display: flex;
   height: 10rem;
   align-items: center;
   gap: 2rem;
   justify-content: space-between;
-
+  .name__product_order:hover{
+    cursor:pointer;
+    text-decoration:underline;
+  }
 `;
 
 export const BuyImage = styled.div`
