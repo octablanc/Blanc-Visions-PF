@@ -43,9 +43,9 @@ export const Detail = () => {
   let priceProm = Math.ceil(price * (1 - discount / 100));
   // console.log(currentProduct);
 
-  const handleAddToCart = () => {        
+  const handleAddToCart = () => {
     dispatch(addToCart(currentProduct))
-    navigate("/cart");  
+    navigate("/cart");       
   };
 
   return (

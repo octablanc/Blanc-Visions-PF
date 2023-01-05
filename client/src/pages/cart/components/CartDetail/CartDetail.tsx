@@ -39,6 +39,7 @@ import { FlashMsg } from "../FlashMsg/FlashMsg";
 import { postOrderBuy } from "../../../../services/services";
 
 
+
 export const CartDetail = () => {
   const {
     cartItems,
@@ -80,10 +81,12 @@ export const CartDetail = () => {
       setMsg('Stock agotado')      
     } else {
       if (cartItem.stock > 0) {
-        dispatch(increaseQuantity(cartItem));     
+        dispatch(increaseQuantity(cartItem));
       }
     }
   };
+
+  console.log(cartItems);
 
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
@@ -200,6 +203,7 @@ export const CartDetail = () => {
               ))}
             </>
           </div>
+          {/* </Div> */}
           <Div2>
             <TotalDiv>
               <Line>

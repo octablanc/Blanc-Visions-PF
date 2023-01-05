@@ -44,9 +44,13 @@ export const Div = styled.div`
   .labelProm {
     color: grey;
     font-size: 1.2rem;
+<<<<<<< HEAD
     /* width: 10rem; */
     display: flex;
     justify-content: center;
+=======
+    display: flex;
+>>>>>>> e236a12518508ee58b84e2443c2eae21d7bb8651
     align-content: space-between;
   }
   .priceProm {
