@@ -21,6 +21,7 @@ import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
+import { AdminDash } from './components/Admin/AdminDash';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -28,7 +29,7 @@ function App() {
 
   // Set the user logged in the start
   useEffect(() => {
-    onAuthStateChanged(auth, async user => {
+    onAuthStateChanged(auth, async (user) => {
       if (user && !userState) dispatch(getUser(user.email));
       if (!user) dispatch(getUser(user));
     });
@@ -52,6 +53,8 @@ function App() {
           <Route path='about' element={<About />} />
           <Route path='buy' element={<MyBuy />} />
           {/*Hecho para testear mis compras...*/}
+          {/*Hecho para testear dashAdm..*/}
+          <Route path='admindash' element={<AdminDash />} />
           <Route path='questions' element={<Questions />} />
           <Route path='privacy' element={<Privacy />} />
           <Route path='termsyconditions' element={<Terms />} />

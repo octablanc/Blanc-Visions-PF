@@ -132,7 +132,7 @@ export const Filters = () => {
 
   return (
     <div>
-      <h3 className="category__name">{currentCategory}</h3>
+      <h3 className='category__name'>{currentCategory}</h3>
       <h2>Refina tu busqueda: </h2>
       <FilterContent>
         {price !== 0 && (
@@ -151,11 +151,11 @@ export const Filters = () => {
       </FilterContent>
       <div>
         <h3>ORDERNAR POR:</h3>
-        <ContainerSelectOrder onChange={selectTypeOrder} id="selectOrder">
-          <option value="Sin Ordenar">Sin Ordenar</option>
-          <option value="Menor Precio">Menor Precio</option>
-          <option value="Mayor Precio">Mayor Precio</option>
-          <option value="Mayor Descuento">Mayor Descuento</option>
+        <ContainerSelectOrder onChange={selectTypeOrder} id='selectOrder'>
+          <option value='Sin Ordenar'>Sin Ordenar</option>
+          <option value='Menor Precio'>Menor Precio</option>
+          <option value='Mayor Precio'>Mayor Precio</option>
+          <option value='Mayor Descuento'>Mayor Descuento</option>
         </ContainerSelectOrder>
       </div>
       <FilterDiscountPrice>

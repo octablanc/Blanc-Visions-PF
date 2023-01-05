@@ -52,10 +52,12 @@ export const category = [
 // Audio y Video  5
 export const data = [
   {
-    ratings: [{
-      score: 1,
-      commentary: 'primer cometario jejejeje',
-    }],
+    ratings: [
+      {
+        score: 1,
+        commentary: 'primer cometario jejejeje',
+      },
+    ],
     code: 'F0021',
     name: 'Sony alfha 7',
     price: 100,
@@ -63,7 +65,7 @@ export const data = [
     description: `Combinando un diseño elegante con capacidades esenciales, la Sony alpha 7 es una DSLR capaz adecuada tanto para tomar fotos como para grabar videos. El diseño probado del sensor de 18MP ofrece una calidad de imagen y una sensibilidad impresionantes, junto con un disparo continuo de 3 fps y una grabación de video de hasta Full HD 30p.`,
     image:
       'https://http2.mlstatic.com/D_NQ_NP_889577-MLA41501060479_042020-O.webp',
-    state: true,
+    state: false,
     categoryId: 1,
     discount: 0,
     images: [
@@ -1328,7 +1330,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=V2xNeW5UZUFsNUhlM2R2Q3ZSQkJIZFQ2RVhReVhqZVBLWEF0dFJJazZudz0
   },
-  
+
   {
     code: 'NZ7M',
     name: 'Nikon Z 7 Mirrorless 24-70mm f 4 kit',
@@ -1409,7 +1411,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=dVplNDdQOU5MZmpaVEJuVWhOcDFOZUI3YmN5K3NPaWFvRFZNejE5dDJ0MD0
   },
-  
+
   {
     code: 'YSTTL',
     name: 'Yongnuo Speedlite TTL YN686EX-RT',
@@ -1450,7 +1452,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=UTg0VHU4UzB0RDVYU1dNM3A1cU5GYXlzZElGWTY4UUFBY3RTczBPNUtsbz0
   },
-  
+
   {
     code: 'GKMF12',
     name: 'Godox Kit de 2 luces de flash macro MF12',
@@ -1482,7 +1484,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: '3,2 x 3,0 x 2,5" / 81,0 x 76,5 x 64,3 mm (Cabezal de flash individual)',
+        value:
+          '3,2 x 3,0 x 2,5" / 81,0 x 76,5 x 64,3 mm (Cabezal de flash individual)',
       },
       {
         name: 'Tiempo de reciclaje:',
@@ -1491,7 +1494,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=K0ZTY0RMUmFybUp3azZFRFFmU09haE5na3NOcnpyRW5LS1RkNSs2dW5qND0
   },
-  
+
   {
     code: 'TTPS8',
     name: 'Think Tank Photo StoryTeller 8',
@@ -1523,7 +1526,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: 'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
+        value:
+          'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
       },
       {
         name: 'Colores:',
@@ -1532,7 +1536,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=eXdmYXdTWXg4M1I3UHYwWkt3LzAxRE9WUmtyRGltYVU3aGNCRlJUNmpoYz0
   },
-  
+
   {
     code: 'TTPS9',
     name: 'Think Tank Photo StoryTeller 8',
@@ -1564,7 +1568,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: 'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
+        value:
+          'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
       },
       {
         name: 'Colores:',
@@ -1573,7 +1578,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=eXdmYXdTWXg4M1I3UHYwWkt3LzAxRE9WUmtyRGltYVU3aGNCRlJUNmpoYz0
   },
-  
+
   {
     code: 'TTPUA5',
     name: 'Think Tank Photo Urban Approach 5',
@@ -1605,7 +1610,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: 'Interior: 9.4 x 3.9 x 7.1" / 24 x 10 x 18 cm - Exterior: 10.2 x 5.5 x 7.9" / 26 x 14 x 20 cm',
+        value:
+          'Interior: 9.4 x 3.9 x 7.1" / 24 x 10 x 18 cm - Exterior: 10.2 x 5.5 x 7.9" / 26 x 14 x 20 cm',
       },
       {
         name: 'Colores:',
@@ -1614,7 +1620,7 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=RUoxR21TQllTR0tNSGhQc0RVWnlrMWdCVDRhYkpEaHRRMmRxYUh0Z0Mwcz0
   },
-  
+
   {
     code: 'TTPMM5',
     name: 'Think Tank Photo Mirrorless Movers 5',
@@ -1650,7 +1656,8 @@ Ranura posterior que le permite llevar el Mover en su propio cinturón o en un s
       },
       {
         name: 'Dimensiones: ',
-        value: 'Internas: 3.5 x 4.7 x 3.1" / 9 x 12 x 8 cm Exteriores: 4.7 x 5.9 x 3.9 / 12 x 15 x 10 cm',
+        value:
+          'Internas: 3.5 x 4.7 x 3.1" / 9 x 12 x 8 cm Exteriores: 4.7 x 5.9 x 3.9 / 12 x 15 x 10 cm',
       },
       {
         name: 'Colores:',
@@ -1730,7 +1737,8 @@ Ranura posterior que le permite llevar el Mover en su propio cinturón o en un s
       },
       {
         name: 'Dimensiones: ',
-        value: '6.7 x 7.7 x 13.4" / 16.9 x 19.5 x 34.0 cm (excluyendo protuberancias)',
+        value:
+          '6.7 x 7.7 x 13.4" / 16.9 x 19.5 x 34.0 cm (excluyendo protuberancias)',
       },
       {
         name: 'Colores:',
