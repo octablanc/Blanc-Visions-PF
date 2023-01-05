@@ -110,4 +110,9 @@ ratings.belongsTo(products);
 users.hasMany(ratings);
 ratings.hasOne(users);
 
+
+users.hasMany(productOrder);
+productOrder.hasOne(users);
+
+
 export default DBcontext;
