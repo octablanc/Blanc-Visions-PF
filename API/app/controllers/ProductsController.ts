@@ -19,7 +19,6 @@ const ProductOrder = DBcontext.models.productOrder;
 const Properties = DBcontext.models.products_properties;
 const Ratings = DBcontext.models.ratings;
 
-
 export async function getProducts(req: Request, res: Response) {
   /*
     Querys: 
@@ -67,16 +66,16 @@ export async function bulk(_req: Request, res: Response) {
   try {
     await Roles.bulkCreate(roles);
     await Categories.bulkCreate(category);
-    
+
     await Users.bulkCreate(usersData);
     await Products.bulkCreate(data, {
       include: [
         { model: Images, as: 'images' },
         { model: Properties, as: 'properties' },
-        {model: Ratings,  as: 'ratings' }
+        { model: Ratings, as: 'ratings' },
       ],
     });
-    
+
     await OrderBuy.bulkCreate(ordenBuyArray, {
       include: [{ model: ProductOrder }, { model: Products }],
     });
@@ -105,7 +104,7 @@ export async function getProductById(req: Request, res: Response) {
         },
         {
           model: Ratings,
-          attributes: {exclude: ['updatedAt']},
+          attributes: { exclude: ['updatedAt'] },
         },
       ],
       attributes: { exclude: ['categoryId'] },
@@ -299,3 +298,22 @@ export async function paginateProducts(req: Request, res: Response) {
 }
 
 // http://localhost:3001/products/paginate?page=1&quantityProducts=4&category=camaras y lentes&discount=5&price=0&data=id&order=ASC&name=''
+
+export async function setProductStock(req: Request, res: Response) {
+  try {
+    const id: number = +req.params.id;
+    const quantity: number = +req.body.quantity;
+
+    const productToUpdate = await Products.findByPk(id);
+
+    if (!productToUpdate) return res.json({ message: 'Product No existe' });
+
+    const stock: number = +productToUpdate.dataValues.stock;
+    await productToUpdate.update({ stock: stock - quantity });
+    await productToUpdate.save();
+
+    return res.json(productToUpdate);
+  } catch ({ message }) {
+    return res.status(400).json({ message });
+  }
+}
