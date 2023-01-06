@@ -15,12 +15,6 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 //redux
-<<<<<<< HEAD
-import { getProductById, addToCart } from '../../redux/slices/Cart';
-import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
-import { Sales } from '../home/components/Sales/Sales';
-import { Review } from './components/Review';
-=======
 import {
   getProductById,
   addToCart,
@@ -30,14 +24,13 @@ import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import { Sales } from "../home/components/Sales/Sales";
 // import Login from "../../components/login/Login";
 import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
->>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
+import { Review } from "../detail/components/Review";
+
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product: any = useParams();
-<<<<<<< HEAD
-=======
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -61,7 +54,6 @@ export const Detail = () => {
       loading: false,
     };
   };
->>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
 
   useEffect(() => {
     let detailCleaned = {
@@ -105,10 +97,7 @@ export const Detail = () => {
     discount,
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
-<<<<<<< HEAD
-=======
   // console.log(currentProduct);
->>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
@@ -149,15 +138,9 @@ export const Detail = () => {
                       <span> Ahorras</span>
                       <span>$ {`${price - priceProm}`}</span>
                     </div>
-<<<<<<< HEAD
-                    <div className='labelProm'>
-                      <span className='label'>Antes</span>
-                      <span className='priceProm'>{`$${priceProm}`}</span>
-=======
                     <div className="labelProm">
                       <span className="label">Antes</span>
                       <span className="priceProm">{` $${price}`}</span>
->>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
                     </div>
                   </div>
                 </div>
@@ -189,15 +172,6 @@ export const Detail = () => {
               <span className="stock">{stock}</span>
             </ul> */}
             <CartSection>
-<<<<<<< HEAD
-              <Btn name='addToCart' onClick={() => handleAddToCart()}>
-                Agregar al carrito
-              </Btn>
-              {/* <Btn name="buy" onClick={handleCheckOut}>
-                Comprar
-              </Btn> */}
-              <form action='http://localhost:3001/checkout' method='POST'>
-=======
               {user ? (
                 <Btn name="addToCart" onClick={() => handleAddToCart()}>
                   Agregar al carrito
@@ -210,7 +184,6 @@ export const Detail = () => {
               {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
 
               <form action="http://localhost:3001/checkout" method="POST">
->>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
                 <input
                   type='hidden'
                   name='title'
