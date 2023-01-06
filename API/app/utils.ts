@@ -1236,7 +1236,7 @@ export const data = [
       {
         name: 'Entrada de micrófono: ',
         value: 'línea de 3,5 mm en el transmisor',
-      },  
+      },
       {
         name: 'Salida principal: ',
         value: '3,5 mm en el receptor',
@@ -1425,7 +1425,7 @@ export const data = [
       {
         url_image: 'https://www.digi-zoom.com.ar/images/productos/1658_4_z.jpg',
       },
-    ], 
+    ],
     properties: [
       {
         name: 'Admite: ',
@@ -1473,7 +1473,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: '3,2 x 3,0 x 2,5" / 81,0 x 76,5 x 64,3 mm (Cabezal de flash individual)',
+        value:
+          '3,2 x 3,0 x 2,5" / 81,0 x 76,5 x 64,3 mm (Cabezal de flash individual)',
       },
       {
         name: 'Tiempo de reciclaje:',
@@ -1513,7 +1514,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: 'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
+        value:
+          'Ext: 11.81 x 8.27 x 6.3" / 30 x 21 x 16 cm Int: 11.02 x 7.48 x 4.92" / 28 x 19 x 12.5 cm',
       },
       {
         name: 'Colores:',
@@ -1553,7 +1555,8 @@ export const data = [
       },
       {
         name: 'Dimensiones: ',
-        value: 'Interior: 9.4 x 3.9 x 7.1" / 24 x 10 x 18 cm - Exterior: 10.2 x 5.5 x 7.9" / 26 x 14 x 20 cm',
+        value:
+          'Interior: 9.4 x 3.9 x 7.1" / 24 x 10 x 18 cm - Exterior: 10.2 x 5.5 x 7.9" / 26 x 14 x 20 cm',
       },
       {
         name: 'Colores:',
@@ -1568,11 +1571,7 @@ export const data = [
     price: 13290,
     stock: 5,
     description: `
-    Una funda compacta diseñada para camaras mirrorless (sin espejo, este modelo permite 1 pequeño cuerpo con un pequeño teleobjetivo o panqueque (pancake) incorporado.
-
-CARACTERÍSTICAS PRINCIPALES:
-Diseñado desde cero para las cámaras sin espejo y súper zoom.
-Ranura posterior que le permite llevar el Mover en su propio cinturón o en un speed belt Think Tank Photo Pro.`,
+    Una funda compacta diseñada para camaras mirrorless (sin espejo, este modelo permite 1 pequeño cuerpo con un pequeño teleobjetivo o panqueque (pancake) incorporado. CARACTERÍSTICAS PRINCIPALES: Diseñado desde cero para las cámaras sin espejo y súper zoom. Ranura posterior que le permite llevar el Mover en su propio cinturón o en un speed belt Think Tank Photo Pro.`,
 
     image: 'https://www.digi-zoom.com.ar/images/productos/784_1_z.jpg',
     state: true,
@@ -1597,7 +1596,8 @@ Ranura posterior que le permite llevar el Mover en su propio cinturón o en un s
       },
       {
         name: 'Dimensiones: ',
-        value: 'Internas: 3.5 x 4.7 x 3.1" / 9 x 12 x 8 cm Exteriores: 4.7 x 5.9 x 3.9 / 12 x 15 x 10 cm',
+        value:
+          'Internas: 3.5 x 4.7 x 3.1" / 9 x 12 x 8 cm Exteriores: 4.7 x 5.9 x 3.9 / 12 x 15 x 10 cm',
       },
       {
         name: 'Colores:',
@@ -1677,7 +1677,8 @@ Ranura posterior que le permite llevar el Mover en su propio cinturón o en un s
       },
       {
         name: 'Dimensiones: ',
-        value: '6.7 x 7.7 x 13.4" / 16.9 x 19.5 x 34.0 cm (excluyendo protuberancias)',
+        value:
+          '6.7 x 7.7 x 13.4" / 16.9 x 19.5 x 34.0 cm (excluyendo protuberancias)',
       },
       {
         name: 'Colores:',

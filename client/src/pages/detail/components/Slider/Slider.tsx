@@ -15,7 +15,7 @@ export const Slider = ({ images, loading }: any) => {
 
   //mapeo el array para acceder a la propiedad en donde están las imágenes
   let productImages: any = images.map((el: any) => el.url_image);
-  console.log(images);
+  // console.log(images);
 
   const nextSlide = () => {
     if (slideIndex < productImages.length) {
