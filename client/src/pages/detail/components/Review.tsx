@@ -1,32 +1,32 @@
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
+import { ContainerRatings } from './style';
+import moment from 'moment';
+import 'moment/locale/es';
 
-// Path intellisense
-//
 export const Review = ({ ratings }: { ratings: Array<any> }) => {
-  //   const rat = ratings[0].createdAt;
-  //   console.log(rat.split('T'));
+  const formato = 'DD MMM YYYY';
 
   return (
     <div>
-      <Box width={300}>
-        <Rating size='large' name='score' />
-      </Box>
       <h1>Opiniones del producto</h1>
-      {ratings?.map((rating) => (
-        <div key={rating.id}>
-          <Box>
-            <Rating
-              size='large'
-              name='read-only'
-              value={rating.score}
-              readOnly
-            />
-          </Box>
-          <p>{rating.createdAt.split('T')[0]}</p>
-          <p>{rating.commentary}</p>
-        </div>
-      ))}
+      {/* FALTA COMPONENTE DE PROMEDIOS  */}
+      <ContainerRatings>
+        {ratings?.map((rating) => (
+          <div key={rating.id} className="one__rating">
+            <p className="date__rating">{moment(rating.createdAt.split('T')[0]).format(formato)}</p>
+            <Box>
+              <Rating
+                size="large"
+                name="read-only"
+                value={rating.score}
+                readOnly
+              />
+            </Box>
+            <p className="commentary__rating">{rating.commentary}</p>
+          </div>
+        ))}
+      </ContainerRatings>
     </div>
   );
 };
