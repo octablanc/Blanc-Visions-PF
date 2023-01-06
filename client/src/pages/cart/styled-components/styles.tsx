@@ -43,8 +43,10 @@ export const Div = styled.div`
   }
   .labelProm {
     color: grey;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    width: 12rem;
     display: flex;
+    justify-content: center;
     align-content: space-between;
   }
   .priceProm {
@@ -91,6 +93,7 @@ export const Operators = styled.div`
   justify-content: center;
   border-color: #c2ad94;
   width: 10rem;
+  margin-top: 2.3rem;
   div {
     font-size: 1.5rem;
     display: flex;

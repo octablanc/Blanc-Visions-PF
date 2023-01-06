@@ -24,7 +24,7 @@ import loginImg from "../../assets/login.jpg";
 import CircularProgress from '@mui/material/CircularProgress';
 
 // Authentication
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 import { openSingUp } from "../singup/SingUp";
 
@@ -66,6 +66,11 @@ export default function Login() {
       setBtnLoading(true);
 
       await signInWithEmailAndPassword(auth, user.mail, user.password);
+
+      if(!auth.currentUser?.emailVerified){
+        window.alert('Debes verificar tu mail!');
+        await signOut(auth);
+      }
       
       setBtnLoading(false);
     } catch ({ code }) {

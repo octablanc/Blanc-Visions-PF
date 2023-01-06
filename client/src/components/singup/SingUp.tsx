@@ -25,11 +25,11 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailA
 import { auth } from "../../firebase/firebase.config";
 import { postUser } from "../../services/services";
 
-function setOpenSingUp(setOpen:Function){
-  return ()=> {setOpen(true);}
+function setOpenSingUp(setOpen: Function) {
+  return () => { setOpen(true); }
 }
 
-export var openSingUp = ()=> {};
+export var openSingUp = () => { };
 
 export default function SingUp() {
   const [user, setUser] = useState({
@@ -158,11 +158,15 @@ export default function SingUp() {
       try {
         setBtnLoading(true);
         await createUserWithEmailAndPassword(auth, user.mail, user.password);
-        if(auth.currentUser)
-          await sendEmailVerification(auth.currentUser);
-        await postUser(user);
+
+        if (auth.currentUser)
+          sendEmailVerification(auth.currentUser);
+
         await signOut(auth);
-        await signInWithEmailAndPassword(auth, user.mail, user.password);
+        window.alert('Debes verificar tu mail para inicar sesion!');
+        
+        await postUser(user);
+        // await signInWithEmailAndPassword(auth, user.mail, user.password);
         setBtnLoading(false);
       } catch ({ code }) {
         setBtnLoading(false);
@@ -172,9 +176,9 @@ export default function SingUp() {
             setError({ ...error, mail: 'Mail ya registrado!' });
             break;
 
-            case 'auth/invalid-email':
-              setError({ ...error, mail: 'Mail invalido!' });
-              break;
+          case 'auth/invalid-email':
+            setError({ ...error, mail: 'Mail invalido!' });
+            break;
 
           case 'auth/weak-password':
             setError({ ...error, password: 'La contraseña debe tener al menos 6 caracteres!' });

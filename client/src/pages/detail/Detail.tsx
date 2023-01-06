@@ -15,26 +15,87 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 //redux
+<<<<<<< HEAD
 import { getProductById, addToCart } from '../../redux/slices/Cart';
 import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
 import { Sales } from '../home/components/Sales/Sales';
 import { Review } from './components/Review';
+=======
+import {
+  getProductById,
+  addToCart,
+  cleanDetail,
+} from "../../redux/slices/Cart";
+import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
+import { Sales } from "../home/components/Sales/Sales";
+// import Login from "../../components/login/Login";
+import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
+>>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product: any = useParams();
+<<<<<<< HEAD
+=======
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const resetDetail = () => {
+    return {
+      id: 0,
+      name: "",
+      code: "",
+      description: "",
+      image: "",
+      price: 0,
+      priceProm: 0,
+      discount: 0,
+      stock: 0,
+      entrega: "",
+      id_category: 0,
+      state: true,
+      category: "",
+      properties: [],
+      images: [],
+      loading: false,
+    };
+  };
+>>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
 
   useEffect(() => {
+    let detailCleaned = {
+      id: 0,
+      name: "",
+      code: "",
+      description: "",
+      image: "",
+      price: 0,
+      priceProm: 0,
+      discount: 0,
+      stock: 0,
+      entrega: "",
+      id_category: 0,
+      state: true,
+      category: "",
+      properties: [],
+      images: [],
+      loading: false,
+    };
     dispatch(getProductById(product.id));
+    // return () => {resetDetail()}
+    return () => {
+      dispatch(cleanDetail(detailCleaned));
+    };
   }, [dispatch, product.id]);
 
   const { currentProduct, cartTotalAmount, cartTotalQuantity } = useAppSelector(
     (state: any) => state.cartState
   );
+  const { loading, user } = useAppSelector((state) => state.userState);
 
   const {
-    loading,
+    // loading,
     name,
     price,
     description,
@@ -44,10 +105,19 @@ export const Detail = () => {
     discount,
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
+<<<<<<< HEAD
+=======
+  // console.log(currentProduct);
+>>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
     navigate('/cart');
+  };
+
+  const handleLogin = () => {
+    setSuccess(true);
+    setMsg("login");
   };
 
   return (
@@ -65,7 +135,6 @@ export const Detail = () => {
             <div>
               <hr />
             </div>
-
             <Slider loading={loading} images={images} />
           </Image>
           <Info>
@@ -80,9 +149,15 @@ export const Detail = () => {
                       <span> Ahorras</span>
                       <span>$ {`${price - priceProm}`}</span>
                     </div>
+<<<<<<< HEAD
                     <div className='labelProm'>
                       <span className='label'>Antes</span>
                       <span className='priceProm'>{`$${priceProm}`}</span>
+=======
+                    <div className="labelProm">
+                      <span className="label">Antes</span>
+                      <span className="priceProm">{` $${price}`}</span>
+>>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
                     </div>
                   </div>
                 </div>
@@ -107,13 +182,14 @@ export const Detail = () => {
               </ul>
             ))}
 
-            <ul>
+            {/* <ul>
               <hr />
               <br />
-              {/* <span className="stock">Unidades disponibles:</span> */}
-              {/* <span className="stock">{stock}</span> */}
-            </ul>
+              <span className="stock">Unidades disponibles:</span>
+              <span className="stock">{stock}</span>
+            </ul> */}
             <CartSection>
+<<<<<<< HEAD
               <Btn name='addToCart' onClick={() => handleAddToCart()}>
                 Agregar al carrito
               </Btn>
@@ -121,6 +197,20 @@ export const Detail = () => {
                 Comprar
               </Btn> */}
               <form action='http://localhost:3001/checkout' method='POST'>
+=======
+              {user ? (
+                <Btn name="addToCart" onClick={() => handleAddToCart()}>
+                  Agregar al carrito
+                </Btn>
+              ) : (
+                <Btn name="login" onClick={() => handleLogin()}>
+                  Agregar al carrito
+                </Btn>
+              )}
+              {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
+
+              <form action="http://localhost:3001/checkout" method="POST">
+>>>>>>> 9557ecbd2df06e4120032ef10760365d9560ebf8
                 <input
                   type='hidden'
                   name='title'
