@@ -11,8 +11,12 @@ function MyBuy() {
   if (userState && userState.id)
     idToSearch = parseInt(userState?.id.toString());
 
+  console.log(myBuys)
+
   useEffect(() => {
-    dispatch(getAllBuy(idToSearch));
+    // dispatch(getAllBuy(idToSearch)); 
+    dispatch(getAllBuy(1))
+                  // myBuys[myBuys.length -1].productsOrders.map(())
   }, [dispatch, userState]);
   return (
     <div className='container'>

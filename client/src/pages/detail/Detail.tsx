@@ -179,7 +179,7 @@ export const Detail = () => {
                   Agregar al carrito
                 </Btn>
               )}
-              {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
+              {success && !user ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
 
               <form action="http://localhost:3001/checkout" method="POST">
                 <input
