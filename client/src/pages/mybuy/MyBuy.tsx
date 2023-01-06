@@ -11,7 +11,7 @@ function MyBuy() {
   if (userState && userState.id)
     idToSearch = parseInt(userState?.id.toString());
 
-  console.log(myBuys)
+  console.log('myBuys:',myBuys)
 
   useEffect(() => {
     // dispatch(getAllBuy(idToSearch)); 

@@ -1,6 +1,7 @@
 import { addToCart, getProductDetail } from './cartSlice';
 import axios from 'axios';
 import * as dotenv from "dotenv";
+import { UniquePro } from '../products/productsSlice';
 
 const { HOST } = process.env;
 
@@ -27,7 +28,7 @@ export const getProductById = (id: number) => {
 //   return async (dispatch: any) => {
 //     try {
 //       const updatedProduct = await axios.put(`http://localhost:3001/products/${id}`, product.stock)
-//       dispatch()
+//       dispatch(purchase())
 
 //     } catch (error) {
 
