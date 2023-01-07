@@ -151,9 +151,6 @@ export const productSlice = createSlice({
     getCategories: (state, action) => {
       state.categories = action.payload;
     },
-    createProduct: (state, action) => {
-      state.products = [...state.products, action.payload];
-    },
     detailProduct: (state, action) => {
       state.currentProduct = action.payload;
     },
@@ -191,7 +188,6 @@ export const {
   getProducts,
   changePage,
   getCategories,
-  createProduct,
   detailProduct,
   productOffCategories,
   setPagination,
