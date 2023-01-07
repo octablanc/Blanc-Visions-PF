@@ -13,17 +13,19 @@ export const Review = ({ ratings }: { ratings: Array<any> }) => {
       {/* FALTA COMPONENTE DE PROMEDIOS  */}
       <ContainerRatings>
         {ratings?.map((rating) => (
-          <div key={rating.id} className="one__rating">
-            <p className="date__rating">{moment(rating.createdAt.split('T')[0]).format(formato)}</p>
+          <div key={rating.id} className='one__rating'>
+            <p className='date__rating'>
+              {moment(rating.createdAt.split('T')[0]).format(formato)}
+            </p>
             <Box>
               <Rating
-                size="large"
-                name="read-only"
+                size='large'
+                name='read-only'
                 value={rating.score}
                 readOnly
               />
             </Box>
-            <p className="commentary__rating">{rating.commentary}</p>
+            <p className='commentary__rating'>{rating.commentary}</p>
           </div>
         ))}
       </ContainerRatings>
