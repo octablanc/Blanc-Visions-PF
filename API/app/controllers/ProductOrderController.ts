@@ -6,7 +6,7 @@ import {
 } from '../interfaces-type';
 import { Model } from 'sequelize';
 const ProductsOrder = DBcontext.models.productOrder;
-const Products = DBcontext.models.Product;
+const Products = DBcontext.models.products;
 
 export const getProductsOrder: TypeFunctionExp = async (_req, res) => {
   try {
@@ -76,21 +76,21 @@ export const getProductsOrderUser: TypeFunctionExp = async (req, res) => {
 
 export const postProductsOrderCart: TypeFunctionExp = async (req, res) => {
   try {
-    const { productId, quantity, price, userId }: ProductOrderCartIfc =
-      req.body;
-
-    const productOrderCartCreate = await ProductsOrder.create({
-      productId,
-      quantity,
-      price,
-      userId,
-    });
+    const { productId, quantity, price, userId }: ProductOrderCartIfc = req.body;
+    const cartUser = await ProductsOrder.findOne({where:{productId, userId}});
+    if( !cartUser ) await ProductsOrder.create({productId,quantity,price,userId,});
+    else{
+      const newQuantity = quantity + cartUser.dataValues.quantity;
+      await cartUser?.update({quantity: newQuantity});
+      await cartUser?.save();
+    }
+    const arr = await ProductsOrder.findAll({where:{userId},attributes:{exclude:['id','orderBuyId']}})
     return res.json({
       message: 'POST All Product Order CART.',
-      productOrderCartCreate,
+      result: arr,
     });
   } catch ({ message }) {
-    console.log(message);
+    console.log("err msj =>",message);
     return res.status(400).send({ message });
   }
 };
