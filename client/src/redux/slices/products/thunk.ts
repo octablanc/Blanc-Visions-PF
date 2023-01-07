@@ -30,6 +30,7 @@ export const getAllProducts = () => {
 export const getProductById = (id: number) => {
   return async (dispatch: any) => {
     try {
+      if(isNaN(id)) return 1;
       dispatch(startLoadingProducts(true));
       let productsId = (await axios(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`))
         .data;
