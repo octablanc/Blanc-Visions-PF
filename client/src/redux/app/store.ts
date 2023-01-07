@@ -4,13 +4,15 @@ import { categoriesSlice } from '../slices/categories/categories.slice';
 import { productSlice } from '../slices/products/productsSlice';
 import { userSlice } from '../slices/user-authentication';
 import { buySlice } from '../slices/misCompras/buySlice';
+import { adminSlice } from '../slices/Admin/adminSlice';
 export const store = configureStore({
   reducer: {
     productsState: productSlice.reducer,
     categoriesState: categoriesSlice.reducer,
     cartState: cartSlice.reducer,
     userState: userSlice.reducer,
-    buyState: buySlice.reducer
+    buyState: buySlice.reducer,
+    adminState: adminSlice.reducer,
   },
 });
 

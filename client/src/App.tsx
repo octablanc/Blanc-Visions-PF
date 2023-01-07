@@ -29,7 +29,7 @@ function App() {
 
   // Set the user logged in the start
   useEffect(() => {
-    onAuthStateChanged(auth, async user => {
+    onAuthStateChanged(auth, async (user) => {
       if (user && !userState) dispatch(getUser(user.email));
       if (!user) dispatch(getUser(user));
     });
@@ -45,10 +45,10 @@ function App() {
           <Route path='products' element={<Products />} />
           {userState?.role?.name === 'admin' && (
             // <Routes>
-            //   <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/create' element={<CreateProduct />} />
             // </Routes>
           )}
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='products/:id' element={<Detail />} />
           <Route path='cart' element={<Cart />} />
           <Route path='*' element={<NotFound />} />

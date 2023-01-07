@@ -7,6 +7,7 @@
 //   "state": true,
 //   "categoryId": 1
 //  }
+
 export const roles = [
   {
     name: 'client',
@@ -53,7 +54,7 @@ export const category = [
 export const data = [
   {
     code: 'F0021',
-    name: 'Sony alfha 7',
+    name: 'sony alpha 7',
     price: 100,
     stock: 50,
     description: `Combinando un diseño elegante con capacidades esenciales, la Sony alpha 7 es una DSLR capaz adecuada tanto para tomar fotos como para grabar videos. El diseño probado del sensor de 18MP ofrece una calidad de imagen y una sensibilidad impresionantes, junto con un disparo continuo de 3 fps y una grabación de video de hasta Full HD 30p.`,
@@ -101,7 +102,7 @@ export const data = [
   },
   {
     code: 'F027',
-    name: 'Canon eos rebel kit T7',
+    name: 'canon eos rebel kit T7',
     price: 15000,
     stock: 30,
     description: ` 
@@ -149,7 +150,7 @@ export const data = [
   },
   {
     code: 'Peak',
-    name: 'Peak design tripode',
+    name: 'peak design tripode',
     price: 15000,
     stock: 2,
     description: `Los fotógrafos que busquen un trípode bellamente diseñado con una gran relación resistencia / tamaño y peso apreciarán el trípode de viaje de aluminio de Peak Design. De inspiración arquitectónica y con un peso de solo 3.4 libras, este innovador trípode reduce el volumen plegado gracias a las patas que se almacenan más juntas que los trípodes tradicionales.`,
@@ -189,7 +190,7 @@ export const data = [
   },
   {
     code: 'Pakd',
-    name: 'Vanguard vesta 204AP',
+    name: 'vanguard vesta 204AP',
     price: 18500,
     stock: 7,
     description: `El kit de trípode de aluminio de 4 secciones VESTA 204AP utiliza una rótula ergonómica PH-23 fluida y un sistema bloqueo de patas de clip fácil y rápido de ajustar. Cree imágenes atractivas conectando fácilmente su equipo con la zapata rápida Vanguard QS-29 y desconecte rápidamente su equipo con el sistema de liberación rápida. Suba, baje y realice ajustes precisos a cualquier altura.`,
@@ -231,7 +232,7 @@ export const data = [
   },
   {
     code: 'VGSO',
-    name: 'Vanguard vk 203 APM',
+    name: 'vanguard vk 203 apm',
     price: 9700,
     stock: 5,
     description: `Es una serie simple de trípodes de aluminio con un diseño compacto y elegante. Diseñado para principiantes, es simple e intuitivo de operar. Pueden arreglar fácilmente los pies con un tipo de bloqueo de palanca, operación difícil no es necesaria. Además, dado que puede estirarse a la altura de la línea del ojo en el estado más extendido, puedes usarla con casi todas las cámaras útiles, incluso si no disparas mientras te agachas con un pequeño trípode.`,
@@ -274,7 +275,7 @@ export const data = [
   },
   {
     code: 'Pe4k',
-    name: 'Vanguard veo 2 235',
+    name: 'vanguard veo 2 235',
     price: 9700,
     stock: 1,
     description: `Intuitivo y sencillo de colocar el trípode en la posición deseada: Exclusivo e innovador sistema de columna central que permite configurar la columna central y las patas del trípode en menos de 15 segundos.`,
@@ -317,7 +318,7 @@ export const data = [
   },
   {
     code: 'db00',
-    name: 'Nikon sb-700 flash',
+    name: 'nikon sb-700 flash',
     price: 100200,
     stock: 17,
     description: `Unidad Speedlight portátil y versátil i-TTL Speedlight - Optimizada para usar con el Sistema de Iluminación Creativa (Creative Lighting System, CLS) de Nikon.
@@ -360,7 +361,7 @@ export const data = [
   },
   {
     code: 'MF12',
-    name: 'Godox mf12 macro flash',
+    name: 'godox mf12 macro flash',
     price: 43776,
     stock: 6,
     description: `Diseñado para fotografía de primeros planos, el flash macro MF12 de Godox facilita la fotografía macro. Este cabezal de flash le permite tomar fotografías hermosas y nítidas de sujetos pequeños como plantas, animales e insectos a una distancia extremadamente cercana.`,
@@ -400,7 +401,7 @@ export const data = [
   },
   {
     code: 'Fuji',
-    name: 'Godox v1 flash para fuji',
+    name: 'godox v1 flash para fuji',
     price: 43776,
     stock: 6,
     description: `Compatible con Sony ADI / P-TTL, esta luz flexible en la cámara se distingue por su cabeza redonda, que proporciona una luz suave y lisa con una caída gradual que aumenta la salida favorecedora.`,
@@ -440,7 +441,7 @@ export const data = [
   },
   {
     code: 'goro',
-    name: 'Go pro soporte',
+    name: 'go pro soporte',
     price: 11000,
     stock: 6,
     description: `Monta la GoPro en tu tabla de bodyboard, tu tabla de surf soft-top, tu tabla de surf de espuma o tu paddle surf para capturar tu sesión desde el tubo hasta la playa. Graba metraje POV envolvente o dirige la cámara de nuevo hacia ti para capturar autorretratos mientras haces surf o paddle surf.`,
@@ -468,7 +469,7 @@ export const data = [
   },
   {
     code: 'reel',
-    name: 'Kodac flo r12',
+    name: 'kodac flo r12',
     price: 4999,
     stock: 6,
     description: `Sensor CMOS APS-C de 24.1MP y procesador de imagen DIGIC 4+ En el corazón del Rebel T7 se encuentra un sensor APS-C CMOS de 24.1MP y un procesador de imagen DIGIC 4+, que se combinan para proporcionar tanto velocidad en todo el sistema de la cámara como una calidad de imagen notable.`,
@@ -510,7 +511,7 @@ export const data = [
   },
   {
     code: 'na9d',
-    name: 'Canon marc',
+    name: 'canon marc',
     price: 4999,
     stock: 6,
     description: `Desde el momento en el que la luz pasa a través del objetivo, la EOS 5D Mark IV capta cada matiz, color y detalle. Una vez más, Canon ha introducido más detalle en cada dimensión gracias a un nuevo sensor capaz de una claridad extraordinaria`,
@@ -553,7 +554,7 @@ export const data = [
   },
   {
     code: 'na9fd',
-    name: 'Canon iv',
+    name: 'canon iv',
     price: 4999,
     stock: 6,
     description: `La EOS 5D Mark IV incluye un sistema de enfoque avanzado y medición que capta y realiza un seguimiento de cada momento en cuanto se produce, incluso con una iluminación difícil.`,
@@ -595,7 +596,7 @@ export const data = [
   },
   {
     code: 'SNCO',
-    name: 'Sinco microfono liver',
+    name: 'sinco microfono liver',
     price: 4999,
     stock: 6,
     description: `SYNCO Lav-S6R es un micrófono lavalier XLR omnidireccional, con alta sensibilidad y bajo ruido propio para capturar un sonido natural claro. Funciona con cámaras, videocámaras, grabadoras de audio y mezcladores`,
@@ -940,7 +941,7 @@ export const data = [
   },
   {
     code: 'CFUSB3',
-    name: 'sanDisk lector professional',
+    name: 'sandisk lector professional',
     price: 11015,
     stock: 7,
     description: `
