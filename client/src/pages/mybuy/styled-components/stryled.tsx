@@ -1,10 +1,58 @@
 import styled from 'styled-components';
 
+export const BoxStyle = {
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  marginTop: '10rem',
+  width: 800,
+  backgroundColor: 'white',
+  borderRadius: '5px',
+};
+
+export const ModalContainer = styled.form`
+transform: 'translate(-50%, -50%)'
+display:flex;
+justify-content: center;
+text-align: center;
+padding-top:1rem;
+padding-bottom:5rem;
+   img{
+    width : 12rem;
+   }
+   .nameProduct{
+    font-size: x-large;
+    text-transform: capitalize;
+
+   }
+   .MuiRating-root{
+    font-size: 5rem;
+   }
+   hr{
+    width:80%;
+    margin: 20px auto;
+   }
+   textarea{
+     resize: none;
+    border: 1px solid gray;
+   }
+  h3{
+    font-weight: 400;
+  }
+  h1{
+    font-weight: 500;
+  }
+ `;
 export const BuyContainer = styled.div`
+  margin: 0 5rem;
   display: flex;
   height: 10rem;
   align-items: center;
   gap: 2rem;
+  justify-content: space-between;
+  .name__product_order:hover{
+    cursor:pointer;
+    text-decoration:underline;
+  }
 `;
 
 export const BuyImage = styled.div`
@@ -39,5 +87,16 @@ export const InfoContainer = styled.div`
   justify-content: space-between;
   span {
     font-weight: bold;
+  }
+`;
+
+export const ContainerAlert = styled.div`
+  position: absolute;
+  bottom: 10rem;
+  left: 1rem;
+
+  .MuiPaper-root {
+    font-size: medium;
+    position: fixed;
   }
 `;

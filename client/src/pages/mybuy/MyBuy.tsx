@@ -9,16 +9,18 @@ function MyBuy() {
   const userState = useAppSelector(({ userState }) => userState.user);
   let idToSearch: number;
   if (userState && userState.id)
-    idToSearch = parseInt(userState?.id.toString());
+  idToSearch = parseInt(userState?.id.toString());
 
   useEffect(() => {
-    dispatch(getAllBuy(idToSearch));
+  dispatch(getAllBuy(idToSearch)); 
+  // dispatch(getAllBuy(1));
+  // HECHO PARA TESTEAR 
   }, [dispatch, userState]);
   return (
-    <div className='container'>
+    <div className="container">
       <h1>Mis compras</h1>
       {myBuys.length ? (
-        myBuys.map((compras) => <BuyList compras={compras} key={compras.id} />)
+        myBuys.map((compras) => <BuyList compras={compras} key={compras.id} userId={idToSearch} />)
       ) : (
         <h2>Todavia no tiene compras para mostrar </h2>
       )}

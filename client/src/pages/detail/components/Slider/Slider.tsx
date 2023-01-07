@@ -1,13 +1,13 @@
-import { useState } from "react";
-import Spinner from "../../../../components/Spinner/Spinner";
-import { BtnSlider } from "./BtnSlider";
+import { useState } from 'react';
+import Spinner from '../../../../components/Spinner/Spinner';
+import { BtnSlider } from './BtnSlider';
 import {
   Container,
   ContainerImage,
   Img,
   Miniatures,
   Thumbnails,
-} from "./styled-components/Slider";
+} from './styled-components/Slider';
 
 // images: array de imágenes pasado x parámetro
 export const Slider = ({ images, loading }: any) => {
@@ -35,42 +35,32 @@ export const Slider = ({ images, loading }: any) => {
 
   return (
     // <div>
-    <Container >
-  
-        {loading ? (
-          <Spinner />
-        ) : productImages ? (
-          <ContainerImage>
-            <Img src={productImages[slideIndex - 1]} alt="" />
-          </ContainerImage>
-        ) : (
-          <Img src={"imagen no encontrada"} alt="" />
-        )}
+    <Container>
+      {loading ? (
+        <Spinner />
+      ) : productImages ? (
+        <ContainerImage>
+          <Img src={productImages[slideIndex - 1]} alt='' />
+        </ContainerImage>
+      ) : (
+        <Img src={'imagen no encontrada'} alt='' />
+      )}
 
-        <div className="buttons">
-          <BtnSlider
-            className="boton"
-            moveSlide={prevSlide}
-            direction={"prev"}
-          />
-          <BtnSlider
-            className="boton"
-            moveSlide={nextSlide}
-            direction={"next"}
-          />
-        </div>
+      <div className='buttons'>
+        <BtnSlider className='boton' moveSlide={prevSlide} direction={'prev'} />
+        <BtnSlider className='boton' moveSlide={nextSlide} direction={'next'} />
+      </div>
 
-        <Thumbnails>
-          {Array.from(productImages, (el: any, key: number) => (
-            <Miniatures>
-              <img
-                className={slideIndex - 1 === key ? "img active" : "img pasive"}
-                src={el}
-              />
-            </Miniatures>
-          ))}
-        </Thumbnails>
-   
+      <Thumbnails>
+        {Array.from(productImages, (el: any, key: number) => (
+          <Miniatures>
+            <img
+              className={slideIndex - 1 === key ? 'img active' : 'img pasive'}
+              src={el}
+            />
+          </Miniatures>
+        ))}
+      </Thumbnails>
     </Container>
     // </div>
   );

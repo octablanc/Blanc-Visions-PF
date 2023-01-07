@@ -8,9 +8,10 @@ import ProductBuy from './ProductBuy';
 
 interface Props {
   compras: BuyState;
+  userId: number;
 }
 
-function buyList({ compras }: Props) {
+function buyList({ compras, userId }: Props) {
   const {
     buy,
     createdAt,
@@ -38,7 +39,7 @@ function buyList({ compras }: Props) {
       <hr />
       <ProductsContainer>
         {productOrders.map((prodBuy) => (
-          <ProductBuy prodBuy={prodBuy} key={prodBuy.id} />
+          <ProductBuy prodBuy={prodBuy} key={prodBuy.id} userId={userId} />
         ))}
       </ProductsContainer>
     </CardConteiner>

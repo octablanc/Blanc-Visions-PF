@@ -54,7 +54,8 @@ function App() {
           <Route path='*' element={<NotFound />} />
           <Route path='profile/' element={<Profile />} />
           <Route path='about' element={<About />} />
-          <Route path='buy' element={<MyBuy />} />
+
+          {userState?.id &&<Route path='buy' element={<MyBuy />} />}
           {/*Hecho para testear mis compras...*/}
           <Route path='questions' element={<Questions />} />
           <Route path='privacy' element={<Privacy />} />

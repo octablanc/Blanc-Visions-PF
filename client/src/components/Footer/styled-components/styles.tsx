@@ -5,6 +5,12 @@ export const FooterBar = styled.div`
   /* color: ${(props) => props.theme.colors.white}; */
   color: #777769;
   padding: 2.5rem;
+  a {
+    color: beige;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const GridFooter = styled.div`

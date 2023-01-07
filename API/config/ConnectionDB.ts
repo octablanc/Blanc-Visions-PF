@@ -13,6 +13,7 @@ import ProductsProperties from "../app/models/ProductsProperties.model";
 import Images from "../app/models/Images.model";
 import ProductOrder from "../app/models/ProductOrder.model";
 import OffersModel from "../app/models/Offers.model";
+import Ratings from "../app/models/Ratings.model";
 
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -39,6 +40,7 @@ Roles(DBcontext);
 Users(DBcontext);
 Images(DBcontext);
 ProductOrder(DBcontext);
+Ratings(DBcontext)
 
 const {
   cartBuy,
@@ -52,6 +54,7 @@ const {
   images,
   productOrder,
   offers,
+  ratings
 } = DBcontext.models;
 
 /*
@@ -112,6 +115,18 @@ productOrder.belongsTo(orderBuy);
 // Un producto tiene a una orden de producto, y una orden de producto pertenece a un producto.
 products.hasOne(productOrder);
 productOrder.belongsTo(products);
+
+
+products.hasMany(ratings);
+ratings.belongsTo(products);
+
+users.hasMany(ratings);
+ratings.hasOne(users);
+
+
+users.hasMany(productOrder);
+productOrder.hasOne(users);
+
 
 export default DBcontext;
 //Un comentario de prueba

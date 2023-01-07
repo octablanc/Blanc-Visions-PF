@@ -39,6 +39,7 @@ const Users_model_1 = __importDefault(require("../app/models/Users.model"));
 const ProductsProperties_model_1 = __importDefault(require("../app/models/ProductsProperties.model"));
 const Images_model_1 = __importDefault(require("../app/models/Images.model"));
 const ProductOrder_model_1 = __importDefault(require("../app/models/ProductOrder.model"));
+const Ratings_model_1 = __importDefault(require("../app/models/Ratings.model"));
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
 const { DB_URL } = process.env;
@@ -61,7 +62,8 @@ const DBcontext = new sequelize_1.Sequelize(`${DB_URL}`, {
 (0, Users_model_1.default)(DBcontext);
 (0, Images_model_1.default)(DBcontext);
 (0, ProductOrder_model_1.default)(DBcontext);
-const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder } = DBcontext.models;
+(0, Ratings_model_1.default)(DBcontext);
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder, ratings } = DBcontext.models;
 /*
 Un Usuario puede tener solo 1 Rol. Si el rol es usuario entonces tendra un carrito de compra. Si el Rol es Admin, entonces tendra un carrito de ventas.
 Tanto el carrito de compra como el de venta, tendran acceso a la Orden de Compra.
@@ -106,4 +108,6 @@ productOrder.belongsTo(orderBuy);
 // Un producto tiene a una orden de producto, y una orden de producto pertenece a un producto.
 products.hasOne(productOrder);
 productOrder.belongsTo(products);
+products.hasMany(ratings);
+ratings.belongsTo(products);
 exports.default = DBcontext;
