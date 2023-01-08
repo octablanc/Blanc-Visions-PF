@@ -11,7 +11,6 @@ import bodyParser from 'body-parser';
 module.exports = (function runApp() {
   dotenv.config();
   const { PORT, BACKEND_URL } = process.env;
-
   const app = express();
 
   app.use(morgan('dev'));
