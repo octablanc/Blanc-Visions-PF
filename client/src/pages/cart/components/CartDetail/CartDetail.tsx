@@ -36,6 +36,7 @@ import { FlashMsg } from "../FlashMsg/FlashMsg";
 import { postOrderBuy } from "../../../../services/services";
 import { EmptyCart } from "./EmptyCart";
 import { Checkout } from "../../../Shipping/Components/Checkout";
+import { Shipping } from "../../../Shipping/Shipping";
 // import { Shipping } from "../../../Shipping/Shipping";
 
 export const CartDetail = () => {
@@ -51,6 +52,7 @@ export const CartDetail = () => {
   const { user } = useAppSelector((state) => state.userState);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
+  const [shipping, setShipping] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -91,29 +93,33 @@ export const CartDetail = () => {
     dispatch(emptyCart(e));
   };
 
-  const handleSubmit = () => {
-    const orderBuy = {
-      priceTotalDiscount: cartTotalAmount,
-      discount: discount,
-      state: true,
-      postalCode: 199,
-      street: "calle falsa",
-      height: "12943",
-      city: "varelaa",
-      quantityProducts: cartTotalQuantity,
-      dues: 130,
-      userId: user?.id,
-      buy: true,
-      productOrders: cartItems.map((prod: any) => {
-        return {
-          productId: prod.id,
-          quantity: prod.cartQuantity,
-          price: prod.price,
-        };
-      }),
-    };
-    postOrderBuy(orderBuy);
-  };
+  const handleClick = () => {
+    setShipping(true);    
+  }
+
+  // const handleSubmit = () => {
+  //   const orderBuy = {
+  //     priceTotalDiscount: cartTotalAmount,
+  //     discount: discount,
+  //     state: true,
+  //     postalCode: 199,
+  //     street: "calle falsa",
+  //     height: "12943",
+  //     city: "varelaa",
+  //     quantityProducts: cartTotalQuantity,
+  //     dues: 130,
+  //     userId: user?.id,
+  //     buy: true,
+  //     productOrders: cartItems.map((prod: any) => {
+  //       return {
+  //         productId: prod.id,
+  //         quantity: prod.cartQuantity,
+  //         price: prod.price,
+  //       };
+  //     }),
+  //   };
+  //   postOrderBuy(orderBuy);
+  // };
 
   //alternativa de derivar a un form para cargar datos de shipping
    
@@ -214,10 +220,28 @@ export const CartDetail = () => {
             </TotalDiv>
             <Buttons>
 
-              {/* <Shipping currentProduct ={currentProduct} cartTotalQuantity={cartTotalQuantity} cartTotalAmount={cartTotalAmount} /> */}
-              <Checkout cartTotalQuantity={cartTotalQuantity} cartTotalAmount={cartTotalAmount} handleSubmit={handleSubmit}/>
+            <Btn onClick={() => handleClick()}>Finalizar compra</Btn>
+              
+            {shipping ? 
+            
+            <Shipping 
+            cartItems={[]} 
+            itemTotalQuantity={0} 
+            itemTotalAmount={0} 
+            cartTotalQuantity={0} 
+            cartTotalAmount={0} 
+            itemTempStock={0} 
+            loading={false} 
+            localStorage={[]} 
+            currentProduct={currentProduct.id} 
+            /> 
+            : ""
+            }
 
-              {/* ************SE PASÓ ESTO AL COMPONENTE CHECKOUT DE LA LÍNEA DE ARRIBA***************
+          
+              {/* ****** SE AGREGÓ EL SHIPPING PARA CAPTURAR LOS DATOS DE ENVIO Y GENERAR LA ORDEN DE COMPRA
+              DESPUES SE ENVIA AL CHECKOUT PARA VERIFICAR LOS DATOS ANTES DEL PAGO*****************
+              
               <form
                 action="https://blanc-visions-pf-kingcomm.up.railway.app/checkout"
                 method="POST"

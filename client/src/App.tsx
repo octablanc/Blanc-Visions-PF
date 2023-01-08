@@ -22,6 +22,7 @@ import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
 import { Dashboard } from './pages/Dashboard/Dashboard';
+import { Checkout } from './pages/Shipping/Components/Checkout';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -51,6 +52,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='products/:id' element={<Detail />} />
           <Route path='cart' element={<Cart />} />
+          <Route path='checkout' element={<Checkout />} />
           <Route path='*' element={<NotFound />} />
           <Route path='profile/' element={<Profile />} />
           <Route path='about' element={<About />} />

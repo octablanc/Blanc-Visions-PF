@@ -1,8 +1,6 @@
 //components
 import { Slider } from './components/Slider/Slider';
 import Spinner from '../../components/Spinner/Spinner';
-//icons
-import { AiOutlineStar, AiFillStar } from '../../icons';
 //styles
 import {
   Container,
@@ -26,8 +24,9 @@ import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import { Sales } from "../home/components/Sales/Sales";
 // import Login from "../../components/login/Login";
 import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
-import { Checkout } from "../Shipping/Components/Checkout";
-import { ShippingForm } from "../Shipping/Shipping";
+import { Shipping, 
+  // ShippingForm 
+} from "../Shipping/Shipping";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -123,7 +122,7 @@ export const Detail = () => {
       setMsg("Stock agotado");
     } else {
       if (stock > 0) {
-        dispatch(addToCart(currentProduct)); //hago otra función q sea comprar!!!
+        dispatch(addToCart(currentProduct)); 
       }
     }
     setShipping(true);
@@ -165,13 +164,7 @@ export const Detail = () => {
                   </div>
                 </div>
               )}
-              {/* <div>
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
-              </div> */}
+ 
             </div>
             <p className='features'>Descripción</p>
             <p>{description}</p>
@@ -226,7 +219,7 @@ export const Detail = () => {
         </Container>
       )}
       <br />
-      {shipping ? <ShippingForm cartItems={[]} itemTotalQuantity={0} itemTotalAmount={0} cartTotalQuantity={0} cartTotalAmount={0} itemTempStock={0} loading={false} localStorage={[]} currentProduct={currentProduct.id} /> : ""}
+      {shipping ? <Shipping cartItems={[]} itemTotalQuantity={0} itemTotalAmount={0} cartTotalQuantity={0} cartTotalAmount={0} itemTempStock={0} loading={false} localStorage={[]} currentProduct={currentProduct.id} /> : ""}
       <hr />
       <br />
       <Sales />

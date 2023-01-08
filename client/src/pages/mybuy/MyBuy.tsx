@@ -9,20 +9,14 @@ function MyBuy() {
   const userState = useAppSelector(({ userState }) => userState.user);
   let idToSearch: number;
   if (userState && userState.id)
-<<<<<<< HEAD
-    idToSearch = parseInt(userState?.id.toString()); 
 
-  useEffect(() => {
-    dispatch(getAllBuy(idToSearch)); 
-    // dispatch(getAllBuy(1))  
-=======
   idToSearch = parseInt(userState?.id.toString());
 
   useEffect(() => {
   dispatch(getAllBuy(idToSearch)); 
   // dispatch(getAllBuy(1));
   // HECHO PARA TESTEAR 
->>>>>>> 414cadfc5e9ae5d81627cf0ae88a2525babe2538
+
   }, [dispatch, userState]);
   return (
     <div className="container">
