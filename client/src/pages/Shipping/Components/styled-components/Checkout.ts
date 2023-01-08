@@ -84,10 +84,10 @@ export const Div = styled.div`
         grid-template-columns: 1fr 3fr;
         gap: 0.5rem;
         justify-items: start;
+        color: ${(props) => props.theme.colors.secondary};
       }
       .discount {
-        text-decoration: line-through;
-        color: ${(props) => props.theme.colors.secondary};
+        text-decoration: line-through;        
       }
     }
     .price {
