@@ -1,12 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UniquePro } from '../products';
 
+interface ProductCartIfc {
+  name: string;
+  id: number;
+  price: number;
+  stock: number;
+  image: string;
+  discount: number;
+}
+
 export interface BoughtPro {
-  // id: number;
+  id: number;
   quantity: number;
   price: number;
   productId: number;
-  userId: number;
+  // userId: number;
+  product: ProductCartIfc;
 }
 export interface CartState {
   cart: Array<BoughtPro>;
@@ -20,8 +30,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addProductCart(state, action) {
-      console.log("REDUCER=>",action.payload)
+    addProductCartState(state, action) {
       state.cart = action.payload;
     },
     removeProductCart(state, action) {},
@@ -48,7 +57,7 @@ export const cartSlice = createSlice({
 });
 
 export const {
-  // addToCart,
+  addProductCartState,
   // removeFromCart,
   // decreaseQuantity,
   // increaseQuantity,

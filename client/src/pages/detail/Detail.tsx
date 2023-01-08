@@ -35,6 +35,8 @@ export const Detail = () => {
     (state: any) => state.productsState
   );
   const { user } = useAppSelector((state) => state.userState);
+  const { cart } = useAppSelector((state) => state.cartState);
+
   const {
     id,
     description,
@@ -55,11 +57,16 @@ export const Detail = () => {
     // console.log('MONTANDO');
   }, [dispatch, idParams]);
 
+  const findProductCart = cart.some((c) => c.productId === id);
+  console.log(findProductCart);
+  console.log('DET CART', cart);
+  console.log('ID=>', id);
+  console.log('\n');
   const handleAddToCart = () => {
     dispatch(addProductCart({ userId: 1, quantity: 1, price, productId: id }));
     // AGREGAR AL CARRITO  DESDE EL DETALLE
     // Y AGREGAR CANTIDADES
-    // navigate('/cart');
+    navigate('/cart');
   };
 
   const handleLogin = () => {
@@ -112,16 +119,19 @@ export const Detail = () => {
           ))}
           <p>Disponible : {stock}</p>
           <CartSection>
-            {1 ? (
-              // {user ? (
+            {user ? (
               <div>
-                <Btn name="addToCart" onClick={() => handleAddToCart()}>
-                  Agregar al carrito
-                </Btn>
+                {findProductCart ? (
+                  <Btn name="addToCart">Ya agregado</Btn>
+                ) : (
+                  <Btn name="addToCart" onClick={handleAddToCart}>
+                    Agregar al carrito
+                  </Btn>
+                )}
               </div>
             ) : (
               <Btn name="login" onClick={() => handleLogin()}>
-                Agregar al carrito 00
+                Logeo
               </Btn>
             )}
             {/* {success && <FlashMsg msg={msg}>{msg}</FlashMsg>} */}

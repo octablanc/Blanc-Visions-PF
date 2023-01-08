@@ -100,11 +100,11 @@ export const Header = () => {
 
               <FilterCategory />
 
-              {/* {user ? (
+              {user ? (
                 <li>
                   <IconButton aria-label="cart">
                     <StyledBadge
-                      badgeContent={cartTotalQuantity}
+                      // badgeContent={cartTotalQuantity}
                       color="primary"
                     >
                       <Link to="/cart">
@@ -115,7 +115,7 @@ export const Header = () => {
                 </li>
               ) : (
                 <li></li>
-              )} */}
+              )}
 
               <li>
                 {loading ? (

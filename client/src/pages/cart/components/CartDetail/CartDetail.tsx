@@ -2,7 +2,6 @@ import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
 import { NavLink } from 'react-router-dom';
 import { MouseEvent, useEffect, useState } from 'react';
 
-
 import {
   Div,
   Div2,
@@ -28,58 +27,50 @@ import cart from '../../styled-components/cart.png';
 // import { BOLD_WEIGHT } from "jest-matcher-utils";
 import { FlashMsg } from '../FlashMsg/FlashMsg';
 import { postOrderBuy } from '../../../../services/services';
+import { getCartUser } from '../../../../redux/slices/Cart';
 
 export const CartDetail = () => {
-  
   // const { discount, stock } = currentProduct;
 
   const { user, localUser } = useAppSelector((state) => state.userState);
-
+  const { cart } = useAppSelector((state) => state.cartState);
+  // console.log('CART => ', cart);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState('');
 
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   // dispatch(getDiscountTotal(cartItems));
-  //   setSuccess(true);
-  //   setMsg('Tienes productos en tu carrito');
-  // }, [itemTotalQuantity, cartItems, dispatch]);
-
-  const handleSubstractItem = (cartItem: any) => {
-    if (cartItem.cartQuantity > 1) {
-      // dispatch(decreaseQuantity(cartItem));
-    } else {
-      if (cartItem.cartQuantity === 1) {
-        // dispatch(decreaseQuantity(cartItem));
-        // dispatch(removeFromCart(cartItem));
-      }
+  useEffect(() => {
+    if (user) {
+      dispatch(getCartUser(user.id));
+      // dispatch(getCartUser(1));
     }
-  };
-
-  const handleAddItem = (cartItem: any) => {
-    if (cartItem.stock === 0) {
-      // dispatch(manteinQuantity(cartItem));
-      setSuccess(true);
-      setMsg('Stock agotado');
-    } else {
-      if (cartItem.stock > 0) {
-        // dispatch(increaseQuantity(cartItem));
-      }
-    }
-  };
-
-  const handleRemoveItem = (cartItem: any) => {
-    // dispatch(removeFromCart(cartItem));
-  };
-
-  const handleEmptyCart = (e: MouseEvent<HTMLButtonElement>) => {
-    // dispatch(emptyCart(e));
-  };
-
+    setSuccess(true);
+    setMsg('Tienes productos en tu carrito');
+  }, [dispatch]);
+  console.log(cart)
   // if(itemCart === 0) return (<ComponenteCarritoVacio />)
   return (
     <Container>
+      {cart.map((c) => (
+        <div key={c.id}>
+          {/* <img src={c.product.image} alt="foto del procto" /> */}
+          <h3>{c.product.name}</h3>
+          <p>price:{c.product.price}</p>
+
+          <div>
+            <button>-</button>
+            <p>quantity:{c.quantity}</p>
+            <button>+</button>
+            <p>stock:{c.product.stock}</p>
+          </div>
+          <br />
+          {/* <p>discount:{c.product.discount}</p> */}
+          {/* <p>{c.product.}</p> */}
+          <p>Price total: {c.price}</p>
+          <hr />
+        </div>
+      ))}
+
       {/* Titulos de detalles del carro */}
       {/* Componente de producto en el cart (add remode quantity) */}
       {/* Vaciar todo el Carro */}
@@ -87,6 +78,10 @@ export const CartDetail = () => {
     </Container>
   );
 };
+// BACK YA ESTA, igual revisar
+// falta cambiar la cantidad del producto en el carrito
+// y boludeces
+// * ACORDARSE DE COMENTAR LA LINEA EN LOGIN
 
 // <Container>
 //       {cartItems.length < 1 ? (

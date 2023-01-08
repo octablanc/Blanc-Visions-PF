@@ -1,4 +1,4 @@
-import { getProductDetail } from './cartSlice';
+import { addProductCartState, getProductDetail } from './cartSlice';
 import axios from 'axios';
 import * as dotenv from 'dotenv';
 
@@ -9,6 +9,11 @@ interface Props {
   price: number;
   userId: number;
 }
+interface PropsSetCart{
+  id: number;
+  quantity: number;
+  price: number;
+}
 
 export const addProductCart = ({
   productId,
@@ -18,12 +23,12 @@ export const addProductCart = ({
 }: Props) => {
   return async (dispatch: any) => {
     try {
-      console.log("MANDA POR BODY",{
-        productId,
-        quantity,
-        price,
-        userId,
-      })
+      // console.log("MANDA POR BODY",{
+      //   productId,
+      //   quantity,
+      //   price,
+      //   userId,
+      // })
       const product = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/`,
         {
@@ -37,6 +42,30 @@ export const addProductCart = ({
       //  ACCEDER DESDE EL CARRITO Y POR EL ID TRAIERME LAS PRODUCTS ORDER CART
       // /product-order/cart/user/:id
       // dispatch(addProductCart(product.data.result));
+    } catch (err) {
+      console.log("Err ACtion =>",{ err });
+    }
+  };
+};
+
+export const getCartUser = (id: any) => {
+  return async (dispatch: any) => {
+    try {
+      const cart = (await axios(`${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/${id}`)).data
+      dispatch(addProductCartState(cart.productsOrderUser)); 
+      // CAMBIAR
+
+    } catch (err) {
+      console.log("Err ACtion =>",{ err });
+    }
+  };
+};
+
+export const setQuantityCart = ({id, quantity, price}:PropsSetCart) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/${id}`,{ quantity, price })
+
     } catch (err) {
       console.log("Err ACtion =>",{ err });
     }

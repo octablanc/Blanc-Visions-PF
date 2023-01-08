@@ -50,7 +50,8 @@ function App() {
           )}
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='products/:id' element={<Detail />} />
-          <Route path='cart' element={<Cart />} />
+
+          {userState && <Route path='cart' element={<Cart />} />}
           <Route path='*' element={<NotFound />} />
           <Route path='profile/' element={<Profile />} />
           <Route path='about' element={<About />} />

@@ -170,7 +170,6 @@ export const productSlice = createSlice({
       state.search = action.payload;
     },
     changeDiscountPage: (state, action) => {
-      console.log("REDUCE",action.payload)
       state.discountProducts = action.payload;
     },
     setUser: (state, action) => {
