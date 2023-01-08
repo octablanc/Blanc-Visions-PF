@@ -38,6 +38,7 @@ export const FormCategory = () => {
           state: state === 'active' ? true : false,
         })
       );
+      navigate('/dashboard/categories');
     } else {
       dispatch(
         createNewCategory({
@@ -46,8 +47,8 @@ export const FormCategory = () => {
           state: state === 'active' ? true : false,
         })
       );
+      navigate(-1);
     }
-    navigate(-1);
   };
 
   useEffect(() => {
