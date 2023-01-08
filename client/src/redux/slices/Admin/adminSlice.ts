@@ -1,12 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UniquePro } from '../products';
+import { ProductOrder } from '../misCompras/buySlice';
+export interface OfCategories {
+  id: number;
+  name: string;
+  description: string;
+  state: boolean;
+}
+interface Sales {
+  userId: number;
+  id: number;
+  priceTotalDiscount: number;
+  productOrders: ProductOrder[];
+}
+interface currentCategory {
+  name: string;
+  description: string;
+  state: boolean;
+}
 
+interface Users {
+  imageProfile: string;
+  id: number;
+  name: string;
+  phone: number;
+  lastName: string;
+  mail: string;
+  state: boolean;
+}
 interface AdminState {
   products: UniquePro[];
-  users: [];
-  categoryId: [];
-  categories: [];
-  sales: [];
+  users: Users[];
+  userId: {};
+  categoryId: currentCategory;
+  categories: OfCategories[];
+  sales: Sales[];
   paginationAdmin: {
     page: number;
     quantity: number;
@@ -16,39 +44,44 @@ interface AdminState {
     name: string;
   };
   loading: boolean;
-  actuallityProduct: UniquePro;
+  actuallityProduct: {};
 }
 const initialState: AdminState = {
   products: [],
   users: [],
+  userId: {},
   categories: [],
-  categoryId: [],
+  categoryId: {
+    name: '',
+    description: '',
+    state: true,
+  },
   sales: [],
   paginationAdmin: {
     productsLength: 0,
     page: 1,
-    quantity: 4,
+    quantity: 100,
     data: 'id',
     order: 'ASC',
     name: '',
   },
   loading: false,
   actuallityProduct: {
-    id: 0,
-    name: '',
-    code: '',
-    description: '',
-    image: '',
-    price: 0,
-    discount: 0,
-    stock: 0,
-    entrega: '',
-    id_category: 0,
-    state: true,
-    category: '',
-    properties: [],
-    images: [],
-    loading: false,
+    // id: 0,
+    // name: '',
+    // code: '',
+    // description: '',
+    // image: '',
+    // price: 0,
+    // discount: 0,
+    // stock: 0,
+    // entrega: '',
+    // id_category: 0,
+    // state: true,
+    // category: '',
+    // properties: [],
+    // images: [],
+    // loading: false,
   },
 };
 
@@ -82,9 +115,18 @@ export const adminSlice = createSlice({
     createProduct: (state, action) => {
       state.products = [...state.products, action.payload];
     },
-    // updateProductAdmin: (state, action) => {
-    //     state.products =
-    //   }
+    setUsers: (state, action) => {
+      state.users = action.payload;
+    },
+    userDetail: (state, action) => {
+      state.userId = action.payload;
+    },
+    getSales: (state, action) => {
+      state.sales = action.payload;
+    },
+    createCategory: (state, action) => {
+      state.categories = [...state.categories, action.payload];
+    },
   },
 });
 
@@ -96,6 +138,10 @@ export const {
   startLoadingAdmin,
   detailProductAdmin,
   categoriesDetailAdmin,
+  setUsers,
+  userDetail,
+  getSales,
+  createCategory,
 
   //   updateProductAdmin
 } = adminSlice.actions;

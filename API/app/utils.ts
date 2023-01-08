@@ -53,11 +53,13 @@ export const category = [
 // Audio y Video  5
 export const data = [
   {
-    ratings: [{
-      userId:2,
-      score: 1,
-      commentary: 'Este producto es una merda',
-    }],
+    ratings: [
+      {
+        userId: 2,
+        score: 1,
+        commentary: 'Este producto es una merda',
+      },
+    ],
     code: 'F0021',
     name: 'sony alpha 7',
     price: 100,
@@ -1743,7 +1745,7 @@ export const usersData = [
     password: 'tomas123',
     phone: 11232323,
     birthday: 23,
-    state: true,
+    state: false,
     roleId: 1,
     userName: 'TomasUser',
   },
