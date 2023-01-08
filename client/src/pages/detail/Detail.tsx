@@ -213,10 +213,16 @@ export const Detail = () => {
                 />
                 <input type="hidden" name="price" value={cartTotalAmount} />
                 <Btn type="submit">Comprar</Btn>
-              </form> */
+              </form> */}
             </CartSection>
           </Info>
-          <Review ratings={currentProduct.ratings} />
+          
+          {/* 
+          ************** DONDE ESTA REVIEW??****************
+          
+          <Review ratings={currentProduct.ratings} /> 
+          
+          */}
         </Container>
       )}
       <br />
