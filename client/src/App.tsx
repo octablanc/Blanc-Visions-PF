@@ -28,6 +28,7 @@ import {
   AdminSales,
   AdminUsers,
 } from './pages/dashboard/pages';
+import { FormCategory } from './pages/dashboard/pages/categories/FormCategory';
 
 // import { LayoutDashboard } from './pages/Dashboard/Dashboard';
 
@@ -51,11 +52,11 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path='products' element={<Products />} />
-          {userState?.role?.name === 'admin' && (
-            // <Routes>
+          {/* {userState?.role?.name === 'admin' && (
+        
             <Route path='/create' element={<CreateProduct />} />
-            // </Routes>
-          )}
+       
+          )} */}
 
           <Route path='products/:id' element={<Detail />} />
           <Route path='cart' element={<Cart />} />
@@ -71,7 +72,12 @@ function App() {
         </Route>
         <Route path='/dashboard' element={<LayoutDashboard />}>
           <Route path='products' element={<AdminProducts />} />
+          <Route path='products/create' element={<CreateProduct />} />
+
           <Route path='categories' element={<AdminCategories />} />
+          <Route path='categories/edit/:id' element={<FormCategory />} />
+          <Route path='categories/create' element={<FormCategory />} />
+
           <Route path='sales' element={<AdminSales />} />
           <Route path='users' element={<AdminUsers />} />
         </Route>

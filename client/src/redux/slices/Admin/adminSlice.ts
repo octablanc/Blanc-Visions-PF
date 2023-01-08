@@ -13,16 +13,26 @@ interface Sales {
   priceTotalDiscount: number;
   productOrders: ProductOrder[];
 }
+interface currentCategory {
+  name: string;
+  description: string;
+  state: boolean;
+}
 
 interface Users {
+  imageProfile: string;
   id: number;
   name: string;
+  phone: number;
+  lastName: string;
+  mail: string;
+  state: boolean;
 }
 interface AdminState {
   products: UniquePro[];
   users: Users[];
-  userId: [];
-  categoryId: [];
+  userId: {};
+  categoryId: currentCategory;
   categories: OfCategories[];
   sales: Sales[];
   paginationAdmin: {
@@ -39,9 +49,13 @@ interface AdminState {
 const initialState: AdminState = {
   products: [],
   users: [],
-  userId: [],
+  userId: {},
   categories: [],
-  categoryId: [],
+  categoryId: {
+    name: '',
+    description: '',
+    state: true,
+  },
   sales: [],
   paginationAdmin: {
     productsLength: 0,
@@ -110,6 +124,9 @@ export const adminSlice = createSlice({
     getSales: (state, action) => {
       state.sales = action.payload;
     },
+    createCategory: (state, action) => {
+      state.categories = [...state.categories, action.payload];
+    },
   },
 });
 
@@ -124,6 +141,7 @@ export const {
   setUsers,
   userDetail,
   getSales,
+  createCategory,
 
   //   updateProductAdmin
 } = adminSlice.actions;

@@ -10,6 +10,7 @@ import {
   userDetail,
   setUsers,
   getSales,
+  createCategory,
 } from './adminSlice';
 
 //OBTIENE TODOS LOS PRODUCTOS CON EL PAGINADO
@@ -152,6 +153,24 @@ export const updateCategory = (id: number, category: any) => {
     }
   };
 };
+//crea una categoria
+export const createNewCategory = (category: any) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingAdmin(true));
+
+      let newCategory = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/categories`,
+        category
+      );
+      dispatch(createCategory(newCategory));
+    } catch (err) {
+      console.log('error=>', err);
+    } finally {
+      dispatch(startLoadingAdmin(false));
+    }
+  };
+};
 
 //OBTIENE LA CATEGORIA POR EL ID
 export const getCategoryByIdAdmin = (id: number) => {
@@ -161,7 +180,7 @@ export const getCategoryByIdAdmin = (id: number) => {
       let categoryId = (
         await axios(`${process.env.REACT_APP_BACKEND_URL}/categories/${id}`)
       ).data;
-      dispatch(categoriesDetailAdmin(categoryId));
+      await dispatch(categoriesDetailAdmin(categoryId));
     } catch (error) {
       console.log(error);
     } finally {

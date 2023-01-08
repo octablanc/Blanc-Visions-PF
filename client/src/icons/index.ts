@@ -12,4 +12,5 @@ export {
 export { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
 export { HiUsers, HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-export { FaMoneyBillAlt } from 'react-icons/fa';
+export { FaMoneyBillAlt, FaEdit } from 'react-icons/fa';
+export { BiAddToQueue } from 'react-icons/bi';
