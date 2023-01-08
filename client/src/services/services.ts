@@ -35,6 +35,11 @@ export async function postUser(user: object) {
   }
 }
 
+export async function getuser(mail: string | null ) {
+    const result = (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users?mail=${mail}`)).data;
+    return result;
+}
+
 export async function updateUser(user: object, id: Number | undefined) {
   try {
     await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/` + id, user);

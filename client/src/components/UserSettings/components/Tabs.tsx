@@ -223,7 +223,7 @@ export default function Tabs({ closeModal }: { closeModal: Function; }) {
             }
         }
     }
-    
+
     return (
         <Box sx={BoxTabs}>
             <TabContext value={value}>
@@ -254,12 +254,18 @@ export default function Tabs({ closeModal }: { closeModal: Function; }) {
                                 </TabFieldContainer>
                             } value="2" sx={TabField} />
 
-                            <Tab label={
-                                <TabFieldContainer>
-                                    <PasswordIcon style={IconS} />
-                                    <SpanTab>Password</SpanTab>
-                                </TabFieldContainer>
-                            } value="3" sx={TabField} id='1' />
+                            {
+                                userGlobal?.password !== 'registredWithGoogle'? 
+                                <Tab label={
+                                    <TabFieldContainer>
+                                        <PasswordIcon style={IconS} />
+                                        <SpanTab>Password</SpanTab>
+                                    </TabFieldContainer>
+                                } value="3" sx={TabField} id='1' />
+                                :
+                                false
+                            }
+                            
                         </TabList>
                     </Box>
 

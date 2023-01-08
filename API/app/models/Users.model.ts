@@ -23,6 +23,7 @@ export default (sequelize: Sequelize) => {
       mail: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true
       },
       password: {
         type: DataTypes.STRING,

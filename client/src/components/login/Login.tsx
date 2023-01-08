@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -22,16 +22,25 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import LoadingButton from "@mui/lab/LoadingButton";
 import loginImg from "../../assets/login.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import { FcGoogle } from 'react-icons/fc';
 // Authentication
 import {
   signInWithEmailAndPassword,
   signOut,
   signInWithPopup,
-  GoogleAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, provider } from "../../firebase/firebase.config";
 import { openSingUp } from "../singup/SingUp";
+import { getuser, postUser } from "../../services/services";
+import { useAppDispatch } from "../../redux/app/hooks";
+import { getUser } from "../../redux/slices/user-authentication";
+import { setUser as setUserState } from "../../redux/slices/user-authentication";
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -41,12 +50,17 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
   const [btnLoading, setBtnLoading] = useState(Boolean);
+  const [btnLoading2, setBtnLoading2] = useState(Boolean);
   const [error, setError] = useState({ mail: false, password: false });
+  const [ openDialog, setOpenDialog] = useState(false);
   const fontSizeLabel = 18;
   const fontSizeInput = 16;
+  const disptach = useAppDispatch();
 
   const handleOpen = () => setOpen(true);
 
+  const handleOpenDialog = () => setOpenDialog(!openDialog);
+  
   const handleClose = () => setOpen(false);
 
   function handleInput(
@@ -74,8 +88,8 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, user.mail, user.password);
 
       if (!auth.currentUser?.emailVerified) {
-        window.alert("Debes verificar tu mail!");
         await signOut(auth);
+        window.alert("Debes verificar tu mail!");
       }
 
       setBtnLoading(false);
@@ -99,19 +113,33 @@ export default function Login() {
 
   async function handleSubmitGoogle() {
     try {
-      setBtnLoading(true);
+      setBtnLoading2(true);
+      const { user } = await signInWithPopup(auth, provider);
+      const fullName = user.displayName?.split(' ');
 
-      await signInWithPopup(auth, provider);
-
-      if (!auth.currentUser?.emailVerified) {
-        window.alert("Debes verificar tu mail!");
-        await signOut(auth);
+      const newUser = {
+        name: fullName && fullName[0],
+        lastName: fullName && fullName[1] !== undefined ? fullName[1] : ' ',
+        imageProfile: user.photoURL,
+        phone: user.phoneNumber ? user.phoneNumber : 'Numero no registrado',
+        mail: user.email,
+        password: "registredWithGoogle",
+        userName: "username",
+        birthday: new Date().toISOString().slice(0, 10),
+        state: true,
+        roleId: 1
       }
 
-      setBtnLoading(false);
+      try {
+        disptach(setUserState(await getuser(newUser.mail)));
+      } catch (error) {
+        await postUser(newUser);
+        disptach(getUser(newUser.mail));
+      }
+
+      setBtnLoading2(false);
     } catch ({ code }) {
-      setBtnLoading(false);
-      window.alert(error);
+      setBtnLoading2(false);
     }
   }
 
@@ -240,16 +268,62 @@ export default function Login() {
                       Iniciar Sesion
                     </Button>
                   )}
-                  <Button
-                    variant="contained"
-                    sx={ButtonLog}
-                    onClick={handleSubmitGoogle}
-                  >
-                    Iniciar Sesion
-                  </Button>
-                  <ForgetPassword>Olvidaste tu contraseña?</ForgetPassword>
+
+
+                  {btnLoading2 ? (
+                    <LoadingButton
+                      loading
+                      variant="outlined"
+                      size="small"
+                      sx={{ ...ButtonLog, backgroundColor: "#1976D2", marginTop: '20px' }}
+                      loadingIndicator={
+                        <CircularProgress
+                          size={"20px"}
+                          sx={{ color: "#fff" }}
+                        />
+                      }
+                    />
+                  ) :
+                    (<Button
+                      variant="contained"
+                      sx={{
+                        ...ButtonLog,
+                        marginTop: '20px',
+                        textTransform: 'none'
+                      }}
+                      onClick={handleSubmitGoogle}
+                      startIcon={<FcGoogle style={{ width: '25px', height: '25px', backgroundColor: 'white', borderRadius: '3px' }} />}
+                    >
+                      Iniciar sesion con Google
+                    </Button>)
+                  }
+                  <ForgetPassword onClick={handleOpenDialog}>Olvidaste tu contraseña?</ForgetPassword>
+
+                  <Dialog open={openDialog} onClose={handleOpenDialog}>
+                    <DialogTitle>Subscribe</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        To subscribe to this website, please enter your email address here. We
+                        will send updates occasionally.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleOpenDialog}>Cancel</Button>
+                      <Button onClick={handleOpenDialog}>Subscribe</Button>
+                    </DialogActions>
+                  </Dialog>
                 </div>
               </LoginContainer>
+
               <CreateContainer>
                 <p>
                   No tienes una cuenta?{" "}

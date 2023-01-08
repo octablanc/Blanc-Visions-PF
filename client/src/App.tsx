@@ -30,12 +30,14 @@ function App() {
   // Set the user logged in the start
   useEffect(() => {
     onAuthStateChanged(auth, async user => {
-      if (user && !userState) dispatch(getUser(user.email));
-      if (!user) dispatch(getUser(user));
+
+        if (user && !userState){
+          console.log('hay sesion')
+          dispatch(getUser(user.email));
+        } 
+        if (!user) dispatch(getUser(user));
     });
   });
-
-  console.log(process.env.REACT_APP_BACKEND_URL);
 
   return (
     <BrowserRouter>
