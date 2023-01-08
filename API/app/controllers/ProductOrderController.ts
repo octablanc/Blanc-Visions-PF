@@ -39,7 +39,8 @@ export const postProductsOrder: TypeFunctionExp = async (req, res) => {
     const createOrderProduct: Model = await ProductsOrder.create(
       { productId, quantity, price },
       {
-        include: Products,
+        include: Products, 
+        //habria que hacer la lógica para que descuente el stock del producto?? 
       }
     )
     return res.json({ message: 'post orderproduct.', createOrderProduct })

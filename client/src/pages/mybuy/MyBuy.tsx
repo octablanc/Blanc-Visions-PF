@@ -9,14 +9,11 @@ function MyBuy() {
   const userState = useAppSelector(({ userState }) => userState.user);
   let idToSearch: number;
   if (userState && userState.id)
-    idToSearch = parseInt(userState?.id.toString());
-
-  console.log('myBuys:',myBuys)
+    idToSearch = parseInt(userState?.id.toString()); 
 
   useEffect(() => {
-    // dispatch(getAllBuy(idToSearch)); 
-    dispatch(getAllBuy(1))
-                  // myBuys[myBuys.length -1].productsOrders.map(())
+    dispatch(getAllBuy(idToSearch)); 
+    // dispatch(getAllBuy(1))  
   }, [dispatch, userState]);
   return (
     <div className='container'>

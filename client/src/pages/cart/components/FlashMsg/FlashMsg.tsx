@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import React, { useState } from "react";
-import Login from "../../../../components/login/Login";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -54,7 +53,7 @@ export const FlashMsg = ({ msg }: any) => {
       ) : msg === login ? (
         <Dialog
           open={open}
-          // TransitionComponent ={Transition}
+          TransitionComponent ={Transition}
           keepMounted
           onClose={handleClose}
           aria-labelledby="alert-dialog-slide-title"

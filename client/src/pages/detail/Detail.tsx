@@ -19,11 +19,15 @@ import {
   getProductById,
   addToCart,
   cleanDetail,
+  manteinQuantity,
+  increaseQuantity,
 } from "../../redux/slices/Cart";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import { Sales } from "../home/components/Sales/Sales";
 // import Login from "../../components/login/Login";
 import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
+import { Checkout } from "../Shipping/Components/Checkout";
+import { ShippingForm } from "../Shipping/Shipping";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +35,7 @@ export const Detail = () => {
   const product: any = useParams();
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
+  const [shipping, setShipping] = useState(false);
 
   const resetDetail = () => {
     return {
@@ -55,22 +60,22 @@ export const Detail = () => {
 
   useEffect(() => {
     let detailCleaned = {
-      id: 0,
-      name: "",
-      code: "",
-      description: "",
-      image: "",
-      price: 0,
-      priceProm: 0,
-      discount: 0,
-      stock: 0,
-      entrega: "",
-      id_category: 0,
-      state: true,
-      category: "",
-      properties: [],
-      images: [],
-      loading: false,
+      // id: 0,
+      // name: "",
+      // code: "",
+      // description: "",
+      // image: "",
+      // price: 0,
+      // priceProm: 0,
+      // discount: 0,
+      // stock: 0,
+      // entrega: "",
+      // id_category: 0,
+      // state: true,
+      // category: "",
+      // properties: [],
+      // images: [],
+      // loading: false,
     };
     dispatch(getProductById(product.id));
     // return () => {resetDetail()}
@@ -105,6 +110,23 @@ export const Detail = () => {
   const handleLogin = () => {
     setSuccess(true);
     setMsg("login");
+  };
+
+  // const handleClick =() => {
+  //   setShipping(true);
+  // }
+
+  const handleClick = (currentProduct: any) => {
+    if (stock === 0) {
+      dispatch(manteinQuantity(currentProduct));
+      setSuccess(true);
+      setMsg("Stock agotado");
+    } else {
+      if (stock > 0) {
+        dispatch(addToCart(currentProduct)); //hago otra función q sea comprar!!!
+      }
+    }
+    setShipping(true);
   };
 
   return (
@@ -155,8 +177,8 @@ export const Detail = () => {
             <p>{description}</p>
 
             <span className="features">Características</span>
-            {properties?.map((el: any, key: number) => (
-              <ul>
+            {properties?.map((el: any) => (
+              <ul key={el.id}>
                 <hr />
                 <span className="list">{el.name}</span>
                 <span className="list">{el.value}</span>
@@ -181,7 +203,9 @@ export const Detail = () => {
               )}
               {success && !user ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
 
-              <form action="http://localhost:3001/checkout" method="POST">
+              <Btn onClick={() => handleClick(currentProduct)}>Comprar</Btn>
+
+              {/* <form action="http://localhost:3001/checkout" method="POST">               
                 <input
                   type="hidden"
                   name="title"
@@ -189,12 +213,13 @@ export const Detail = () => {
                 />
                 <input type="hidden" name="price" value={cartTotalAmount} />
                 <Btn type="submit">Comprar</Btn>
-              </form>
+              </form>  */}
             </CartSection>
           </Info>
         </Container>
       )}
       <br />
+      {shipping ? <ShippingForm cartItems={[]} itemTotalQuantity={0} itemTotalAmount={0} cartTotalQuantity={0} cartTotalAmount={0} itemTempStock={0} loading={false} localStorage={[]} currentProduct={currentProduct.id} /> : ""}
       <hr />
       <br />
       <Sales />

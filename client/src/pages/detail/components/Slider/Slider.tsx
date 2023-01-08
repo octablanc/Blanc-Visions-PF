@@ -14,9 +14,8 @@ export const Slider = ({ images, loading }: any) => {
   const [slideIndex, setSlideIndex] = useState<number>(1);
 
   //mapeo el array para acceder a la propiedad en donde están las imágenes
-  let productImages: any = images.map((el: any) => el.url_image);
+  let productImages: any = images?.map((el: any, key: number) => el.url_image);
   // console.log(images);
-
   const nextSlide = () => {
     if (slideIndex < productImages.length) {
       setSlideIndex(slideIndex + 1);
@@ -34,7 +33,7 @@ export const Slider = ({ images, loading }: any) => {
   };
 
   return (
-    // <div>
+
     <Container >
   
         {loading ? (
@@ -60,18 +59,20 @@ export const Slider = ({ images, loading }: any) => {
           />
         </div>
 
-        <Thumbnails>
-          {Array.from(productImages, (el: any, key: number) => (
-            <Miniatures>
-              <img
+        <Thumbnails>          
+          {productImages?.map((el: any, key: number) => (
+            <Miniatures key={el.id}>
+              <img   
+                key={el.id}             
                 className={slideIndex - 1 === key ? "img active" : "img pasive"}
                 src={el}
+                alt='foto del producto'
               />
             </Miniatures>
           ))}
         </Thumbnails>
    
     </Container>
-    // </div>
+
   );
 };
