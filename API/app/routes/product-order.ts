@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProductsOrder, getProductsOrderById, postProductsOrder, getProductsOrderUser, postProductsOrderCart } from '../controllers/ProductOrderController';
+import { getProductsOrder, getProductsOrderById, postProductsOrder, getProductsOrderUser, postProductsOrderCart, setQuantityProductsOrderCart } from '../controllers/ProductOrderController';
 
 const router = express.Router();
 
@@ -8,8 +8,8 @@ router.get('/', getProductsOrder);
 router.post('/', postProductsOrder);
 
 router.get('/cart/user/:id', getProductsOrderUser);
+router.put('/cart/user/:id', setQuantityProductsOrderCart);
 router.post('/cart/user/', postProductsOrderCart);
-
 
 
 // Each router will have to be exported with "module.exports" because the loader uses "require" to import each router.

@@ -62,6 +62,23 @@ export const getProductsOrderUser: TypeFunctionExp = async (req, res) => {
     const userId: number = +req.params.id;
     const productsOrderUser = await ProductsOrder.findAll({
       where: { userId },
+      include: [
+        {
+          model: Products,
+          attributes: {
+            exclude: [
+              'code',
+              'description',
+              'state',
+              'createdAt',
+              'updatedAt',
+              'categoryId',
+              'offerId',
+            ],
+          },
+        },
+      ],
+      attributes: { exclude: ['orderBuyId', 'userId'] },
     });
 
     return res.json({
@@ -76,49 +93,64 @@ export const getProductsOrderUser: TypeFunctionExp = async (req, res) => {
 
 export const postProductsOrderCart: TypeFunctionExp = async (req, res) => {
   try {
-    const { productId, quantity, price, userId }: ProductOrderCartIfc = req.body;
-    const cartUser = await ProductsOrder.findOne({where:{productId, userId}});
-    if( !cartUser ) await ProductsOrder.create({productId,quantity,price,userId,});
-    else{
-      const newQuantity = quantity + cartUser.dataValues.quantity;
-      await cartUser?.update({quantity: newQuantity});
-      await cartUser?.save();
-    }
-    const arr = await ProductsOrder.findAll({where:{userId},attributes:{exclude:['id','orderBuyId']}})
+    const { productId, quantity, price, userId }: ProductOrderCartIfc =
+      req.body;
+    await ProductsOrder.create({ productId, quantity, price, userId });
+    // const cartUser = await ProductsOrder.findOne({where:{productId, userId}});
+    // if( !cartUser ) await ProductsOrder.create({productId,quantity,price,userId,});
+    // else{
+    // FALTA CALCULAR EL DESCUENTO DESCUENTO, solo hace la cuenta por precio/cantidad
+    // const newQuantity = quantity + cartUser.dataValues.quantity;
+    // await cartUser?.update({quantity: newQuantity, price: cartUser.dataValues.price * newQuantity});
+    // await cartUser?.save();
+    // }
+    // const arr = await ProductsOrder.findAll({where:{userId},attributes:{exclude:['id','orderBuyId']}})
     return res.json({
       message: 'POST All Product Order CART.',
-      result: arr,
     });
   } catch ({ message }) {
-    console.log("err msj =>",message);
+    console.log('err msj =>', message);
     return res.status(400).send({ message });
   }
 };
-
+export const setProductsOrderCart: TypeFunctionExp = async (req, res) => {
+  try {
+    const id: number = +req.params.id;
+    console.log({ id });
+    return res.json({
+      message: 'POST All Product Order CART.',
+    });
+  } catch ({ message }) {
+    console.log('err msj =>', message);
+    return res.status(400).send({ message });
+  }
+};
 export const deleteProductsOrderCart: TypeFunctionExp = async (req, res) => {
   try {
     const id: number = +req.params.id;
-    const productOrderCart = await ProductsOrder.findByPk(id);
-
-    if (!productOrderCart) return res.json({ message: 'Product Order existe' });
-
-    const quantity: number = +productOrderCart.dataValues.quantity;
-
-    if (quantity === 0) {
-      await ProductsOrder.destroy({ where: { id } });
-      return res.json({ msj: 'Delete Product order Cart' });
-    }
-    await productOrderCart.update({ quantity: quantity - 1 });
-    await productOrderCart.save();
-
-    return res.json({ msj: 'Delete Product order Cart 1' });
+    await ProductsOrder.destroy({ where: { id } });
+    return res.json({ msj: `Delete Product order Cart =>${id}` });
   } catch ({ message }) {
     console.log(message);
     return res.status(400).send({ message });
   }
 };
+export const setQuantityProductsOrderCart: TypeFunctionExp = async (req, res) => {
+  try {
+    const id: number = +req.params.id;
+    const {quantity, price} = req.body;
+    const cartUser = await ProductsOrder.findByPk(id);
+    await cartUser?.update({quantity, price: price});
+    await cartUser?.save();
+    // await cartUser?.update({quantity});
+    // FAlta testear si calculo el precio aca o en el front
 
-// DELETE
+    return res.json({ msj: `set Cart User =>${id}` });
+  } catch ({ message }) {
+    console.log(message);
+    return res.status(400).send({ message });
+  }
+};
 
 //  productId: 1,
 //  quantity: 10,
