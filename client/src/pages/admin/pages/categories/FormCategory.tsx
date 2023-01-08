@@ -28,27 +28,26 @@ export const FormCategory = () => {
     });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (id) {
-      dispatch(
+      await dispatch(
         updateCategory(+id, {
           name,
           description,
           state: state === 'active' ? true : false,
         })
       );
-      navigate('/dashboard/categories');
     } else {
-      dispatch(
+      await dispatch(
         createNewCategory({
           name,
           description,
           state: state === 'active' ? true : false,
         })
       );
-      navigate(-1);
     }
+    navigate('/dashboard/categories');
   };
 
   useEffect(() => {

@@ -15,7 +15,7 @@ export const AdminCategories = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { categories } = useAppSelector((state) => state.adminState);
+  const { categories } = useAppSelector(state => state.adminState);
   useEffect(() => {
     dispatch(getAllCategoriesAdmin());
   }, [dispatch]);
@@ -41,7 +41,7 @@ export const AdminCategories = () => {
         </tr>
 
         {categories.length > 0 &&
-          categories.map((category) => (
+          categories.map(category => (
             <tr>
               <td>{category.id}</td>
               <td>{category.name}</td>
