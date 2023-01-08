@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import Spinner from '../../../../components/Spinner/Spinner';
 
 export const FormCategory = () => {
-  const { categoryId } = useAppSelector((state) => state.adminState);
+  const { categoryId } = useAppSelector(state => state.adminState);
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -28,10 +28,10 @@ export const FormCategory = () => {
     });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (id) {
-      dispatch(
+      await dispatch(
         updateCategory(+id, {
           name,
           description,
@@ -39,7 +39,7 @@ export const FormCategory = () => {
         })
       );
     } else {
-      dispatch(
+      await dispatch(
         createNewCategory({
           name,
           description,
@@ -47,7 +47,7 @@ export const FormCategory = () => {
         })
       );
     }
-    navigate(-1);
+    navigate('/dashboard/categories');
   };
 
   useEffect(() => {
