@@ -26,38 +26,72 @@ export async function getProducts(req: Request, res: Response) {
     category = Category we need to filter the products: Shoes, Phones, etc.
   */
   try {
-    const { state, category } = req.query;
+    if (
+      req.query?.page &&
+      req.query?.quantityProducts &&
+      req.query?.data &&
+      req.query?.order
+    ) {
+      const page = parseInt(req.query.page.toString());
+      const quantityProducts = parseInt(req.query.quantityProducts.toString());
+      const data: string = req.query.data.toString();
+      const order: string = req.query.order.toString();
 
-    const result = await Products.findAll({
-      where:
-        state === 'false'
-          ? { state: false }
-          : state === 'true'
-          ? { state: true }
-          : undefined,
-      include: [
-        {
-          model: Categories,
-          where: category
-            ? {
-                name: category,
-              }
-            : undefined,
-        },
-        {
-          model: Properties,
-          as: 'properties',
-        },
-        {
-          model: Images,
-        },
-      ],
-      attributes: { exclude: ['categoryId'] },
-      order: [['id', 'ASC']],
-    });
+      if (page && quantityProducts) {
+        if (page < 1 && quantityProducts < 1)
+          throw new Error('The fields can only be greater than 0!');
 
-    return res.send({ result });
+        const { category, name } = req.query;
+        const nameLow = name?.toString().toLowerCase();
+        console.log(nameLow, 'nameLow');
+
+        const result = await Products.findAll({
+          where: {
+            name: {
+              [Op.substring]: nameLow,
+            },
+          },
+          include: [
+            {
+              model: Categories,
+              where: category
+                ? {
+                    name: category,
+                  }
+                : undefined,
+            },
+            {
+              model: Properties,
+              as: 'properties',
+            },
+          ],
+          attributes: { exclude: ['categoryId'] },
+          offset: quantityProducts * (page - 1),
+          limit: quantityProducts,
+          order: [[data, order]],
+        });
+
+        const productsAll = await Products.count({
+          where: {
+            name: {
+              [Op.substring]: nameLow,
+            },
+          },
+          include: [
+            {
+              model: Categories,
+              where: category ? { name: category } : undefined,
+            },
+          ],
+          attributes: { exclude: ['categoryId'] },
+        });
+        return res.json({ result, productsLength: productsAll });
+      }
+      throw new Error('The fields can only be numbers!');
+    }
+    throw new Error('Some filed is empty!');
   } catch ({ message }) {
+    console.log('ERROR MSG => ', message);
     return res.status(400).send({ message });
   }
 }

@@ -76,7 +76,7 @@ export const cartSlice = createSlice({
       console.log(itemIndex);
       if (itemIndex >= 0 && state.cartItems[itemIndex].stock > 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
-        state.cartItems[itemIndex].stock -= 1;
+        state.cartItems[itemIndex].stock -= 1;              
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         if (!cartItem && tempProduct.stock > 0) {
@@ -165,7 +165,8 @@ export const cartSlice = createSlice({
       state.cartTotalAmount = total;
     },
 
-    purchase(state, action) {
+    productUpdate(state, action) {
+      state.currentProduct.stock = state.currentProduct.stock - action.payload.stock
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
@@ -188,6 +189,7 @@ export const {
   manteinQuantity,
   emptyCart,
   getDiscountTotal,
+  productUpdate,
   getProductDetail,
   cleanDetail,
 } = cartSlice.actions;

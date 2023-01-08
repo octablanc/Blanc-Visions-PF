@@ -1,8 +1,6 @@
 //components
-import { Slider } from './components/Slider/Slider';
-import Spinner from '../../components/Spinner/Spinner';
-//icons
-import { AiOutlineStar, AiFillStar } from '../../icons';
+import { Slider } from "./components/Slider/Slider";
+import Spinner from "../../components/Spinner/Spinner";
 //styles
 import {
   Container,
@@ -10,22 +8,27 @@ import {
   Info,
   CartSection,
   Btn,
-} from './styled-components/Detail';
+} from "./styled-components/Detail";
 //react
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 //redux
 import {
   getProductById,
   addToCart,
   cleanDetail,
+  manteinQuantity,
+  increaseQuantity,
 } from "../../redux/slices/Cart";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import { Sales } from "../home/components/Sales/Sales";
 // import Login from "../../components/login/Login";
 import { FlashMsg } from "../cart/components/FlashMsg/FlashMsg";
-import { Review } from "../detail/components/Review";
-
+import {
+  Shipping,
+  // ShippingForm
+} from "../Shipping/Shipping";
+import { Div } from "../cart/styled-components/styles";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +36,7 @@ export const Detail = () => {
   const product: any = useParams();
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
+  const [shipping, setShipping] = useState(false);
 
   const resetDetail = () => {
     return {
@@ -57,22 +61,22 @@ export const Detail = () => {
 
   useEffect(() => {
     let detailCleaned = {
-      id: 0,
-      name: "",
-      code: "",
-      description: "",
-      image: "",
-      price: 0,
-      priceProm: 0,
-      discount: 0,
-      stock: 0,
-      entrega: "",
-      id_category: 0,
-      state: true,
-      category: "",
-      properties: [],
-      images: [],
-      loading: false,
+      // id: 0,
+      // name: "",
+      // code: "",
+      // description: "",
+      // image: "",
+      // price: 0,
+      // priceProm: 0,
+      // discount: 0,
+      // stock: 0,
+      // entrega: "",
+      // id_category: 0,
+      // state: true,
+      // category: "",
+      // properties: [],
+      // images: [],
+      // loading: false,
     };
     dispatch(getProductById(product.id));
     // return () => {resetDetail()}
@@ -101,7 +105,7 @@ export const Detail = () => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
-    navigate('/cart');
+    navigate("/cart");
   };
 
   const handleLogin = () => {
@@ -109,12 +113,29 @@ export const Detail = () => {
     setMsg("login");
   };
 
+  // const handleClick =() => {
+  //   setShipping(true);
+  // }
+
+  const handleClick = (currentProduct: any) => {
+    if (stock === 0) {
+      dispatch(manteinQuantity(currentProduct));
+      setSuccess(true);
+      setMsg("Stock agotado");
+    } else {
+      if (stock > 0) {
+        dispatch(addToCart(currentProduct));
+      }
+    }
+    setShipping(true);
+  };
+
   return (
-    <div className='container'>
+    <div className="container">
       {loading ? (
         <Spinner />
       ) : currentProduct?.id === 0 ? (
-        <div className='emptyId'>
+        <div className="emptyId">
           <h4>No existe un producto con ese Id</h4>
         </div>
       ) : (
@@ -131,10 +152,10 @@ export const Detail = () => {
               {discount === 0 ? (
                 <h3>{`$${price}`}</h3>
               ) : (
-                <div className='icons'>
+                <div className="icons">
                   <h3> {`$${priceProm}`} </h3>
-                  <div className='infoProm'>
-                    <div className='labelProm'>
+                  <div className="infoProm">
+                    <div className="labelProm">
                       <span> Ahorras</span>
                       <span>$ {`${price - priceProm}`}</span>
                     </div>
@@ -145,32 +166,28 @@ export const Detail = () => {
                   </div>
                 </div>
               )}
-              {/* <div>
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
-              </div> */}
             </div>
-            <p className='features'>Descripción</p>
+            <p className="features">Descripción</p>
             <p>{description}</p>
-
-            <span className='features'>Características</span>
-            {properties?.map((el: any, key: number) => (
-              <ul>
+            <span className="features">Características</span>
+            {properties?.map((el: any) => (
+              <ul key={el.id}>
                 <hr />
-                <span className='list'>{el.name}</span>
-                <span className='list'>{el.value}</span>
+                <span className="list">{el.name}</span>
+                <span className="list">{el.value}</span>
               </ul>
             ))}
-
-            {/* <ul>
-              <hr />
-              <br />
-              <span className="stock">Unidades disponibles:</span>
-              <span className="stock">{stock}</span>
-            </ul> */}
+            <ul>
+              {stock <= 0 ? (
+                <div>
+                  <hr />
+                  <br />
+                  <span className="stock">Stock Agotado</span>
+                </div>
+              ) : (
+                <></>
+              )}
+            </ul>
             <CartSection>
               {user ? (
                 <Btn name="addToCart" onClick={() => handleAddToCart()}>
@@ -181,23 +198,50 @@ export const Detail = () => {
                   Agregar al carrito
                 </Btn>
               )}
-              {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
+              {success && !user ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
 
-              <form action="http://localhost:3001/checkout" method="POST">
+              { user ? (
+              <Btn onClick={() => handleClick(currentProduct)}>Comprar</Btn>
+              ) : (
+                <Btn onClick={() => handleLogin()}>Comprar</Btn>
+              )}
+
+              {/* <form action="http://localhost:3001/checkout" method="POST">               
                 <input
                   type='hidden'
                   name='title'
                   value={`Productos (${cartTotalQuantity})`}
                 />
-                <input type='hidden' name='price' value={cartTotalAmount} />
-                <Btn type='submit'>Comprar</Btn>
-              </form>
+                <input type="hidden" name="price" value={cartTotalAmount} />
+                <Btn type="submit">Comprar</Btn>
+              </form> */}
             </CartSection>
           </Info>
-          <Review ratings={currentProduct.ratings} />
+
+          {/* 
+          ************** DONDE ESTA REVIEW??****************
+          
+          <Review ratings={currentProduct.ratings} /> 
+          
+          */}
         </Container>
       )}
       <br />
+      {shipping ? (
+        <Shipping
+          cartItems={[]}
+          itemTotalQuantity={0}
+          itemTotalAmount={0}
+          cartTotalQuantity={0}
+          cartTotalAmount={0}
+          itemTempStock={0}
+          loading={false}
+          localStorage={[]}
+          currentProduct={currentProduct.id}
+        />
+      ) : (
+        ""
+      )}
       <hr />
       <br />
       <Sales />

@@ -8,7 +8,6 @@ import {
   emptyCart,
   removeFromCart,
   getDiscountTotal,
-  // BoughtPro,
   manteinQuantity,
 } from "../../../../redux/slices/Cart";
 
@@ -25,18 +24,20 @@ import {
   Line,
   Product,
   Remove,
-  Back,
   Titles,
   // Input,
   BtnCheck,
 } from "../../styled-components/styles";
 // import { display, fontSize } from "@mui/system";
-import cart from "../../styled-components/cart.png";
 // import React from "react";
 // import MuiAlert, { AlertProps } from "@mui/material/Alert";
 // import { BOLD_WEIGHT } from "jest-matcher-utils";
 import { FlashMsg } from "../FlashMsg/FlashMsg";
 import { postOrderBuy } from "../../../../services/services";
+import { EmptyCart } from "./EmptyCart";
+import { Checkout } from "../../../Shipping/Components/Checkout";
+import { Shipping } from "../../../Shipping/Shipping";
+// import { Shipping } from "../../../Shipping/Shipping";
 
 export const CartDetail = () => {
   const {
@@ -46,19 +47,19 @@ export const CartDetail = () => {
     cartTotalAmount,
     currentProduct,
   } = useAppSelector((state) => state.cartState);
-  const { discount, stock } = currentProduct;
+  const { discount } = currentProduct;
 
-  const { user, localUser } = useAppSelector((state) => state.userState);
-  
+  const { user } = useAppSelector((state) => state.userState);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState("");
+  const [shipping, setShipping] = useState(false);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDiscountTotal(cartItems));
     setSuccess(true);
-    setMsg('Tienes productos en tu carrito')
+    setMsg("Tienes productos en tu carrito");
   }, [itemTotalQuantity, cartItems, dispatch]);
 
   const handleSubstractItem = (cartItem: any) => {
@@ -75,17 +76,15 @@ export const CartDetail = () => {
   const handleAddItem = (cartItem: any) => {
     if (cartItem.stock === 0) {
       dispatch(manteinQuantity(cartItem));
-      setSuccess(true)
-      setMsg('Stock agotado')      
+      setSuccess(true);
+      setMsg("Stock agotado");
     } else {
       if (cartItem.stock > 0) {
         dispatch(increaseQuantity(cartItem));
       }
     }
   };
-
-  console.log(cartItems);
-
+  // console.log(cartItems);
   const handleRemoveItem = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
   };
@@ -94,44 +93,46 @@ export const CartDetail = () => {
     dispatch(emptyCart(e));
   };
 
-   const handleSubmit = () => {
-    const orderBuy = {
-      priceTotalDiscount: cartTotalAmount,
-      discount: discount,
-      state: true,
-      postalCode: 199,
-      street: "calle falsa",
-      height: "12943",
-      city: "varelaa",
-      quantityProducts: cartTotalQuantity,
-      dues: 130,
-      userId: user?.id,
-      buy: true,
-      productOrders: cartItems.map((prod: any) => {
-        return {
-          productId: prod.id,
-          quantity: prod.cartQuantity,
-          price: prod.price,
-        };
-      }),
-    };
-    postOrderBuy(orderBuy);
-  };
+  const handleClick = () => {
+    setShipping(true);    
+  }
+
+  // const handleSubmit = () => {
+  //   const orderBuy = {
+  //     priceTotalDiscount: cartTotalAmount,
+  //     discount: discount,
+  //     state: true,
+  //     postalCode: 199,
+  //     street: "calle falsa",
+  //     height: "12943",
+  //     city: "varelaa",
+  //     quantityProducts: cartTotalQuantity,
+  //     dues: 130,
+  //     userId: user?.id,
+  //     buy: true,
+  //     productOrders: cartItems.map((prod: any) => {
+  //       return {
+  //         productId: prod.id,
+  //         quantity: prod.cartQuantity,
+  //         price: prod.price,
+  //       };
+  //     }),
+  //   };
+  //   postOrderBuy(orderBuy);
+  // };
+
+  //alternativa de derivar a un form para cargar datos de shipping
+   
+  // const handleLogin = () => {
+  //   setSuccess(true);
+  //   setMsg("login");
+  // };
 
   return (
     <Container>
       {cartItems.length < 1 ? (
-        <div className="emptyCart">
-          <img src={cart} />
-          <div>
-            <p>Tu carrito esta vacío</p>
-            <NavLink to="/products">
-              <Back>Comienza a comprar...</Back>
-            </NavLink>
-          </div>
-        </div>
+        <EmptyCart />     
       ) : (
-        // ******************************
         <Contain>
           <div>
             <>
@@ -144,7 +145,7 @@ export const CartDetail = () => {
               {cartItems?.map((cartItem) => (
                 <Div key={cartItem.id}>
                   <Product>
-                    <img src={cartItem.image} alt="imagen del producto" />
+                    <img key={cartItem.id} src={cartItem.image} alt="imagen del producto" />
                     <div className="product">
                       <p> {cartItem.name}</p>
                     </div>
@@ -172,31 +173,35 @@ export const CartDetail = () => {
                       >
                         -
                       </button>
-                      <div>{cartItem.cartQuantity}</div>                    
+                      <div>{cartItem.cartQuantity}</div>
                       <button
                         name="add"
                         onClick={() => handleAddItem(cartItem)}
                       >
                         +
-                      </button>                      
+                      </button>
                     </Operators>
                     <div className="labelProm">
-                        <span>Stock:</span>
-                        <span >{cartItem.stock === 0 ? ' Agotado' : cartItem.stock}</span>
-                      </div>
-                  </Quantity>            
-
+                      <span>Stock:</span>
+                      <span>
+                        {cartItem.stock === 0 ? " Agotado" : cartItem.stock}
+                      </span>
+                    </div>
+                  </Quantity>
                   {cartItem.discount === 0 ? (
                     <div>${cartItem.price * cartItem.cartQuantity}</div>
                   ) : (
                     <div>
-                      ${Math.ceil(cartItem.price * (1 - cartItem.discount / 100)) * cartItem.cartQuantity}
+                      $
+                      {Math.ceil(
+                        cartItem.price * (1 - cartItem.discount / 100)
+                      ) * cartItem.cartQuantity}
                     </div>
                   )}
                   <Remove onClick={() => handleRemoveItem(cartItem)}>
                     Eliminar producto
-                  </Remove>       
-                  {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''}           
+                  </Remove>
+                  {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
                 </Div>
               ))}
             </>
@@ -214,7 +219,33 @@ export const CartDetail = () => {
               </Line>
             </TotalDiv>
             <Buttons>
-              <form action="https://blanc-visions-pf-kingcomm.up.railway.app/checkout" method="POST">
+
+            <Btn onClick={() => handleClick()}>Finalizar compra</Btn>
+              
+            {shipping ? 
+            
+            <Shipping 
+            cartItems={[]} 
+            itemTotalQuantity={0} 
+            itemTotalAmount={0} 
+            cartTotalQuantity={0} 
+            cartTotalAmount={0} 
+            itemTempStock={0} 
+            loading={false} 
+            localStorage={[]} 
+            currentProduct={currentProduct.id} 
+            /> 
+            : ""
+            }
+
+          
+              {/* ****** SE AGREGÓ EL SHIPPING PARA CAPTURAR LOS DATOS DE ENVIO Y GENERAR LA ORDEN DE COMPRA
+              DESPUES SE ENVIA AL CHECKOUT PARA VERIFICAR LOS DATOS ANTES DEL PAGO*****************
+              
+              <form
+                action="https://blanc-visions-pf-kingcomm.up.railway.app/checkout"
+                method="POST"
+              >
                 <input
                   type="hidden"
                   name="title"
@@ -225,7 +256,8 @@ export const CartDetail = () => {
                   {" "}
                   Finalizar compra
                 </BtnCheck>
-              </form>          
+              </form> */}
+
               <div>
                 <NavLink to="/products">
                   <Btn>Continuar comprando</Btn>

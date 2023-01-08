@@ -12,7 +12,6 @@ export const Sales = () => {
   const { loading, discountProducts } = useAppSelector(
     state => state.productsState
   );
-  const { currentCategory } = useAppSelector(state => state.categoriesState);
   useEffect(() => {
     dispatch(getProductsDiscountPage(1, 8, '', 0, 1, 'discount', 'DESC'));
   }, [dispatch]);
