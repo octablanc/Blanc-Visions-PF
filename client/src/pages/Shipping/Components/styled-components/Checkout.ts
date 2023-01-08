@@ -1,46 +1,114 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  /* background: lightcyan; */
   width: 80%;
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: 2fr 1fr;
+  gap: 5rem;
+  display: grid;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  justify-items: center;
+  align-items: stretch;  
+  .address {
+    width: 100%;    
+    margin: 3rem;
+    padding: 3rem;
+    border-radius: 3rem;
+    box-shadow: 0 8px 50px #23232333;
+  }
 `;
 
 export const Detail = styled.div`
-  margin-top: 2rem;
-    border-top: black;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    justify-content: space-around;
-    align-items: center;
-    justify-items: end;
-    align-content: space-evenly;
+  /* background: yellow; */
+  width: 100%;
+  margin: 3rem;
+  padding: 3rem;
+  border-radius: 3rem;
+  box-shadow: 0 8px 50px #23232333;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-items: end;
+  align-content: space-evenly;
+  .info {
+    width: 100%;
+  }
 `;
 
 export const Div = styled.div`
-  display: flex;
-  flex-direction: row;
+  /* background: lightgoldenrodyellow; */
+  width: 100%;
+  height: 12rem;
+  padding-left: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
   align-items: center;
-  justify-content: space-evenly;
-`;
-
-export const Miniatures = styled.div`
-  /* background-color: green; */
-  /* margin: 0 1rem; */
-  width: 7rem;
-  height: 7rem;
-  display: flex;
-  justify-content: center;
-  .img {
-    max-block-size: 7rem;
-    /* min-height: 10rem; */
+  justify-items: start;
+  border-top: solid ${(props) => props.theme.colors.secondary};
+  .miniature {
+    /* background: green; */
     /* margin: 0 1rem; */
-    /* position: relative; */
-    /* box-lines: black; */
-    /* border: none; */
-    box-shadow: none;
-    object-fit: cover;
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-block-size: 6rem;
+      min-height: 6rem;
+      border: none;
+      object-fit: cover;
+    }
+  }
+  .detail {
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    /* gap: -2rem; */
+    .quantity {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 0.5rem;
+      justify-items: start;
+    }
+    .promo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      justify-items: start;
+      .priceProm {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 0.5rem;
+        justify-items: start;
+      }
+      .discount {
+        text-decoration: line-through;
+        color: ${(props) => props.theme.colors.secondary};
+      }
+    }
+    .price {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      gap: 0.5rem;
+      justify-items: start;
+    }
   }
 `;
+
+export const Bill = styled.div`
+  /* background: red; */
+  padding-top: 6rem;
+  padding-left: 3rem;
+  width: auto;
+  border-left: solid ${(props) => props.theme.colors.secondary};
+  /* border-radius: 3rem; */
+  /* box-shadow: 0 8px 50px #23232333; */
+  .total{
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  `;

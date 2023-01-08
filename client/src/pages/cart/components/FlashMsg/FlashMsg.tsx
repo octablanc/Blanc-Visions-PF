@@ -45,7 +45,7 @@ export const FlashMsg = ({ msg }: any) => {
           <Alert
             severity="success"
             onClose={handleClose}
-            sx={{ width: "100%", fontSize: 12 }}
+            sx={{ width: "100%", fontSize: 14 }}
           >
             {msg}
           </Alert>
@@ -60,16 +60,16 @@ export const FlashMsg = ({ msg }: any) => {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
+            <DialogContentText id="alert-dialog-slide-description" sx={{ width: "100%", fontSize: 18 }} >
               Inicio de sesión requerida
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" sx={{ width: "100%", fontSize: 12 }} >
               Ok
             </Button>
             {/* <Login /> */}
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" sx={{ width: "100%", fontSize: 12 }}>
               Cerrar
             </Button>
           </DialogActions>
@@ -82,19 +82,19 @@ export const FlashMsg = ({ msg }: any) => {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle id="alert-dialog-slide-title">
+          <DialogTitle id="alert-dialog-slide-title" sx={{ width: "100%", fontSize: 18 }}>
             Producto agotado
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
+            <DialogContentText id="alert-dialog-slide-description" sx={{ width: "100%", fontSize: 14 }}>
               Te gustaría te avisemos cuando este nuevamente disponible?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" sx={{ width: "100%", fontSize: 12 }}>
               Si, gracias.
             </Button>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" sx={{ width: "100%", fontSize: 12 }}>
               No, gracias.
             </Button>
           </DialogActions>

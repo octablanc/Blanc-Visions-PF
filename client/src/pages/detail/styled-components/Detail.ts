@@ -50,7 +50,7 @@ export const Info = styled.div`
     margin-left: 2rem;
   }
   .stock {
-    color: grey;
+    color: ${(props) => props.theme.colors.secondary} ;
     margin-left: 1rem;
   }
 `;

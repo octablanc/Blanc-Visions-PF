@@ -98,7 +98,7 @@ export const Shipping = ({
       >
         {/* <DialogTitle id="form-dialog-title">Domicilio</DialogTitle> */}
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText  sx={{ width: "100%", fontSize: 18 }}>
             Completar los datos para envío a domicilio
           </DialogContentText>
 
@@ -111,6 +111,7 @@ export const Shipping = ({
             value={order.postalCode}
             fullWidth
             onChange={(e) => handleChange(e)}
+            sx={{ width: "100%", fontSize: 18 }}
           />
 
           <TextField
@@ -122,6 +123,7 @@ export const Shipping = ({
             value={order.street}
             fullWidth
             onChange={(e) => handleChange(e)}
+            sx={{ width: "100%", fontSize: 18 }}
           />
 
           <TextField
@@ -133,6 +135,7 @@ export const Shipping = ({
             value={order.height}
             fullWidth
             onChange={(e) => handleChange(e)}
+            sx={{ width: "100%", fontSize: 18 }}
           />
           <TextField
             id="city"
@@ -143,10 +146,11 @@ export const Shipping = ({
             value={order.city}
             fullWidth
             onChange={(e) => handleChange(e)}
+            sx={{ width: "100%", fontSize: 18 }}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={handleSubmit} color="primary"  sx={{ width: "100%", fontSize: 12 }}>
             Continuar con la compra
           </Button>
         </DialogActions>
