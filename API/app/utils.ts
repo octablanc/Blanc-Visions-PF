@@ -1786,6 +1786,19 @@ export const usersData = [
     state: true,
     roleId: 1,
   },
+  {
+    name: 'noe',
+    lastName: 'ferrer',
+    imageProfile:
+      'https://www.lavoz.com.ar/resizer/NIrwqF-30hCyH3lDF05KKhi2iig=/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/BGRXLQMBXNADBIBSMZ6VQUUNQI.jpg',
+    mail: 'noelia.c.ferrer@gmail.com',
+    password: 'noe123',
+    phone: 234312,
+    birthday: 32,
+    state: true,
+    roleId: 2,
+    userName: 'noe',
+  },
 ];
 
 // https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg
