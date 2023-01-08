@@ -81,7 +81,7 @@ export const CartDetail = () => {
 // BACK YA ESTA, igual revisar
 // falta cambiar la cantidad del producto en el carrito
 // y boludeces
-// * ACORDARSE DE COMENTAR LA LINEA EN LOGIN
+// * ACORDARSE DE COMENTAR LA LINEA EN LOGIn
 
 // <Container>
 //       {cartItems.length < 1 ? (
