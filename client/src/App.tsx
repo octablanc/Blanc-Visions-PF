@@ -21,7 +21,15 @@ import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
-import { Dashboard } from './pages/Dashboard/Dashboard';
+import { LayoutDashboard } from './pages/dashboard/components/Layout/LayoutDashboard';
+import {
+  AdminProducts,
+  AdminCategories,
+  AdminSales,
+  AdminUsers,
+} from './pages/dashboard/pages';
+
+// import { LayoutDashboard } from './pages/Dashboard/Dashboard';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -48,18 +56,24 @@ function App() {
             <Route path='/create' element={<CreateProduct />} />
             // </Routes>
           )}
-          <Route path='/dashboard' element={<Dashboard />} />
+
           <Route path='products/:id' element={<Detail />} />
           <Route path='cart' element={<Cart />} />
           <Route path='*' element={<NotFound />} />
           <Route path='profile/' element={<Profile />} />
           <Route path='about' element={<About />} />
 
-          {userState?.id &&<Route path='buy' element={<MyBuy />} />}
+          {userState?.id && <Route path='buy' element={<MyBuy />} />}
           {/*Hecho para testear mis compras...*/}
           <Route path='questions' element={<Questions />} />
           <Route path='privacy' element={<Privacy />} />
           <Route path='termsyconditions' element={<Terms />} />
+        </Route>
+        <Route path='/dashboard' element={<LayoutDashboard />}>
+          <Route path='products' element={<AdminProducts />} />
+          <Route path='categories' element={<AdminCategories />} />
+          <Route path='sales' element={<AdminSales />} />
+          <Route path='users' element={<AdminUsers />} />
         </Route>
       </Routes>
     </BrowserRouter>

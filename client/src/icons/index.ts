@@ -5,8 +5,11 @@ export {
   BsFillEnvelopeOpenFill,
   BsFillTelephoneFill,
   BsWhatsapp,
+  BsCamera,
+  BsListUl,
 } from 'react-icons/bs';
 
-export { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+export { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
-export { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+export { HiUsers, HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+export { FaMoneyBillAlt } from 'react-icons/fa';
