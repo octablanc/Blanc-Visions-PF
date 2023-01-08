@@ -22,14 +22,14 @@ import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
 import { Checkout } from './pages/Shipping/Components/Checkout';
-import { LayoutDashboard } from './pages/dashboard/components/Layout/LayoutDashboard';
+import { LayoutDashboard } from './pages/admin/components/Layout/LayoutDashboard';
 import {
   AdminProducts,
   AdminCategories,
   AdminSales,
   AdminUsers,
-} from './pages/dashboard/pages';
-import { FormCategory } from './pages/dashboard/pages/categories/FormCategory';
+} from './pages/admin/pages';
+import { FormCategory } from './pages/admin/pages/categories/FormCategory';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -37,7 +37,7 @@ function App() {
 
   // Set the user logged in the start
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async user => {
       if (user && !userState) dispatch(getUser(user.email));
       if (!user) dispatch(getUser(user));
     });
