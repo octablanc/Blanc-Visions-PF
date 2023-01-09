@@ -28,7 +28,7 @@ export const Bar = () => {
           <img src={img} alt='img user' />
         </AdminImage>
         <div>
-          <h3>FLORENCIA</h3>
+          <h2>FLORENCIA</h2>
           <h4>Administrador</h4>
         </div>
       </AdminContent>
