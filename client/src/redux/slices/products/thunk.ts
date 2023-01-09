@@ -12,12 +12,15 @@ import {
 } from './productsSlice';
 import { UserInfo } from './productsSlice';
 import axios from 'axios';
+import Pro from './productsSlice';
 
 export const getAllProducts = () => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let products = (await axios(`${process.env.REACT_APP_BACKEND_URL}/products`)).data;
+      let products = (
+        await axios(`${process.env.REACT_APP_BACKEND_URL}/products`)
+      ).data;
       dispatch(getProducts(products));
     } catch (error) {
       console.log(error);
@@ -31,8 +34,9 @@ export const getProductById = (id: number) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let productsId = (await axios(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`))
-        .data;
+      let productsId = (
+        await axios(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)
+      ).data;
       dispatch(detailProduct(productsId));
     } catch (error) {
       console.log(error);
@@ -46,7 +50,9 @@ export const getAllCategories = () => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingProducts(true));
-      let categories = (await axios(`${process.env.REACT_APP_BACKEND_URL}/categories`)).data;
+      let categories = (
+        await axios(`${process.env.REACT_APP_BACKEND_URL}/categories`)
+      ).data;
       dispatch(getCategories(categories));
     } catch (err) {
       console.log(err);
@@ -60,7 +66,9 @@ export const getProductCategories = (value: string) => {
     try {
       dispatch(startLoadingProducts(true));
       let productByCategories = (
-        await axios(`${process.env.REACT_APP_BACKEND_URL}/products?category=${value}`)
+        await axios(
+          `${process.env.REACT_APP_BACKEND_URL}/products?category=${value}`
+        )
       ).data.result;
       dispatch(productOffCategories(productByCategories));
     } catch (err) {
@@ -109,7 +117,7 @@ export const getProductsPage = (
             `${process.env.REACT_APP_BACKEND_URL}/products/paginate?page=${page}&quantityProducts=${quantity}&discount=${discount}&price=${price}&data=${data}&order=${order}&name=${name}`
           )
         ).data;
-      } 
+      }
       if (category) {
         products = (
           await axios(
@@ -203,18 +211,21 @@ export const updateUser = (user: UserInfo) => {
         roleId,
       } = user;
 
-      let updateUser = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`, {
-        imageProfile,
-        name,
-        lastName,
-        phone,
-        mail,
-        password,
-        userName,
-        birthday,
-        state,
-        roleId,
-      });
+      let updateUser = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/users/${id}`,
+        {
+          imageProfile,
+          name,
+          lastName,
+          phone,
+          mail,
+          password,
+          userName,
+          birthday,
+          state,
+          roleId,
+        }
+      );
       dispatch(setUser(updateUser.data));
     } catch (error) {
       console.log('EROR=>', error);

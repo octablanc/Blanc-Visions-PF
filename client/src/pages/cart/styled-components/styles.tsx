@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -133,23 +133,21 @@ export const Line = styled.div`
 export const Btn = styled.button`
   width: 100%;
   border-radius: 1rem;
+  border: none;
   margin: 0.5rem;
   padding: 0.8rem;
-  border-style: double;
-  border-color: white;
-  color: #d4e3e2;
-  background: #7cbbb9;
-  box-shadow: inset 17px 17px 34px #70a8a7, inset -17px -17px 34px #88cecc;
-  /* color: #38ada9;
-background: #bac9c9;
-box-shadow: inset -17px -17px 34px #869191,
-            inset 17px 17px 34px #eeffff; */
+  // border-style: double;
+  // border-color: white;
+  color: white;
+  text-shadow: 1px 2px 3px black;
+  background: ${(props) => props.theme.colors.secondary};
+  // box-shadow: inset 17px 17px 34px #70a8a7, inset -17px -17px 34px #88cecc;
 
   cursor: pointer;
   :hover {
-    border-radius: 10px;
+    border-radius: 1.5rem;
     background: #38ada9;
-    box-shadow: inset -17px -17px 34px #164544, inset 17px 17px 34px #5affff;
+    box-shadow: 3px 3px 3px #164544, 3px 3px 3px #5affff;
   }
 `;
 
@@ -158,17 +156,17 @@ export const BtnCheck = styled.button`
   border-radius: 1rem;
   margin: 0.5rem;
   padding: 1rem;
-  background-color: ${(props) => props.theme.colors.secondary};
-  box-shadow: inset 5px 5px 10px #2d8c89, inset -5px -5px 10px #43cec9;
+  background-color: ${(props) => props.theme.colors.third};
+  /* box-shadow: inset 5px 5px 10px #2d8c89, inset -5px -5px 10px #43cec9; */
   border: none;
   color: white;
+  text-shadow: 2px 2px 3px black;
   font-size: 1.5rem;
   cursor: pointer;
   :hover {
-    border-radius: 10px;
-    background: #279692;
-    box-shadow: inset -17px -17px 34px #103c3a, inset 17px 17px 34px #3ef0ea;
-    color: black;
+    border-radius: 1.5rem;
+    // background: ${(props) => props.theme.colors.hoverPrimary};
+    box-shadow: 3px 3px 2px ${(props) => props.theme.colors.hoverSecondary}, 3px 3px 3px ${(props) => props.theme.colors.hoverSecondary};
   }
 `;
 
