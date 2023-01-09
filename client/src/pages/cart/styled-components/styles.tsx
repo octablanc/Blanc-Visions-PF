@@ -136,18 +136,14 @@ export const Btn = styled.button`
   border: none;
   margin: 0.5rem;
   padding: 0.8rem;
-  // border-style: double;
-  // border-color: white;
   color: white;
   text-shadow: 1px 2px 3px black;
   background: ${(props) => props.theme.colors.secondary};
-  // box-shadow: inset 17px 17px 34px #70a8a7, inset -17px -17px 34px #88cecc;
-
+ 
   cursor: pointer;
   :hover {
     border-radius: 1.5rem;
-    background: #38ada9;
-    box-shadow: 3px 3px 3px #164544, 3px 3px 3px #5affff;
+    box-shadow: 3px 3px 3px ${(props) => props.theme.colors.hoverSecondary}, 3px 3px 3px ${(props) => props.theme.colors.hoverSecondary};
   }
 `;
 
@@ -156,7 +152,7 @@ export const BtnCheck = styled.button`
   border-radius: 1rem;
   margin: 0.5rem;
   padding: 1rem;
-  background-color: ${(props) => props.theme.colors.third};
+  background: ${(props) => props.theme.colors.third};
   /* box-shadow: inset 5px 5px 10px #2d8c89, inset -5px -5px 10px #43cec9; */
   border: none;
   color: white;

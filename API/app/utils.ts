@@ -57,6 +57,41 @@ export const data = [
       {
         userId: 2,
         score: 1,
+        commentary: 'Este producto no me sirve',
+      },
+      {
+        userId: 2,
+        score: 4,
+        commentary: 'Saca fotos muy buenas aunque el foco es medio inconsistente a veces. Tarda unos 3 segundos en tomar la foto.',
+      },
+      {
+        userId: 2,
+        score: 1,
+        commentary: 'Es demasiado pesado, muy poco practico',
+      },
+      {
+        userId: 2,
+        score: 1,
+        commentary: 'Este producto es una merda',
+      },
+      {
+        userId: 2,
+        score: 1,
+        commentary: 'Este producto es una merda',
+      },
+      {
+        userId: 2,
+        score: 1,
+        commentary: 'Este producto es una merda',
+      },
+      {
+        userId: 2,
+        score: 1,
+        commentary: 'Este producto es una merda',
+      },
+      {
+        userId: 2,
+        score: 1,
         commentary: 'Este producto es una merda',
       },
     ],
@@ -1800,6 +1835,19 @@ export const usersData = [
     state: true,
     roleId: 2,
     userName: 'noe',
+  },
+  {
+    name: 'agus',
+    lastName: 'zanetti',
+    imageProfile:
+      'https://www.lavoz.com.ar/resizer/NIrwqF-30hCyH3lDF05KKhi2iig=/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/BGRXLQMBXNADBIBSMZ6VQUUNQI.jpg',
+    mail: 'agus.zanetti4@gmail.com',
+    password: 'agus123',
+    phone: 234312,
+    birthday: 32,
+    state: true,
+    roleId: 2,
+    userName: 'agus',
   },
 ];
 
