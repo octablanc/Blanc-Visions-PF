@@ -78,7 +78,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
       </div>
       <Bill>
         <p className='total'>Total $ {cartTotalAmount}</p>
-
+        
         <form
           action="https://kingcomm.up.railway.app/checkout"
           method="POST"

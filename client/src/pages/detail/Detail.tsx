@@ -29,6 +29,7 @@ import {
   // ShippingForm
 } from "../Shipping/Shipping";
 import { Div } from "../cart/styled-components/styles";
+import { Review } from "./components/Review";
 
 export const Detail = () => {
   const dispatch = useAppDispatch();
@@ -216,14 +217,10 @@ export const Detail = () => {
                 <Btn type="submit">Comprar</Btn>
               </form> */}
             </CartSection>
-          </Info>
-
-          {/* 
-          ************** DONDE ESTA REVIEW??****************
+          </Info>  
           
-          <Review ratings={currentProduct.ratings} /> 
-          
-          */}
+           <Review ratings={currentProduct.ratings} />           
+         
         </Container>
       )}
       <br />
