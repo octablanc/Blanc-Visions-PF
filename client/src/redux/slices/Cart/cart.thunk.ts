@@ -1,4 +1,4 @@
-import { addProductCartState, getProductDetail } from './cartSlice';
+import { addProductCartState, setLoading, setUpdate } from './cartSlice';
 import axios from 'axios';
 import * as dotenv from 'dotenv';
 
@@ -12,7 +12,6 @@ interface Props {
 interface PropsSetCart{
   id: number;
   quantity: number;
-  price: number;
 }
 
 export const addProductCart = ({
@@ -23,12 +22,6 @@ export const addProductCart = ({
 }: Props) => {
   return async (dispatch: any) => {
     try {
-      // console.log("MANDA POR BODY",{
-      //   productId,
-      //   quantity,
-      //   price,
-      //   userId,
-      // })
       const product = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/`,
         {
@@ -61,44 +54,52 @@ export const getCartUser = (id: any) => {
   };
 };
 
-export const setQuantityCart = ({id, quantity, price}:PropsSetCart) => {
+export const setQuantityCart = ({id, quantity}:PropsSetCart) => {
   return async (dispatch: any) => {
     try {
-      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/${id}`,{ quantity, price })
-
+      dispatch(setLoading(true))
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/${id}`,{ quantity })
     } catch (err) {
       console.log("Err ACtion =>",{ err });
+    }finally{
+      setTimeout(() => {
+        dispatch(setLoading(false))
+        dispatch(setUpdate())
+      }, 450);
     }
   };
 };
 
-// export const addProduct = (id: number) => {
-//   return async (dispatch: any) => {
-//     const product = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`);
-//     // dispatch(addToCart(product));
-//   };
-// }
+export const deleteProductCart = (id:number) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(setLoading(true))
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/${id}`)
+    } catch (err) {
+      console.log("Err ACtion =>",{ err });
+    }finally{
+      setTimeout(() => {
+        dispatch(setLoading(false))
+        dispatch(setUpdate())
+      }, 450);
+    }
+  };
+};
 
-// export const getProductById = (id: number) => {
-//   return async (dispatch: any) => {
-//     try {
-//       const product = (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)).data;
-//       dispatch(getProductDetail(product))
-//       console.log(product)
-//     } catch (error) {
-//       console.log('Error:', error)
-//     }
-//   };
-// };
+export const deleteCartUser = (id:any) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(setLoading(true))
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/all/${id}`)
+    } catch (err) {
+      console.log("Err ACtion =>",{ err });
+    }finally{
+      setTimeout(() => {
+        dispatch(setLoading(false))
+        dispatch(setUpdate())
+      }, 450);
+    }
+  };
+};
 
-// export const updateProductStock = (product: UniquePro) => {
-//   return async (dispatch: any) => {
-//     try {
-//       const updatedProduct = await axios.put(`http://localhost:3001/products/${id}`, product.stock)
-//       dispatch()
 
-//     } catch (error) {
-
-//     }
-//   };
-// }

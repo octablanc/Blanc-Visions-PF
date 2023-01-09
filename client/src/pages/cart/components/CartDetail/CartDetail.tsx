@@ -1,25 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { MouseEvent, useEffect, useState } from 'react';
 
-import {
-  Div,
-  Div2,
-  Container,
-  Contain,
-  Buttons,
-  Btn,
-  Operators,
-  Quantity,
-  TotalDiv,
-  Line,
-  Product,
-  Remove,
-  Back,
-  Titles,
-  // Input,
-  BtnCheck,
-} from '../../styled-components/styles';
+import { Container } from '../../styled-components/styles';
 // import { display, fontSize } from "@mui/system";
 import cart from '../../styled-components/cart.png';
 // import React from "react";
@@ -27,61 +10,143 @@ import cart from '../../styled-components/cart.png';
 // import { BOLD_WEIGHT } from "jest-matcher-utils";
 import { FlashMsg } from '../FlashMsg/FlashMsg';
 import { postOrderBuy } from '../../../../services/services';
-import { getCartUser } from '../../../../redux/slices/Cart';
+import {
+  deleteCartUser,
+  deleteProductCart,
+  getCartUser,
+  setQuantityCart,
+} from '../../../../redux/slices/Cart';
 
 export const CartDetail = () => {
-  // const { discount, stock } = currentProduct;
-
-  const { user, localUser } = useAppSelector((state) => state.userState);
-  const { cart } = useAppSelector((state) => state.cartState);
-  // console.log('CART => ', cart);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.userState);
+  const { cart, loadingBtnSet, update } = useAppSelector(
+    (state) => state.cartState
+  );
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState('');
-
-  const dispatch = useAppDispatch();
   useEffect(() => {
     if (user) {
       dispatch(getCartUser(user.id));
-      // dispatch(getCartUser(1));
     }
     setSuccess(true);
     setMsg('Tienes productos en tu carrito');
-  }, [dispatch]);
-  console.log(cart)
-  // if(itemCart === 0) return (<ComponenteCarritoVacio />)
+  }, [dispatch, update]);
+
+  const priceTotalCart = cart.map((c) => c.price).reduce((a, d) => a + d, 0);
+  const quantityTotalCart = cart
+    .map((c) => c.quantity)
+    .reduce((a, d) => a + d, 0);
+
+  const handleSetQuantity = (
+    typeSet: boolean,
+    id: number,
+    quantity: number,
+    stock: number
+  ) => {
+    if (typeSet) {
+      if (quantity === stock) return 1;
+      return dispatch(setQuantityCart({ id, quantity: quantity + 1 }));
+    }
+
+    if (quantity === 1) return dispatch(deleteProductCart(id));
+    dispatch(setQuantityCart({ id, quantity: quantity - 1 }));
+  };
+  const handleDeleteProductCart = (id: number) =>
+    dispatch(deleteProductCart(id));
+  const handleDeleteCart = () => dispatch(deleteCartUser(user?.id));
+
+  const setNumber = (numero: number) => {
+    let partesNumero = numero.toString().split('.');
+    partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return partesNumero.join('.');
+  };
+  const handleNavidateProduct = (id: number) => navigate(`/products/${id}`);
+
+  if (!cart.length)
+    return (
+      <div className="emptyCart">
+        {/* <img src={cart} /> */}
+        <div>
+          <p>Tu carrito esta vacío</p>
+          <NavLink to="/products">
+            <button>Comienza a comprar...</button>
+          </NavLink>
+        </div>
+      </div>
+    );
   return (
     <Container>
-      {cart.map((c) => (
-        <div key={c.id}>
-          {/* <img src={c.product.image} alt="foto del procto" /> */}
-          <h3>{c.product.name}</h3>
-          <p>price:{c.product.price}</p>
+      <div className="container__products__cart">
+        {cart.map((c) => {
+          const { id, name, discount, price, stock, image } = c.product;
+          const priceDiscount: number = price - (price * discount) / 100;
 
-          <div>
-            <button>-</button>
-            <p>quantity:{c.quantity}</p>
-            <button>+</button>
-            <p>stock:{c.product.stock}</p>
-          </div>
-          <br />
-          {/* <p>discount:{c.product.discount}</p> */}
-          {/* <p>{c.product.}</p> */}
-          <p>Price total: {c.price}</p>
-          <hr />
-        </div>
-      ))}
+          return (
+            <div key={c.id}>
+              <img src={image} alt="foto del procto" className="img__pcart" />
+              <h3
+                className="name__pcart"
+                onClick={() => handleNavidateProduct(id)}
+              >
+                {name}
+              </h3>
 
-      {/* Titulos de detalles del carro */}
-      {/* Componente de producto en el cart (add remode quantity) */}
-      {/* Vaciar todo el Carro */}
+              {discount === 0 ? (
+                <p className="price__pcart">Price {setNumber(price)}</p>
+              ) : (
+                <div className="container__calculo">
+                  <p>Antes {setNumber(price)}</p>
+                  <p>Despues {setNumber(priceDiscount)}</p>
+                </div>
+              )}
+
+              <div>
+                <button
+                  onClick={() =>
+                    handleSetQuantity(false, c.id, c.quantity, stock)
+                  }
+                  disabled={loadingBtnSet}
+                >
+                  -
+                </button>
+                <p>quantity:{c.quantity}</p>
+                <button
+                  onClick={() =>
+                    handleSetQuantity(true, c.id, c.quantity, stock)
+                  }
+                  disabled={loadingBtnSet}
+                >
+                  +
+                </button>
+                <p>stock:{stock}</p>
+                <button onClick={() => handleDeleteProductCart(c.id)}>
+                  Eliminar Producto
+                </button>
+              </div>
+              <p>Price total: {setNumber(c.price)}</p>
+              <hr />
+            </div>
+          );
+        })}
+      </div>
+
+      <div className='container__data'>
+        <p>precio total del carrito : {setNumber(priceTotalCart)}</p>
+        <p>Cantidad de Productos : {quantityTotalCart}</p>
+        <button>Finalizar Compra</button>
+        <button onClick={() => navigate('/products')}>
+          Continuar comprando
+        </button>
+        <button onClick={handleDeleteCart}>Vaciar Carrito</button>
+      </div>
+      {/* QUE FINALLIZAR COMPRA NOS LLEVE AL COMPONENTE DE COMPRA QUE HAY QEU LLENAR LA DIRECCION */}
       {/* Agrega a la orden de compra */}
     </Container>
   );
 };
-// BACK YA ESTA, igual revisar
-// falta cambiar la cantidad del producto en el carrito
-// y boludeces
-// * ACORDARSE DE COMENTAR LA LINEA EN LOGIn
+// * ACORDARSE DE COMENTAR LA LINEA EN LOGIn para desarrollo <
 
 // <Container>
 //       {cartItems.length < 1 ? (

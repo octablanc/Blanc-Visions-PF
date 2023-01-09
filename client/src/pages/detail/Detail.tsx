@@ -58,14 +58,13 @@ export const Detail = () => {
   }, [dispatch, idParams]);
 
   const findProductCart = cart.some((c) => c.productId === id);
-  console.log(findProductCart);
-  console.log('DET CART', cart);
-  console.log('ID=>', id);
-  console.log('\n');
+  // console.log(findProductCart);
+  // console.log('DET CART', cart);
+  // console.log('ID=>', id);
+  // console.log('\n');
   const handleAddToCart = () => {
-    dispatch(addProductCart({ userId: 1, quantity: 1, price, productId: id }));
-    // AGREGAR AL CARRITO  DESDE EL DETALLE
-    // Y AGREGAR CANTIDADES
+    const totalPriceProduct = discount === 0 ? price : price - (price*discount)/100;
+    dispatch(addProductCart({ userId: 1, quantity: 1, price:totalPriceProduct, productId: id }));
     navigate('/cart');
   };
 

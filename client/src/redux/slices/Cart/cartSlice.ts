@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UniquePro } from '../products';
 
 interface ProductCartIfc {
   name: string;
@@ -15,15 +14,19 @@ export interface BoughtPro {
   quantity: number;
   price: number;
   productId: number;
-  // userId: number;
   product: ProductCartIfc;
 }
 export interface CartState {
   cart: Array<BoughtPro>;
+  loadingBtnSet : boolean
+  update: number
+
 }
 
 const initialState: CartState = {
   cart: [],
+  loadingBtnSet : false,
+  update: 0
 };
 
 export const cartSlice = createSlice({
@@ -33,36 +36,18 @@ export const cartSlice = createSlice({
     addProductCartState(state, action) {
       state.cart = action.payload;
     },
-    removeProductCart(state, action) {},
-    decreaseQuantity(state, action) {},
-    increaseQuantity(state, action) {},
-    emptyCart(state, action) {},
-    getTotal(state, action) {
-      // Total de productos en el carrito
+    setLoading(state, action){
+      state.loadingBtnSet = action.payload
     },
-
-    // * -  - - - -
-    // getDiscountTotal(state, action) {
-    //   // calculo la precio con descuento total
-    //   // calculo la cantidad total  (ESTA CAPAZ NO )
-    // },
-    getProductDetail(state, action) {
-      // state.currentProduct = action.payload;
-    },
-
-    cleanDetail(state, action) {
-      // state.currentProduct = action.payload;
+    setUpdate(state){
+      state.update = state.update + 1;
     },
   },
 });
 
 export const {
   addProductCartState,
-  // removeFromCart,
-  // decreaseQuantity,
-  // increaseQuantity,
-  // emptyCart,
-  // getDiscountTotal,
-  getProductDetail,
-  cleanDetail,
+  setLoading,
+  setUpdate,
+
 } = cartSlice.actions;
