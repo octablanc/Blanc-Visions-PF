@@ -80,7 +80,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
         <p className='total'>Total $ {cartTotalAmount}</p>
 
         <form
-          action="https://blanc-visions-pf-kingcomm.up.railway.app/checkout"
+          action="https://kingcomm.up.railway.app/checkout"
           method="POST"
         >
           <input

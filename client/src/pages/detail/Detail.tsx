@@ -178,7 +178,7 @@ export const Detail = () => {
               </ul>
             ))}
             <ul>
-              {stock <= 0 ? (
+              {stock <= 0? (
                 <div>
                   <hr />
                   <br />
