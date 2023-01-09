@@ -1130,7 +1130,7 @@ export const data = [
       },
       {
         name: 'Velocidad máxima de lectura: ',
-        value: '100 MB/s',
+        value: '120 MB/s',
       },
       {
         name: 'Velocidad máxima de escritura: ',
