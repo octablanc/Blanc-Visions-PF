@@ -13,9 +13,11 @@ export const theme = {
   colors: {
     primary: '#ffa801',
     secondary: '#38ada9',
+    third: '#46d6cf',
     black: '#000000',
     white: '#FFFFFF',
-    hoverPrimary: '#d88c00'
+    hoverPrimary: '#d88c00',
+    hoverSecondary: '#1d5956'
   },
 };
 
