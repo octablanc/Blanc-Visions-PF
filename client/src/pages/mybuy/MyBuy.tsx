@@ -9,12 +9,14 @@ function MyBuy() {
   const userState = useAppSelector(({ userState }) => userState.user);
   let idToSearch: number;
   if (userState && userState.id)
+
   idToSearch = parseInt(userState?.id.toString());
 
   useEffect(() => {
   dispatch(getAllBuy(idToSearch)); 
   // dispatch(getAllBuy(1));
   // HECHO PARA TESTEAR 
+
   }, [dispatch, userState]);
   return (
     <div className="container">

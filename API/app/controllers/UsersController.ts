@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import DBcontext from "../../config/ConnectionDB";
+import { Request, Response } from 'express';
+import DBcontext from '../../config/ConnectionDB';
 
-const { users, roles } = DBcontext.models;
+const { users, roles, orderBuy } = DBcontext.models;
 
 export async function getUsers(req: Request, res: Response) {
   try {
@@ -14,25 +14,24 @@ export async function getUsers(req: Request, res: Response) {
           mail,
         },
         include: roles,
-        attributes: { exclude: ["roleId"] },
+        attributes: { exclude: ['roleId'] },
       });
 
-      if(!result)
-        throw new Error('User not found!');
+      if (!result) throw new Error('User not found!');
     } else {
       result = await users.findAll({
         where:
-          state === "true"
+          state === 'true'
             ? {
                 state: true,
               }
-            : state === "false"
+            : state === 'false'
             ? {
                 state: false,
               }
             : {},
         include: roles,
-        attributes: { exclude: ["roleId"] },
+        attributes: { exclude: ['roleId'] },
       });
     }
 
@@ -46,15 +45,31 @@ export async function getUserById(req: Request, res: Response) {
   try {
     const { id } = req.params;
 
-    const user = await users.findByPk(id);
+    const user = await users.findAll({
+      where: { id },
+      include: orderBuy,
+    });
 
-    if (!user) return res.status(404).send({ message: "User not found!" });
+    if (!user) return res.status(404).send({ message: 'User not found!' });
 
     return res.send(user);
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
 }
+// export async function getUserById(req: Request, res: Response) {
+//   try {
+//     const { id } = req.params;
+
+//     const user = await users.findByPk(id);
+
+//     if (!user) return res.status(404).send({ message: "User not found!" });
+
+//     return res.send(user);
+//   } catch ({ message }) {
+//     return res.status(400).send({ message });
+//   }
+// }
 
 export async function getUserByMail(req: Request, res: Response) {
   try {
@@ -62,12 +77,11 @@ export async function getUserByMail(req: Request, res: Response) {
     console.log(mail);
     const user = await users.findOne({
       where: {
-        mail
-      }
+        mail,
+      },
     });
 
-    if(!user)
-      return res.status(404).send({ message: "User not found!" });
+    if (!user) return res.status(404).send({ message: 'User not found!' });
 
     return res.send(user);
   } catch ({ message }) {
@@ -77,10 +91,10 @@ export async function getUserByMail(req: Request, res: Response) {
 
 export async function postUser(req: Request, res: Response) {
   try {
-    const newUser = req.body; 
-    
+    const newUser = req.body;
+
     const userCreate = await users.create(newUser);
-    return res.send([{ message: "post user", userCreate }]);
+    return res.send([{ message: 'post user', userCreate }]);
   } catch ({ message }) {
     return res.status(400).json({ message });
   }
@@ -90,13 +104,13 @@ export async function updateUser(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const newFields = req.body;
-    
+
     const userToUpdate = await users.findByPk(id);
     if (userToUpdate) {
       await userToUpdate.update(newFields);
       await userToUpdate.save();
-    } else throw new Error("User not found!");
-    
+    } else throw new Error('User not found!');
+
     return res.send(userToUpdate);
   } catch ({ message }) {
     return res.status(400).send({ message });
@@ -111,15 +125,15 @@ export async function deleteUser(req: Request, res: Response) {
     if (userToDelete) {
       await userToDelete.update({ state: false });
       await userToDelete.save();
-    } else throw new Error("User not found!");
-    
+    } else throw new Error('User not found!');
+
     return res.send(userToDelete);
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
 }
-    //Formato para enviar un Usuario:
-    /*
+//Formato para enviar un Usuario:
+/*
         {
           "name": "Lucas 2022",
           "lastName": "Alegre",

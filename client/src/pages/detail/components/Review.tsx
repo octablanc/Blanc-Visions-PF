@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import { ContainerRatings } from './style';
-import moment from 'moment';
+// import moment from 'moment';
 import 'moment/locale/es';
+import React from 'react';
 
 export const Review = ({ ratings }: { ratings: Array<any> }) => {
   const formato = 'DD MMM YYYY';
@@ -13,17 +14,19 @@ export const Review = ({ ratings }: { ratings: Array<any> }) => {
       {/* FALTA COMPONENTE DE PROMEDIOS  */}
       <ContainerRatings>
         {ratings?.map((rating) => (
-          <div key={rating.id} className="one__rating">
-            <p className="date__rating">{moment(rating.createdAt.split('T')[0]).format(formato)}</p>
+          <div key={rating.id} className='one__rating'>
+            <p className='date__rating'>
+              {/* {moment(rating.createdAt.split('T')[0]).format(formato)} */}
+            </p>
             <Box>
               <Rating
-                size="large"
-                name="read-only"
+                size='large'
+                name='read-only'
                 value={rating.score}
                 readOnly
               />
             </Box>
-            <p className="commentary__rating">{rating.commentary}</p>
+            <p className='commentary__rating'>{rating.commentary}</p>
           </div>
         ))}
       </ContainerRatings>

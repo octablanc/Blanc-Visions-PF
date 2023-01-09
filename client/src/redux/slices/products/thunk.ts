@@ -2,7 +2,6 @@ import {
   getProducts,
   getCategories,
   startLoadingProducts,
-  createProduct,
   detailProduct,
   changePage,
   productOffCategories,
@@ -79,17 +78,6 @@ export const getProductCategories = (value: string) => {
   };
 };
 
-export const createNewProduct = (product: any) => {
-  return async (dispatch: any) => {
-    try {
-      let newProduct = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/products`,
-        product
-      );
-      dispatch(createProduct(newProduct));
-    } catch (err) {}
-  };
-};
 export const getProductsPage = (
   page: number,
   quantity: number,

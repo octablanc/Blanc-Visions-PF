@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface Product {
   id: number;
@@ -45,7 +44,7 @@ const initialState: NewBuyState = {
 };
 
 export const buySlice = createSlice({
-  name: 'buys',
+  name: "buys",
   initialState,
   reducers: {
     allBuy: (state, action) => {
