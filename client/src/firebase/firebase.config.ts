@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, verifyBeforeUpdateEmail  } from 'firebase/auth';
+import { getAuth, verifyBeforeUpdateEmail, GoogleAuthProvider  } from 'firebase/auth';
 import { User } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import {v4} from 'uuid';
@@ -19,6 +19,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+export const provider = new GoogleAuthProvider();
 
 export async function uploadFile(file: any/*File | Blob | Uint8Array | ArrayBuffer | null*/){
   const storageRef = ref(storage, v4());
