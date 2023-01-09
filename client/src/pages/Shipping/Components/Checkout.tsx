@@ -98,7 +98,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
             name="title"
             value={`Productos (${quantityTotalCart})`}
           />
-          <input type="hidden" name="price" value={priceTotalCart} />
+          <input type="hidden" name="price" value={setNumber(priceTotalCart)} />
           <BtnCheck type="submit" onClick={handleSubmit}>
             Pagar
           </BtnCheck>
