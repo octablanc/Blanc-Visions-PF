@@ -4,7 +4,7 @@ import { Bar } from '../SideBar/Bar';
 import { DashboardContainer } from './styled-components/styles';
 
 const Main = styled.div`
-  padding: 3rem;
+  padding: 2rem;
   width: 100%;
 `;
 export const LayoutDashboard = () => {

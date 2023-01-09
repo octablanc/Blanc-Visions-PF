@@ -14,6 +14,9 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductsMain = styled.div`
   width: 100%;
+  background-color: white;
+  border-radius: 1rem;
+  overflow: hidden;
   img {
     width: 5rem;
     height: 5rem;
