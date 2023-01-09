@@ -24,7 +24,7 @@ export const AdminProducts = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { paginationAdmin, products } = useAppSelector(
-    (state) => state.adminState
+    state => state.adminState
   );
   const { page, quantity, data, order } = paginationAdmin;
 
@@ -35,6 +35,7 @@ export const AdminProducts = () => {
 
   useEffect(() => {
     dispatch(getProductsAdmin(page, quantity, data, order));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (
@@ -56,7 +57,7 @@ export const AdminProducts = () => {
         </tr>
 
         {products.length > 0 &&
-          products.map((product) => (
+          products.map(product => (
             <tr>
               <td>{product.id}</td>
               <td>

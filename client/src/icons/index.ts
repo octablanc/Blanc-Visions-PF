@@ -6,11 +6,16 @@ export {
   BsFillTelephoneFill,
   BsWhatsapp,
   BsCamera,
+  BsCameraFill,
   BsListUl,
 } from 'react-icons/bs';
 
-export { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
+export {
+  MdArrowBackIosNew,
+  MdArrowForwardIos,
+  MdOutlineLogout,
+} from 'react-icons/md';
 
 export { HiUsers, HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-export { FaMoneyBillAlt, FaEdit } from 'react-icons/fa';
+export { FaMoneyBillAlt, FaEdit, FaListUl } from 'react-icons/fa';
 export { BiAddToQueue } from 'react-icons/bi';
