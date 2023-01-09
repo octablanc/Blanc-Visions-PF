@@ -115,6 +115,73 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
   }
 
+  .table{
+    border-collapse: collapse;
+    margin: 2.5rem 0;
+    font-size: 1.5rem;
+    min-width: 100%;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+  }
+
+  table thead tr {
+    color: white;
+    background-color: #1565C0;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  
+
+  .table th,
+  .table td {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table tbody tr:nth-of-type(even){
+    background: #f3f3f3;
+  }
+
+  .table tbody tr.active {
+    font-weight: bold;
+    color: #4ad489;
+  }
+
+  .table tbody tr:last-of-type {
+    border-bottom: 2px solid white;
+  }
+
+  .table button {
+    padding: 0.6rem 1.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid ${(props): string => props.theme.colors.primary};
+  }
+
+  .table button:hover {
+    background: ${(props): string => props.theme.colors.primary};
+    color: black;
+    transition: 0.3s;
+  }
+
+  .main {
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    padding: 1rem;
+    box-shadow: 0 2rem 3.5rem rgba(0, 0, 0, 0.1);
+  }
+
+  .main img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
 
   .swiper-pagination-bullet-active {
     background-color: ${(props): string => props.theme.colors.primary};
