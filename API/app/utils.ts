@@ -184,12 +184,12 @@ export const data = [
       {
         userId: 1,
         score: 5,
-        commentary: 'Muy buen tripode, la mejor compra que hice hasta ahora. La verdad me sorprendido en cuanto a la calidad de los materiales, te da confianza de que no se va a caer. Ya no tengo que apilar nada para grabar.',
+        commentary: 'Muy buen tripode, la mejor compra que hice hasta ahora.',
       },
       {
         userId: 3,
         score: 4,
-        commentary: 'Excelente producto, se siente robusto y resistente, el cabezal que es lo mas frágil de la mayoría de los trípodes es mucho mas grueso que otros que vi, cuenta con un soporte extra que para que todo el peso de la cámara se distribuya mejor que otros trípodes.',
+        commentary: 'Excelente producto, se siente robusto y resistente, el cabezal que es lo mas frágil de la mayoría de los trípodes es mucho mas grueso que otros que vi.',
       },
     ],
     code: 'Peak',
@@ -236,12 +236,12 @@ export const data = [
       {
         userId: 1,
         score: 5,
-        commentary: 'Excelente producto, se siente robusto y resistente, el cabezal que es lo mas frágil de la mayoría de los trípodes es mucho mas grueso que otros que vi, cuenta con un soporte extra que para que todo el peso de la cámara se distribuya mejor que otros trípodes.',
+        commentary: 'Excelente producto, se siente robusto y resistente, el cabezal que es lo mas frágil de la mayoría de los trípodes es mucho mas grueso que otros que vi.',
       },
       {
         userId: 3,
         score: 3,
-        commentary: 'En general parece ser de buena calidad y es muy cómodo para transportar. El único defecto q le encuentro es la cremallera de plástico para subir el último tramo donde va la cámara, no le veo mucha vida útil, por ser de plastico los dientes se irán gastando rápidamente, hubiera puesto otro sistema más sencillo y duradero. Pero está aprobado.',
+        commentary: 'El único defecto q le encuentro es la cremallera de plástico para subir el último tramo donde va la cámara, no le veo mucha vida útil.',
       },
       {
         userId: 3,
@@ -434,7 +434,7 @@ export const data = [
       {
         userId: 2,
         score: 5,
-        commentary:'Es muy buen flash! esta version 2 esta mucho mejor el software mas sencillo para acceder a los menus canales y demas. Le doy 4 estrellas porque antes de este me habia comprado uno hace 9 meses y me dejo de responder y tengo otro mas de hace 4 años es medio loteria.'
+        commentary:'Es muy buen flash! esta version 2 esta mucho mejor el software mas sencillo para acceder a los menus canales y demas.'
       }
 
     ],
@@ -487,7 +487,7 @@ export const data = [
       {
         userId: 3,
         score: 5,
-        commentary:'Excelente. Buena relación precio calidad. Obviamente es manual, por lo que hay que saber usar la cámara. Hasta ahora con un juego de pilas hice 300 disparos y sigue cargando en 3 segundos al palo, si lo bajas, carga mas rápido, pero en cortas distancia no necesitas muy fuerte.'
+        commentary:'Excelente. Buena relación precio calidad. Obviamente es manual, por lo que hay que saber usar la cámara.'
       },
       {
         userId: 2,
@@ -748,7 +748,7 @@ export const data = [
       {
         userId: 1,
         score: 5,
-        commentary: 'No defrauda. Funciona perfectamente, lo uso para videollamadas y es lo mejor, obviamente es un micrófono por lo que no pretendas hablar a más de 35 cm esperando a que se te escuche normalmente ya que cumple bastante bien la función de reducir los ruidos, los materiales son de muy buena calidad.'
+        commentary: 'No defrauda. Funciona perfectamente, lo uso para videollamadas y es lo mejor, los materiales son de muy buena calidad.'
       }
     ],
     code: 'SYe1',
