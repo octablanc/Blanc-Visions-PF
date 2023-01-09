@@ -36,6 +36,8 @@ export const Header = () => {
 
   const { user } = useAppSelector((state) => state.userState);
   const loading = useAppSelector(({ userState }) => userState.loading);
+  const {quantityTotalCart} = useAppSelector(( state ) => state.cartState);
+
   // const { cartItems, cartTotalQuantity } = useAppSelector(
   //   (state) => state.cartState
   // );
@@ -104,7 +106,7 @@ export const Header = () => {
                 <li>
                   <IconButton aria-label="cart">
                     <StyledBadge
-                      // badgeContent={cartTotalQuantity}
+                      badgeContent={quantityTotalCart}
                       color="primary"
                     >
                       <Link to="/cart">

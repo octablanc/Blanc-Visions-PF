@@ -18,15 +18,19 @@ export interface BoughtPro {
 }
 export interface CartState {
   cart: Array<BoughtPro>;
-  loadingBtnSet : boolean
-  update: number
-
+  loadingBtnSet: boolean;
+  update: number;
+  priceTotalCart: number;
+  quantityTotalCart: number;
 }
 
 const initialState: CartState = {
   cart: [],
-  loadingBtnSet : false,
-  update: 0
+  priceTotalCart: 0,
+  quantityTotalCart: 0,
+
+  loadingBtnSet: false,
+  update: 0,
 };
 
 export const cartSlice = createSlice({
@@ -34,20 +38,22 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProductCartState(state, action) {
+      const priceTotalCart = action.payload.map((c:any) => c.price).reduce((a:any, d:any) => a + d, 0);
+      const quantityTotalCart = action.payload
+      .map((c:any) => c.quantity)
+      .reduce((a:any, d:any) => a + d, 0);
+
       state.cart = action.payload;
+      state.priceTotalCart = priceTotalCart
+      state.quantityTotalCart = quantityTotalCart
     },
-    setLoading(state, action){
-      state.loadingBtnSet = action.payload
+    setLoading(state, action) {
+      state.loadingBtnSet = action.payload;
     },
-    setUpdate(state){
+    setUpdate(state) {
       state.update = state.update + 1;
     },
   },
 });
 
-export const {
-  addProductCartState,
-  setLoading,
-  setUpdate,
-
-} = cartSlice.actions;
+export const { addProductCartState, setLoading, setUpdate } = cartSlice.actions;
