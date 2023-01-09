@@ -24,7 +24,6 @@ import loginImg from "../../assets/login.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { FcGoogle } from 'react-icons/fc';
@@ -47,12 +46,15 @@ export default function Login() {
     mail: "",
     password: "",
   });
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
-  const [btnLoading, setBtnLoading] = useState(Boolean);
-  const [btnLoading2, setBtnLoading2] = useState(Boolean);
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [btnLoading2, setBtnLoading2] = useState(false);
+  const [btnLoading3, setBtnLoading3] = useState(false);
   const [error, setError] = useState({ mail: false, password: false });
-  const [ openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const fontSizeLabel = 18;
   const fontSizeInput = 16;
   const disptach = useAppDispatch();
@@ -60,8 +62,13 @@ export default function Login() {
   const handleOpen = () => setOpen(true);
 
   const handleOpenDialog = () => setOpenDialog(!openDialog);
-  
+
   const handleClose = () => setOpen(false);
+
+  function handleChangeEmail(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setEmail(event.target.value);
+    setEmailError(!event.target.value ? true : false);
+  }
 
   function handleInput(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -140,6 +147,18 @@ export default function Login() {
       setBtnLoading2(false);
     } catch ({ code }) {
       setBtnLoading2(false);
+    }
+  }
+
+  async function handleSubmitEmail() {
+    try {
+      setBtnLoading3(true);
+      await sendPasswordResetEmail(auth, email);
+      setBtnLoading3(false);
+      alert('Mail enviado correctamente!');
+      setOpenDialog(false);
+    } catch ({ code }) {
+      alert(code);
     }
   }
 
@@ -299,27 +318,63 @@ export default function Login() {
                   }
                   <ForgetPassword onClick={handleOpenDialog}>Olvidaste tu contraseña?</ForgetPassword>
 
-                  <Dialog open={openDialog} onClose={handleOpenDialog}>
-                    <DialogTitle>Subscribe</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleOpenDialog}>Cancel</Button>
-                      <Button onClick={handleOpenDialog}>Subscribe</Button>
-                    </DialogActions>
+                  <Dialog open={openDialog} onClose={handleOpenDialog} sx={{ 'h2:after': { backgroundColor: 'transparent' } }}>
+                    <div style={{ padding: '25px' }}>
+                      <DialogTitle style={{ fontSize: '23px' }}>Recuperar contraseña</DialogTitle>
+                      <DialogContent style={{ width: '400px' }}>
+                        <DialogContentText style={{ fontSize: '15px' }}>
+                          Escribe tu email y te enviaremos un link para restablecer tu contraseña.
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="email"
+                          label="Email"
+                          type="email"
+                          value={email}
+                          fullWidth
+                          variant="standard"
+                          InputProps={{
+                            style: {
+                              fontSize: '15px'
+                            }
+                          }}
+                          InputLabelProps={{
+                            style: {
+                              fontSize: '17px'
+                            }
+                          }}
+                          helperText={
+                            emailError ? <span style={{ fontSize: '12px' }}>Email esta vacio!</span> : <></>
+                          }
+                          onChange={handleChangeEmail}
+                          onBlur={handleChangeEmail}
+                          error={emailError}
+                        />
+                        {btnLoading3 ? (
+                          <LoadingButton
+                            loading
+                            variant="outlined"
+                            size="small"
+                            sx={{ ...ButtonLog, backgroundColor: "#1976D2", marginTop: '20px' }}
+                            loadingIndicator={
+                              <CircularProgress
+                                size={"20px"}
+                                sx={{ color: "#fff" }}
+                              />
+                            }
+                          />
+                        ) :
+                          (<Button
+                            onClick={handleSubmitEmail}
+                            variant="contained"
+                            sx={{ ...ButtonLog, textTransform: 'none' }}
+                            disabled={emailError}
+                            color={'primary'}
+                          >Enviar</Button>)
+                        }
+                      </DialogContent>
+                    </div>
                   </Dialog>
                 </div>
               </LoginContainer>
