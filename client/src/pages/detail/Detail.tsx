@@ -49,6 +49,9 @@ export const Detail = () => {
     stock,
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState('');
+  const [shipping, setShipping] = useState(false);
 
   useEffect(() => {
     if (idParams !== undefined) dispatch(getProductById(+idParams));
@@ -56,20 +59,36 @@ export const Detail = () => {
     // console.log('MONTANDO');
   }, [dispatch, idParams]);
 
+  const isStock = stock !== 0;
   const findProductCart = cart.some((c) => c.productId === id);
-  // console.log(findProductCart);
-  // console.log('DET CART', cart);
-  // console.log('ID=>', id);
-  // console.log('\n');
-  const handleAddToCart = () => {
-    const totalPriceProduct = discount === 0 ? price : price - (price*discount)/100;
-    dispatch(addProductCart({ userId: 1, quantity: 1, price:totalPriceProduct, productId: id }));
-    navigate('/cart');
+
+  const handleBuy = () => {
+    console.log("COMPRAR AHORA")
+    // SHIPPING
+    // setShipping(true);
+  };
+
+  const handleCart = () => navigate('/cart');
+  const handleAddToCart = (navigateCart: boolean) => {
+    if (!user) return handleLogin();
+
+    if (findProductCart) return 1;
+    const totalPriceProduct =
+      discount === 0 ? price : price - (price * discount) / 100;
+    dispatch(
+      addProductCart({
+        userId: 1,
+        quantity: 1,
+        price: totalPriceProduct,
+        productId: id,
+      })
+    );
+    if(navigateCart) return navigate('/cart');
   };
 
   const handleLogin = () => {
-    // setSuccess(true);
-    // setMsg("login");
+    setSuccess(true);
+    setMsg('login');
   };
 
   if (loading) return <Spinner />;
@@ -115,24 +134,25 @@ export const Detail = () => {
               <span className="list">{el.value}</span>
             </ul>
           ))}
-          <p>Disponible : {stock}</p>
+          <p>{isStock ? `Disponible : ${stock}` : 'No hay Stock'}</p>
           <CartSection>
-            {user ? (
-              <div>
-                {findProductCart ? (
-                  <Btn name="addToCart">Ya agregado</Btn>
-                ) : (
-                  <Btn name="addToCart" onClick={handleAddToCart}>
-                    Agregar al carrito
-                  </Btn>
-                )}
-              </div>
-            ) : (
-              <Btn name="login" onClick={() => handleLogin()}>
-                Logeo
+            <div>
+              <Btn
+                name="addToCart"
+                onClick={() => handleAddToCart(true)}
+                disabled={!isStock}
+              >
+                {findProductCart ? 'Ya agregado' : 'Agregar al carrito 2'}
               </Btn>
-            )}
-            {/* {success && <FlashMsg msg={msg}>{msg}</FlashMsg>} */}
+              {findProductCart ? (
+                <Btn onClick={handleCart}>Ir al carrito</Btn>
+              ) : (
+                <Btn disabled={!isStock} onClick={handleBuy}>
+                  Comprar Ahora
+                </Btn>
+              )}
+            </div>
+            {success && <FlashMsg msg={msg}>{msg}</FlashMsg>}
           </CartSection>
         </Info>
       </Container>
@@ -142,4 +162,3 @@ export const Detail = () => {
     </div>
   );
 };
-// TODO => VAlidar si el producto ya esta agregado en el carrito

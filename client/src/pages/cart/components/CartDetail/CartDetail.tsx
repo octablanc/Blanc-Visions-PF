@@ -16,14 +16,14 @@ import {
   getCartUser,
   setQuantityCart,
 } from '../../../../redux/slices/Cart';
+import { Btn } from '../../../detail/styled-components/Detail';
 
 export const CartDetail = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.userState);
-  const { cart, loadingBtnSet, update } = useAppSelector(
-    (state) => state.cartState
-  );
+  const { cart, loadingBtnSet, update, priceTotalCart, quantityTotalCart } =
+    useAppSelector((state) => state.cartState);
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState('');
   useEffect(() => {
@@ -33,12 +33,7 @@ export const CartDetail = () => {
     setSuccess(true);
     setMsg('Tienes productos en tu carrito');
   }, [dispatch, update]);
-
-  const priceTotalCart = cart.map((c) => c.price).reduce((a, d) => a + d, 0);
-  const quantityTotalCart = cart
-    .map((c) => c.quantity)
-    .reduce((a, d) => a + d, 0);
-  // Agregar la cantidad de productos en el icono del carrito
+  // console.log("CART => ",cart)
 
   const handleSetQuantity = (
     typeSet: boolean,
@@ -81,10 +76,11 @@ export const CartDetail = () => {
     <Container>
       <div className="container__products__cart">
         {cart.map((c) => {
+          console.log('c=>', c);
           const { id, name, discount, price, stock, image } = c.product;
           const priceDiscount: number = price - (price * discount) / 100;
           return (
-            <div key={c.id} className='container__un__product'>
+            <div key={c.id} className="container__un__product">
               <img src={image} alt="foto del procto" className="img__pcart" />
               <h3
                 className="name__pcart"
@@ -134,18 +130,17 @@ export const CartDetail = () => {
       <div className="container__data">
         <p>precio total del carrito : {setNumber(priceTotalCart)}</p>
         <p>Cantidad de Productos : {quantityTotalCart}</p>
-        <button>Finalizar Compra</button>
-        <button onClick={() => navigate('/products')}>
+        <Btn>Finalizar Compra</Btn>
+        <Btn onClick={() => navigate('/products')}>
           Continuar comprando
-        </button>
-        <button onClick={handleDeleteCart}>Vaciar Carrito</button>
+        </Btn>
+        <Btn onClick={handleDeleteCart}>Vaciar Carrito</Btn>
       </div>
-      {/* QUE FINALLIZAR COMPRA NOS LLEVE AL COMPONENTE DE COMPRA QUE HAY QEU LLENAR LA DIRECCION */}
-      {/* Agrega a la orden de compra */}
     </Container>
   );
 };
-// * ACORDARSE DE COMENTAR LA LINEA EN LOGIn para desarrollo <
+
+// Darle funcionalidad a "FINALIZAR COMPRA"
 
 // <Container>
 //       {cartItems.length < 1 ? (
