@@ -10,7 +10,7 @@ export default (sequelize: Sequelize) => {
       },
       discount: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        // allowNull: false,
       },
       state: {
         type: DataTypes.BOOLEAN,
