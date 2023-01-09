@@ -16,29 +16,29 @@ module.exports = (function runApp() {
   app.use(morgan('dev'));
   app.use(cors());
   app.use(express.json());
-  app.set('trust proxy', true);
-  app.use('/', (req, res, next) => {
-    var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-    if (req.res?.statusCode) {
-      console.log(
-        '\x1b[40m\x1b[33m',
-        `${req.method} ${req.url}` +
-          `${
-            res?.statusCode > 199
-              ? '\x1b[32m'
-              : res?.statusCode > 299
-              ? '\x1b[34m'
-              : '\x1b[31m'
-          } ${res?.statusCode} \x1b[0m`
-      );
-      console.log(
-        `\x1b[40m\x1b[35m IP: (${ip}  DATE: ${Date()
-          .toString()
-          .slice(0, 25)})\x1b[0m`
-      );
-    }
-    next();
-  });
+  // app.set('trust proxy', true);
+  // app.use('/', (req, res, next) => {
+  //   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  //   if (req.res?.statusCode) {
+  //     console.log(
+  //       '\x1b[40m\x1b[33m',
+  //       `${req.method} ${req.url}` +
+  //         `${
+  //           res?.statusCode > 199
+  //             ? '\x1b[32m'
+  //             : res?.statusCode > 299
+  //             ? '\x1b[34m'
+  //             : '\x1b[31m'
+  //         } ${res?.statusCode} \x1b[0m`
+  //     );
+  //     console.log(
+  //       `\x1b[40m\x1b[35m IP: (${ip}  DATE: ${Date()
+  //         .toString()
+  //         .slice(0, 25)})\x1b[0m`
+  //     );
+  //   }
+  //   next();
+  // });
 
   app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
   app.use(bodyParser.json({ limit: '50mb' }));
