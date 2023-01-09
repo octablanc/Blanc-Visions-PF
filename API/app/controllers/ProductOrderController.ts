@@ -79,6 +79,7 @@ export const getProductsOrderUser: TypeFunctionExp = async (req, res) => {
         },
       ],
       attributes: { exclude: ['orderBuyId', 'userId'] },
+      order: [['id', 'ASC']],
     });
 
     return res.json({
@@ -96,15 +97,6 @@ export const postProductsOrderCart: TypeFunctionExp = async (req, res) => {
     const { productId, quantity, price, userId }: ProductOrderCartIfc =
       req.body;
     await ProductsOrder.create({ productId, quantity, price, userId });
-    // const cartUser = await ProductsOrder.findOne({where:{productId, userId}});
-    // if( !cartUser ) await ProductsOrder.create({productId,quantity,price,userId,});
-    // else{
-    // FALTA CALCULAR EL DESCUENTO DESCUENTO, solo hace la cuenta por precio/cantidad
-    // const newQuantity = quantity + cartUser.dataValues.quantity;
-    // await cartUser?.update({quantity: newQuantity, price: cartUser.dataValues.price * newQuantity});
-    // await cartUser?.save();
-    // }
-    // const arr = await ProductsOrder.findAll({where:{userId},attributes:{exclude:['id','orderBuyId']}})
     return res.json({
       message: 'POST All Product Order CART.',
     });
@@ -113,18 +105,7 @@ export const postProductsOrderCart: TypeFunctionExp = async (req, res) => {
     return res.status(400).send({ message });
   }
 };
-export const setProductsOrderCart: TypeFunctionExp = async (req, res) => {
-  try {
-    const id: number = +req.params.id;
-    console.log({ id });
-    return res.json({
-      message: 'POST All Product Order CART.',
-    });
-  } catch ({ message }) {
-    console.log('err msj =>', message);
-    return res.status(400).send({ message });
-  }
-};
+
 export const deleteProductsOrderCart: TypeFunctionExp = async (req, res) => {
   try {
     const id: number = +req.params.id;
@@ -135,17 +116,39 @@ export const deleteProductsOrderCart: TypeFunctionExp = async (req, res) => {
     return res.status(400).send({ message });
   }
 };
-export const setQuantityProductsOrderCart: TypeFunctionExp = async (req, res) => {
+export const setQuantityProductsOrderCart: TypeFunctionExp = async (
+  req,
+  res
+) => {
   try {
     const id: number = +req.params.id;
-    const {quantity, price} = req.body;
+    const { quantity } = req.body;
     const cartUser = await ProductsOrder.findByPk(id);
-    await cartUser?.update({quantity, price: price});
+    const productData = await Products.findByPk(cartUser?.dataValues.productId);
+    console.log({ quantity });
+    const newPrice =
+      productData?.dataValues.discount === 0
+        ? productData.dataValues.price * quantity
+        : (productData?.dataValues.price -
+            (productData?.dataValues.price * productData?.dataValues.discount) /
+              100) *
+          quantity;
+    console.log({ newPrice });
+    await cartUser?.update({ quantity, price: newPrice });
     await cartUser?.save();
-    // await cartUser?.update({quantity});
-    // FAlta testear si calculo el precio aca o en el front
 
-    return res.json({ msj: `set Cart User =>${id}` });
+    return res.json({ msj: `set quantity cart User =>${id}` });
+  } catch ({ message }) {
+    console.log(message);
+    return res.status(400).send({ message });
+  }
+};
+
+export const deleteCartUser: TypeFunctionExp = async (req, res) => {
+  try {
+    const id: number = +req.params.id;
+    await ProductsOrder.destroy({ where: { userId: id } });
+    return res.json({ msj: `Delete Cart User =>${id}` });
   } catch ({ message }) {
     console.log(message);
     return res.status(400).send({ message });
