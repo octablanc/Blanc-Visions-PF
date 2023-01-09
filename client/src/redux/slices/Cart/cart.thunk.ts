@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { addProductCartState, setLoading, setUpdate } from './cartSlice';
 import axios from 'axios';
 import * as dotenv from 'dotenv';
@@ -14,24 +13,6 @@ interface PropsSetCart{
   id: number;
   quantity: number;
 }
-=======
-import { addToCart, getProductDetail, productUpdate } from "./cartSlice";
-import axios from "axios";
-// import * as dotenv from "dotenv";
-import { UniquePro } from "../products/productsSlice";
-import { ProductOrder } from "../misCompras/buySlice";
-
-const { HOST } = process.env;
-
-export const addProduct = (id: number) => {
-  return async (dispatch: any) => {
-    const product = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/products/${id}`
-    );
-    dispatch(addToCart(product));
-  };
-};
->>>>>>> c50ad37b9b9085d109e6ec105939dff21c9e67a2
 
 export const addProductCart = ({
   productId,
@@ -41,7 +22,6 @@ export const addProductCart = ({
 }: Props) => {
   return async (dispatch: any) => {
     try {
-<<<<<<< HEAD
       const product = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/product-order/cart/user/`,
         {
@@ -57,20 +37,10 @@ export const addProductCart = ({
       // dispatch(addProductCart(product.data.result));
     } catch (err) {
       console.log("Err ACtion =>",{ err });
-=======
-      const product = (
-        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`)
-      ).data;
-      dispatch(getProductDetail(product));
-      console.log(product);
-    } catch (error) {
-      console.log("Error:", error);
->>>>>>> c50ad37b9b9085d109e6ec105939dff21c9e67a2
     }
   };
 };
 
-<<<<<<< HEAD
 export const getCartUser = (id: any) => {
   return async (dispatch: any) => {
     try {
@@ -128,35 +98,6 @@ export const deleteCartUser = (id:any) => {
         dispatch(setLoading(false))
         dispatch(setUpdate())
       }, 450);
-    }
-  };
-};
-
-=======
-export const updateProduct = (orderBuy: ProductOrder) => {
-  return async (dispatch: any) => {
-    try {
-      const {
-        id,
-        price,
-        quantity,
-        product
-      } = orderBuy;
->>>>>>> c50ad37b9b9085d109e6ec105939dff21c9e67a2
-
-      let productUpdated = await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/products/${id}`,
-        {
-          id,
-          price,
-          quantity,
-          product       
-        }
-      );
-      //
-      dispatch(productUpdate(productUpdated.data)); //setProduct ver si esta la funcion
-    } catch (error) {
-      console.log("ERROR=>", error);
     }
   };
 };

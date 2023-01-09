@@ -51,18 +51,6 @@ export const Slider = ({ images, loading }: any) => {
         <BtnSlider className='boton' moveSlide={nextSlide} direction={'next'} />
       </div>
 
-<<<<<<< HEAD
-      <Thumbnails>
-        {Array.from(productImages, (el: any, key: number) => (
-          <Miniatures key={key}>
-            <img
-              className={slideIndex - 1 === key ? 'img active' : 'img pasive'}
-              src={el}
-            />
-          </Miniatures>
-        ))}
-      </Thumbnails>
-=======
         <Thumbnails>          
           {productImages?.map((el: any, key: number) => (
             <Miniatures key={el.id}>
@@ -76,7 +64,6 @@ export const Slider = ({ images, loading }: any) => {
           ))}
         </Thumbnails>
    
->>>>>>> c50ad37b9b9085d109e6ec105939dff21c9e67a2
     </Container>
 
   );
