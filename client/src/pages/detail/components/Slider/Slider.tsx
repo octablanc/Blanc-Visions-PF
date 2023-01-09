@@ -14,9 +14,8 @@ export const Slider = ({ images, loading }: any) => {
   const [slideIndex, setSlideIndex] = useState<number>(1);
 
   //mapeo el array para acceder a la propiedad en donde están las imágenes
-  let productImages: any = images.map((el: any) => el.url_image);
+  let productImages: any = images?.map((el: any, key: number) => el.url_image);
   // console.log(images);
-
   const nextSlide = () => {
     if (slideIndex < productImages.length) {
       setSlideIndex(slideIndex + 1);
@@ -34,23 +33,25 @@ export const Slider = ({ images, loading }: any) => {
   };
 
   return (
-    // <div>
-    <Container>
-      {loading ? (
-        <Spinner />
-      ) : productImages ? (
-        <ContainerImage>
-          <Img src={productImages[slideIndex - 1]} alt='' />
-        </ContainerImage>
-      ) : (
-        <Img src={'imagen no encontrada'} alt='' />
-      )}
+
+    <Container >
+  
+        {loading ? (
+          <Spinner />
+        ) : productImages ? (
+          <ContainerImage>
+            <Img src={productImages[slideIndex - 1]} alt="" />
+          </ContainerImage>
+        ) : (
+          <Img src={"imagen no encontrada"} alt="" />
+        )}
 
       <div className='buttons'>
         <BtnSlider className='boton' moveSlide={prevSlide} direction={'prev'} />
         <BtnSlider className='boton' moveSlide={nextSlide} direction={'next'} />
       </div>
 
+<<<<<<< HEAD
       <Thumbnails>
         {Array.from(productImages, (el: any, key: number) => (
           <Miniatures key={key}>
@@ -61,7 +62,22 @@ export const Slider = ({ images, loading }: any) => {
           </Miniatures>
         ))}
       </Thumbnails>
+=======
+        <Thumbnails>          
+          {productImages?.map((el: any, key: number) => (
+            <Miniatures key={el.id}>
+              <img   
+                key={el.id}             
+                className={slideIndex - 1 === key ? "img active" : "img pasive"}
+                src={el}
+                alt=''
+              />
+            </Miniatures>
+          ))}
+        </Thumbnails>
+   
+>>>>>>> c50ad37b9b9085d109e6ec105939dff21c9e67a2
     </Container>
-    // </div>
+
   );
 };

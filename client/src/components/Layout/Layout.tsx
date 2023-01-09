@@ -12,10 +12,6 @@ export const Layout = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const loading = useAppSelector(({ userState }) => userState.loading);
 
-  useEffect(() => {
-    setOpen(loading);
-  }, [loading]);
-
   return (
     <div>
       <Backdrop
@@ -25,7 +21,7 @@ export const Layout = () => {
           color: '#fff',
           zIndex: theme => theme.zIndex.drawer + 1,
         }}
-        open={open ? true : false}
+        open={loading? true : false}
       >
         <CircularProgress color='inherit' />
       </Backdrop>

@@ -1,7 +1,6 @@
-import { Slider } from './components/Slider/Slider';
-
-// import { AiOutlineStar, AiFillStar } from '../../icons';
-
+//components
+import { Slider } from "./components/Slider/Slider";
+//styles
 import {
   Container,
   Image,
