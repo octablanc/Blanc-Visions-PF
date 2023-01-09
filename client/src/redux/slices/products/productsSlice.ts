@@ -2,6 +2,24 @@ import { createSlice } from '@reduxjs/toolkit';
 // import type { PayloadAction } from '@reduxjs/toolkit';
 // import type { RootState } from '../../app/store';
 
+export interface UniquePro {
+  id: number;
+  name: string;
+  code: string;
+  description: string;
+  image: string;
+  price: number;
+  discount: number;
+  entrega: string;
+  stock: number;
+  id_category: number;
+  state: Boolean;
+  category: string;
+  properties: [];
+  images: [];
+  loading: boolean;
+}
+
 export interface UserInfo {
   id: number;
   imageProfile: string;
@@ -52,23 +70,7 @@ export default interface Pro {
   state: Boolean;
   discount: number;
 }
-export interface UniquePro {
-  id: number;
-  name: string;
-  code: string;
-  description: string;
-  image: string;
-  price: number;
-  discount: number;
-  entrega: string;
-  stock: number;
-  id_category: number;
-  state: Boolean;
-  category: string;
-  properties: [];
-  images: [];
-  loading: boolean;
-}
+
 
 export interface Cat {
   id: number;
@@ -150,7 +152,6 @@ export const productSlice = createSlice({
       state.categories = action.payload;
     },
     detailProduct: (state, action) => {
-      state.loading = false;
       state.currentProduct = action.payload;
     },
     setPagination: (state, action) => {

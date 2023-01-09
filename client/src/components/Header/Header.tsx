@@ -20,7 +20,7 @@ import SingUp from "../singup/SingUp";
 import { User } from "../../models/User.model";
 import AccountMenu from "./components/AccountMenu";
 import { FilterCategory } from "../FilterCategory";
-import { getDiscountTotal } from "../../redux/slices/Cart";
+// import { getDiscountTotal } from "../../redux/slices/Cart";
 import { FormSearch } from "../Search/FormSearch";
 
 import Badge, { BadgeProps } from "@mui/material/Badge";
@@ -36,15 +36,17 @@ export const Header = () => {
 
   const { user } = useAppSelector((state) => state.userState);
   const loading = useAppSelector(({ userState }) => userState.loading);
-  const { cartItems, cartTotalQuantity } = useAppSelector(
-    (state) => state.cartState
-  );
+  const {quantityTotalCart} = useAppSelector(( state ) => state.cartState);
+
+  // const { cartItems, cartTotalQuantity } = useAppSelector(
+  //   (state) => state.cartState
+  // );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllCategories());
-    dispatch(getDiscountTotal(cartItems));
+    // dispatch(getDiscountTotal(cartItems));
   }, [dispatch]);
 
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
@@ -104,7 +106,7 @@ export const Header = () => {
                 <li>
                   <IconButton aria-label="cart">
                     <StyledBadge
-                      badgeContent={cartTotalQuantity}
+                      badgeContent={quantityTotalCart}
                       color="primary"
                     >
                       <Link to="/cart">

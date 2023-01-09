@@ -1878,7 +1878,7 @@ export const usersData = [
     name: 'flor 1',
     lastName: 'flor apellido 1',
     imageProfile:
-      'https://pps.whatsapp.net/v/t61.24694-24/311499126_5964794790232330_3443309141836419_n.jpg?ccb=11-4&oh=01_AdTKBCwH6HSld3YgpQ2EhrFRy8Y-q8GZ1VsLlxdhH5oNsQ&oe=63C422D9',
+      'https://img.freepik.com/foto-gratis/primer-disparo-flor-morada_181624-25863.jpg?w=2000',
     mail: 'flor@gmail.com',
     password: 'flor123',
     phone: 3213123,

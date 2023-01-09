@@ -6,7 +6,7 @@ import {
 } from '../interfaces-type';
 import { Model } from 'sequelize';
 const ProductsOrder = DBcontext.models.productOrder;
-const Products = DBcontext.models.Product;
+const Products = DBcontext.models.products;
 
 export const getProductsOrder: TypeFunctionExp = async (_req, res) => {
   try {
@@ -63,6 +63,24 @@ export const getProductsOrderUser: TypeFunctionExp = async (req, res) => {
     const userId: number = +req.params.id;
     const productsOrderUser = await ProductsOrder.findAll({
       where: { userId },
+      include: [
+        {
+          model: Products,
+          attributes: {
+            exclude: [
+              'code',
+              'description',
+              'state',
+              'createdAt',
+              'updatedAt',
+              'categoryId',
+              'offerId',
+            ],
+          },
+        },
+      ],
+      attributes: { exclude: ['orderBuyId', 'userId'] },
+      order: [['id', 'ASC']],
     });
 
     return res.json({
@@ -79,19 +97,12 @@ export const postProductsOrderCart: TypeFunctionExp = async (req, res) => {
   try {
     const { productId, quantity, price, userId }: ProductOrderCartIfc =
       req.body;
-
-    const productOrderCartCreate = await ProductsOrder.create({
-      productId,
-      quantity,
-      price,
-      userId,
-    });
+    await ProductsOrder.create({ productId, quantity, price, userId });
     return res.json({
       message: 'POST All Product Order CART.',
-      productOrderCartCreate,
     });
   } catch ({ message }) {
-    console.log(message);
+    console.log('err msj =>', message);
     return res.status(400).send({ message });
   }
 };
@@ -99,27 +110,51 @@ export const postProductsOrderCart: TypeFunctionExp = async (req, res) => {
 export const deleteProductsOrderCart: TypeFunctionExp = async (req, res) => {
   try {
     const id: number = +req.params.id;
-    const productOrderCart = await ProductsOrder.findByPk(id);
+    await ProductsOrder.destroy({ where: { id } });
+    return res.json({ msj: `Delete Product order Cart =>${id}` });
+  } catch ({ message }) {
+    console.log(message);
+    return res.status(400).send({ message });
+  }
+};
+export const setQuantityProductsOrderCart: TypeFunctionExp = async (
+  req,
+  res
+) => {
+  try {
+    const id: number = +req.params.id;
+    const { quantity } = req.body;
+    const cartUser = await ProductsOrder.findByPk(id);
+    const productData = await Products.findByPk(cartUser?.dataValues.productId);
+    console.log({ quantity });
+    const newPrice =
+      productData?.dataValues.discount === 0
+        ? productData.dataValues.price * quantity
+        : (productData?.dataValues.price -
+            (productData?.dataValues.price * productData?.dataValues.discount) /
+              100) *
+          quantity;
+    console.log({ newPrice });
+    await cartUser?.update({ quantity, price: newPrice });
+    await cartUser?.save();
 
-    if (!productOrderCart) return res.json({ message: 'Product Order existe' });
-
-    const quantity: number = +productOrderCart.dataValues.quantity;
-
-    if (quantity === 0) {
-      await ProductsOrder.destroy({ where: { id } });
-      return res.json({ msj: 'Delete Product order Cart' });
-    }
-    await productOrderCart.update({ quantity: quantity - 1 });
-    await productOrderCart.save();
-
-    return res.json({ msj: 'Delete Product order Cart 1' });
+    return res.json({ msj: `set quantity cart User =>${id}` });
   } catch ({ message }) {
     console.log(message);
     return res.status(400).send({ message });
   }
 };
 
-// DELETE
+export const deleteCartUser: TypeFunctionExp = async (req, res) => {
+  try {
+    const id: number = +req.params.id;
+    await ProductsOrder.destroy({ where: { userId: id } });
+    return res.json({ msj: `Delete Cart User =>${id}` });
+  } catch ({ message }) {
+    console.log(message);
+    return res.status(400).send({ message });
+  }
+};
 
 //  productId: 1,
 //  quantity: 10,

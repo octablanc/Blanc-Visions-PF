@@ -56,7 +56,7 @@ function App() {
           )} */}
 
           <Route path='products/:id' element={<Detail />} />
-          <Route path='cart' element={<Cart />} />
+          {userState && <Route path='cart' element={<Cart />} />}
           <Route path='checkout' element={<Checkout />} />
           <Route path='*' element={<NotFound />} />
           <Route path='profile/' element={<Profile />} />

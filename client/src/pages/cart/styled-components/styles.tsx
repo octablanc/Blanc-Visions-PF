@@ -2,22 +2,26 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  .emptyCart {
-    margin-top: 2rem;
-    margin-left: 2rem;
+  position: relative;
+
+  .container__products__cart {
+    // background-color: lightgray;
+    border: 1px solid black;
+    width: 75%;
+  }
+  .container__un__product {
     display: flex;
-    img {
-      width: 12rem;
-      height: auto;
-      margin-right: 2rem;
-    }
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+  }
+  .img__pcart {
+    width: 12rem;
+  }
+
+  .container__data {
+    border: 1px solid black;
+    position: fixed;
+    right: 0;
+    top: 30%;
+    width: 25%;
   }
 `;
 
@@ -43,10 +47,8 @@ export const Div = styled.div`
   }
   .labelProm {
     color: grey;
-    font-size: 1.1rem;
-    width: 12rem;
+    font-size: 1.2rem;
     display: flex;
-    justify-content: center;
     align-content: space-between;
   }
   .priceProm {
@@ -93,7 +95,6 @@ export const Operators = styled.div`
   justify-content: center;
   border-color: #c2ad94;
   width: 10rem;
-  margin-top: 2.3rem;
   div {
     font-size: 1.5rem;
     display: flex;
@@ -136,10 +137,20 @@ export const Btn = styled.button`
   border: none;
   margin: 0.5rem;
   padding: 0.8rem;
-  color: white;
+  border-style: double;
+  border-color: white;
+  color: #d4e3e2;
+  background: #7cbbb9;
+  box-shadow: inset 17px 17px 34px #70a8a7, inset -17px -17px 34px #88cecc;
+  /* color: #38ada9;
+background: #bac9c9;
+box-shadow: inset -17px -17px 34px #869191,
+            inset 17px 17px 34px #eeffff; */
+
+            /* color: white;
   text-shadow: 1px 2px 3px black;
-  background: ${(props) => props.theme.colors.secondary};
- 
+  background: ${(props) => props.theme.colors.secondary}; */
+
   cursor: pointer;
   :hover {
     border-radius: 1.5rem;
