@@ -38,6 +38,7 @@ export const CartDetail = () => {
   const quantityTotalCart = cart
     .map((c) => c.quantity)
     .reduce((a, d) => a + d, 0);
+  // Agregar la cantidad de productos en el icono del carrito
 
   const handleSetQuantity = (
     typeSet: boolean,
@@ -82,9 +83,8 @@ export const CartDetail = () => {
         {cart.map((c) => {
           const { id, name, discount, price, stock, image } = c.product;
           const priceDiscount: number = price - (price * discount) / 100;
-
           return (
-            <div key={c.id}>
+            <div key={c.id} className='container__un__product'>
               <img src={image} alt="foto del procto" className="img__pcart" />
               <h3
                 className="name__pcart"
@@ -92,17 +92,17 @@ export const CartDetail = () => {
               >
                 {name}
               </h3>
-
-              {discount === 0 ? (
-                <p className="price__pcart">Price {setNumber(price)}</p>
-              ) : (
-                <div className="container__calculo">
-                  <p>Antes {setNumber(price)}</p>
-                  <p>Despues {setNumber(priceDiscount)}</p>
-                </div>
-              )}
-
-              <div>
+              <div className="container__calculo">
+                {discount === 0 ? (
+                  <p className="price__pcart">Price {setNumber(price)}</p>
+                ) : (
+                  <>
+                    <p>Antes {setNumber(price)}</p>
+                    <p>Despues {setNumber(priceDiscount)}</p>
+                  </>
+                )}
+              </div>
+              <div className="container__btn">
                 <button
                   onClick={() =>
                     handleSetQuantity(false, c.id, c.quantity, stock)
@@ -124,15 +124,14 @@ export const CartDetail = () => {
                 <button onClick={() => handleDeleteProductCart(c.id)}>
                   Eliminar Producto
                 </button>
+                <p>Price total: {setNumber(c.price)}</p>
               </div>
-              <p>Price total: {setNumber(c.price)}</p>
-              <hr />
             </div>
           );
         })}
       </div>
 
-      <div className='container__data'>
+      <div className="container__data">
         <p>precio total del carrito : {setNumber(priceTotalCart)}</p>
         <p>Cantidad de Productos : {quantityTotalCart}</p>
         <button>Finalizar Compra</button>
