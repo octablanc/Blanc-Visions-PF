@@ -142,7 +142,7 @@ export const Detail = () => {
                 onClick={() => handleAddToCart(true)}
                 disabled={!isStock}
               >
-                {findProductCart ? 'Ya agregado' : 'Agregar al carrito 2'}
+                {findProductCart ? 'Ya agregado' : 'Agregar al carrito'}
               </Btn>
               {findProductCart ? (
                 <Btn onClick={handleCart}>Ir al carrito</Btn>
