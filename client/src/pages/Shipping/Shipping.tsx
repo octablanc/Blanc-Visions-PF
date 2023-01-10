@@ -11,15 +11,11 @@ import {
 import TextField from "@mui/material/TextField";
 //redux
 import { postOrderBuy } from "../../services/services";
+import { useAppSelector } from "../../redux/app/hooks";
 
+// {cartTotalAmount,cartTotalQuantity,user,cartItems,discount,}
 
-export const Shipping = ({
-  cartTotalAmount,
-  cartTotalQuantity,
-  user,
-  cartItems,
-  discount,
-}: any) => {
+export const Shipping = () => {
   const [open, setOpen] = useState(true);
   const [order, setOrder] = useState({
     postalCode: "",
@@ -27,8 +23,11 @@ export const Shipping = ({
     height: "",
     city: "",
   });
+  
   const [checkout, setCheckout] = useState(false);
   const navigate = useNavigate();
+  const { priceTotalCart, quantityTotalCart, cart } = useAppSelector((state) => state.cartState);
+  const { user } = useAppSelector((state) => state.userState);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | null>

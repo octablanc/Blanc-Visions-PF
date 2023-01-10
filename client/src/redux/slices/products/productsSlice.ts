@@ -71,7 +71,6 @@ export default interface Pro {
   discount: number;
 }
 
-
 export interface Cat {
   id: number;
   name: string;

@@ -5,13 +5,17 @@ import { BtnCheck } from "../../cart/styled-components/styles";
 import { Bill, Container, Detail, Div } from "./styled-components/Checkout";
 
 export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
+<<<<<<< HEAD
   // const { cartItems, cartTotalAmount, itemTotalQuantity } = useAppSelector(
+=======
+>>>>>>> 5205434afff50a39a326354e5f0eaa9fbdd0d58c
   const { cart, priceTotalCart, quantityTotalCart } = useAppSelector(
     (state) => state.cartState
   );
 
   const dispatch = useAppDispatch();
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   dispatch(getDiscountTotal(cartItems));
   // }, [itemTotalQuantity, cartItems, dispatch]);
@@ -21,6 +25,11 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
     partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return partesNumero.join(".");
   };
+=======
+  useEffect(() => {
+    // dispatch(getDiscountTotal(cartItems));
+  }, [quantityTotalCart, cart, dispatch]);
+>>>>>>> 5205434afff50a39a326354e5f0eaa9fbdd0d58c
 
   return (
     <Container>
@@ -44,6 +53,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
             <h3>Tu compra</h3>
           </div>
           <div className="info">
+<<<<<<< HEAD
             {cart?.map((c) => {
               console.log("c:", c);
               const { id, name, discount, price, stock, image } = c.product;
@@ -58,6 +68,18 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
                     {/* <ul> */}
                     <span>{name}</span>
                     <p className="quantity">
+=======
+            {cart?.map((item: any, key: number) => (
+              <Div key={item.id}>
+                {/* <div className='itemCard'> */}
+                <div className="miniature">
+                  <img src={item.image} alt="" />
+                </div>
+                <div className="detail">
+                  {/* <ul> */}
+                    <span>{item.name}</span>
+                    <p className='quantity'>
+>>>>>>> 5205434afff50a39a326354e5f0eaa9fbdd0d58c
                       <span>Cantidad:</span>
                       <span>{stock}</span>
                     </p>
@@ -89,8 +111,12 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
         </Detail>
       </div>
       <Bill>
+<<<<<<< HEAD
         {/* <p className='total'>Total $ {cartTotalAmount}</p> */}
         <p className="total">Total $ {setNumber(priceTotalCart)}</p>
+=======
+        <p className='total'>Total $ {priceTotalCart}</p>
+>>>>>>> 5205434afff50a39a326354e5f0eaa9fbdd0d58c
 
         <form action="https://kingcomm.up.railway.app/checkout" method="POST">
           <input
@@ -98,7 +124,11 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
             name="title"
             value={`Productos (${quantityTotalCart})`}
           />
+<<<<<<< HEAD
           <input type="hidden" name="price" value={setNumber(priceTotalCart)} />
+=======
+          <input type="hidden" name="price" value={priceTotalCart} />
+>>>>>>> 5205434afff50a39a326354e5f0eaa9fbdd0d58c
           <BtnCheck type="submit" onClick={handleSubmit}>
             Pagar
           </BtnCheck>

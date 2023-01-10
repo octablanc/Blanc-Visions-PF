@@ -1,20 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
 import {
-  getUserIdAdmin,
+  deleteUser,
+  // getUserIdAdmin,
   getUsersAdmin,
+  retrieveUserAdmin,
 } from '../../../../redux/slices/Admin/admin.thunk';
-import { useNavigate } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa';
+// import { useNavigate } from 'react-router-dom';
+// import { FaEdit } from 'react-icons/fa';
 
 export const AdminUsers = () => {
+  // const [stateUser, setStateUser] = useState(true);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { users } = useAppSelector(state => state.adminState);
+  // const navigate = useNavigate();
+  const { users } = useAppSelector((state) => state.adminState);
 
-  const handleCurrentUser = async (id: any) => {
-    await dispatch(getUserIdAdmin(id));
-    navigate(`/dashboard/users/edit/${id}`);
+  const handleState = async (user: any) => {
+    if (user.state) {
+      await dispatch(deleteUser(user.id));
+    } else {
+      await dispatch(retrieveUserAdmin(user.id));
+    }
+    dispatch(getUsersAdmin());
+
+    //FALTA ACTUALIZAR LA PAGINA
   };
   useEffect(() => {
     dispatch(getUsersAdmin());
@@ -32,13 +41,12 @@ export const AdminUsers = () => {
             <th>telefono</th>
             <th>E-Mail</th>
             <th>Estado</th>
-            <th>Acciones</th>
           </tr>
         </thead>
 
         <tbody>
           {users.length > 0 &&
-            users.map(user => (
+            users.map((user) => (
               <tr>
                 <td>{user.id}</td>
                 <td>
@@ -48,10 +56,9 @@ export const AdminUsers = () => {
                 <td>{user.lastName}</td>
                 <td>{user.phone}</td>
                 <td>{user.mail}</td>
-                <td>{user.state ? 'activo' : 'inactivo'}</td>
                 <td>
-                  <button onClick={() => handleCurrentUser(user.id)}>
-                    <FaEdit />
+                  <button onClick={() => handleState(user)}>
+                    {user.state ? 'activo' : 'inactivo'}
                   </button>
                 </td>
               </tr>

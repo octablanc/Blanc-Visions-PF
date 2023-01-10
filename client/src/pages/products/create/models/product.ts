@@ -9,6 +9,7 @@ export interface Product {
   description: string;
   categoryId: string;
   state: true;
+  discount: string;
   images: any;
   properties: Property[];
 }

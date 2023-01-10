@@ -137,20 +137,10 @@ export const Btn = styled.button`
   border: none;
   margin: 0.5rem;
   padding: 0.8rem;
-  border-style: double;
-  border-color: white;
-  color: #d4e3e2;
-  background: #7cbbb9;
-  box-shadow: inset 17px 17px 34px #70a8a7, inset -17px -17px 34px #88cecc;
-  /* color: #38ada9;
-background: #bac9c9;
-box-shadow: inset -17px -17px 34px #869191,
-            inset 17px 17px 34px #eeffff; */
-
-            /* color: white;
+  color: white;
   text-shadow: 1px 2px 3px black;
-  background: ${(props) => props.theme.colors.secondary}; */
-
+  background: ${(props) => props.theme.colors.secondary};
+ 
   cursor: pointer;
   :hover {
     border-radius: 1.5rem;
