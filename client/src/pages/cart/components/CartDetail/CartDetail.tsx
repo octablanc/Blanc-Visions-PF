@@ -66,18 +66,18 @@ export const CartDetail = () => {
     setShipping(true);
   }
 
-  // if (!cart.length)
-  //   return (
-  //     <div className="emptyCart">
-  //       {/* <img src={cart} /> */}
-  //       <div>
-  //         <p>Tu carrito esta vacío</p>
-  //         <NavLink to="/products">
-  //           <button>Comienza a comprar...</button>
-  //         </NavLink>
-  //       </div>
-  //     </div>
-  //   );
+  if (!cart.length)
+    return (
+      <div className="emptyCart">
+        {/* <img src={cart} /> */}
+        <div>
+          <p>Tu carrito esta vacío</p>
+          <NavLink to="/products">
+            <button>Comienza a comprar...</button>
+          </NavLink>
+        </div>
+      </div>
+    );
   return (
     <Container>
       <div className="container__products__cart">
