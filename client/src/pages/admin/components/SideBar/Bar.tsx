@@ -50,7 +50,7 @@ export const Bar = () => {
           </Link>
         </Item>
         <Item>
-          <Link to='users'>
+          <Link to='/dashboard'>
             <Icon>
               <HiUsers />
             </Icon>

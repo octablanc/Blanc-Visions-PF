@@ -37,7 +37,7 @@ function App() {
 
   // Set the user logged in the start
   useEffect(() => {
-    onAuthStateChanged(auth, async user => {
+    onAuthStateChanged(auth, async (user) => {
       if (user && !userState) dispatch(getUser(user.email));
       if (!user) dispatch(getUser(user));
     });
@@ -70,6 +70,7 @@ function App() {
         </Route>
         <Route path='/dashboard' element={<LayoutDashboard />}>
           <Route path='products' element={<AdminProducts />} />
+          <Route path='products/edit/:id' element={<CreateProduct />} />
           <Route path='products/create' element={<CreateProduct />} />
 
           <Route path='categories' element={<AdminCategories />} />
@@ -77,7 +78,7 @@ function App() {
           <Route path='categories/create' element={<FormCategory />} />
 
           <Route path='sales' element={<AdminSales />} />
-          <Route path='users' element={<AdminUsers />} />
+          <Route index element={<AdminUsers />} />
         </Route>
       </Routes>
     </BrowserRouter>

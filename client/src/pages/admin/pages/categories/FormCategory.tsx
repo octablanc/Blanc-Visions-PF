@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import Spinner from '../../../../components/Spinner/Spinner';
 
 export const FormCategory = () => {
-  const { categoryId } = useAppSelector(state => state.adminState);
+  const { categoryId } = useAppSelector((state) => state.adminState);
   const [form, setForm] = useState({
     name: '',
     description: '',

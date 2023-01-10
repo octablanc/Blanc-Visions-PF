@@ -11,6 +11,7 @@ import {
 } from './productsSlice';
 import { UserInfo } from './productsSlice';
 import axios from 'axios';
+import Pro from './productsSlice';
 
 export const getAllProducts = () => {
   return async (dispatch: any) => {
