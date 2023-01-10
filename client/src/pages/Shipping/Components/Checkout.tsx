@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
-import { getDiscountTotal } from "../../../redux/slices/Cart";
+// import { getDiscountTotal } from "../../../redux/slices/Cart";
 import { BtnCheck } from "../../cart/styled-components/styles";
 import { Bill, Container, Detail, Div } from "./styled-components/Checkout";
 
 export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
-  const { cartItems, cartTotalAmount, itemTotalQuantity } = useAppSelector(
+  const { cart, priceTotalCart, quantityTotalCart } = useAppSelector(
     (state) => state.cartState
   );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getDiscountTotal(cartItems));
-  }, [itemTotalQuantity, cartItems, dispatch]);
+    // dispatch(getDiscountTotal(cartItems));
+  }, [quantityTotalCart, cart, dispatch]);
 
   return (
     <Container>
@@ -37,7 +37,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
             <h3>Tu compra</h3>
           </div>
           <div className="info">
-            {cartItems?.map((item: any, key: number) => (
+            {cart?.map((item: any, key: number) => (
               <Div key={item.id}>
                 {/* <div className='itemCard'> */}
                 <div className="miniature">
@@ -77,7 +77,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
         </Detail>
       </div>
       <Bill>
-        <p className='total'>Total $ {cartTotalAmount}</p>
+        <p className='total'>Total $ {priceTotalCart}</p>
 
         <form
           action="https://kingcomm.up.railway.app/checkout"
@@ -88,7 +88,7 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
             name="title"
             value={`Productos (${cartTotalQuantity})`}
           />
-          <input type="hidden" name="price" value={cartTotalAmount} />
+          <input type="hidden" name="price" value={priceTotalCart} />
           <BtnCheck type="submit" onClick={handleSubmit}>
             Pagar
           </BtnCheck>
