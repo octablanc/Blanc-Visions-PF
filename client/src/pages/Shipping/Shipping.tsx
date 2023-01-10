@@ -57,26 +57,52 @@ export const Shipping = ({
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log(order);
+    // const orderBuy = {
+    //   priceTotalDiscount: cartTotalAmount,
+    //   discount: discount,
+    //   state: true,
+    //   postalCode: order.postalCode,
+    //   street: order.street,
+    //   height: order.height,
+    //   city: order.city,
+    //   quantityProducts: cartTotalQuantity,
+    //   dues: 1,
+    //   userId: user?.id,
+    //   buy: true,
+    //   productOrders: cartItems?.map((prod: any) => {
+    //     return {
+    //       productId: prod.id,
+    //       quantity: prod.cartQuantity,
+    //       price: prod.price,
+    //     };
+    //   }),
+    // };
     const orderBuy = {
-      priceTotalDiscount: cartTotalAmount,
-      discount: discount,
-      state: true,
-      postalCode: order.postalCode,
-      street: order.street,
-      height: order.height,
-      city: order.city,
-      quantityProducts: cartTotalQuantity,
-      dues: 1,
-      userId: user?.id,
-      buy: true,
-      productOrders: cartItems?.map((prod: any) => {
-        return {
-          productId: prod.id,
-          quantity: prod.cartQuantity,
-          price: prod.price,
-        };
-      }),
+      "priceTotalDiscount": 12,
+      "discount": 0,
+      "state": true,
+      "postalCode": 122,
+      "street": "calalal",
+      "height": "1234",
+      "city": "¿bs as s",
+      "quantityProducts": 123,
+      "dues": 1,
+      "userId": 1,
+      "buy": true,      
+      "productOrders": [
+          {
+          "productId": 1,
+          "quantity": 10,
+          "price": 5050
+        },
+        {
+          "productId": 2,
+          "quantity": 10,
+          "price": 5050
+        },
+      ]
     };
+
     postOrderBuy(orderBuy);
     setOrder({
       postalCode: "",

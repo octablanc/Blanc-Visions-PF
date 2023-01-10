@@ -79,6 +79,7 @@ module.exports = (function runApp() {
       return res.status(400).send(message);
     }
   });
+
   app.post('/checkout', (req, res) => {
     // Crea un objeto de preferencia, "Orden de compra"
     // console.log("estoy en mecado pago", req.body);
@@ -112,6 +113,15 @@ module.exports = (function runApp() {
       .catch(function (error: any) {
         console.log(error);
       });
+  });
+
+  app.post('/buy', async (req, res) =>{
+    try {
+      console.log(req.body);
+      return res.send({});
+    } catch ({message}) {
+      return res.status(400).send({message});
+    }
   });
 
   // Makes the connection to the data base.

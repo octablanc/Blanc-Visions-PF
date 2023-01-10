@@ -57,7 +57,17 @@ export const data = [
       {
         userId: 2,
         score: 1,
-        commentary: 'Este producto es una merda',
+        commentary: 'Este producto no me sirve',
+      },
+      {
+        userId: 2,
+        score: 4,
+        commentary: 'Saca fotos muy buenas aunque el foco es medio inconsistente a veces. Tarda unos 3 segundos en tomar la foto.',
+      },
+      {
+        userId: 2,
+        score: 3,
+        commentary: 'Es algo pesada, pero bastante práctica',
       },
     ],
     code: 'F0021',
@@ -90,24 +100,42 @@ export const data = [
     ],
     properties: [
       {
-        name: 'clave',
-        value: 'valor del prop',
+        name: 'Rango de zoom:',
+        value: '24-120 mm (12 mm con panel)',
       },
       {
-        name: 'clave',
-        value: 'valor del prop',
+        name: 'Tiempo de reciclaje:',
+        value: '2.5-3.5 segundos',
       },
       {
-        name: 'clave',
-        value: 'valor del prop',
-      },
-      {
-        name: 'clave',
-        value: 'valor del prop',
+        name: 'Funciona en frecuencias',
+        value: 'de 2,4 GHz',
       },
     ],
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 5,
+        commentary: 'Es excelente, muy buena definición',
+      },
+      {
+        userId: 3,
+        score: 4,
+        commentary: 'Saca fotos muy buenas, excelente el foco.',
+      },
+      {
+        userId: 4,
+        score: 5,
+        commentary: 'Es algo pesada, pero bastante práctica. ',
+      },
+      {
+        userId: 5,
+        score: 5,
+        commentary: 'Excelente cámara!!! muy recomendable para el usuario iniciado hasta el semi profesional.',
+      },
+    ],
     code: 'F027',
     name: 'canon eos rebel kit T7',
     price: 15000,
@@ -138,24 +166,32 @@ export const data = [
     ],
     properties: [
       {
-        name: 'clave',
-        value: 'valor del prop',
+        name: 'Rango de zoom:',
+        value: '12-80 mm (6 mm con panel)',
       },
       {
-        name: 'clave',
-        value: 'valor del prop',
+        name: 'Tiempo de reciclaje:',
+        value: '1.5-2.5 segundos',
       },
       {
-        name: 'clave',
-        value: 'valor del prop',
-      },
-      {
-        name: 'clave',
-        value: 'valor del prop',
+        name: 'Funciona en frecuencias',
+        value: 'de 2,4 GHz',
       },
     ],
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 5,
+        commentary: 'Muy buen tripode, la mejor compra que hice hasta ahora.',
+      },
+      {
+        userId: 3,
+        score: 4,
+        commentary: 'Excelente producto, se siente robusto y resistente, el cabezal que es lo mas frágil de la mayoría de los trípodes es mucho mas grueso que otros que vi.',
+      },
+    ],
     code: 'Peak',
     name: 'peak design tripode',
     price: 15000,
@@ -196,6 +232,23 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=aXU5dlNlem5lU2VtckIvSFNHdktUaUhabFMvMW9pY1BUQ1MyWnBvVGJwYz0
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 5,
+        commentary: 'Excelente producto, se siente robusto y resistente, el cabezal que es lo mas frágil de la mayoría de los trípodes es mucho mas grueso que otros que vi.',
+      },
+      {
+        userId: 3,
+        score: 3,
+        commentary: 'El único defecto q le encuentro es la cremallera de plástico para subir el último tramo donde va la cámara, no le veo mucha vida útil.',
+      },
+      {
+        userId: 3,
+        score: 4,
+        commentary: 'Es un tripode muy robusto, las patas son fuertes y estables. Lo utilizo para sesiones de fotos caseras de un emprendimiento y va más que bien.',
+      },
+    ],
     code: 'Pakd',
     name: 'vanguard vesta 204AP',
     price: 18500,
@@ -367,6 +420,24 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=N2dkSzVpWU5halo0RmJrNmFhUzdDRmdEMFZwRmtIWXNqc0kzRUNRTGRhcz0
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 4,
+        commentary:'Buen producto, confiable buen precio buna calidad.'
+      },
+      {
+        userId: 3,
+        score: 5,
+        commentary:'Impecable, es lo que buscaba. Súper útil.'
+      },
+      {
+        userId: 2,
+        score: 5,
+        commentary:'Es muy buen flash! esta version 2 esta mucho mejor el software mas sencillo para acceder a los menus canales y demas.'
+      }
+
+    ],
     code: 'MF12',
     name: 'godox mf12 macro flash',
     price: 43776,
@@ -407,6 +478,23 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=cFZyb0lGbnUrNTA0MHFEVUo5TjZlTFFFTGNtQ2dWN3EyTk41MW5NM1B3MD0
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 4,
+        commentary:'Muy buen producto, excelente calidad.'
+      },
+      {
+        userId: 3,
+        score: 5,
+        commentary:'Excelente. Buena relación precio calidad. Obviamente es manual, por lo que hay que saber usar la cámara.'
+      },
+      {
+        userId: 2,
+        score: 5,
+        commentary: 'Muy buen flash! lo probé un poco nomás y estoy muy conforme. Ahora a familiarizarme mejor con el flash!'
+      },
+    ],
     code: 'Fuji',
     name: 'godox v1 flash para fuji',
     price: 43776,
@@ -602,6 +690,18 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=V0cvcDg2MFNjbXBlZXNkck5VSjlSYUF1T1dmRmg5cEFaZUg0UVF3YXVVQT0
   },
   {
+    ratings: [
+      {
+        userId: 2,
+        score: 5,
+        commentary: 'Es un micrófono que cumple con su descripción y es de mucha utilidad para dar los primeros pasos en los campos de streaming, radio, podcast, gameplay, o narración.'
+      },
+      {
+        userId: 6,
+        score: 4,
+        commentary: 'El mejor micro calidad-precio del mercado para youtube / twitch / discord. No hay que descargar drivers ni nada. Los materiales son todos de excelente calidad.',
+      }
+    ],
     code: 'SNCO',
     name: 'sinco microfono liver',
     price: 4999,
@@ -644,6 +744,13 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=U0kwVTRQR2hXV2NQVWd5bDgvVlY5SHU3WVcxUkhCOTRnbThQd0dScWw1Yz0
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 5,
+        commentary: 'No defrauda. Funciona perfectamente, lo uso para videollamadas y es lo mejor, los materiales son de muy buena calidad.'
+      }
+    ],
     code: 'SYe1',
     name: 'synco micrófono de sonido',
     price: 4999,
@@ -757,8 +864,14 @@ export const data = [
     ],
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=RmFqTFBpMHk4RjM5WUNibzBKTkFaRVRHR3FZbVVaTlZpbWdWNkpVVnZlOD0
   },
-  //****************************************************************************** */
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 5,
+        commentary:'Excelente. Me encanto!!!'
+      }
+    ],
     code: 'EF50USM',
     name: 'canon ef 50mm f/1.4 USM',
     price: 272220,
@@ -795,6 +908,18 @@ export const data = [
     // https://www.digi-zoom.com.ar/productos_detalle.php?i=SDZGdlhkbjZTR2xXOGNHRE91NlFTaERoSUorT012dGtzOFhORW1jbFRBaz0
   },
   {
+    ratings: [
+      {
+        userId: 1,
+        score: 5,
+        commentary:'No me gusta para nada la resolucion',
+      },
+      {
+        userId: 5,
+        score: 3,
+        commentary: 'No me convence.',
+      },
+    ],
     code: 'AF508D',
     name: 'nikon af 50mm f/1.8 D',
     price: 53670,
@@ -1005,7 +1130,7 @@ export const data = [
       },
       {
         name: 'Velocidad máxima de lectura: ',
-        value: '100 MB/s',
+        value: '120 MB/s',
       },
       {
         name: 'Velocidad máxima de escritura: ',
@@ -1800,6 +1925,19 @@ export const usersData = [
     state: true,
     roleId: 2,
     userName: 'noe',
+  },
+  {
+    name: 'agus',
+    lastName: 'zanetti',
+    imageProfile:
+      'https://www.lavoz.com.ar/resizer/NIrwqF-30hCyH3lDF05KKhi2iig=/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/BGRXLQMBXNADBIBSMZ6VQUUNQI.jpg',
+    mail: 'agus.zanetti4@gmail.com',
+    password: 'agus123',
+    phone: 234312,
+    birthday: 32,
+    state: true,
+    roleId: 2,
+    userName: 'agus',
   },
 ];
 
