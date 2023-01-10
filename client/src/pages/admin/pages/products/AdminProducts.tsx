@@ -7,18 +7,29 @@ import {
 import { FaEdit } from 'react-icons/fa';
 import { BiAddToQueue } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-
+import { PaginateAdmin } from '../../styled-components/styles';
+import { SearchProduct } from './SearchProduct';
 export const AdminProducts = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { paginationAdmin, products } = useAppSelector(
-    state => state.adminState
+    (state) => state.adminState
   );
-  const { page, quantity, data, order } = paginationAdmin;
+  const { page, quantity, data, order, productsLength } = paginationAdmin;
 
   const handleCurrentProducts = async (id: any) => {
-    await dispatch(getProductByIdAdmin(id));
+    await dispatch(getProductByIdAdmin(+id));
     navigate(`/dashboard/products/edit/${id}`);
+  };
+  const increment = () => {
+    if (Math.ceil(productsLength / quantity) > page) {
+      dispatch(getProductsAdmin(page + 1, quantity, data, order));
+    }
+  };
+  const decrement = () => {
+    if (page > 1) {
+      dispatch(getProductsAdmin(page - 1, quantity, data, order));
+    }
   };
 
   useEffect(() => {
@@ -31,6 +42,7 @@ export const AdminProducts = () => {
       <button onClick={() => navigate('/dashboard/products/create')}>
         <BiAddToQueue /> Crear Producto
       </button>
+      <SearchProduct />
       <table className='table'>
         <thead>
           <tr>
@@ -48,7 +60,7 @@ export const AdminProducts = () => {
 
         <tbody>
           {products.length > 0 &&
-            products.map(product => (
+            products.map((product) => (
               <tr>
                 <td>{product.id}</td>
                 <td>
@@ -69,6 +81,20 @@ export const AdminProducts = () => {
             ))}
         </tbody>
       </table>
+      {products.length > 0 && (
+        <PaginateAdmin className='animate__animated animate__fadeIn'>
+          <button onClick={decrement} disabled={page === 1}>
+            {'<'}
+          </button>
+          {Math.ceil(productsLength / quantity) && <h3>{page}</h3>}
+          <button
+            onClick={increment}
+            disabled={Math.ceil(productsLength / quantity) === page}
+          >
+            {'>'}{' '}
+          </button>
+        </PaginateAdmin>
+      )}
     </main>
   );
 };

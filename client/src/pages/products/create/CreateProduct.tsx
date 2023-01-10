@@ -40,6 +40,8 @@ import SliderCreate from './components/SliderCreate';
 import { TwoFields } from '../../../components/singup/styled-components/SingUp.styled';
 import { Property } from './models/properties.model';
 import Properties from './components/Properties';
+import { useParams, useNavigate } from 'react-router-dom';
+import { updateProductOfAdmin } from '../../../redux/slices/Admin/admin.thunk';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -83,9 +85,11 @@ export default function CreateProduct() {
   const fontSizeLabel = 15;
   const fontSizeInput = 14;
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector(
-    ({ categoriesState }) => categoriesState
-  );
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { categories } = useAppSelector(({ productsState }) => productsState);
+  const { currentProduct } = useAppSelector((state) => state.adminState);
+
   const [loading, setLoading] = useState(false);
   const [miniatureLoading, setMiniatureLoading] = useState(false);
 
@@ -93,7 +97,23 @@ export default function CreateProduct() {
 
   // Get all categories
   useEffect(() => {
-    if (!categories.length) dispatch(getAllCategories());
+    dispatch(getAllCategories());
+    if (id) {
+      // await dispatch(getProductByIdAdmin(+id));
+      setProduct({
+        ...product,
+        name: currentProduct.name,
+        code: currentProduct.code,
+        price: currentProduct.price.toString(),
+        image: currentProduct.image,
+        stock: currentProduct.stock.toString(),
+        description: currentProduct.description,
+        categoryId: currentProduct.category.id.toString(),
+        images: currentProduct.images,
+        properties: currentProduct.properties,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handlerChange(key: any, value: any) {
@@ -161,16 +181,20 @@ export default function CreateProduct() {
   }
 
   function submit() {
-    postProduct(
-      {
-        ...product,
-        image: product.images.length
-          ? product.images[0].url_image
-          : 'https://www.manchesterdirect.com.au/assets/themes/QCS_D/img/default_product.gif?1667962863',
-      },
-      setLoading,
-      setOpen
-    );
+    if (id) {
+      dispatch(updateProductOfAdmin(currentProduct.id, product));
+    } else {
+      postProduct(
+        {
+          ...product,
+          image: product.images.length
+            ? product.images[0].url_image
+            : 'https://www.manchesterdirect.com.au/assets/themes/QCS_D/img/default_product.gif?1667962863',
+        },
+        setLoading,
+        setOpen
+      );
+    }
     setProduct({
       code: '',
       name: '',
@@ -183,6 +207,7 @@ export default function CreateProduct() {
       images: [],
       properties: [],
     });
+    navigate('/dashboard/products');
   }
 
   const ImagesTest = [

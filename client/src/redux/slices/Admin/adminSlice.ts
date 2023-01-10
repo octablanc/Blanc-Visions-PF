@@ -17,6 +17,7 @@ interface currentCategory {
   name: string;
   description: string;
   state: boolean;
+  id: number;
 }
 
 interface Users {
@@ -28,8 +29,26 @@ interface Users {
   mail: string;
   state: boolean;
 }
+export interface ProductOfAdm {
+  id: number;
+  name: string;
+  code: string;
+  description: string;
+  image: string;
+  price: number;
+  discount: number;
+  entrega: string;
+  stock: number;
+  id_category: number;
+  state: Boolean | boolean;
+  category: currentCategory;
+  properties: [];
+  images: [];
+  loading: boolean;
+}
 interface AdminState {
   products: UniquePro[];
+  currentProduct: ProductOfAdm;
   users: Users[];
   userId: {};
   categoryId: currentCategory;
@@ -43,11 +62,33 @@ interface AdminState {
     order: string;
     name: string;
   };
+  searchAdmin: string;
   loading: boolean;
-  actuallityProduct: {};
 }
 const initialState: AdminState = {
   products: [],
+  currentProduct: {
+    id: 0,
+    name: '',
+    code: '',
+    description: '',
+    image: '',
+    price: 0,
+    discount: 0,
+    stock: 0,
+    entrega: '',
+    id_category: 0,
+    state: true,
+    category: {
+      name: '',
+      description: '',
+      state: true,
+      id: 0,
+    },
+    properties: [],
+    images: [],
+    loading: false,
+  },
   users: [],
   userId: {},
   categories: [],
@@ -55,34 +96,20 @@ const initialState: AdminState = {
     name: '',
     description: '',
     state: true,
+    id: 0,
   },
   sales: [],
   paginationAdmin: {
     productsLength: 0,
     page: 1,
-    quantity: 100,
+    quantity: 8,
     data: 'id',
     order: 'ASC',
     name: '',
   },
   loading: false,
-  actuallityProduct: {
-    // id: 0,
-    // name: '',
-    // code: '',
-    // description: '',
-    // image: '',
-    // price: 0,
-    // discount: 0,
-    // stock: 0,
-    // entrega: '',
-    // id_category: 0,
-    // state: true,
-    // category: '',
-    // properties: [],
-    // images: [],
-    // loading: false,
-  },
+
+  searchAdmin: '',
 };
 
 export const adminSlice = createSlice({
@@ -107,7 +134,7 @@ export const adminSlice = createSlice({
       state.paginationAdmin.name = action.payload.name;
     },
     detailProductAdmin: (state, action) => {
-      state.actuallityProduct = action.payload;
+      state.currentProduct = action.payload;
     },
     categoriesDetailAdmin: (state, action) => {
       state.categoryId = action.payload;
@@ -127,6 +154,9 @@ export const adminSlice = createSlice({
     createCategory: (state, action) => {
       state.categories = [...state.categories, action.payload];
     },
+    searchProductByName: (state, action) => {
+      state.searchAdmin = action.payload;
+    },
   },
 });
 
@@ -142,6 +172,7 @@ export const {
   userDetail,
   getSales,
   createCategory,
+  searchProductByName,
 
   //   updateProductAdmin
 } = adminSlice.actions;

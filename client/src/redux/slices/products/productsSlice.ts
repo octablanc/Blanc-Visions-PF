@@ -63,7 +63,7 @@ export interface UniquePro {
   entrega: string;
   stock: number;
   id_category: number;
-  state: Boolean;
+  state: Boolean | boolean;
   category: string;
   properties: [];
   images: [];

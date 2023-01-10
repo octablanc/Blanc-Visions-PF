@@ -32,6 +32,7 @@ export async function getUsers(req: Request, res: Response) {
             : {},
         include: roles,
         attributes: { exclude: ['roleId'] },
+        order: [['id', 'ASC']],
       });
     }
 
@@ -128,6 +129,22 @@ export async function deleteUser(req: Request, res: Response) {
     } else throw new Error('User not found!');
 
     return res.send(userToDelete);
+  } catch ({ message }) {
+    return res.status(400).send({ message });
+  }
+}
+
+export async function retrieveUser(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+
+    const userToRetrieve = await users.findByPk(id);
+    if (userToRetrieve) {
+      await userToRetrieve.update({ state: true });
+      await userToRetrieve.save();
+    } else throw new Error('User not found!');
+
+    return res.send(userToRetrieve);
   } catch ({ message }) {
     return res.status(400).send({ message });
   }

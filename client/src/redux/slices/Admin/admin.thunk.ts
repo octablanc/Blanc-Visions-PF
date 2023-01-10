@@ -85,7 +85,7 @@ export const createNewProduct = (product: any) => {
 };
 
 //ACTUALIZA UN PRODUCTO
-export const updateProduct = (id: number, product: any) => {
+export const updateProductOfAdmin = (id: number, product: any) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingAdmin(true));
@@ -264,7 +264,22 @@ export const deleteUser = (id: number) => {
     }
   };
 };
-
+//recupera el usuario
+export const retrieveUserAdmin = (id: number) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingAdmin(true));
+      let userRetrieve = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/users/${id}`
+      );
+      console.log(userRetrieve, 'seteado en true al usario');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(startLoadingAdmin(false));
+    }
+  };
+};
 //obtiene todas las compras
 export const getAllSales = () => {
   return async (dispatch: any) => {
