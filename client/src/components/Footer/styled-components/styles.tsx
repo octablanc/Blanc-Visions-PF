@@ -15,6 +15,11 @@ export const FooterBar = styled.div`
 
 export const GridFooter = styled.div`
   display: grid;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  align-items:center;
+  // background-color: yellow;
   ul li {
     padding-bottom: 1rem;
   }
@@ -32,9 +37,13 @@ export const GridFooter = styled.div`
 
 export const Icons = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  // background-color: green;
   align-items: center;
-  gap: 1.5rem;
-  font-size: 3.5rem;
+  p {
+    margin: 0px;
+  }
 `;
 
 export const Input = styled.input`

@@ -1,12 +1,13 @@
-// import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
+import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
 import { useState } from 'react';
-// import { BsTwitter } from 'react-icons/bs';
-// import { SiTiktok } from 'react-icons/si';
+import { BsTwitter } from 'react-icons/bs';
+import { SiTiktok } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 import {
   BsFillEnvelopeOpenFill,
   BsWhatsapp,
   BsFillTelephoneFill,
+  BsGithub,
 } from '../../icons/index';
 import {
   FooterBar,
@@ -46,7 +47,7 @@ export const Footer = () => {
   return (
     <FooterBar>
       <GridFooter className='container'>
-        <Newsletter>
+        {/* <Newsletter>
           <form>
             <h4>Recibí las últimas novedades</h4>
             <Input
@@ -58,7 +59,7 @@ export const Footer = () => {
             />
             <Btn onSubmit={() => handleSubmit}>Suscribirme</Btn>
           </form>
-        </Newsletter>
+        </Newsletter> */}
 
         <div>
           {/* <h3>Categorías</h3> */}
@@ -85,7 +86,7 @@ export const Footer = () => {
               <Link to='/privacy'>Política de privacidad</Link>
             </li>
             <li>
-              <Link to='/termsyconditions'>Términos y Condiciones</Link>
+              <Link to='/termsyconditions'>Términos y condiciones</Link>
             </li>
           </ul>
         </div>
@@ -104,14 +105,34 @@ export const Footer = () => {
             <BsFillTelephoneFill className='icons' />
             <span> (011) 2100 6019</span>
           </p>
-          {/* <h3>Síguenos</h3>
-          <p>Nuestras redes sociales</p>
+        </div>
+        <div>
+          <p>Desarrollado por</p>
+          {/* <p></p> */}
           <Icons>
-            <AiFillFacebook />
-            <BsTwitter />
-            <AiOutlineInstagram />
-            <SiTiktok />
-          </Icons> */}
+            <p>
+              <BsGithub /> <a href='https://github.com/NOELIAFERRER'>Lucas Alegre</a>
+            </p>
+            <p>
+              <BsGithub /> <a href='https://github.com/octablanc'>Octavio Blanc</a>
+            </p>
+            <p>
+              <BsGithub /> <a href='https://github.com/F25C'>Florencia Caro</a>
+            </p>
+            <p>
+              <BsGithub /> <a href='https://github.com/NOELIAFERRER'>Noelia Ferrer</a>
+            </p>
+            <p>
+              <BsGithub /> <a href='https://github.com/tomasflores24'>Tomas Flores</a>
+            </p>
+            <p>
+              <BsGithub /> <a href='https://github.com/JohnTicona'>John Ticona</a>
+            </p>
+            <p>
+              <BsGithub /> <a href='https://github.com/Agagus'>Agustina Zanetti</a>
+            </p>
+
+          </Icons>
         </div>
       </GridFooter>
     </FooterBar>
