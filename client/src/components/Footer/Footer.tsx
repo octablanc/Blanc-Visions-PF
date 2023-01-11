@@ -1,7 +1,7 @@
-import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
-import { useState } from 'react';
-import { BsTwitter } from 'react-icons/bs';
-import { SiTiktok } from 'react-icons/si';
+// import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
+// import { useState } from 'react';
+// import { BsTwitter } from 'react-icons/bs';
+// import { SiTiktok } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 import {
   BsFillEnvelopeOpenFill,
@@ -13,36 +13,36 @@ import {
   FooterBar,
   GridFooter,
   Icons,
-  Input,
-  Btn,
-  Newsletter,
+  // Input,
+  // Btn,
+  // Newsletter,
 } from './styled-components/styles';
 
 export const Footer = () => {
-  const [input, setInput] = useState({
-    mail: '',
-  });
+  // const [input, setInput] = useState({
+  //   mail: '',
+  // });
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
-    console.log(input);
-  };
+  // const handleChange = (
+  //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   setInput({
+  //     ...input,
+  //     [event.target.name]: event.target.value,
+  //   });
+  //   console.log(input);
+  // };
 
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    event.preventDefault();
-    // if(input) {
-      
-    //   //add to firebase
-    //   db.collection("emails").add({
-    //     email: input,
-    //   })
-    // }
-  };
+  // const handleSubmit = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   event.preventDefault();
+  // if(input) {
+
+  //   //add to firebase
+  //   db.collection("emails").add({
+  //     email: input,
+  //   })
+  // }
+  // };
 
   return (
     <FooterBar>
@@ -62,7 +62,6 @@ export const Footer = () => {
         </Newsletter> */}
 
         <div>
-          {/* <h3>Categorías</h3> */}
           <ul>
             <li>
               <Link to='/'>Inicio</Link>
@@ -111,27 +110,32 @@ export const Footer = () => {
           {/* <p></p> */}
           <Icons>
             <p>
-              <BsGithub /> <a href='https://github.com/NOELIAFERRER'>Lucas Alegre</a>
+              <BsGithub />{' '}
+              <a href='https://github.com/NOELIAFERRER'>Lucas Alegre</a>
             </p>
             <p>
-              <BsGithub /> <a href='https://github.com/octablanc'>Octavio Blanc</a>
+              <BsGithub />{' '}
+              <a href='https://github.com/octablanc'>Octavio Blanc</a>
             </p>
             <p>
               <BsGithub /> <a href='https://github.com/F25C'>Florencia Caro</a>
             </p>
             <p>
-              <BsGithub /> <a href='https://github.com/NOELIAFERRER'>Noelia Ferrer</a>
+              <BsGithub />{' '}
+              <a href='https://github.com/NOELIAFERRER'>Noelia Ferrer</a>
             </p>
             <p>
-              <BsGithub /> <a href='https://github.com/tomasflores24'>Tomas Flores</a>
+              <BsGithub />{' '}
+              <a href='https://github.com/tomasflores24'>Tomas Flores</a>
             </p>
             <p>
-              <BsGithub /> <a href='https://github.com/JohnTicona'>John Ticona</a>
+              <BsGithub />{' '}
+              <a href='https://github.com/JohnTicona'>John Ticona</a>
             </p>
             <p>
-              <BsGithub /> <a href='https://github.com/Agagus'>Agustina Zanetti</a>
+              <BsGithub />{' '}
+              <a href='https://github.com/Agagus'>Agustina Zanetti</a>
             </p>
-
           </Icons>
         </div>
       </GridFooter>

@@ -18,7 +18,7 @@ export const GridFooter = styled.div`
   align-content: center;
   justify-content: center;
   justify-items: center;
-  align-items:center;
+  align-items: center;
   // background-color: yellow;
   ul li {
     padding-bottom: 1rem;
@@ -39,7 +39,6 @@ export const Icons = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  // background-color: green;
   align-items: center;
   p {
     margin: 0px;
