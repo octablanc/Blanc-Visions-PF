@@ -134,3 +134,19 @@ module.exports = (function runApp() {
   });
 })();
 //
+
+{/* 
+ESTA ES LA NOTIFICACION QUE NOS ENVIA MERCADO CUANDO PAGAMOS, INVESTIGAR COMO CAPTURARLA??
+
+https://kingcomm.vercel.app/buy?
+collection_id=53508755776
+&collection_status=approved
+&payment_id=53508755776
+&status=approved
+&external_reference=null
+&payment_type=account_money
+&merchant_order_id=7223260114
+&preference_id=1266633934-c6834fe9-dc70-4b38-9fdb-c325de165a7d
+&site_id=MLA&processing_mode=aggregator
+&merchant_account_id=null
+*/}

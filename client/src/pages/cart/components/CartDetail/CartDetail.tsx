@@ -1,22 +1,23 @@
-import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { MouseEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
+import { NavLink, useNavigate } from "react-router-dom";
+import { MouseEvent, useEffect, useState } from "react";
 
-import { Container } from '../../styled-components/styles';
+import { Container } from "../../styled-components/styles";
 // import { display, fontSize } from "@mui/system";
-import cart from '../../styled-components/cart.png';
+import cart from "../../styled-components/cart.png";
 // import React from "react";
 // import MuiAlert, { AlertProps } from "@mui/material/Alert";
 // import { BOLD_WEIGHT } from "jest-matcher-utils";
-import { FlashMsg } from '../FlashMsg/FlashMsg';
-import { postOrderBuy } from '../../../../services/services';
+import { FlashMsg } from "../FlashMsg/FlashMsg";
+import { postOrderBuy } from "../../../../services/services";
 import {
   deleteCartUser,
   deleteProductCart,
   getCartUser,
   setQuantityCart,
-} from '../../../../redux/slices/Cart';
-import { Btn } from '../../../detail/styled-components/Detail';
+} from "../../../../redux/slices/Cart";
+import { Btn } from "../../../detail/styled-components/Detail";
+import { Shipping } from "../../../Shipping/Shipping";
 
 export const CartDetail = () => {
   const navigate = useNavigate();
@@ -25,13 +26,14 @@ export const CartDetail = () => {
   const { cart, loadingBtnSet, update, priceTotalCart, quantityTotalCart } =
     useAppSelector((state) => state.cartState);
   const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
+  const [shipping, setShipping] = useState(false);
   useEffect(() => {
     if (user) {
       dispatch(getCartUser(user.id));
     }
     setSuccess(true);
-    setMsg('Tienes productos en tu carrito');
+    setMsg("Tienes productos en tu carrito");
   }, [dispatch, update]);
   // console.log("CART => ",cart)
 
@@ -54,11 +56,15 @@ export const CartDetail = () => {
   const handleDeleteCart = () => dispatch(deleteCartUser(user?.id));
 
   const setNumber = (numero: number) => {
-    let partesNumero = numero.toString().split('.');
-    partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    return partesNumero.join('.');
+    let partesNumero = numero.toString().split(".");
+    partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return partesNumero.join(".");
   };
   const handleNavidateProduct = (id: number) => navigate(`/products/${id}`);
+
+  const handleCheckout = () => {
+    setShipping(true);
+  }
 
   if (!cart.length)
     return (
@@ -76,6 +82,7 @@ export const CartDetail = () => {
     <Container>
       <div className="container__products__cart">
         {cart.map((c) => {
+          console.log("c=>", c);
           const { id, name, discount, price, stock, image } = c.product;
           const priceDiscount: number = price - (price * discount) / 100;
           return (
@@ -129,10 +136,9 @@ export const CartDetail = () => {
       <div className="container__data">
         <p>precio total del carrito : {setNumber(priceTotalCart)}</p>
         <p>Cantidad de Productos : {quantityTotalCart}</p>
-        <Btn>Finalizar Compra</Btn>
-        <Btn onClick={() => navigate('/products')}>
-          Continuar comprando
-        </Btn>
+        <Btn onClick={() => handleCheckout()}>Finalizar Compra</Btn>
+        {shipping ? <Shipping /> : <></>}
+        <Btn onClick={() => navigate("/products")}>Continuar comprando</Btn>
         <Btn onClick={handleDeleteCart}>Vaciar Carrito</Btn>
       </div>
     </Container>

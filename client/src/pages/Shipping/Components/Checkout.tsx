@@ -37,7 +37,8 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
             <h3>Tu compra</h3>
           </div>
           <div className="info">
-            {cart?.map((item: any, key: number) => (
+            {cart?.map((item: any, key: number) => (  
+                          
               <Div key={item.id}>
                 {/* <div className='itemCard'> */}
                 <div className="miniature">
@@ -48,30 +49,30 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
                     <span>{item.name}</span>
                     <p className='quantity'>
                       <span>Cantidad:</span>
-                      <span>{item.cartQuantity}</span>
+                      <span>{item.stock}</span>
                     </p>
                     {item.discount > 0 ? (
-                      <div className='promo'>
-                        <p className='price'>
+                      <div className="promo">
+                        <p className="price">
                           <span>Precio:</span>
-                          <span>${Math.ceil(item.price * (1 - item.discount / 100))}c/u                          </span>
+                          <span>${item.priceDiscount}c/u </span>
                         </p>
-                        <p className='priceProm'>
+                        <p className="priceProm">
                           <span className="priceProm">Antes:</span>
-                          <span className='discount'>${item.price}c/u</span>
+                          <span className="discount">${item.price}c/u</span>
                         </p>
                       </div>
                     ) : (
-                      <p className='price'>
+                      <p className="price">
                         <span>Precio:</span>
                         <span>${item.price}c/u</span>
                       </p>
                     )}
-                  {/* </ul> */}
-                </div>
-                {/* </div> */}
-              </Div>
-            ))}
+                    {/* </ul> */}
+                  </div>
+                  {/* </div> */}
+                </Div>
+              ))}
           </div>
           {/* </div> */}
         </Detail>
@@ -79,14 +80,11 @@ export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {
       <Bill>
         <p className='total'>Total $ {priceTotalCart}</p>
 
-        <form
-          action="https://kingcomm.up.railway.app/checkout"
-          method="POST"
-        >
+        <form action="https://kingcomm.up.railway.app/checkout" method="POST">
           <input
             type="hidden"
             name="title"
-            value={`Productos (${cartTotalQuantity})`}
+            value={`Productos (${quantityTotalCart})`}
           />
           <input type="hidden" name="price" value={priceTotalCart} />
           <BtnCheck type="submit" onClick={handleSubmit}>

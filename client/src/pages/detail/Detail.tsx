@@ -19,6 +19,7 @@ import { Sales } from '../home/components/Sales/Sales';
 import { FlashMsg } from '../cart/components/FlashMsg/FlashMsg';
 import { Review } from './components/Review';
 import { addProductCart } from '../../redux/slices/Cart';
+import { Shipping } from "../Shipping/Shipping";
 
 // import Login from "../../components/login/Login";
 
@@ -63,9 +64,11 @@ export const Detail = () => {
   const findProductCart = cart.some((c) => c.productId === id);
 
   const handleBuy = () => {
+    //AGREGUE EL REQUERIMIENTO DE LOGUEO en la linea de abajo
+    if (!user) return handleLogin();
     console.log("COMPRAR AHORA")
     // SHIPPING
-    // setShipping(true);
+    setShipping(true);
   };
 
   const handleCart = () => navigate('/cart');
@@ -157,6 +160,7 @@ export const Detail = () => {
         </Info>
       </Container>
       <Review ratings={ratings} />
+      {shipping ? <Shipping /> : <></>}
 
       {/* <Sales /> */}
     </div>
