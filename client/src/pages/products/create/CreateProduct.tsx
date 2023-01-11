@@ -41,7 +41,10 @@ import { TwoFields } from '../../../components/singup/styled-components/SingUp.s
 import { Property } from './models/properties.model';
 import Properties from './components/Properties';
 import { useParams, useNavigate } from 'react-router-dom';
-import { updateProductOfAdmin } from '../../../redux/slices/Admin/admin.thunk';
+import {
+  updateImages,
+  updateProductOfAdmin,
+} from '../../../redux/slices/Admin/admin.thunk';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -182,6 +185,8 @@ export default function CreateProduct() {
 
   function submit() {
     if (id) {
+      console.log(product.images, product.image, 'productimage');
+      dispatch(updateImages(currentProduct.id, product.images));
       dispatch(updateProductOfAdmin(currentProduct.id, product));
     } else {
       postProduct(
