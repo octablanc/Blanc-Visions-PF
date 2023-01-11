@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Promise } from "bluebird";
+import React, { useState, useEffect } from 'react';
+import { Promise } from 'bluebird';
 
 // Styled Components
 import {
@@ -9,7 +9,7 @@ import {
   IconAdd,
   Miniatures,
   PropertyContainer,
-} from "./styled-components/CreateProduct.styled";
+} from './styled-components/CreateProduct.styled';
 
 // Material UI
 import {
@@ -21,62 +21,62 @@ import {
   FormControl,
   Button,
   Snackbar,
-} from "@mui/material";
-import LoadingButton from "@mui/lab/LoadingButton";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import AddIcon from "@mui/icons-material/Add";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import AddIcon from '@mui/icons-material/Add';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 // Actions
-import { getAllCategories } from "../../../redux/slices/products";
-import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
-import { postProduct } from "../services/products.service";
-import { Slider } from "../../detail/components/Slider/Slider";
-import { uploadFile } from "../../../firebase/firebase.config";
-import { Product } from "./models/product";
-import Miniature from "./components/Miniature";
-import MiniatureLoading from "./components/MiniatureLoading";
-import SliderCreate from "./components/SliderCreate";
-import { TwoFields } from "../../../components/singup/styled-components/SingUp.styled";
-import { Property } from "./models/properties.model";
-import Properties from "./components/Properties";
-import { useParams, useNavigate } from "react-router-dom";
-import { updateProductOfAdmin } from "../../../redux/slices/Admin/admin.thunk";
+import { getAllCategories } from '../../../redux/slices/products';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
+import { postProduct } from '../services/products.service';
+import { Slider } from '../../detail/components/Slider/Slider';
+import { uploadFile } from '../../../firebase/firebase.config';
+import { Product } from './models/product';
+import Miniature from './components/Miniature';
+import MiniatureLoading from './components/MiniatureLoading';
+import SliderCreate from './components/SliderCreate';
+import { TwoFields } from '../../../components/singup/styled-components/SingUp.styled';
+import { Property } from './models/properties.model';
+import Properties from './components/Properties';
+import { useParams, useNavigate } from 'react-router-dom';
+import { updateProductOfAdmin } from '../../../redux/slices/Admin/admin.thunk';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
 ) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 export default function CreateProduct() {
   const [product, setProduct] = useState<Product>({
-    code: "",
-    name: "",
-    price: "",
-    image: "asd",
-    stock: "",
-    description: "",
-    categoryId: "",
+    code: '',
+    name: '',
+    price: '',
+    image: 'asd',
+    stock: '',
+    description: '',
+    categoryId: '',
     state: true,
-    discount: "",
+    discount: '',
     images: [],
     properties: [],
   });
   const [error, setError] = useState({
-    code: "",
-    name: "",
-    price: "",
-    stock: "",
-    description: "",
-    discount: "",
-    categoryId: "",
+    code: '',
+    name: '',
+    price: '',
+    stock: '',
+    description: '',
+    discount: '',
+    categoryId: '',
     images: [],
   });
   const [property, setProperty] = useState<Property>({
-    name: "",
-    value: "",
+    name: '',
+    value: '',
   });
   const [propertyError, setPropertyError] = useState({
     name: false,
@@ -90,7 +90,7 @@ export default function CreateProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { categories } = useAppSelector(({ productsState }) => productsState);
-  const { currentProduct } = useAppSelector((state) => state.adminState);
+  const { currentProduct } = useAppSelector(state => state.adminState);
 
   const [loading, setLoading] = useState(false);
   const [miniatureLoading, setMiniatureLoading] = useState(false);
@@ -122,7 +122,7 @@ export default function CreateProduct() {
   function handlerChange(key: any, value: any) {
     setProduct({
       ...product,
-      [key]: key === "code" ? (value.length < 6 ? value : product.code) : value,
+      [key]: key === 'code' ? (value.length < 6 ? value : product.code) : value,
     });
 
     setError({
@@ -138,42 +138,42 @@ export default function CreateProduct() {
 
     if (!product.categoryId) {
       hasError = true;
-      newError = { ...newError, categoryId: "Category cannot be empty." };
+      newError = { ...newError, categoryId: 'Category cannot be empty.' };
     }
 
     if (!product.code) {
       hasError = true;
-      newError = { ...newError, code: "Code cannot be empty." };
+      newError = { ...newError, code: 'Code cannot be empty.' };
     }
 
     if (product.code.length < 5) {
       hasError = true;
-      newError = { ...newError, code: "Code requires 5 characters." };
+      newError = { ...newError, code: 'Code requires 5 characters.' };
     }
 
     if (!product.description) {
       hasError = true;
-      newError = { ...newError, description: "." };
+      newError = { ...newError, description: '.' };
     }
 
     if (!product.name) {
       hasError = true;
-      newError = { ...newError, name: "Name cannot be empty." };
+      newError = { ...newError, name: 'Name cannot be empty.' };
     }
 
     if (!product.price) {
       hasError = true;
-      newError = { ...newError, price: "Price cannot be empty." };
+      newError = { ...newError, price: 'Price cannot be empty.' };
     }
 
     if (!product.discount) {
       hasError = true;
-      newError = { ...newError, discount: "Discount cannot be empty." };
+      newError = { ...newError, discount: 'Discount cannot be empty.' };
     }
 
     if (!product.stock) {
       hasError = true;
-      newError = { ...newError, stock: "Stock cannot be empty." };
+      newError = { ...newError, stock: 'Stock cannot be empty.' };
     }
 
     if (hasError) setError(newError);
@@ -182,7 +182,7 @@ export default function CreateProduct() {
   }
 
   function handleClose(event?: React.SyntheticEvent | Event, reason?: string) {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -190,6 +190,7 @@ export default function CreateProduct() {
 
   function submit() {
     if (id) {
+      console.log(product.images, product.image, 'productimage');
       dispatch(updateProductOfAdmin(currentProduct.id, product));
     } else {
       postProduct(
@@ -197,31 +198,31 @@ export default function CreateProduct() {
           ...product,
           image: product.images.length
             ? product.images[0].url_image
-            : "https://www.manchesterdirect.com.au/assets/themes/QCS_D/img/default_product.gif?1667962863",
+            : 'https://www.manchesterdirect.com.au/assets/themes/QCS_D/img/default_product.gif?1667962863',
         },
         setLoading,
         setOpen
       );
     }
     setProduct({
-      code: "",
-      name: "",
-      price: "",
-      image: "",
-      stock: "",
-      description: "",
-      categoryId: "",
+      code: '',
+      name: '',
+      price: '',
+      image: '',
+      stock: '',
+      description: '',
+      categoryId: '',
       state: true,
-      discount: "",
+      discount: '',
       images: [],
       properties: [],
     });
-    navigate("/dashboard/products");
+    navigate('/dashboard/products');
   }
 
   const ImagesTest = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQckaIE_TK4UYSEGZGMgHHpmEy9em0rO2x0h1ThLcGRJ0_58nYZY9sp2is0EMFzc6DjphQ&usqp=CAU",
-    "https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp",
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQckaIE_TK4UYSEGZGMgHHpmEy9em0rO2x0h1ThLcGRJ0_58nYZY9sp2is0EMFzc6DjphQ&usqp=CAU',
+    'https://media.tycsports.com/files/2022/12/19/517541/lionel-messi_1440x810_wmk.webp',
   ];
 
   function handleChangeInputImage(target: EventTarget & HTMLInputElement) {
@@ -230,7 +231,7 @@ export default function CreateProduct() {
     if (target.files?.length) {
       setMiniatureLoading(true);
       console.log(target.files[0]);
-      uploadFile(target.files[0]).then((url) => {
+      uploadFile(target.files[0]).then(url => {
         setProduct({
           ...product,
           images: [...product.images, { url_image: url }],
@@ -292,8 +293,8 @@ export default function CreateProduct() {
       });
 
       setProperty({
-        name: "",
-        value: "",
+        name: '',
+        value: '',
       });
     }
   }
@@ -308,7 +309,7 @@ export default function CreateProduct() {
   }
 
   return (
-    <FormConteiner className="container">
+    <FormConteiner className='container'>
       <Image>
         <SliderCreate
           images={product.images.map((image: any) => image.url_image)}
@@ -332,18 +333,18 @@ export default function CreateProduct() {
           ) : (
             <div>
               <input
-                ref={(input) => (inputFile = input)}
-                type={"file"}
-                style={{ display: "none" }}
+                ref={input => (inputFile = input)}
+                type={'file'}
+                style={{ display: 'none' }}
                 onChange={({ target }) => handleChangeInputImage(target)}
               />
               <IconAdd>
                 <AddPhotoAlternateIcon
                   style={{
-                    fontSize: "60px",
-                    padding: "10px",
-                    borderRadius: "3px",
-                    color: "#bdc3d1",
+                    fontSize: '60px',
+                    padding: '10px',
+                    borderRadius: '3px',
+                    color: '#bdc3d1',
                   }}
                   onClick={() => inputFile?.click()}
                 />
@@ -360,33 +361,33 @@ export default function CreateProduct() {
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label="Name"
-            name="name"
+            label='Name'
+            name='name'
             value={product.name}
-            placeholder="Product name"
+            placeholder='Product name'
             sx={{
-              position: "relative",
-              "& p.MuiFormHelperText-root": {
-                position: "absolute",
-                bottom: "-22px",
-                left: "0px",
+              position: 'relative',
+              '& p.MuiFormHelperText-root': {
+                position: 'absolute',
+                bottom: '-22px',
+                left: '0px',
               },
               m: 1,
-              width: "100%",
-              marginBottom: "20px",
+              width: '100%',
+              marginBottom: '20px',
             }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
-            variant="standard"
+            variant='standard'
             error={error.name ? true : false}
             helperText={
               error.name && (
-                <span style={{ fontSize: "13px" }}>{error.name}</span>
+                <span style={{ fontSize: '13px' }}>{error.name}</span>
               )
             }
-            onChange={(e) => handlerChange(e.target.name, e.target.value)}
-            onFocus={(e) => handlerChange(e.target.name, e.target.value)}
+            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <TwoFields>
@@ -394,69 +395,69 @@ export default function CreateProduct() {
               InputLabelProps={{
                 style: { fontSize: fontSizeLabel },
               }}
-              label="Code"
-              name="code"
+              label='Code'
+              name='code'
               value={product.code}
               sx={{
-                position: "relative",
-                "& p.MuiFormHelperText-root": {
-                  position: "absolute",
-                  bottom: "-22px",
-                  left: "0px",
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px',
                 },
                 m: 1,
-                width: "100%",
-                marginBottom: "10px",
+                width: '100%',
+                marginBottom: '10px',
               }}
               InputProps={{
                 style: { fontSize: fontSizeInput },
               }}
-              placeholder="Code of 5 characters"
-              variant="standard"
+              placeholder='Code of 5 characters'
+              variant='standard'
               error={error.code ? true : false}
               helperText={
                 error.code && (
-                  <span style={{ fontSize: "13px", whiteSpace: "nowrap" }}>
+                  <span style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                     {error.code}
                   </span>
                 )
               }
-              onChange={(e) => handlerChange(e.target.name, e.target.value)}
-              onFocus={(e) => handlerChange(e.target.name, e.target.value)}
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
             />
 
             <TextField
               InputLabelProps={{
                 style: { fontSize: fontSizeLabel },
               }}
-              label="Price"
-              name="price"
+              label='Price'
+              name='price'
               value={product.price}
-              placeholder="$"
+              placeholder='$'
               sx={{
-                position: "relative",
-                "& p.MuiFormHelperText-root": {
-                  position: "absolute",
-                  bottom: "-22px",
-                  left: "0px",
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px',
                 },
                 m: 1,
-                width: "100%",
-                marginBottom: "10px",
+                width: '100%',
+                marginBottom: '10px',
               }}
               InputProps={{
                 style: { fontSize: fontSizeInput },
-                type: "number",
+                type: 'number',
               }}
-              variant="standard"
+              variant='standard'
               error={error.price ? true : false}
               helperText={
                 error.price && (
-                  <span style={{ fontSize: "13px" }}>{error.price}</span>
+                  <span style={{ fontSize: '13px' }}>{error.price}</span>
                 )
               }
-              onChange={(e) => handlerChange(e.target.name, e.target.value)}
-              onFocus={(e) => handlerChange(e.target.name, e.target.value)}
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
             />
           </TwoFields>
 
@@ -465,43 +466,43 @@ export default function CreateProduct() {
               InputLabelProps={{
                 style: { fontSize: fontSizeLabel },
               }}
-              label="Stock"
-              name="stock"
+              label='Stock'
+              name='stock'
               value={product.stock}
-              placeholder="Product stock"
+              placeholder='Product stock'
               sx={{
-                position: "relative",
-                "& p.MuiFormHelperText-root": {
-                  position: "absolute",
-                  bottom: "-22px",
-                  left: "0px",
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px',
                 },
                 m: 1,
-                width: "100%",
-                marginBottom: "10px",
+                width: '100%',
+                marginBottom: '10px',
               }}
               InputProps={{
                 style: { fontSize: fontSizeInput },
-                type: "number",
+                type: 'number',
               }}
-              variant="standard"
+              variant='standard'
               error={error.stock ? true : false}
               helperText={
                 error.stock && (
-                  <span style={{ fontSize: "13px" }}>{error.stock}</span>
+                  <span style={{ fontSize: '13px' }}>{error.stock}</span>
                 )
               }
-              onChange={(e) => handlerChange(e.target.name, e.target.value)}
-              onFocus={(e) => handlerChange(e.target.name, e.target.value)}
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
             />
 
             <FormControl
               fullWidth
-              sx={{ margin: "8px" }}
+              sx={{ margin: '8px' }}
               error={error.categoryId ? true : false}
             >
               <InputLabel
-                id="demo-simple-select-label"
+                id='demo-simple-select-label'
                 sx={{
                   fontSize: fontSizeLabel,
                 }}
@@ -509,17 +510,17 @@ export default function CreateProduct() {
                 Category
               </InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                name="categoryId"
-                label="Category "
+                labelId='demo-simple-select-label'
+                name='categoryId'
+                label='Category '
                 value={product.categoryId}
                 sx={{ fontSize: fontSizeInput }}
-                onChange={(e) => handlerChange(e.target.name, e.target.value)}
-                onFocus={(e) => handlerChange(e.target.name, e.target.value)}
-                variant="standard"
+                onChange={e => handlerChange(e.target.name, e.target.value)}
+                onFocus={e => handlerChange(e.target.name, e.target.value)}
+                variant='standard'
               >
                 {categories.length ? (
-                  categories.map((category) => (
+                  categories.map(category => (
                     <MenuItem
                       value={parseInt(category.id.toString())}
                       sx={{
@@ -535,7 +536,7 @@ export default function CreateProduct() {
               </Select>
               {error.categoryId ? (
                 <FormHelperText>
-                  <span style={{ fontSize: "13px" }}>
+                  <span style={{ fontSize: '13px' }}>
                     Category cannot be empty
                   </span>
                   .
@@ -548,21 +549,21 @@ export default function CreateProduct() {
 
           <PropertyContainer>
             <TextField
-              id="property-name"
-              label="Property"
-              variant="standard"
-              name="name"
+              id='property-name'
+              label='Property'
+              variant='standard'
+              name='name'
               value={property.name}
               error={propertyError.name}
               sx={{
-                width: "calc(49% - 37px)",
-                position: "relative",
-                "& p.MuiFormHelperText-root": {
-                  position: "absolute",
-                  bottom: "-22px",
-                  left: "0px",
+                width: 'calc(49% - 37px)',
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px',
                 },
-                marginBottom: "10px",
+                marginBottom: '10px',
               }}
               InputLabelProps={{
                 style: {
@@ -576,7 +577,7 @@ export default function CreateProduct() {
               }}
               helperText={
                 propertyError.name && (
-                  <span style={{ fontSize: "13px" }}>Property is empty!</span>
+                  <span style={{ fontSize: '13px' }}>Property is empty!</span>
                 )
               }
               onChange={({ target }) => handleChangeProperty(target)}
@@ -584,21 +585,21 @@ export default function CreateProduct() {
             />
 
             <TextField
-              id="property-value"
-              label="Value"
-              variant="standard"
-              name="value"
+              id='property-value'
+              label='Value'
+              variant='standard'
+              name='value'
               value={property.value}
               error={propertyError.value}
               sx={{
-                width: "calc(49% - 37px)",
-                position: "relative",
-                "& p.MuiFormHelperText-root": {
-                  position: "absolute",
-                  bottom: "-22px",
-                  left: "0px",
+                width: 'calc(49% - 37px)',
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px',
                 },
-                marginBottom: "10px",
+                marginBottom: '10px',
               }}
               InputLabelProps={{
                 style: {
@@ -612,7 +613,7 @@ export default function CreateProduct() {
               }}
               helperText={
                 propertyError.value && (
-                  <span style={{ fontSize: "13px" }}>Value is empty!</span>
+                  <span style={{ fontSize: '13px' }}>Value is empty!</span>
                 )
               }
               onChange={({ target }) => handleChangeProperty(target)}
@@ -620,8 +621,8 @@ export default function CreateProduct() {
             />
 
             <Button
-              variant="contained"
-              style={{ marginLeft: "30px", marginBottom: "10px" }}
+              variant='contained'
+              style={{ marginLeft: '30px', marginBottom: '10px' }}
               onClick={addProperty}
               disabled={propertyError.name || propertyError.value}
             >
@@ -635,23 +636,23 @@ export default function CreateProduct() {
           />
 
           <TextField
-            name="description"
-            label="Description"
+            name='description'
+            label='Description'
             multiline
             value={product.description}
-            variant="standard"
+            variant='standard'
             rows={3}
             sx={{
-              position: "relative",
-              "& p.MuiFormHelperText-root": {
-                position: "absolute",
-                bottom: "-22px",
-                left: "0px",
+              position: 'relative',
+              '& p.MuiFormHelperText-root': {
+                position: 'absolute',
+                bottom: '-22px',
+                left: '0px',
               },
               m: 1,
-              width: "100%",
-              marginBottom: "20px",
-              marginTop: "20px",
+              width: '100%',
+              marginBottom: '20px',
+              marginTop: '20px',
             }}
             InputProps={{
               style: { fontSize: fontSizeInput },
@@ -662,58 +663,58 @@ export default function CreateProduct() {
             error={error.description ? true : false}
             helperText={
               error.description && (
-                <span style={{ fontSize: "13px" }}>
+                <span style={{ fontSize: '13px' }}>
                   Description cannot be empty.
                 </span>
               )
             }
-            onChange={(e) => handlerChange(e.target.name, e.target.value)}
-            onFocus={(e) => handlerChange(e.target.name, e.target.value)}
+            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           <TextField
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label="Discount"
-            name="discount"
+            label='Discount'
+            name='discount'
             value={product.discount}
             sx={{
-              position: "relative",
-              "& p.MuiFormHelperText-root": {
-                position: "absolute",
-                bottom: "-22px",
-                left: "0px",
+              position: 'relative',
+              '& p.MuiFormHelperText-root': {
+                position: 'absolute',
+                bottom: '-22px',
+                left: '0px',
               },
               m: 1,
-              width: "100%",
-              marginBottom: "10px",
+              width: '100%',
+              marginBottom: '10px',
             }}
             InputProps={{
               style: { fontSize: fontSizeInput },
             }}
-            placeholder="Discount to Products"
-            variant="standard"
+            placeholder='Discount to Products'
+            variant='standard'
             error={error.discount ? true : false}
             helperText={
               error.discount && (
-                <span style={{ fontSize: "13px", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
                   {error.discount}
                 </span>
               )
             }
-            onChange={(e) => handlerChange(e.target.name, e.target.value)}
-            onFocus={(e) => handlerChange(e.target.name, e.target.value)}
+            onChange={e => handlerChange(e.target.name, e.target.value)}
+            onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
 
           {!loading ? (
             <Button
-              variant="contained"
-              color="success"
+              variant='contained'
+              color='success'
               sx={{
-                width: "100%",
-                margin: "8px",
-                height: "50px",
+                width: '100%',
+                margin: '8px',
+                height: '50px',
                 fontSize: fontSizeInput,
               }}
               onClick={handlerSubmit}
@@ -738,12 +739,12 @@ export default function CreateProduct() {
           ) : (
             <LoadingButton
               loading
-              variant="outlined"
+              variant='outlined'
               sx={{
-                width: "100%",
-                margin: "8px",
-                height: "50px",
-                backgroundColor: "#66BB6A",
+                width: '100%',
+                margin: '8px',
+                height: '50px',
+                backgroundColor: '#66BB6A',
               }}
             />
           )}
@@ -751,8 +752,8 @@ export default function CreateProduct() {
           {!loading && (
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
               <Alert
-                severity="success"
-                sx={{ width: "100%", fontSize: fontSizeInput }}
+                severity='success'
+                sx={{ width: '100%', fontSize: fontSizeInput }}
               >
                 Product successfully published!
               </Alert>
