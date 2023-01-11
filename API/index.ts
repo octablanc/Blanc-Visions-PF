@@ -136,6 +136,8 @@ module.exports = (function runApp() {
 //
 
 {/* 
+ESTA ES LA NOTIFICACION QUE NOS ENVIA MERCADO CUANDO PAGAMOS, INVESTIGAR COMO CAPTURARLA??
+
 https://kingcomm.vercel.app/buy?
 collection_id=53508755776
 &collection_status=approved
