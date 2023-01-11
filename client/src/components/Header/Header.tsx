@@ -104,7 +104,17 @@ export const Header = () => {
 
               {user ? (
                 <li>
-                  <IconButton aria-label="cart">
+                  <Link to="/cart">
+                    <IconButton aria-label="cart">
+                      <StyledBadge
+                        badgeContent={quantityTotalCart}
+                        color="primary"
+                      >
+                        <BsCart4 />
+                      </StyledBadge>
+                    </IconButton>
+                  </Link>
+                  {/* <IconButton aria-label="cart">
                     <StyledBadge
                       badgeContent={quantityTotalCart}
                       color="primary"
@@ -113,7 +123,7 @@ export const Header = () => {
                         <BsCart4 />
                       </Link>
                     </StyledBadge>
-                  </IconButton>
+                  </IconButton> */}
                 </li>
               ) : (
                 <li></li>

@@ -1,23 +1,23 @@
-import { useAppDispatch, useAppSelector } from "../../../../redux/app/hooks";
-import { NavLink, useNavigate } from "react-router-dom";
-import { MouseEvent, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { MouseEvent, useEffect, useState } from 'react';
 
-import { Container } from "../../styled-components/styles";
+import { Stock, BtnCheck, Container, Btn, Line, Remove, Operators, Quantity, Div, Product, Titles } from '../../styled-components/styles';
 // import { display, fontSize } from "@mui/system";
-import cart from "../../styled-components/cart.png";
+import cartImg from '../../styled-components/cart.png';
 // import React from "react";
 // import MuiAlert, { AlertProps } from "@mui/material/Alert";
 // import { BOLD_WEIGHT } from "jest-matcher-utils";
-import { FlashMsg } from "../FlashMsg/FlashMsg";
-import { postOrderBuy } from "../../../../services/services";
+import { FlashMsg } from '../FlashMsg/FlashMsg';
+import { postOrderBuy } from '../../../../services/services';
 import {
   deleteCartUser,
   deleteProductCart,
   getCartUser,
   setQuantityCart,
-} from "../../../../redux/slices/Cart";
-import { Btn } from "../../../detail/styled-components/Detail";
-import { Shipping } from "../../../Shipping/Shipping";
+} from '../../../../redux/slices/Cart';
+
+import { Shipping } from '../../../Shipping/Shipping';
 
 export const CartDetail = () => {
   const navigate = useNavigate();
@@ -26,14 +26,14 @@ export const CartDetail = () => {
   const { cart, loadingBtnSet, update, priceTotalCart, quantityTotalCart } =
     useAppSelector((state) => state.cartState);
   const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
   const [shipping, setShipping] = useState(false);
   useEffect(() => {
     if (user) {
       dispatch(getCartUser(user.id));
     }
     setSuccess(true);
-    setMsg("Tienes productos en tu carrito");
+    setMsg('Tienes productos en tu carrito');
   }, [dispatch, update]);
   // console.log("CART => ",cart)
 
@@ -56,89 +56,112 @@ export const CartDetail = () => {
   const handleDeleteCart = () => dispatch(deleteCartUser(user?.id));
 
   const setNumber = (numero: number) => {
-    let partesNumero = numero.toString().split(".");
-    partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    return partesNumero.join(".");
+    let partesNumero = numero.toString().split('.');
+    partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return partesNumero.join('.');
   };
   const handleNavidateProduct = (id: number) => navigate(`/products/${id}`);
 
   const handleCheckout = () => {
     setShipping(true);
-  }
+  };
 
   if (!cart.length)
     return (
-      <div className="emptyCart">
-        {/* <img src={cart} /> */}
+      <Container>
+        <img src={cartImg} alt='' />
         <div>
           <p>Tu carrito esta vacío</p>
-          <NavLink to="/products">
-            <button>Comienza a comprar...</button>
+          <NavLink to='/products'>
+            <Btn>Comienza a comprar...</Btn>
           </NavLink>
         </div>
-      </div>
+      </Container>
     );
   return (
     <Container>
-      <div className="container__products__cart">
+      <div className='container__products__cart'>
+        <Titles>
+          <p>Productos</p>
+          <p>Precio</p>
+          <p>Cantidad</p>
+          <p>Total</p>
+        </Titles>
         {cart.map((c) => {
-          console.log("c=>", c);
+          console.log('c=>', c);
           const { id, name, discount, price, stock, image } = c.product;
           const priceDiscount: number = price - (price * discount) / 100;
           return (
-            <div key={c.id} className="container__un__product">
-              <img src={image} alt="foto del procto" className="img__pcart" />
-              <h3
-                className="name__pcart"
-                onClick={() => handleNavidateProduct(id)}
-              >
-                {name}
-              </h3>
-              <div className="container__calculo">
-                {discount === 0 ? (
-                  <p className="price__pcart">Price {setNumber(price)}</p>
-                ) : (
-                  <>
-                    <p>Antes {setNumber(price)}</p>
-                    <p>Despues {setNumber(priceDiscount)}</p>
-                  </>
-                )}
-              </div>
-              <div className="container__btn">
-                <button
-                  onClick={() =>
-                    handleSetQuantity(false, c.id, c.quantity, stock)
-                  }
-                  disabled={loadingBtnSet}
-                >
-                  -
-                </button>
-                <p>quantity:{c.quantity}</p>
-                <button
-                  onClick={() =>
-                    handleSetQuantity(true, c.id, c.quantity, stock)
-                  }
-                  disabled={loadingBtnSet}
-                >
-                  +
-                </button>
-                <p>stock:{stock}</p>
-                <button onClick={() => handleDeleteProductCart(c.id)}>
-                  Eliminar Producto
-                </button>
-                <p>Price total: {setNumber(c.price)}</p>
-              </div>
+            <div>
+              {/* // <Div key={c.id} className='container__un__product'> */}
+              <Div key={c.id}>
+                <Product>
+                  <img src={image} alt='foto del procto' className='img__pcart' />
+                  <h4
+                    className='name__pcart'
+                    onClick={() => handleNavidateProduct(id)}
+                  >
+                    {name}
+                  </h4>
+                </Product>
+                <div className='container__calculo'>
+                  {discount === 0 ? (
+                    <p className='price__pcart'>Price {setNumber(price)}</p>
+                  ) : (
+                    <>
+                      <p className='price__pcart'>Despues ${setNumber(priceDiscount)}</p>
+                      <p className='labelProm'>Antes ${setNumber(price)}</p>
+                    </>
+                  )}
+                </div>
+                {/* <div className='container__btn'> */}
+                <div>
+                  <Operators>
+                    <button
+                      onClick={() =>
+                        handleSetQuantity(false, c.id, c.quantity, stock)
+                      }
+                      disabled={loadingBtnSet}
+                    >
+                      -
+                    </button>
+                    <Quantity>{c.quantity}</Quantity>
+                    <button
+                      onClick={() =>
+                        handleSetQuantity(true, c.id, c.quantity, stock)
+                      }
+                      disabled={loadingBtnSet}
+                    >
+                      +
+                    </button>
+                  </Operators>
+                <Stock>Stock: {stock}</Stock>
+                </div>
+                <div>
+                  <p>$ {setNumber(c.price)}</p>
+                </div>
+              <Remove onClick={() => handleDeleteProductCart(c.id)}>
+                Eliminar Producto
+              </Remove>
+              </Div>
             </div>
+          
           );
         })}
       </div>
 
-      <div className="container__data">
-        <p>precio total del carrito : {setNumber(priceTotalCart)}</p>
-        <p>Cantidad de Productos : {quantityTotalCart}</p>
-        <Btn onClick={() => handleCheckout()}>Finalizar Compra</Btn>
+      <div className='container__data'>
+        <Line>
+          <p>Total</p>
+          <p>{setNumber(priceTotalCart)}</p>
+        </Line>
+        <Line>
+          <p>Cantidad de Productos</p>
+          <p> {quantityTotalCart}</p>
+        </Line>
+        <BtnCheck onClick={() => handleCheckout()}>Finalizar Compra</BtnCheck>
         {shipping ? <Shipping /> : <></>}
-        <Btn onClick={() => navigate("/products")}>Continuar comprando</Btn>
+        <Btn onClick={() => navigate('/products')}>Continuar comprando</Btn>
         <Btn onClick={handleDeleteCart}>Vaciar Carrito</Btn>
       </div>
     </Container>
