@@ -95,7 +95,11 @@ export const Detail = () => {
   };
 
   if (loading) return <Spinner />;
-  if (!currentProduct.id && !loading) return <h1>NADA</h1>;
+  if (!currentProduct.id && !loading) return (
+    <div>
+      <h2>No se encontro un producto con ese ID</h2>
+    </div>
+  )
   return (
     <div className="container">
       <Container>
