@@ -66,10 +66,20 @@ export const Detail = () => {
   const handleBuy = () => {
     //AGREGUE EL REQUERIMIENTO DE LOGUEO en la linea de abajo
     if (!user) return handleLogin();
-    console.log("COMPRAR AHORA")
+    console.log('COMPRAR AHORA');
     // SHIPPING
+    const totalPriceProduct =
+      discount === 0 ? price : price - (price * discount) / 100;
+    dispatch(
+      addProductCart({
+        userId: user?.id,
+        quantity: 1,
+        price: totalPriceProduct,
+        productId: id,
+      })
+    );
     setShipping(true);
-  };
+  };;
 
   const handleCart = () => navigate('/cart');
   const handleAddToCart = (navigateCart: boolean) => {
