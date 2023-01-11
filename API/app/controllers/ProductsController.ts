@@ -199,6 +199,8 @@ export async function updateProduct(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const newFields = req.body;
+    const prop = newFields.properties;
+    const imgs = newFields.images;
 
     const productToUpdate = await Products.findByPk(id, {
       include: {
@@ -207,8 +209,23 @@ export async function updateProduct(req: Request, res: Response) {
       },
     });
     if (productToUpdate) {
-      await productToUpdate.update(newFields);
+      await productToUpdate.update(newFields, { include: [Properties] });
       await productToUpdate.save();
+      prop.forEach(async (e: any) => {
+        const propFind = await Properties.findByPk(e.id);
+        if (propFind) {
+          await propFind.update({ name: e.name, value: e.value });
+          await propFind.save();
+        }
+      });
+
+      imgs.forEach(async (e: any) => {
+        const imgFind = await Images.findByPk(e.id);
+        if (imgFind) {
+          await imgFind.update({ url_image: e.url_image });
+          await imgFind.save();
+        }
+      });
     } else return res.status(404).send({ message: 'Product no found!' });
 
     return res.send(productToUpdate);
