@@ -6,6 +6,12 @@ import {
 } from '../styled-components/stryled';
 import ProductBuy from './ProductBuy';
 
+import moment from 'moment';
+import 'moment/locale/es';
+
+const formato = 'DD MMM YYYY';
+moment("").format(formato)
+
 interface Props {
   compras: BuyState;
   userId: number;
@@ -27,7 +33,7 @@ function buyList({ compras, userId }: Props) {
     <CardConteiner>
       <InfoContainer>
         <p>
-          <span>Fecha:</span> {date}
+          {moment(date).format(formato)}
         </p>
         <p>
           <span>Direccion:</span> {street} {height} - {city}
