@@ -80,7 +80,7 @@ export const Detail = () => {
       discount === 0 ? price : price - (price * discount) / 100;
     dispatch(
       addProductCart({
-        userId: 1,
+        userId: user?.id,
         quantity: 1,
         price: totalPriceProduct,
         productId: id,
@@ -151,7 +151,7 @@ export const Detail = () => {
                 <Btn onClick={handleCart}>Ir al carrito</Btn>
               ) : (
                 <Btn disabled={!isStock} onClick={handleBuy}>
-                  Comprar Ahora
+                  Comprar
                 </Btn>
               )}
             </div>

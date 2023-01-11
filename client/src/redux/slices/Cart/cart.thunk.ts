@@ -7,7 +7,7 @@ interface Props {
   productId: number;
   quantity: number;
   price: number;
-  userId: number;
+  userId: any;
 }
 interface PropsSetCart {
   id: number;
