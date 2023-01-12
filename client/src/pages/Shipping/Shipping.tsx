@@ -46,7 +46,6 @@ export const Shipping = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log('order:',order)
   const handleClose = (reason: any) => {
     if (reason === "clickaway") {
       return;
@@ -57,28 +56,22 @@ export const Shipping = () => {
  
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // console.log("order:", order);
-    // console.log("cart:", cart);
-    // console.log('user:', user);
-
     const orderItems = cart?.map((prod: any) => {  
-      console.log(cart)
-      return {     
-      productId: prod.id,
-      quantity: prod.cartQuantity,
+      return {
+      productId: prod.productId,
+      quantity: prod.quantity,
       price: prod.price,
-      }    
+      }
   });  
-
     const orderBuy = {
-      priceTotalDiscount: priceTotalCart,      
+      priceTotalDiscount: priceTotalCart,
       discount: 0, // HARDCODEO EL DISCOUNT PARA QUE NO SALTE ERROR
       state: true,
       postalCode: order.postalCode,
       street: order.street,
       height: order.height,
       city: order.city,
-      quantityProducts: quantityTotalCart,
+      // quantityProducts: quantityTotalCart,
       dues: 1,
       userId: user?.id,
       buy: true,
@@ -97,7 +90,7 @@ export const Shipping = () => {
       //     ],
     };
    
-    console.log('orderBuy:', orderBuy)
+    // console.log('orderBuy:', orderBuy)
 
     // const orderBuy = {
     //   priceTotalDiscount: 12,
