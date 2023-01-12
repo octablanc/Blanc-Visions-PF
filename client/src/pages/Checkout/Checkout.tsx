@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hooks";
 // import { getDiscountTotal } from "../../../redux/slices/Cart";
-import { BtnCheck } from "../../cart/styled-components/styles";
+import { BtnCheck } from "../cart/styled-components/styles";
 import { Bill, Container, Detail, Div } from "./styled-components/Checkout";
 
 export const Checkout = ({ cartTotalQuantity, handleSubmit }: any) => {

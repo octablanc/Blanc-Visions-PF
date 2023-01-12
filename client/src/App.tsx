@@ -21,7 +21,7 @@ import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
-import { Checkout } from './pages/Shipping/Components/Checkout';
+import { Checkout } from './pages/Checkout/Checkout';
 import { LayoutDashboard } from './pages/admin/components/Layout/LayoutDashboard';
 import {
   AdminProducts,

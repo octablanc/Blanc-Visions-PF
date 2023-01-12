@@ -161,7 +161,7 @@ export default function SingUp() {
 
         if (auth.currentUser)
           sendEmailVerification(auth.currentUser);
-
+          
         await signOut(auth);
         window.alert('Debes verificar tu mail para inicar sesion!');
         
