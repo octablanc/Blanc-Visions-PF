@@ -10,8 +10,12 @@ export const Review = ({ ratings }: { ratings: Array<any> }) => {
 
   return (
     <div>
-      <h1>Opiniones del producto</h1>
+      <br />
+      <br />
+      <hr />
+      { ratings.length ? <h1>Opiniones del producto</h1> : <h2>No hay opiniones de este producto</h2>}
       {/* FALTA COMPONENTE DE PROMEDIOS  */}
+      <br />
       <ContainerRatings>
         {ratings?.map((rating) => (
           <div key={rating.id} className='one__rating'>
