@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 import {
   BoxStyle,
   ModalContainer,
@@ -13,15 +13,15 @@ import {
   Inputs,
   Password,
   Mail,
-} from "./styled-components/Login.styled";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import LoadingButton from "@mui/lab/LoadingButton";
-import loginImg from "../../assets/login.jpg";
-import CircularProgress from "@mui/material/CircularProgress";
+} from './styled-components/Login.styled';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LoadingButton from '@mui/lab/LoadingButton';
+import loginImg from '../../assets/login.jpg';
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -33,18 +33,19 @@ import {
   signOut,
   signInWithPopup,
   sendPasswordResetEmail,
-} from "firebase/auth";
-import { auth, provider } from "../../firebase/firebase.config";
-import { openSingUp } from "../singup/SingUp";
-import { getuser, postUser } from "../../services/services";
-import { useAppDispatch } from "../../redux/app/hooks";
-import { getUser } from "../../redux/slices/user-authentication";
-import { setUser as setUserState } from "../../redux/slices/user-authentication";
+} from 'firebase/auth';
+import { auth, provider } from '../../firebase/firebase.config';
+import { openSingUp } from '../singup/SingUp';
+import { getuser, postUser } from '../../services/services';
+import { useAppDispatch } from '../../redux/app/hooks';
+import { getUser } from '../../redux/slices/user-authentication';
+import { setUser as setUserState } from '../../redux/slices/user-authentication';
+import { User } from '../../models/User.model';
 
 export default function Login() {
   const [user, setUser] = useState({
-    mail: "",
-    password: "",
+    mail: '',
+    password: '',
   });
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
@@ -65,7 +66,9 @@ export default function Login() {
 
   const handleClose = () => setOpen(false);
 
-  function handleChangeEmail(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleChangeEmail(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     setEmail(event.target.value);
     setEmailError(!event.target.value ? true : false);
   }
@@ -94,21 +97,24 @@ export default function Login() {
 
       await signInWithEmailAndPassword(auth, user.mail, user.password);
 
-      if (!auth.currentUser?.emailVerified) {
-        await signOut(auth);
-        window.alert("Debes verificar tu mail!");
-      }
+      const userFromDB:User = await getuser(user.mail);
+
+      if( userFromDB.role?.name !== 'admin')
+        if (!auth.currentUser?.emailVerified) {
+          await signOut(auth);
+          window.alert("Debes verificar tu mail!");
+        }
 
       setBtnLoading(false);
     } catch ({ code }) {
       setBtnLoading(false);
 
       switch (code) {
-        case "auth/user-not-found":
+        case 'auth/user-not-found':
           setError({ ...error, mail: true });
           break;
 
-        case "auth/wrong-password":
+        case 'auth/wrong-password':
           setError({ ...error, password: true });
           break;
 
@@ -130,12 +136,12 @@ export default function Login() {
         imageProfile: user.photoURL,
         phone: user.phoneNumber ? user.phoneNumber : 'Numero no registrado',
         mail: user.email,
-        password: "registredWithGoogle",
-        userName: "username",
+        password: 'registredWithGoogle',
+        userName: 'username',
         birthday: new Date().toISOString().slice(0, 10),
         state: true,
-        roleId: 1
-      }
+        roleId: 1,
+      };
 
       try {
         disptach(setUserState(await getuser(newUser.mail)));
@@ -164,44 +170,44 @@ export default function Login() {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={{ marginRight: "1rem" }}>
+      <Button onClick={handleOpen} sx={{ marginRight: '1rem' }}>
         Iniciar sesion
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ backdropFilter: "blur(10px)" }}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+        sx={{ backdropFilter: 'blur(10px)' }}
       >
         <Box sx={BoxStyle}>
           <ModalContainer>
             <div
               style={{
-                width: "100%",
-                height: "100%",
+                width: '100%',
+                height: '100%',
               }}
             >
-              <ImagLogin src={loginImg} alt="loginImage" />
+              <ImagLogin src={loginImg} alt='loginImage' />
             </div>
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
               }}
             >
               <LoginContainer>
-                <h2 style={{ fontWeight: "500" }}>Log In</h2>
+                <h2 style={{ fontWeight: '500' }}>Iniciar Sesión</h2>
                 <Inputs>
                   <TextField
                     InputLabelProps={{
                       style: { fontSize: fontSizeLabel },
                     }}
-                    label="Mail"
-                    name="mail"
+                    label='Correo'
+                    name='mail'
                     value={user.mail}
-                    placeholder="escribe tu mail"
+                    placeholder='Escribe tu correo'
                     sx={Mail}
                     InputProps={{
                       style: { fontSize: fontSizeInput },
@@ -209,12 +215,12 @@ export default function Login() {
                     error={error.mail ? true : false}
                     helperText={
                       error.mail && (
-                        <span style={{ fontSize: "12px" }}>
+                        <span style={{ fontSize: '12px' }}>
                           Usuario no encontrado!
                         </span>
                       )
                     }
-                    variant="standard"
+                    variant='standard'
                     onChange={handleInput}
                   />
 
@@ -222,21 +228,21 @@ export default function Login() {
                     InputLabelProps={{
                       style: { fontSize: fontSizeLabel },
                     }}
-                    label="Contraseña"
-                    name="password"
+                    label='Contraseña'
+                    name='password'
                     value={user.password}
-                    type={showPassword ? "text" : "password"}
-                    placeholder="escribe tu contraseña"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder='Escribe tu contraseña'
                     sx={Password}
                     InputProps={{
                       style: { fontSize: fontSizeInput },
                       endAdornment: user.password ? (
-                        <InputAdornment position="end">
+                        <InputAdornment position='end'>
                           <IconButton onClick={handleClickShow}>
                             {showPassword ? (
-                              <VisibilityOffIcon sx={{ fontSize: "large" }} />
+                              <VisibilityOffIcon sx={{ fontSize: 'large' }} />
                             ) : (
-                              <VisibilityIcon sx={{ fontSize: "large" }} />
+                              <VisibilityIcon sx={{ fontSize: 'large' }} />
                             )}
                           </IconButton>
                         </InputAdornment>
@@ -248,104 +254,131 @@ export default function Login() {
                     helperText={
                       error.password && (
                         <span
-                          style={{ fontSize: "12px", position: "absolute" }}
+                          style={{ fontSize: '12px', position: 'absolute' }}
                         >
                           Contraseña incorrecta!
                         </span>
                       )
                     }
-                    variant="standard"
+                    variant='standard'
                     onChange={handleInput}
                   />
                 </Inputs>
                 <div
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
                   }}
                 >
                   {btnLoading ? (
                     <LoadingButton
                       loading
-                      variant="outlined"
-                      size="small"
-                      sx={{ ...ButtonLog, backgroundColor: "#1976D2" }}
+                      variant='outlined'
+                      size='small'
+                      sx={{ ...ButtonLog, backgroundColor: '#1976D2' }}
                       loadingIndicator={
                         <CircularProgress
-                          size={"20px"}
-                          sx={{ color: "#fff" }}
+                          size={'20px'}
+                          sx={{ color: '#fff' }}
                         />
                       }
                     />
                   ) : (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       sx={ButtonLog}
                       onClick={handleSubmit}
                     >
-                      Iniciar Sesion
+                      Ingresar
                     </Button>
                   )}
-
 
                   {btnLoading2 ? (
                     <LoadingButton
                       loading
-                      variant="outlined"
-                      size="small"
-                      sx={{ ...ButtonLog, backgroundColor: "#1976D2", marginTop: '20px' }}
+                      variant='outlined'
+                      size='small'
+                      sx={{
+                        ...ButtonLog,
+                        backgroundColor: '#1976D2',
+                        marginTop: '20px',
+                      }}
                       loadingIndicator={
                         <CircularProgress
-                          size={"20px"}
-                          sx={{ color: "#fff" }}
+                          size={'20px'}
+                          sx={{ color: '#fff' }}
                         />
                       }
                     />
-                  ) :
-                    (<Button
-                      variant="contained"
+                  ) : (
+                    <Button
+                      variant='contained'
                       sx={{
                         ...ButtonLog,
                         marginTop: '20px',
-                        textTransform: 'none'
+                        textTransform: 'none',
                       }}
                       onClick={handleSubmitGoogle}
-                      startIcon={<FcGoogle style={{ width: '25px', height: '25px', backgroundColor: 'white', borderRadius: '3px' }} />}
+                      startIcon={
+                        <FcGoogle
+                          style={{
+                            width: '25px',
+                            height: '25px',
+                            backgroundColor: 'white',
+                            borderRadius: '3px',
+                          }}
+                        />
+                      }
                     >
-                      Iniciar sesion con Google
-                    </Button>)
-                  }
-                  <ForgetPassword onClick={handleOpenDialog}>Olvidaste tu contraseña?</ForgetPassword>
+                      Iniciar sesión con Google
+                    </Button>
+                  )}
+                  <ForgetPassword onClick={handleOpenDialog}>
+                    Olvidaste tu contraseña?
+                  </ForgetPassword>
 
-                  <Dialog open={openDialog} onClose={handleOpenDialog} sx={{ 'h2:after': { backgroundColor: 'transparent' } }}>
+                  <Dialog
+                    open={openDialog}
+                    onClose={handleOpenDialog}
+                    sx={{ 'h2:after': { backgroundColor: 'transparent' } }}
+                  >
                     <div style={{ padding: '25px' }}>
-                      <DialogTitle style={{ fontSize: '23px' }}>Recuperar contraseña</DialogTitle>
+                      <DialogTitle style={{ fontSize: '23px' }}>
+                        Recuperar contraseña
+                      </DialogTitle>
                       <DialogContent style={{ width: '400px' }}>
                         <DialogContentText style={{ fontSize: '15px' }}>
-                          Escribe tu email y te enviaremos un link para restablecer tu contraseña.
+                          Escribe tu email y te enviaremos un link para
+                          restablecer tu contraseña.
                         </DialogContentText>
                         <TextField
                           autoFocus
-                          margin="dense"
-                          id="email"
-                          label="Email"
-                          type="email"
+                          margin='dense'
+                          id='email'
+                          label='Email'
+                          type='email'
                           value={email}
                           fullWidth
-                          variant="standard"
+                          variant='standard'
                           InputProps={{
                             style: {
-                              fontSize: '15px'
-                            }
+                              fontSize: '15px',
+                            },
                           }}
                           InputLabelProps={{
                             style: {
-                              fontSize: '17px'
-                            }
+                              fontSize: '17px',
+                            },
                           }}
                           helperText={
-                            emailError ? <span style={{ fontSize: '12px' }}>Email esta vacio!</span> : <></>
+                            emailError ? (
+                              <span style={{ fontSize: '12px' }}>
+                                Email esta vacio!
+                              </span>
+                            ) : (
+                              <></>
+                            )
                           }
                           onChange={handleChangeEmail}
                           onBlur={handleChangeEmail}
@@ -354,25 +387,31 @@ export default function Login() {
                         {btnLoading3 ? (
                           <LoadingButton
                             loading
-                            variant="outlined"
-                            size="small"
-                            sx={{ ...ButtonLog, backgroundColor: "#1976D2", marginTop: '20px' }}
+                            variant='outlined'
+                            size='small'
+                            sx={{
+                              ...ButtonLog,
+                              backgroundColor: '#1976D2',
+                              marginTop: '20px',
+                            }}
                             loadingIndicator={
                               <CircularProgress
-                                size={"20px"}
-                                sx={{ color: "#fff" }}
+                                size={'20px'}
+                                sx={{ color: '#fff' }}
                               />
                             }
                           />
-                        ) :
-                          (<Button
+                        ) : (
+                          <Button
                             onClick={handleSubmitEmail}
-                            variant="contained"
+                            variant='contained'
                             sx={{ ...ButtonLog, textTransform: 'none' }}
                             disabled={emailError}
                             color={'primary'}
-                          >Enviar</Button>)
-                        }
+                          >
+                            Enviar
+                          </Button>
+                        )}
                       </DialogContent>
                     </div>
                   </Dialog>
@@ -381,14 +420,14 @@ export default function Login() {
 
               <CreateContainer>
                 <p>
-                  No tienes una cuenta?{" "}
+                  No tienes una cuenta?
                   <span
                     onClick={() => {
                       handleClose();
                       openSingUp();
                     }}
                   >
-                    Registrate
+                    Regístrate
                   </span>
                 </p>
               </CreateContainer>

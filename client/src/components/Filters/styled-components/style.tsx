@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const FilterContainer = styled.div`
+  .heading {
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+`;
+
 export const FilterContent = styled.div`
   p {
     display: inline-block;

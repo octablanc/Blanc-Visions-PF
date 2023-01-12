@@ -14,6 +14,10 @@ export const CardContainer = styled.div`
     padding: 2rem;
   } */
 
+  :hover {
+    cursor: pointer;
+  }
+
   .description {
     padding: 1rem;
   }

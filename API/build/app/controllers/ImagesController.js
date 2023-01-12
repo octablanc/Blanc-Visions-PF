@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getImageByPk = exports.deleteImages = exports.postImages = void 0;
+exports.getImageByPk = exports.updateImages = exports.deleteImages = exports.postImages = void 0;
 const ConnectionDB_1 = __importDefault(require("../../config/ConnectionDB"));
 const { images } = ConnectionDB_1.default.models;
 // Model
@@ -46,6 +46,21 @@ const deleteImages = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.deleteImages = deleteImages;
+const updateImages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = +req.params.id;
+    try {
+        const image = yield images.findByPk(id);
+        console.log(image, 'backend');
+        const newFields = req.body;
+        yield (image === null || image === void 0 ? void 0 : image.update(newFields));
+        yield (image === null || image === void 0 ? void 0 : image.save());
+        return res.send(image);
+    }
+    catch ({ message }) {
+        return res.status(400).send({ message });
+    }
+});
+exports.updateImages = updateImages;
 const getImageByPk = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = +req.params.id;
     try {

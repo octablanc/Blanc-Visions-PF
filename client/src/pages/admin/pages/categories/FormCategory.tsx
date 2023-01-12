@@ -7,9 +7,10 @@ import {
 } from '../../../../redux/slices/Admin/admin.thunk';
 import { useEffect } from 'react';
 import Spinner from '../../../../components/Spinner/Spinner';
+import { Form, FormContainer } from './styled-components/formCategory';
 
 export const FormCategory = () => {
-  const { categoryId } = useAppSelector((state) => state.adminState);
+  const { categoryId } = useAppSelector(state => state.adminState);
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -65,29 +66,31 @@ export const FormCategory = () => {
   }, [id]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name</label>
-        <input type='text' name='name' value={name} onChange={handleChange} />
-      </div>
+    <FormContainer>
+      <Form onSubmit={handleSubmit}>
+        <div>
+          <label>Name</label>
+          <input type='text' name='name' value={name} onChange={handleChange} />
+        </div>
 
-      <div>
-        <label>Description</label>
-        <input
-          type='text'
-          name='description'
-          value={description}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Estado</label>
-        <select name='state' onChange={handleChange} value={state}>
-          <option value='active'>Activo</option>
-          <option value='inactive'>Inactivo</option>
-        </select>
-      </div>
-      <input type='submit' value='enviar' />
-    </form>
+        <div>
+          <label>Description</label>
+          <input
+            type='text'
+            name='description'
+            value={description}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Estado</label>
+          <select name='state' onChange={handleChange} value={state}>
+            <option value='active'>Activo</option>
+            <option value='inactive'>Inactivo</option>
+          </select>
+        </div>
+        <input type='submit' className='create' value='enviar' />
+      </Form>
+    </FormContainer>
   );
 };

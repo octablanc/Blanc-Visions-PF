@@ -60,28 +60,45 @@ export const CartSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  // background: grey;
 `;
 
 export const Btn = styled.button`
-  width: 35rem;
-  height: 3.2rem;
-  font-size: 1.6rem;
-  padding: 0.8rem;
-  margin: 0.5rem;
-  border-radius: 8px;
-  /* background: ${(props) => props.theme.colors.secondary};
-  color: white;
-  border: none; */
-  cursor: pointer;
-  background-color: ${(props) => props.theme.colors.secondary};
-  box-shadow: inset 5px 5px 10px #2d8c89, inset -5px -5px 10px #43cec9;
+  width: 100%;
+  border-radius: 1rem;
   border: none;
-  color: white; 
+  margin: 0.5rem;
+  padding: 0.8rem;
+  color: white;
+  text-shadow: 1px 2px 3px black;
+  background: ${(props) => props.theme.colors.secondary};
+ 
   cursor: pointer;
   :hover {
-    border-radius: 10px;
-    background: #279692;
-    box-shadow: inset -17px -17px 34px #103c3a, inset 17px 17px 34px #3ef0ea;
-    color: black;
+    border-radius: 1.5rem;
+    box-shadow: 3px 3px 3px ${(props) => props.theme.colors.hoverSecondary}, 3px 3px 3px ${(props) => props.theme.colors.hoverSecondary};
   }
 `;
+
+//   width: 35rem;
+//   height: 3.2rem;
+//   font-size: 1.6rem;
+//   padding: 0.8rem;
+//   margin: 0.5rem;
+//   border-radius: 8px;
+//   /* background: ${(props) => props.theme.colors.secondary};
+//   color: white;
+//   border: none; */
+//   cursor: pointer;
+//   background-color: ${(props) => props.theme.colors.secondary};
+//   box-shadow: inset 5px 5px 10px #2d8c89, inset -5px -5px 10px #43cec9;
+//   border: none;
+//   color: white; 
+//   cursor: pointer;
+//   :hover {
+//     border-radius: 10px;
+//     background: #279692;
+//     box-shadow: inset -17px -17px 34px #103c3a, inset 17px 17px 34px #3ef0ea;
+//     color: black;
+//   }
+// `;

@@ -108,11 +108,24 @@ export const deleteProductAdmin = (id: number) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingAdmin(true));
-      let deteleProduct = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/products/${id}`
-      );
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`);
       dispatch(startLoadingAdmin(false));
-      console.log(deteleProduct, 'estoy en deleteproductadmin ');
+    } catch (error) {
+      console.log('error al actualizar producto=>', error);
+    } finally {
+      dispatch(startLoadingAdmin(false));
+    }
+  };
+};
+
+export const retrieveProductAdmin = (id: number) => {
+  return async (dispatch: any) => {
+    try {
+      console.log('dsadsa');
+      dispatch(startLoadingAdmin(true));
+      await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/products/state/${id}`
+      );
     } catch (error) {
       console.log('error al actualizar producto=>', error);
     } finally {
@@ -291,6 +304,24 @@ export const getAllSales = () => {
       dispatch(getSales(sales.all));
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(startLoadingAdmin(false));
+    }
+  };
+};
+//(pasarle a newImage solo productId, url)
+export const updateImages = (id: number, newImage: any) => {
+  return async (dispatch: any) => {
+    try {
+      dispatch(startLoadingAdmin(true));
+      let changeImage = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/images/edit/${id}`,
+        newImage
+      );
+      dispatch(startLoadingAdmin(false));
+      console.log(changeImage, 'estoy en put de images');
+    } catch (error) {
+      console.log('error al actualizar categoria=>', error);
     } finally {
       dispatch(startLoadingAdmin(false));
     }

@@ -21,7 +21,7 @@ import { getUser } from './redux/slices/user-authentication';
 import MyBuy from './pages/mybuy/MyBuy';
 import { Privacy } from './pages/privacy/Privacy';
 import { Terms } from './pages/terms/Terms';
-import { Checkout } from './pages/Shipping/Components/Checkout';
+import { Checkout } from './pages/Checkout/Checkout';
 import { LayoutDashboard } from './pages/admin/components/Layout/LayoutDashboard';
 import {
   AdminProducts,
@@ -30,6 +30,7 @@ import {
   AdminUsers,
 } from './pages/admin/pages';
 import { FormCategory } from './pages/admin/pages/categories/FormCategory';
+import { FormProduct } from './pages/admin/pages/products/FormProduct';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -37,7 +38,7 @@ function App() {
 
   // Set the user logged in the start
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async user => {
       if (user && !userState) dispatch(getUser(user.email));
       if (!user) dispatch(getUser(user));
     });
@@ -49,11 +50,6 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path='products' element={<Products />} />
-          {/* {userState?.role?.name === 'admin' && (
-        
-            <Route path='/create' element={<CreateProduct />} />
-       
-          )} */}
 
           <Route path='products/:id' element={<Detail />} />
           {userState && <Route path='cart' element={<Cart />} />}
@@ -68,17 +64,22 @@ function App() {
           <Route path='privacy' element={<Privacy />} />
           <Route path='termsyconditions' element={<Terms />} />
         </Route>
-        <Route path='/dashboard' element={<LayoutDashboard />}>
-          <Route path='products' element={<AdminProducts />} />
-          <Route path='products/edit/:id' element={<CreateProduct />} />
-          <Route path='products/create' element={<CreateProduct />} />
+        <Route>
+          {userState?.role?.name === 'admin' && (
+            // <Route path='/create' element={<CreateProduct />} />
+            <Route path='/dashboard' element={<LayoutDashboard />}>
+              <Route path='products' element={<AdminProducts />} />
+              <Route path='products/edit/:id' element={<CreateProduct />} />
+              <Route path='products/create' element={<CreateProduct />} />
 
-          <Route path='categories' element={<AdminCategories />} />
-          <Route path='categories/edit/:id' element={<FormCategory />} />
-          <Route path='categories/create' element={<FormCategory />} />
+              <Route path='categories' element={<AdminCategories />} />
+              <Route path='categories/edit/:id' element={<FormCategory />} />
+              <Route path='categories/create' element={<FormCategory />} />
 
-          <Route path='sales' element={<AdminSales />} />
-          <Route index element={<AdminUsers />} />
+              <Route path='sales' element={<AdminSales />} />
+              <Route index element={<AdminUsers />} />
+            </Route>
+          )}
         </Route>
       </Routes>
     </BrowserRouter>

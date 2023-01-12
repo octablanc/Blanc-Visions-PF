@@ -16,15 +16,12 @@ exports.deleteCategory = exports.updateCategory = exports.postCategory = exports
 const ConnectionDB_1 = __importDefault(require("../../config/ConnectionDB"));
 // Model
 const Categories = ConnectionDB_1.default.models.categories;
-function getCategories(req, res) {
+function getCategories(_req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name } = req.query;
-            const result = yield Categories.findAll(name ? {
-                where: {
-                    name
-                }
-            } : undefined);
+            const result = yield Categories.findAll({
+                order: [['id', 'ASC']],
+            });
             return res.send(result);
         }
         catch ({ message }) {
@@ -82,7 +79,7 @@ function deleteCategory(req, res) {
             const categoryToDelete = yield Categories.findByPk(id);
             yield (categoryToDelete === null || categoryToDelete === void 0 ? void 0 : categoryToDelete.update({ state: false }));
             yield (categoryToDelete === null || categoryToDelete === void 0 ? void 0 : categoryToDelete.save());
-            return res.send({ message: "Category has been discharged!" });
+            return res.send({ message: 'Category has been discharged!' });
         }
         catch ({ message }) {
             return res.status(400).send({ message });

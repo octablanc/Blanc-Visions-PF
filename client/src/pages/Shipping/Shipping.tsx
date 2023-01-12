@@ -12,6 +12,12 @@ import TextField from "@mui/material/TextField";
 //redux
 import { postOrderBuy } from "../../services/services";
 import { useAppSelector } from "../../redux/app/hooks";
+import Email from "@mui/icons-material/Email";
+//emailjs
+import emailjs from "emailjs-com";
+import { FlashMsg } from "../../components/FlashMsg/FlashMsg";
+import userEvent from "@testing-library/user-event";
+import { Checkout } from "../Checkout/Checkout";
 
 // {cartTotalAmount,cartTotalQuantity,user,cartItems,discount,}
 
@@ -23,10 +29,13 @@ export const Shipping = () => {
     height: "",
     city: "",
   });
-  
+
   const [checkout, setCheckout] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-  const { priceTotalCart, quantityTotalCart, cart } = useAppSelector((state) => state.cartState);
+  const { priceTotalCart, quantityTotalCart, cart } = useAppSelector(
+    (state) => state.cartState
+  );
   const { user } = useAppSelector((state) => state.userState);
 
   const handleChange = (
@@ -37,62 +46,124 @@ export const Shipping = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  console.log('order:',order)
   const handleClose = (reason: any) => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
-  }; 
-
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  };
+  
+ 
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(order);
-    // const orderBuy = {
-    //   priceTotalDiscount: cartTotalAmount,
-    //   discount: discount,
-    //   state: true,
-    //   postalCode: order.postalCode,
-    //   street: order.street,
-    //   height: order.height,
-    //   city: order.city,
-    //   quantityProducts: cartTotalQuantity,
-    //   dues: 1,
-    //   userId: user?.id,
-    //   buy: true,
-    //   productOrders: cartItems?.map((prod: any) => {
-    //     return {
-    //       productId: prod.id,
-    //       quantity: prod.cartQuantity,
-    //       price: prod.price,
-    //     };
-    //   }),
-    // };
+    // console.log("order:", order);
+    // console.log("cart:", cart);
+    // console.log('user:', user);
+
+    const orderItems = cart?.map((prod: any) => {  
+      console.log(cart)
+      return {     
+      productId: prod.id,
+      quantity: prod.cartQuantity,
+      price: prod.price,
+      }    
+  });  
+
     const orderBuy = {
-      "priceTotalDiscount": 12,
-      "discount": 0,
-      "state": true,
-      "postalCode": 122,
-      "street": "calalal",
-      "height": "1234",
-      "city": "¿bs as s",
-      "quantityProducts": 123,
-      "dues": 1,
-      "userId": 1,
-      "buy": true,      
-      "productOrders": [
-          {
-          "productId": 1,
-          "quantity": 10,
-          "price": 5050
-        },
-        {
-          "productId": 2,
-          "quantity": 10,
-          "price": 5050
-        },
-      ]
+      priceTotalDiscount: priceTotalCart,      
+      discount: 0, // HARDCODEO EL DISCOUNT PARA QUE NO SALTE ERROR
+      state: true,
+      postalCode: order.postalCode,
+      street: order.street,
+      height: order.height,
+      city: order.city,
+      quantityProducts: quantityTotalCart,
+      dues: 1,
+      userId: user?.id,
+      buy: true,
+      productOrders: orderItems
+      // productOrders: [
+      //       {
+      //         productId: 1,
+      //         quantity: 10,
+      //         price: 5050,
+      //       },
+      //       {
+      //         productId: 2,
+      //         quantity: 10,
+      //         price: 5050,
+      //       },
+      //     ],
     };
+   
+    console.log('orderBuy:', orderBuy)
+
+    // const orderBuy = {
+    //   priceTotalDiscount: 12,
+    //   discount: 0,
+    //   state: true,
+    //   postalCode: 122,
+    //   street: order.street,
+    //   height: "1234",
+    //   city: "¿bs as s",
+    //   quantityProducts: 123,
+    //   dues: 1,
+    //   userId: 1,
+    //   buy: true,
+    //   productOrders: [
+    //     {
+    //       productId: 1,
+    //       quantity: 10,
+    //       price: 5050,
+    //     },
+    //     {
+    //       productId: 2,
+    //       quantity: 10,
+    //       price: 5050,
+    //     },
+    //   ],
+    // };
+
+
+    //******* MAIL CON INFO DEL CARRITO*************//
+    // const cartUser = cart?.map((el) => {
+    //   return {        
+    //     quantity: el.quantity,
+    //     description: el.product.name,        
+    //   };
+    // });
+
+    // console.log("cart:", cart);
+    // // })
+    // const preOrder = {      
+    //   name: user?.name,
+    //   mail: user?.mail, 
+    //   total: priceTotalCart,
+    //   quantity: quantityTotalCart,
+    //   address: `${order.street} ${order.height}, ${order.city}`,
+    // };
+    // // mailConfirmation(): Promise<any>{
+    // // { return new Promise((resolve, reject) => {
+    // console.log("preOrder:", preOrder);
+
+    // emailjs
+    //   .send(
+    //     "service_dpfn6c5",
+    //     "template_4kkblqa",
+    //     preOrder,
+    //     "JYjoaKNcqXdcfIf3D"
+    //   )
+    //   .then(
+    //     (response: any) => {
+    //       console.log("SUCCESS!", response.status, response.text);
+    //       setSuccess(true);
+    //     },
+    //     (err: any) => {
+    //       console.log("FAILED...", err);
+    //     }
+    //   );
+    // })
 
     postOrderBuy(orderBuy);
     setOrder({
@@ -102,7 +173,7 @@ export const Shipping = () => {
       city: "",
     });
     setCheckout(true);
-    navigate('/checkout')
+    navigate("/checkout");
   };
 
   return (
@@ -115,7 +186,7 @@ export const Shipping = () => {
       >
         {/* <DialogTitle id="form-dialog-title">Domicilio</DialogTitle> */}
         <DialogContent>
-          <DialogContentText  sx={{ width: "100%", fontSize: 18 }}>
+          <DialogContentText sx={{ width: "100%", fontSize: 18 }}>
             Completar los datos para envío a domicilio
           </DialogContentText>
 
@@ -167,9 +238,15 @@ export const Shipping = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} color="primary"  sx={{ width: "100%", fontSize: 12 }}>
+          <Button            
+            onClick={handleSubmit}            
+            color="primary"
+            sx={{ width: "100%", fontSize: 12 }}
+          >
             Continuar con la compra
           </Button>
+          {/* {success && <FlashMsg></FlashMsg>}   */}
+          {/* {checkout && <Checkout order={order}></Checkout>}       */}
         </DialogActions>
       </Dialog>
     </div>
@@ -179,7 +256,7 @@ export const Shipping = () => {
 // export const ShippingForm = ({
 //   cartTotalAmount,
 //   cartTotalQuantity,
-//   itemTotalQuantity,  
+//   itemTotalQuantity,
 //   discount,
 //   user,
 //   cartItems,
@@ -322,8 +399,8 @@ export const Shipping = () => {
 //       {/* <div>
 //         <CartItems />
 //       </div> */}
-//       {/* <div> 
-//         <h3>Total:{cartTotalAmount}</h3>    
+//       {/* <div>
+//         <h3>Total:{cartTotalAmount}</h3>
 //         <Checkout />
 //       </div> */}
 //       {/* <CartProducts /> */}

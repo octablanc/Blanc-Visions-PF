@@ -9,7 +9,7 @@ exports.default = (sequelize) => {
         },
         discount: {
             type: sequelize_1.DataTypes.FLOAT,
-            allowNull: false,
+            // allowNull: false,
         },
         state: {
             type: sequelize_1.DataTypes.BOOLEAN,

@@ -12,10 +12,16 @@ import { offers } from './data';
 import styled from 'styled-components';
 
 const Slide = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  place-items: center;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  width: 100%;
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    gap: 2rem;
+  }
 
   h2 {
     line-height: normal;
@@ -34,16 +40,18 @@ const HeroContainer = styled.div`
 `;
 
 const HeroBackground = styled.div`
-  position: absolute;
-  content: '';
-  display: block;
-  width: 50%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  background-color: ${(props): string => props.theme.colors.primary};
-  clip-path: polygon(7% 0, 54% 0, 100% 100%, 51% 100%);
-  z-index: -1;
+  @media (min-width: 768px) {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: ${(props): string => props.theme.colors.primary};
+    clip-path: polygon(7% 0, 54% 0, 100% 100%, 51% 100%);
+    z-index: -1;
+  }
 `;
 
 export const Slider = () => {

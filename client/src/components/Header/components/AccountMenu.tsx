@@ -14,10 +14,16 @@ import CakeIcon from '@mui/icons-material/Cake';
 import Logout from '@mui/icons-material/Logout';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { signOut } from "firebase/auth";
-import { auth, uploadFile } from "../../../firebase/firebase.config";
+import { signOut } from 'firebase/auth';
+import { auth, uploadFile } from '../../../firebase/firebase.config';
 import { useNavigate } from 'react-router-dom';
-import { AvatarPic, Field, Fields, FullName, Profilecontainer } from './styled-components/AccountMenu.styled';
+import {
+  AvatarPic,
+  Field,
+  Fields,
+  FullName,
+  Profilecontainer,
+} from './styled-components/AccountMenu.styled';
 import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import UserSettings from '../../UserSettings/UserSettings';
@@ -25,7 +31,7 @@ import { theme } from '../../../styled-components/theme';
 import { setUser } from '../../../redux/slices/user-authentication';
 import { updateUser } from '../../../services/services';
 import CircularProgress from '@mui/material/CircularProgress';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 export default function AccountMenu() {
   const user = useAppSelector(({ userState }) => userState.user);
@@ -37,14 +43,13 @@ export default function AccountMenu() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
-  };
+  }
 
   function handleClose() {
     setAnchorEl(null);
-  };
+  }
 
   async function handleLogOut() {
     await signOut(auth);
@@ -59,7 +64,7 @@ export default function AccountMenu() {
     try {
       if (user) {
         setLoading(true);
-        var result = (await uploadFile(target.files && target.files[0]));
+        var result = await uploadFile(target.files && target.files[0]);
         dispatch(setUser({ ...user, imageProfile: result }));
         await updateUser({ imageProfile: result }, user.id);
         setLoading(false);
@@ -72,32 +77,37 @@ export default function AccountMenu() {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings" sx={{ position: 'relative' }}>
+        <Tooltip title='Account settings' sx={{ position: 'relative' }}>
           <IconButton
             onClick={handleClick}
-            size="large"
+            size='large'
             sx={{ ml: 2, height: '65px', width: '65px', mt: -2, mb: -2 }}
             aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
+            aria-haspopup='true'
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 45, height: 45, position: 'absolute' }} src={`${user?.imageProfile}`} />
-            <ExpandCircleDownIcon style={{
-              width: '18px',
-              height: '18px',
-              background: 'white',
-              borderRadius: '50%',
-              position: 'absolute',
-              bottom: '8px',
-              right: '8px',
-              cursor: 'pointer'
-            }} />
+            <Avatar
+              sx={{ width: 45, height: 45, position: 'absolute' }}
+              src={`${user?.imageProfile}`}
+            />
+            <ExpandCircleDownIcon
+              style={{
+                width: '18px',
+                height: '18px',
+                background: 'white',
+                borderRadius: '50%',
+                position: 'absolute',
+                bottom: '8px',
+                right: '8px',
+                cursor: 'pointer',
+              }}
+            />
           </IconButton>
         </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         disableScrollLock
@@ -134,101 +144,142 @@ export default function AccountMenu() {
       >
         <Profilecontainer>
           <div style={{ position: 'relative' }}>
-            {
-              loading &&
-              <div style={{
-                position: 'absolute', zIndex: '2',
-                width: '120px',
-                height: '120px',
-                backgroundColor: '#00000081',
-                left: '5px',
-                borderRadius: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
+            {loading && (
+              <div
+                style={{
+                  position: 'absolute',
+                  zIndex: '2',
+                  width: '120px',
+                  height: '120px',
+                  backgroundColor: '#00000081',
+                  left: '5px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <CircularProgress size={'3rem'} style={{ color: 'white' }} />
               </div>
-            }
-            <Avatar src={`${user?.imageProfile}`} style={{ ...AvatarPic, zIndex: '1' }} />
-            <CameraAltIcon style={{
-              position: 'absolute',
-              width: '30px',
-              height: '30px',
-              backgroundColor: 'white',
-              color: 'grey',
-              borderRadius: '50%',
-              bottom: '8px',
-              right: '8px',
-              padding: '5px',
-              boxShadow: "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-              cursor: 'pointer',
-              zIndex: '3'
-            }} onClick={() => inputFile?.click()} />
-            <input ref={(input) => inputFile = input} type={'file'} style={{ display: 'none' }} onChange={({ target }) => handleUpload(target)} />
+            )}
+            <Avatar
+              src={`${user?.imageProfile}`}
+              style={{ ...AvatarPic, zIndex: '1' }}
+            />
+            <CameraAltIcon
+              style={{
+                position: 'absolute',
+                width: '30px',
+                height: '30px',
+                backgroundColor: 'white',
+                color: 'grey',
+                borderRadius: '50%',
+                bottom: '8px',
+                right: '8px',
+                padding: '5px',
+                boxShadow:
+                  'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
+                cursor: 'pointer',
+                zIndex: '3',
+              }}
+              onClick={() => inputFile?.click()}
+            />
+            <input
+              ref={input => (inputFile = input)}
+              type={'file'}
+              style={{ display: 'none' }}
+              onChange={({ target }) => handleUpload(target)}
+            />
           </div>
           <FullName>{`${user?.name} ${user?.lastName}`}</FullName>
-
 
           <Fields>
             <div>
               <Field>
                 <EmailIcon fontSize='large' sx={{ color: '#837575' }} />
-                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>{user?.mail}</span>
+                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>
+                  {user?.mail}
+                </span>
               </Field>
 
               <Field>
                 <CakeIcon fontSize='large' sx={{ color: '#837575' }} />
-                <span style={{ marginLeft: '5px', fontSize: 'medium' }}>{`${user?.birthday}`}</span>
+                <span
+                  style={{ marginLeft: '5px', fontSize: 'medium' }}
+                >{`${user?.birthday}`}</span>
               </Field>
 
               <Field>
                 <LocalPhoneIcon fontSize='large' sx={{ color: '#837575' }} />
-                <span style={{ marginLeft: '5px', fontSize: 'medium', color: theme.colors.hoverPrimary }}>{`${user?.phone}`}</span>
+                <span
+                  style={{
+                    marginLeft: '5px',
+                    fontSize: 'medium',
+                    color: theme.colors.hoverPrimary,
+                  }}
+                >{`${user?.phone}`}</span>
               </Field>
             </div>
           </Fields>
         </Profilecontainer>
 
-
         <Divider style={{ backgroundColor: '#E5E5E5' }} />
 
-        {
-          user?.role?.name === 'admin' ?
-            <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={() => { handleClose(); navigate('/create') }}>
-              <ListItemIcon>
-                <AddShoppingCartIcon fontSize="medium" />
-              </ListItemIcon>
-              Create product
-            </MenuItem> :
-            <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={() => { handleClose(); navigate('/buy') }}>
-              <ListItemIcon>
-                <ShoppingBasketIcon fontSize="medium" />
-              </ListItemIcon>
-              Order Buys
-            </MenuItem>
-        }
+        {user?.role?.name === 'admin' ? (
+          <MenuItem
+            sx={{ fontSize: '17px', marginLeft: '5px' }}
+            onClick={() => {
+              handleClose();
+              navigate('/dashboard');
+            }}
+          >
+            <ListItemIcon>
+              <DashboardIcon fontSize='medium' />
+            </ListItemIcon>
+            Dashboard admin
+          </MenuItem>
+        ) : (
+          <MenuItem
+            sx={{ fontSize: '17px', marginLeft: '5px' }}
+            onClick={() => {
+              handleClose();
+              navigate('/buy');
+            }}
+          >
+            <ListItemIcon>
+              <ShoppingBasketIcon fontSize='medium' />
+            </ListItemIcon>
+            Mis compras
+          </MenuItem>
+        )}
 
-        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={handleClickSettings}>
+        <MenuItem
+          sx={{ fontSize: '17px', marginLeft: '5px' }}
+          onClick={handleClickSettings}
+        >
           <ListItemIcon>
-            <Settings fontSize="medium" />
+            <Settings fontSize='medium' />
           </ListItemIcon>
-          Settings
+          Ajustes
         </MenuItem>
 
-        <MenuItem sx={{ fontSize: '17px', marginLeft: '5px' }} onClick={() => {
-          handleLogOut()
-          handleClose()
-        }}>
+        <MenuItem
+          sx={{ fontSize: '17px', marginLeft: '5px' }}
+          onClick={() => {
+            handleLogOut();
+            handleClose();
+          }}
+        >
           <ListItemIcon>
-            <Logout fontSize="medium" style={{ color: theme.colors.hoverPrimary }} />
+            <Logout
+              fontSize='medium'
+              style={{ color: theme.colors.hoverPrimary }}
+            />
           </ListItemIcon>
-          Logout
+          Cerrar sesión
         </MenuItem>
       </Menu>
-      {
-        settings ? <UserSettings closeButton={handleClickSettings} /> : <></>
-      }
+      {settings ? <UserSettings closeButton={handleClickSettings} /> : <></>}
     </>
   );
 }
