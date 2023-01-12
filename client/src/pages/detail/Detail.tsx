@@ -165,7 +165,8 @@ export const Detail = () => {
               <span className="list">{el.value}</span>
             </ul>
           ))}
-          <p>{isStock ? `Disponible : ${stock}` : 'No hay Stock'}</p>
+          
+          <p>{isStock ? <></> : 'No hay Stock'}</p>
           <CartSection>
             <div>
               <Btn
