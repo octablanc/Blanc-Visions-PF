@@ -1,5 +1,5 @@
 // import logo from '../../assets/logo2.svg';
-import logo from './styled-components/kingcomm.png';
+import logo from '../../assets/kingcomm.png';
 import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
 import { Link, NavLink } from 'react-router-dom';
 import {
@@ -64,7 +64,7 @@ export const Header = () => {
       <Nav>
         <Navbar className='container'>
           <Link to='/'>
-            <img src={logo} alt='kingcomm' />
+            <img src={logo} className='logo-king' alt='kingcomm' />
           </Link>
 
           <NavMenu>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Nav = styled.header`
   background-color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.151);
   position: fixed;
   width: 100%;

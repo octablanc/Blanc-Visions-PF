@@ -1,9 +1,9 @@
 // import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
-import { useState } from "react";
+import { useState } from 'react';
 // import { BsTwitter } from 'react-icons/bs';
 // import { SiTiktok } from 'react-icons/si';
-import { Link } from "react-router-dom";
-import emailjs from "emailjs-com";
+import { Link } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 import {
   BsFillEnvelopeOpenFill,
   BsWhatsapp,
@@ -17,86 +17,73 @@ import {
   Input,
   Btn,
   Newsletter,
-} from "./styled-components/styles";
-import { FlashMsg } from "../FlashMsg/FlashMsg";
+} from './styled-components/styles';
+import { FlashMsg } from '../FlashMsg/FlashMsg';
 
 export const Footer = () => {
-
   const [success, setSuccess] = useState(false);
   const [msg, setMsg] = useState('');
 
-  const [input, setInput] = useState({mail: ''});
+  const [input, setInput] = useState({ mail: '' });
 
-  const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {    
-  setInput({
-    ...input,
-    [e.target.name]: e.target.value
-  })
-  console.log('input:', input) 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    console.log('input:', input);
   };
 
-  const handleSubmit = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // console.log(input);
     e.preventDefault();
     emailjs
-      .send("service_dpfn6c5", "template_np52mja", input, "JYjoaKNcqXdcfIf3D")
+      .send('service_dpfn6c5', 'template_np52mja', input, 'JYjoaKNcqXdcfIf3D')
       .then(
         (response: any) => {
-          console.log("SUCCESS!", response.status, response.text);
+          console.log('SUCCESS!', response.status, response.text);
         },
         (err: any) => {
-          console.log("FAILED...", err);
+          console.log('FAILED...', err);
         }
-      );  
-      setSuccess(true)
-      setMsg('Suscripción recibida!')
+      );
+    setSuccess(true);
+    setMsg('Suscripción recibida!');
   };
 
   return (
     <FooterBar>
-      <GridFooter className="container">
+      <GridFooter className='container'>
         <Newsletter>
           <form>
             <h4>Recibí las últimas novedades</h4>
             <Input
-              placeholder="Ingresá tu email"
-              type="email"
-              name="mail"
+              placeholder='Ingresá tu email'
+              type='email'
+              name='mail'
               value={input.mail}
               onChange={handleChange}
             />
-            <Btn type='submit' onClick={(e) => handleSubmit(e)}>Suscribirme</Btn>
+            <Btn type='submit' onClick={e => handleSubmit(e)}>
+              Suscribirme
+            </Btn>
           </form>
         </Newsletter>
-        {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''}
-        <div>
-          <h3>KingComm</h3>
-          <ul>
-            <li>
-              <Link to="/">Inicio</Link>
-            </li>
-            <li>
-              <Link to="/products">Productos</Link>
-            </li>
-            <li>
-              <Link to="about">Nosotros</Link>
-            </li>
-          </ul>
-        </div>
+        {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ''}
 
         <div>
           <h3>Información</h3>
           <ul>
             <li>
-              <Link to="/questions">Preguntas frecuentes</Link>
+              <Link to='/questions'>Preguntas frecuentes</Link>
             </li>
             <li>
-              <Link to="/privacy">Política de privacidad</Link>
+              <Link to='/privacy'>Política de privacidad</Link>
             </li>
             <li>
-              <Link to="/termsyconditions">Términos y Condiciones</Link>
+              <Link to='/termsyconditions'>Términos y Condiciones</Link>
               <Link to='/termsyconditions'>Términos y condiciones</Link>
             </li>
           </ul>
@@ -105,7 +92,7 @@ export const Footer = () => {
         <div className='contact'>
           <h3>Contactanos</h3>
           <p>
-            <BsFillEnvelopeOpenFill className="icons" />
+            <BsFillEnvelopeOpenFill className='icons' />
             <span> info@kingcomm.com</span>
           </p>
           <p>
@@ -115,7 +102,7 @@ export const Footer = () => {
             </a>
           </p>
           <p>
-            <BsFillTelephoneFill className="icons" />
+            <BsFillTelephoneFill className='icons' />
             <span> (011) 2100 6019</span>
           </p>
         </div>

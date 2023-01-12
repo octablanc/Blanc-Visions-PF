@@ -115,6 +115,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
   }
 
+  .logo-king {
+    width: 15rem;
+  }
+
   .table{
     border-collapse: collapse;
     margin: 2.5rem 0;
