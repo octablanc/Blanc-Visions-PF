@@ -11,6 +11,10 @@ exports.default = (sequelize) => {
         name: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
+            get() {
+                const rawValue = this.getDataValue('name');
+                return rawValue ? rawValue.toLowerCase() : null;
+            },
         },
         price: {
             type: sequelize_1.DataTypes.FLOAT,

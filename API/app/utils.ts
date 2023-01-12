@@ -1906,7 +1906,7 @@ export const usersData = [
     imageProfile:
       'https://scontent.faep9-3.fna.fbcdn.net/v/t39.30808-6/297256312_5527550540665082_6913897283148335403_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=e3f864&_nc_ohc=stUK4Hl2n2YAX836Y6u&_nc_ht=scontent.faep9-3.fna&oh=00_AfBCYKQVsS8quLVZ84T0W_fOCjemMEvGvzOT8runM8UAvA&oe=63A958BF',
     phone: 2235511921,
-    mail: 'octablanc@gmail.com',
+    mail: 'octa@gmail.com',
     password: '1234567',
     userName: 'username',
     birthday: '1999-12-04',
@@ -1918,7 +1918,7 @@ export const usersData = [
     lastName: 'ferrer',
     imageProfile:
       'https://www.lavoz.com.ar/resizer/NIrwqF-30hCyH3lDF05KKhi2iig=/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/BGRXLQMBXNADBIBSMZ6VQUUNQI.jpg',
-    mail: 'noelia.c.ferrer@gmail.com',
+    mail: 'noelia@gmail.com',
     password: 'noe123',
     phone: 234312,
     birthday: 32,
@@ -1931,7 +1931,7 @@ export const usersData = [
     lastName: 'zanetti',
     imageProfile:
       'https://www.lavoz.com.ar/resizer/NIrwqF-30hCyH3lDF05KKhi2iig=/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/BGRXLQMBXNADBIBSMZ6VQUUNQI.jpg',
-    mail: 'agus.zanetti4@gmail.com',
+    mail: 'agus@gmail.com',
     password: 'agus123',
     phone: 234312,
     birthday: 32,

@@ -31,7 +31,7 @@ import { theme } from '../../../styled-components/theme';
 import { setUser } from '../../../redux/slices/user-authentication';
 import { updateUser } from '../../../services/services';
 import CircularProgress from '@mui/material/CircularProgress';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 export default function AccountMenu() {
   const user = useAppSelector(({ userState }) => userState.user);
@@ -230,13 +230,13 @@ export default function AccountMenu() {
             sx={{ fontSize: '17px', marginLeft: '5px' }}
             onClick={() => {
               handleClose();
-              navigate('/dashboard/products/create');
+              navigate('/dashboard');
             }}
           >
             <ListItemIcon>
-              <AddShoppingCartIcon fontSize='medium' />
+              <DashboardIcon fontSize='medium' />
             </ListItemIcon>
-            Crear Producto
+            Dashboard admin
           </MenuItem>
         ) : (
           <MenuItem

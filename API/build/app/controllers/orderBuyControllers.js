@@ -14,9 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postOrderBuy = exports.setOrderBuy = exports.getCartUser = exports.getOrderBuyUserId = exports.getOrderBuy = void 0;
 const ConnectionDB_1 = __importDefault(require("../../config/ConnectionDB"));
+//TODO =>  CUANDO EL USUARIO COMPRE LO DEL CARRITO, AÑADIRLO A LA ORDEN BUY Y ELIMINAR EL CARRITO DE LA DB DEL USER
+// SI EL PRODUCT ORDER LO HACEMOS COMO CARRITO
 const orderBuy = ConnectionDB_1.default.models.orderBuy;
 const ProductOrder = ConnectionDB_1.default.models.productOrder;
 const Products = ConnectionDB_1.default.models.products;
+const Ratings = ConnectionDB_1.default.models.ratings;
 const getOrderBuy = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const all = yield orderBuy.findAll({
@@ -45,12 +48,24 @@ exports.getOrderBuy = getOrderBuy;
 const getOrderBuyUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = +req.params.userId;
     try {
+        console.log('USER');
         const ordenBuyUser = yield orderBuy.findAll({
             where: { userId, buy: true },
             include: [
                 {
                     model: ProductOrder,
-                    include: [{ model: Products, attributes: ['id', 'name', 'image'] }],
+                    include: [
+                        {
+                            model: Products,
+                            attributes: ['id', 'name', 'image'],
+                            include: [
+                                {
+                                    model: Ratings,
+                                    attributes: ['userId']
+                                }
+                            ],
+                        },
+                    ],
                     attributes: ['id', 'quantity', 'price'],
                 },
             ],
