@@ -8,8 +8,8 @@ import cartImg from '../../styled-components/cart.png';
 // import React from "react";
 // import MuiAlert, { AlertProps } from "@mui/material/Alert";
 // import { BOLD_WEIGHT } from "jest-matcher-utils";
-import { FlashMsg } from '../FlashMsg/FlashMsg';
-import { postOrderBuy } from '../../../../services/services';
+import { FlashMsg } from "../../../../components/FlashMsg/FlashMsg";
+import { postOrderBuy } from "../../../../services/services";
 import {
   deleteCartUser,
   deleteProductCart,
@@ -265,18 +265,6 @@ export const CartDetail = () => {
 //               </Line>
 //             </TotalDiv>
 //             <Buttons>
-//               <form action="https://blanc-visions-pf-kingcomm.up.railway.app/checkout" method="POST">
-//                 <input
-//                   type="hidden"
-//                   name="title"
-//                   value={`Productos (${cartTotalQuantity})`}
-//                 />
-//                 <input type="hidden" name="price" value={cartTotalAmount} />
-//                 <BtnCheck type="submit" onClick={() => console.log("HADEL SUBMIT")}>
-//                   {" "}
-//                   Finalizar compra
-//                 </BtnCheck>
-//               </form>
 //               <div>
 //                 <NavLink to="/products">
 //                   <Btn>Continuar comprando</Btn>

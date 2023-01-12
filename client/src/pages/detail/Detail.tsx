@@ -13,10 +13,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
-import { getProductById } from '../../redux/slices/products';
+import { getProductById, resetDetail } from '../../redux/slices/products';
 import Spinner from '../../components/Spinner/Spinner';
 import { Sales } from '../home/components/Sales/Sales';
-import { FlashMsg } from '../cart/components/FlashMsg/FlashMsg';
+import { FlashMsg } from '../../components/FlashMsg/FlashMsg';
 import { Review } from './components/Review';
 import { addProductCart } from '../../redux/slices/Cart';
 import { Shipping } from "../Shipping/Shipping";
@@ -55,8 +55,26 @@ export const Detail = () => {
   const [shipping, setShipping] = useState(false);
 
   useEffect(() => {
+    let productReset = {
+             id: 0,
+             name: "",
+             code: "",
+             description: "",
+             image: "",
+             price: 0,
+             priceProm: 0,
+             discount: 0,
+             stock: 0,
+             entrega: "",
+             id_category: 0,
+             state: true,
+             category: "",
+             properties: [],
+             images: [],
+             loading: false,
+          };
     if (idParams !== undefined) dispatch(getProductById(+idParams));
-    // return () => {resetDetail()}
+    return () => {dispatch(resetDetail(productReset))}
     // console.log('MONTANDO');
   }, [dispatch, idParams]);
 
@@ -67,8 +85,18 @@ export const Detail = () => {
     //AGREGUE EL REQUERIMIENTO DE LOGUEO en la linea de abajo
     if (!user) return handleLogin();
     console.log("COMPRAR AHORA")
+    const totalPriceProduct =
+      discount === 0 ? price : price - (price * discount) / 100;
+    dispatch(
+      addProductCart({
+        userId: user?.id,
+        quantity: 1,
+        price: totalPriceProduct,
+        productId: id,
+      })
+    );   
     // SHIPPING
-    setShipping(true);
+    // setShipping(true);
   };
 
   const handleCart = () => navigate('/cart');
@@ -85,8 +113,8 @@ export const Detail = () => {
         price: totalPriceProduct,
         productId: id,
       })
-    );
-    if(navigateCart) return navigate('/cart');
+    );   
+    if(navigateCart) return navigate('/cart');    
   };
 
   const handleLogin = () => {
@@ -146,7 +174,7 @@ export const Detail = () => {
                 disabled={!isStock}
               >
                 {findProductCart ? 'Ya agregado' : 'Agregar al carrito'}
-              </Btn>
+              </Btn>           
               {findProductCart ? (
                 <Btn onClick={handleCart}>Ir al carrito</Btn>
               ) : (
