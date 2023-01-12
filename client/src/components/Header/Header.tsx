@@ -1,6 +1,6 @@
 // import logo from '../../assets/logo2.svg';
 import logo from '../../assets/kingcomm.png';
-import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
+import { BsCart4 } from '../../icons';
 import { Link, NavLink } from 'react-router-dom';
 import {
   Navbar,

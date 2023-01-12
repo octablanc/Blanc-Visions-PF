@@ -1,8 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
 import { useEffect } from 'react';
 import {
+  deleteProductAdmin,
   getProductByIdAdmin,
   getProductsAdmin,
+  retrieveProductAdmin,
 } from '../../../../redux/slices/Admin/admin.thunk';
 import { FaEdit } from 'react-icons/fa';
 import { BiAddToQueue } from 'react-icons/bi';
@@ -13,7 +15,7 @@ export const AdminProducts = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { paginationAdmin, products } = useAppSelector(
-    (state) => state.adminState
+    state => state.adminState
   );
   const { page, quantity, data, order, productsLength } = paginationAdmin;
 
@@ -30,6 +32,18 @@ export const AdminProducts = () => {
     if (page > 1) {
       dispatch(getProductsAdmin(page - 1, quantity, data, order));
     }
+  };
+
+  const handleState = async (product: any) => {
+    if (product.state) {
+      // await dispatch(deleteUser(user.id));
+      await dispatch(deleteProductAdmin(product.id));
+    } else {
+      await dispatch(retrieveProductAdmin(product.id));
+    }
+    dispatch(getProductsAdmin(page, quantity, data, order));
+
+    //FALTA ACTUALIZAR LA PAGINA
   };
 
   useEffect(() => {
@@ -60,7 +74,7 @@ export const AdminProducts = () => {
 
         <tbody>
           {products.length > 0 &&
-            products.map((product) => (
+            products.map(product => (
               <tr>
                 <td>{product.id}</td>
                 <td>
@@ -71,7 +85,12 @@ export const AdminProducts = () => {
                 <td>{product.stock}</td>
                 <td>{product.discount}</td>
                 <td>{product.price}</td>
-                <td>{product.state ? 'activo' : 'inactivo'}</td>
+                {/* <td>{product.state ? 'activo' : 'inactivo'}</td> */}
+                <td>
+                  <button onClick={() => handleState(product)}>
+                    {product.state ? 'activo' : 'inactivo'}
+                  </button>
+                </td>
                 <td>
                   <button onClick={() => handleCurrentProducts(product.id)}>
                     <FaEdit />
