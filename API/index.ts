@@ -134,7 +134,7 @@ module.exports = (function runApp() {
   });
 })();
 //
-
+ 
 {/* 
 ESTA ES LA NOTIFICACION QUE NOS ENVIA MERCADO CUANDO PAGAMOS X URL!!!
 ¿COMO OBTENEMOS EL MERCHANT_ORDER_ID??
