@@ -194,16 +194,16 @@ export default function Login() {
               }}
             >
               <LoginContainer>
-                <h2 style={{ fontWeight: '500' }}>Log In</h2>
+                <h2 style={{ fontWeight: '500' }}>Iniciar Sesión</h2>
                 <Inputs>
                   <TextField
                     InputLabelProps={{
                       style: { fontSize: fontSizeLabel },
                     }}
-                    label='Mail'
+                    label='Correo'
                     name='mail'
                     value={user.mail}
-                    placeholder='escribe tu mail'
+                    placeholder='Escribe tu correo'
                     sx={Mail}
                     InputProps={{
                       style: { fontSize: fontSizeInput },
@@ -228,7 +228,7 @@ export default function Login() {
                     name='password'
                     value={user.password}
                     type={showPassword ? 'text' : 'password'}
-                    placeholder='escribe tu contraseña'
+                    placeholder='Escribe tu contraseña'
                     sx={Password}
                     InputProps={{
                       style: { fontSize: fontSizeInput },
@@ -286,7 +286,7 @@ export default function Login() {
                       sx={ButtonLog}
                       onClick={handleSubmit}
                     >
-                      Iniciar Sesion
+                      Ingresar
                     </Button>
                   )}
 
@@ -327,7 +327,7 @@ export default function Login() {
                         />
                       }
                     >
-                      Iniciar sesion con Google
+                      Iniciar sesión con Google
                     </Button>
                   )}
                   <ForgetPassword onClick={handleOpenDialog}>
@@ -416,14 +416,14 @@ export default function Login() {
 
               <CreateContainer>
                 <p>
-                  No tienes una cuenta?{' '}
+                  No tienes una cuenta?
                   <span
                     onClick={() => {
                       handleClose();
                       openSingUp();
                     }}
                   >
-                    Registrate
+                    Regístrate
                   </span>
                 </p>
               </CreateContainer>
