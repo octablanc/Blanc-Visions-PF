@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { getProductsPage } from '../../redux/slices/products';
 
 import {
+  FilterContainer,
   FilterContent,
   FilterDiscountPrice,
   ContainerSelectOrder,
@@ -12,8 +13,8 @@ const listDiscount = ['10', '20'];
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
-  const { currentCategory } = useAppSelector((state) => state.categoriesState);
-  const { pagination } = useAppSelector((state) => state.productsState);
+  const { currentCategory } = useAppSelector(state => state.categoriesState);
+  const { pagination } = useAppSelector(state => state.productsState);
   const { quantity, price, discount, data, order } = pagination;
 
   const handleDiscount = (e: any) => {
@@ -131,9 +132,10 @@ export const Filters = () => {
   };
 
   return (
-    <div>
-      <h3 className="category__name">{currentCategory}</h3>
+    <FilterContainer>
       <h2>Refina tu busqueda: </h2>
+      {currentCategory && <h3 className='heading'>{currentCategory}</h3>}
+
       <FilterContent>
         {price !== 0 && (
           <p>
@@ -141,7 +143,6 @@ export const Filters = () => {
             <button onClick={resetPrice}>x</button>
           </p>
         )}
-        <br />
 
         {discount !== 0 && (
           <p>
@@ -151,11 +152,11 @@ export const Filters = () => {
       </FilterContent>
       <div>
         <h3>ORDERNAR POR:</h3>
-        <ContainerSelectOrder onChange={selectTypeOrder} id="selectOrder">
-          <option value="Sin Ordenar">Sin Ordenar</option>
-          <option value="Menor Precio">Menor Precio</option>
-          <option value="Mayor Precio">Mayor Precio</option>
-          <option value="Mayor Descuento">Mayor Descuento</option>
+        <ContainerSelectOrder onChange={selectTypeOrder} id='selectOrder'>
+          <option value='Sin Ordenar'>Sin Ordenar</option>
+          <option value='Menor Precio'>Menor Precio</option>
+          <option value='Mayor Precio'>Mayor Precio</option>
+          <option value='Mayor Descuento'>Mayor Descuento</option>
         </ContainerSelectOrder>
       </div>
       <FilterDiscountPrice>
@@ -173,6 +174,6 @@ export const Filters = () => {
           </h5>
         ))}
       </FilterDiscountPrice>
-    </div>
+    </FilterContainer>
   );
 };
