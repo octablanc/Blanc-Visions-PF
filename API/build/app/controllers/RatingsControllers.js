@@ -28,12 +28,13 @@ const getRatings = (_req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getRatings = getRatings;
 const postRating = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { score, commentary, productId } = req.body;
+        const { score, commentary, productId, userId } = req.body;
         const RatingCreated = yield Ratings.create({
             score,
             commentary,
             productId,
-        });
+            userId
+        }, { include: User });
         return res.json({ RatingCreated });
     }
     catch ({ message }) {

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { category, data, usersData, roles, ordenBuyArray } from '../utils';
+import { Promise as Promises } from 'bluebird';
 
 // Data base context import
 import DBcontext from '../../config/ConnectionDB';
@@ -203,13 +204,20 @@ export async function updateProduct(req: Request, res: Response) {
     const prop = newFields.properties;
     const imgs = newFields.images;
 
-    const productToUpdate = await Products.findByPk(id, {
-      include: {
-        model: Properties,
-        as: 'properties',
-      },
+    var productToUpdate = await Products.findByPk(id, {
+      include: [
+        {
+          model: Properties,
+          as: 'properties',
+        },
+        {
+          model: Images,
+        },
+      ],
     });
     if (productToUpdate) {
+      const { dataValues } = productToUpdate;
+      const { images } = dataValues;
       await productToUpdate.update(newFields, { include: [Properties] });
       await productToUpdate.save();
       prop.forEach(async (e: any) => {
@@ -220,18 +228,26 @@ export async function updateProduct(req: Request, res: Response) {
         }
       });
 
-      imgs.forEach(async (e: any) => {
-        const imgFind = await Images.findByPk(e.id);
-        if (imgFind) {
-          await imgFind.update({
-            url_image: e.url_image,
-          });
-          await imgFind.save();
-        }
-      });
-    } else return res.status(404).send({ message: 'Product no found!' });
+      await Promises.map(images, (img: any) => img.destroy());
 
-    return res.send(productToUpdate);
+      await Promises.map(imgs, (img: any) =>
+        Images.create({ ...img, productId: dataValues.id })
+      );
+
+      return res.send(
+        await Products.findByPk(id, {
+          include: [
+            {
+              model: Properties,
+              as: 'properties',
+            },
+            {
+              model: Images,
+            },
+          ],
+        })
+      );
+    } else return res.status(404).send({ message: 'Product no found!' });
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
@@ -240,11 +256,26 @@ export async function updateProduct(req: Request, res: Response) {
 export async function deleteProduct(req: Request, res: Response) {
   try {
     const { id } = req.params;
-
     const productToDelete = await Products.findByPk(id);
     if (productToDelete) {
       await productToDelete.update({ state: false });
       await productToDelete.save();
+    } else return res.status(404).send({ message: 'Product not found!' });
+
+    return res.send({ message: 'Product has been discharged!' });
+  } catch ({ message }) {
+    return res.status(400).send({ message });
+  }
+}
+
+export async function retrieveProduct(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+
+    const productToUpdate = await Products.findByPk(id);
+    if (productToUpdate) {
+      await productToUpdate.update({ state: true });
+      await productToUpdate.save();
     } else return res.status(404).send({ message: 'Product not found!' });
 
     return res.send({ message: 'Product has been discharged!' });

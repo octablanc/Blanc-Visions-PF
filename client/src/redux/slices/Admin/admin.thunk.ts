@@ -108,11 +108,24 @@ export const deleteProductAdmin = (id: number) => {
   return async (dispatch: any) => {
     try {
       dispatch(startLoadingAdmin(true));
-      let deteleProduct = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/products/${id}`
-      );
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/products/${id}`);
       dispatch(startLoadingAdmin(false));
-      console.log(deteleProduct, 'estoy en deleteproductadmin ');
+    } catch (error) {
+      console.log('error al actualizar producto=>', error);
+    } finally {
+      dispatch(startLoadingAdmin(false));
+    }
+  };
+};
+
+export const retrieveProductAdmin = (id: number) => {
+  return async (dispatch: any) => {
+    try {
+      console.log('dsadsa');
+      dispatch(startLoadingAdmin(true));
+      await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/products/state/${id}`
+      );
     } catch (error) {
       console.log('error al actualizar producto=>', error);
     } finally {

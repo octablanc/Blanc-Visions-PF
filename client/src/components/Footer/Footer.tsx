@@ -1,8 +1,9 @@
 // import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
-// import { useState } from 'react';
+import { useState } from 'react';
 // import { BsTwitter } from 'react-icons/bs';
 // import { SiTiktok } from 'react-icons/si';
 import { Link } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 import {
   BsFillEnvelopeOpenFill,
   BsWhatsapp,
@@ -13,43 +14,51 @@ import {
   FooterBar,
   GridFooter,
   Icons,
-  // Input,
-  // Btn,
-  // Newsletter,
+  Input,
+  Btn,
+  Newsletter,
 } from './styled-components/styles';
+import { FlashMsg } from '../FlashMsg/FlashMsg';
 
 export const Footer = () => {
-  // const [input, setInput] = useState({
-  //   mail: '',
-  // });
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState('');
 
-  // const handleChange = (
-  //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   setInput({
-  //     ...input,
-  //     [event.target.name]: event.target.value,
-  //   });
-  //   console.log(input);
-  // };
+  const [input, setInput] = useState({ mail: '' });
 
-  // const handleSubmit = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   event.preventDefault();
-  // if(input) {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    console.log('input:', input);
+  };
 
-  //   //add to firebase
-  //   db.collection("emails").add({
-  //     email: input,
-  //   })
-  // }
-  // };
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    // console.log(input);
+    e.preventDefault();
+    emailjs
+      .send('service_dpfn6c5', 'template_np52mja', input, 'JYjoaKNcqXdcfIf3D')
+      .then(
+        (response: any) => {
+          console.log('SUCCESS!', response.status, response.text);
+        },
+        (err: any) => {
+          console.log('FAILED...', err);
+        }
+      );
+    setSuccess(true);
+    setMsg('Suscripción recibida!');
+  };
 
   return (
     <FooterBar>
       <GridFooter className='container'>
-        {/* <Newsletter>
+        <Newsletter>
           <form>
-            <h4>Recibí las últimas novedades</h4>
+            <h3>Recibí las últimas novedades</h3>
             <Input
               placeholder='Ingresá tu email'
               type='email'
@@ -57,24 +66,12 @@ export const Footer = () => {
               value={input.mail}
               onChange={handleChange}
             />
-            <Btn onSubmit={() => handleSubmit}>Suscribirme</Btn>
+            <Btn type='submit' onClick={e => handleSubmit(e)}>
+              Suscribirme
+            </Btn>
           </form>
-        </Newsletter> */}
-
-        <div>
-          <h3>KingComm</h3>
-          <ul>
-            <li>
-              <Link to='/'>Inicio</Link>
-            </li>
-            <li>
-              <Link to='/products'>Productos</Link>
-            </li>
-            <li>
-              <Link to='about'>Nosotros</Link>
-            </li>
-          </ul>
-        </div>
+        </Newsletter>
+        {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ''}
 
         <div>
           <h3>Información</h3>
@@ -86,7 +83,7 @@ export const Footer = () => {
               <Link to='/privacy'>Política de privacidad</Link>
             </li>
             <li>
-              <Link to='/termsyconditions'>Términos y condiciones</Link>
+              <Link to='/termsyconditions'>Términos y Condiciones</Link>
             </li>
           </ul>
         </div>

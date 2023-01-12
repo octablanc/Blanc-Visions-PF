@@ -174,7 +174,9 @@ export const productSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    // Use the PayloadAction type to declare the contents of `action.payload`
+    resetDetail: (state, action) => {
+      state.currentProduct = action.payload;
+    }    // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
     //   state.value += action.payload;
     // },
@@ -192,6 +194,7 @@ export const {
   setUser,
   search,
   changeDiscountPage,
+  resetDetail,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

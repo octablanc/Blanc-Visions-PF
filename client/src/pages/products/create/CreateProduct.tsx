@@ -134,6 +134,36 @@ export default function CreateProduct() {
     });
   }
 
+  const handleChangePropertyName = (e: any, id: any) => {
+    setProduct({
+      ...product,
+      properties: product.properties.map((property: any) => {
+        if (property.id === id) {
+          return {
+            ...property,
+            name: e.target.value,
+          };
+        }
+        return property;
+      }),
+    });
+  };
+
+  const handleChangePropertyValue = (e: any, id: any) => {
+    setProduct({
+      ...product,
+      properties: product.properties.map((property: any) => {
+        if (property.id === id) {
+          return {
+            ...property,
+            value: e.target.value,
+          };
+        }
+        return property;
+      }),
+    });
+  };
+
   function handlerSubmit() {
     var newError = error;
 
@@ -542,95 +572,99 @@ export default function CreateProduct() {
             />
           </TwoFields>
 
-          <PropertyContainer>
-            <TextField
-              id='property-name'
-              label='Propiedad'
-              variant='standard'
-              name='name'
-              value={property.name}
-              error={propertyError.name}
-              sx={{
-                width: 'calc(49% - 37px)',
-                position: 'relative',
-                '& p.MuiFormHelperText-root': {
-                  position: 'absolute',
-                  bottom: '-22px',
-                  left: '0px',
-                },
-                marginBottom: '10px',
-              }}
-              InputLabelProps={{
-                style: {
-                  fontSize: fontSizeInput,
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontSize: fontSizeInput,
-                },
-              }}
-              helperText={
-                propertyError.name && (
-                  <span style={{ fontSize: '13px' }}>
-                    Propiedad esta vacío!
-                  </span>
-                )
-              }
-              onChange={({ target }) => handleChangeProperty(target)}
-              onFocus={({ target }) => handleChangeProperty(target)}
+          {!id && (
+            <PropertyContainer>
+              <TextField
+                id='property-name'
+                label='Propiedad'
+                variant='standard'
+                name='name'
+                value={property.name}
+                error={propertyError.name}
+                sx={{
+                  width: 'calc(49% - 37px)',
+                  position: 'relative',
+                  '& p.MuiFormHelperText-root': {
+                    position: 'absolute',
+                    bottom: '-22px',
+                    left: '0px',
+                  },
+                  marginBottom: '10px',
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: fontSizeInput,
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontSize: fontSizeInput,
+                  },
+                }}
+                helperText={
+                  propertyError.name && (
+                    <span style={{ fontSize: '13px' }}>
+                      Propiedad esta vacío!
+                    </span>
+                  )
+                }
+                onChange={({ target }) => handleChangeProperty(target)}
+                onFocus={({ target }) => handleChangeProperty(target)}
+              />
+
+              <TextField
+                id='property-value'
+                label='Valor'
+                variant='standard'
+                name='value'
+                value={property.value}
+                error={propertyError.value}
+                sx={{
+                  width: 'calc(49% - 37px)',
+                  position: 'relative',
+                  '& p.MuiFormHelperText-root': {
+                    position: 'absolute',
+                    bottom: '-22px',
+                    left: '0px',
+                  },
+                  marginBottom: '10px',
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: fontSizeInput,
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontSize: fontSizeInput,
+                  },
+                }}
+                helperText={
+                  propertyError.value && (
+                    <span style={{ fontSize: '13px' }}>Valor esta vacío!</span>
+                  )
+                }
+                onChange={({ target }) => handleChangeProperty(target)}
+                onFocus={({ target }) => handleChangeProperty(target)}
+              />
+
+              <Button
+                variant='contained'
+                style={{ marginLeft: '30px', marginBottom: '10px' }}
+                onClick={addProperty}
+                disabled={propertyError.name || propertyError.value}
+              >
+                Add
+              </Button>
+            </PropertyContainer>
+          )}
+
+          {!id && (
+            <Properties
+              properties={product.properties}
+              deleteProperty={deleteProperty}
             />
-
-            <TextField
-              id='property-value'
-              label='Valor'
-              variant='standard'
-              name='value'
-              value={property.value}
-              error={propertyError.value}
-              sx={{
-                width: 'calc(49% - 37px)',
-                position: 'relative',
-                '& p.MuiFormHelperText-root': {
-                  position: 'absolute',
-                  bottom: '-22px',
-                  left: '0px',
-                },
-                marginBottom: '10px',
-              }}
-              InputLabelProps={{
-                style: {
-                  fontSize: fontSizeInput,
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontSize: fontSizeInput,
-                },
-              }}
-              helperText={
-                propertyError.value && (
-                  <span style={{ fontSize: '13px' }}>Valor esta vacío!</span>
-                )
-              }
-              onChange={({ target }) => handleChangeProperty(target)}
-              onFocus={({ target }) => handleChangeProperty(target)}
-            />
-
-            <Button
-              variant='contained'
-              style={{ marginLeft: '30px', marginBottom: '10px' }}
-              onClick={addProperty}
-              disabled={propertyError.name || propertyError.value}
-            >
-              Add
-            </Button>
-          </PropertyContainer>
-
-          <Properties
-            properties={product.properties}
-            deleteProperty={deleteProperty}
-          />
+          )}
 
           <FormControl
             fullWidth
@@ -718,6 +752,90 @@ export default function CreateProduct() {
             onChange={e => handlerChange(e.target.name, e.target.value)}
             onFocus={e => handlerChange(e.target.name, e.target.value)}
           />
+
+          <h4>Propiedades</h4>
+          {id &&
+            product.properties.map((property: any, index: any) => (
+              <PropertyContainer>
+                <TextField
+                  id='property-name'
+                  label='Propiedad'
+                  variant='standard'
+                  name='name'
+                  value={property.name}
+                  error={propertyError.name}
+                  sx={{
+                    width: 'calc(50% - 0px)',
+                    position: 'relative',
+                    '& p.MuiFormHelperText-root': {
+                      position: 'absolute',
+                      bottom: '-22px',
+                      left: '0px',
+                    },
+                    marginBottom: '10px',
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontSize: fontSizeInput,
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontSize: fontSizeInput,
+                    },
+                  }}
+                  helperText={
+                    propertyError.name && (
+                      <span style={{ fontSize: '13px' }}>
+                        Propiedad esta vacío!
+                      </span>
+                    )
+                  }
+                  onChange={e => handleChangePropertyName(e, property.id)}
+                  // onChange={({ target }) => handleChangeProperty(target)}
+                  // onFocus={({ target }) => handleChangeProperty(target)}
+                />
+
+                <TextField
+                  id='property-value'
+                  label='Valor'
+                  variant='standard'
+                  name='value'
+                  value={property.value}
+                  error={propertyError.value}
+                  sx={{
+                    width: 'calc(50% - 0px)',
+                    position: 'relative',
+                    '& p.MuiFormHelperText-root': {
+                      position: 'absolute',
+                      bottom: '-22px',
+                      left: '0px',
+                    },
+                    marginBottom: '10px',
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontSize: fontSizeInput,
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontSize: fontSizeInput,
+                    },
+                  }}
+                  helperText={
+                    propertyError.value && (
+                      <span style={{ fontSize: '13px' }}>
+                        Valor esta vacío!
+                      </span>
+                    )
+                  }
+                  onChange={e => handleChangePropertyValue(e, property.id)}
+                  // onChange={({ target }) => handleChangeProperty(target)}
+                  // onFocus={({ target }) => handleChangeProperty(target)}
+                />
+              </PropertyContainer>
+            ))}
 
           {!loading ? (
             <Button
