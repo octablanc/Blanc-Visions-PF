@@ -41,7 +41,7 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-const axios_1 = __importDefault(require("axios"));
+// import axios from 'axios';
 const mercadopago = require('mercadopago');
 const body_parser_1 = __importDefault(require("body-parser"));
 module.exports = (function runApp() {
@@ -150,13 +150,14 @@ module.exports = (function runApp() {
         app.listen(PORT, () => {
             console.log('Server listening ' + BACKEND_URL);
             // setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
-            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), 1);
+            // setTimeout(() => axios.post(`${BACKEND_URL}/products/bulk`, {}), 1);
         });
     });
 })();
 //
 { /*
-ESTA ES LA NOTIFICACION QUE NOS ENVIA MERCADO CUANDO PAGAMOS, INVESTIGAR COMO CAPTURARLA??
+ESTA ES LA NOTIFICACION QUE NOS ENVIA MERCADO CUANDO PAGAMOS X URL!!!
+¿COMO OBTENEMOS EL MERCHANT_ORDER_ID??
 
 https://kingcomm.vercel.app/buy?
 collection_id=53508755776
