@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -32,56 +41,69 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-// import axios from "axios";
-const mercadopago = require("mercadopago");
+const axios_1 = __importDefault(require("axios"));
+const mercadopago = require('mercadopago');
 const body_parser_1 = __importDefault(require("body-parser"));
 module.exports = (function runApp() {
     dotenv.config();
-    const { PORT, BACKEND_URL, /* TIMEOUT_BACKEND*/ } = process.env;
+    const { PORT, BACKEND_URL } = process.env;
     const app = (0, express_1.default)();
-    app.use((0, morgan_1.default)("dev"));
+    app.use((0, morgan_1.default)('dev'));
     app.use((0, cors_1.default)());
     app.use(express_1.default.json());
-    app.set('trust proxy', true);
-    app.use('/', (req, res, next) => {
-        var _a;
-        var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-        if ((_a = req.res) === null || _a === void 0 ? void 0 : _a.statusCode) {
-            console.log("\x1b[40m\x1b[33m", `${req.method} ${req.url}` + `${(res === null || res === void 0 ? void 0 : res.statusCode) > 199 ? "\x1b[32m" : ((res === null || res === void 0 ? void 0 : res.statusCode) > 299 ? "\x1b[34m" : "\x1b[31m")} ${res === null || res === void 0 ? void 0 : res.statusCode} \x1b[0m`);
-            console.log(`\x1b[40m\x1b[35m IP: (${ip}  DATE: ${Date().toString().slice(0, 25)})\x1b[0m`);
-        }
-        next();
-    });
-    app.use(body_parser_1.default.urlencoded({ extended: true, limit: "50mb" }));
-    app.use(body_parser_1.default.json({ limit: "50mb" }));
+    // app.set('trust proxy', true);
+    // app.use('/', (req, res, next) => {
+    //   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+    //   if (req.res?.statusCode) {
+    //     console.log(
+    //       '\x1b[40m\x1b[33m',
+    //       `${req.method} ${req.url}` +
+    //         `${
+    //           res?.statusCode > 199
+    //             ? '\x1b[32m'
+    //             : res?.statusCode > 299
+    //             ? '\x1b[34m'
+    //             : '\x1b[31m'
+    //         } ${res?.statusCode} \x1b[0m`
+    //     );
+    //     console.log(
+    //       `\x1b[40m\x1b[35m IP: (${ip}  DATE: ${Date()
+    //         .toString()
+    //         .slice(0, 25)})\x1b[0m`
+    //     );
+    //   }
+    //   next();
+    // });
+    app.use(body_parser_1.default.urlencoded({ extended: true, limit: '50mb' }));
+    app.use(body_parser_1.default.json({ limit: '50mb' }));
     app.use((req, res, next) => {
         req;
-        res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-        res.header("Access-Control-Allow-Credentials", "true");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+        res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+        res.header('Access-Control-Allow-Credentials', 'true');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         next();
     });
     // Uses every router loaded on router.
-    app.use("/", routes_1.default);
+    app.use('/', routes_1.default);
     //middleware
     //Mercado Pago a partir de aca :
     app.use(body_parser_1.default.urlencoded({ extended: false }));
     // Agrega credenciales. Este token es del vendedor a donde llegaran los pagos
     mercadopago.configure({
-        access_token: "APP_USR-3248474346383256-121911-3cd56dfa5c4fdc916795b79a085dd93c-1266633934",
+        access_token: 'APP_USR-3248474346383256-121911-3cd56dfa5c4fdc916795b79a085dd93c-1266633934',
     });
-    app.post("/notification", (req, res) => {
+    app.post('/notification', (req, res) => {
         try {
             const notification = req.body;
             console.log(notification);
-            return res.send("hola");
+            return res.send('hola');
         }
         catch ({ message }) {
             return res.status(400).send(message);
         }
     });
-    app.post("/checkout", (req, res) => {
+    app.post('/checkout', (req, res) => {
         // Crea un objeto de preferencia, "Orden de compra"
         // console.log("estoy en mecado pago", req.body);
         let preference = {
@@ -90,16 +112,16 @@ module.exports = (function runApp() {
                     title: req.body.name,
                     quantity: 1,
                     //picture_url: req.body.url,
-                    currency_id: "ARS",
+                    currency_id: 'ARS',
                     unit_price: parseInt(req.body.price),
                 },
             ],
             back_urls: {
-                success: "https://kingcomm.vercel.app/buy",
-                failure: "http://localhost:3000/",
-                pending: "http://localhost:3000/",
+                success: 'https://kingcomm.vercel.app/buy',
+                failure: 'http://localhost:3000/',
+                pending: 'http://localhost:3000/',
             },
-            notification_url: "https://kingcomm.vercel.app/buy",
+            notification_url: 'https://kingcomm.vercel.app/buy',
             auto_return: 'approved',
         };
         mercadopago.preferences
@@ -114,12 +136,38 @@ module.exports = (function runApp() {
             console.log(error);
         });
     });
+    app.post('/buy', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(req.body);
+            return res.send({});
+        }
+        catch ({ message }) {
+            return res.status(400).send({ message });
+        }
+    }));
     // Makes the connection to the data base.
     ConnectionDB_1.default.sync({ force: true }).then(() => {
         app.listen(PORT, () => {
-            console.log("Server listening " + BACKEND_URL);
+            console.log('Server listening ' + BACKEND_URL);
             // setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));
+            setTimeout(() => axios_1.default.post(`${BACKEND_URL}/products/bulk`, {}), 1);
         });
     });
-}());
+})();
 //
+{ /*
+ESTA ES LA NOTIFICACION QUE NOS ENVIA MERCADO CUANDO PAGAMOS, INVESTIGAR COMO CAPTURARLA??
+
+https://kingcomm.vercel.app/buy?
+collection_id=53508755776
+&collection_status=approved
+&payment_id=53508755776
+&status=approved
+&external_reference=null
+&payment_type=account_money
+&merchant_order_id=7223260114
+&preference_id=1266633934-c6834fe9-dc70-4b38-9fdb-c325de165a7d
+&site_id=MLA&processing_mode=aggregator
+&merchant_account_id=null
+*/
+}

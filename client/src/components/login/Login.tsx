@@ -40,6 +40,7 @@ import { getuser, postUser } from '../../services/services';
 import { useAppDispatch } from '../../redux/app/hooks';
 import { getUser } from '../../redux/slices/user-authentication';
 import { setUser as setUserState } from '../../redux/slices/user-authentication';
+import { User } from '../../models/User.model';
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -96,10 +97,13 @@ export default function Login() {
 
       await signInWithEmailAndPassword(auth, user.mail, user.password);
 
-      // if (!auth.currentUser?.emailVerified) {
-      //   await signOut(auth);
-      //   window.alert("Debes verificar tu mail!");
-      // }
+      const userFromDB:User = await getuser(user.mail);
+
+      if( userFromDB.role?.name !== 'admin')
+        if (!auth.currentUser?.emailVerified) {
+          await signOut(auth);
+          window.alert("Debes verificar tu mail!");
+        }
 
       setBtnLoading(false);
     } catch ({ code }) {

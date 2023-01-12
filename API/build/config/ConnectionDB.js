@@ -39,6 +39,7 @@ const Users_model_1 = __importDefault(require("../app/models/Users.model"));
 const ProductsProperties_model_1 = __importDefault(require("../app/models/ProductsProperties.model"));
 const Images_model_1 = __importDefault(require("../app/models/Images.model"));
 const ProductOrder_model_1 = __importDefault(require("../app/models/ProductOrder.model"));
+const Offers_model_1 = __importDefault(require("../app/models/Offers.model"));
 const Ratings_model_1 = __importDefault(require("../app/models/Ratings.model"));
 // Creates connection to the data base with Sequelize or MongoDB.
 dotenv.config();
@@ -52,6 +53,7 @@ const DBcontext = new sequelize_1.Sequelize(`${DB_URL}`, {
     native: false,
 });
 // Creating tables from models
+(0, Offers_model_1.default)(DBcontext);
 (0, CartBuy_model_1.default)(DBcontext);
 (0, CartSale_model_1.default)(DBcontext);
 (0, Products_model_1.default)(DBcontext);
@@ -63,7 +65,7 @@ const DBcontext = new sequelize_1.Sequelize(`${DB_URL}`, {
 (0, Images_model_1.default)(DBcontext);
 (0, ProductOrder_model_1.default)(DBcontext);
 (0, Ratings_model_1.default)(DBcontext);
-const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder, ratings } = DBcontext.models;
+const { cartBuy, cartSale, categories, orderBuy, products, roles, users, products_properties, images, productOrder, offers, ratings } = DBcontext.models;
 /*
 Un Usuario puede tener solo 1 Rol. Si el rol es usuario entonces tendra un carrito de compra. Si el Rol es Admin, entonces tendra un carrito de ventas.
 Tanto el carrito de compra como el de venta, tendran acceso a la Orden de Compra.
@@ -85,8 +87,8 @@ orderBuy.belongsTo(cartBuy);
 cartSale.hasOne(orderBuy);
 orderBuy.belongsTo(cartSale);
 //A Order of Compra can have many Products. Products can have many Order of Compra.(many to many)
-orderBuy.belongsToMany(products, { through: 'orderBuy_Products' });
-products.belongsToMany(orderBuy, { through: 'orderBuy_Products' });
+orderBuy.belongsToMany(products, { through: "orderBuy_Products" });
+products.belongsToMany(orderBuy, { through: "orderBuy_Products" });
 //One category many products. A product can have only one category (one to many).
 categories.hasMany(products);
 products.belongsTo(categories);
@@ -95,10 +97,13 @@ products.hasMany(images);
 images.belongsTo(products);
 //One product has many properties
 products.hasMany(products_properties, {
-    as: 'properties',
-    foreignKey: 'productId',
+    as: "properties",
+    foreignKey: "productId",
 });
 products_properties.belongsTo(products);
+// A products can have a single offers, offers can have many products (one to many).
+offers.hasMany(products);
+products.belongsTo(offers);
 // a user has many purchase orders, and one purchase order belongs to one user
 users.hasMany(orderBuy);
 orderBuy.belongsTo(users);
@@ -110,4 +115,9 @@ products.hasOne(productOrder);
 productOrder.belongsTo(products);
 products.hasMany(ratings);
 ratings.belongsTo(products);
+users.hasMany(ratings);
+ratings.hasOne(users);
+users.hasMany(productOrder);
+productOrder.hasOne(users);
 exports.default = DBcontext;
+//Un comentario de prueba

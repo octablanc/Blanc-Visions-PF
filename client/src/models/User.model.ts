@@ -1,4 +1,4 @@
-import { Role } from './Role.model';
+import { Role } from "./Role.model";
 
 export interface User {
   id: Number | undefined;
