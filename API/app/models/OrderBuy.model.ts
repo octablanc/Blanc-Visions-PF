@@ -14,23 +14,23 @@ export default (sequelize: Sequelize) => {
       },
       state: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
       },
       postalCode: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       street: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       height: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       city: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       dues: {
         type: DataTypes.INTEGER,

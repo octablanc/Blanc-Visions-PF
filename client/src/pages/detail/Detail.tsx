@@ -1,5 +1,5 @@
 //components
-import { Slider } from "./components/Slider/Slider";
+import { Slider } from './components/Slider/Slider';
 //styles
 import {
   Container,
@@ -19,7 +19,8 @@ import { Sales } from '../home/components/Sales/Sales';
 import { FlashMsg } from '../../components/FlashMsg/FlashMsg';
 import { Review } from './components/Review';
 import { addProductCart } from '../../redux/slices/Cart';
-import { Shipping } from "../Shipping/Shipping";
+import { Shipping } from '../Shipping/Shipping';
+import { Features } from '../home/components/Features/Features';
 
 // import Login from "../../components/login/Login";
 
@@ -56,25 +57,27 @@ export const Detail = () => {
 
   useEffect(() => {
     let productReset = {
-             id: 0,
-             name: "",
-             code: "",
-             description: "",
-             image: "",
-             price: 0,
-             priceProm: 0,
-             discount: 0,
-             stock: 0,
-             entrega: "",
-             id_category: 0,
-             state: true,
-             category: "",
-             properties: [],
-             images: [],
-             loading: false,
-          };
+      id: 0,
+      name: '',
+      code: '',
+      description: '',
+      image: '',
+      price: 0,
+      priceProm: 0,
+      discount: 0,
+      stock: 0,
+      entrega: '',
+      id_category: 0,
+      state: true,
+      category: '',
+      properties: [],
+      images: [],
+      loading: false,
+    };
     if (idParams !== undefined) dispatch(getProductById(+idParams));
-    return () => {dispatch(resetDetail(productReset))}
+    return () => {
+      dispatch(resetDetail(productReset));
+    };
     // console.log('MONTANDO');
   }, [dispatch, idParams]);
 
@@ -84,9 +87,10 @@ export const Detail = () => {
   const handleBuy = () => {
     //AGREGUE EL REQUERIMIENTO DE LOGUEO en la linea de abajo
     if (!user) return handleLogin();
-    console.log("COMPRAR AHORA")
+
     const totalPriceProduct =
       discount === 0 ? price : price - (price * discount) / 100;
+
     dispatch(
       addProductCart({
         userId: user?.id,
@@ -94,9 +98,9 @@ export const Detail = () => {
         price: totalPriceProduct,
         productId: id,
       })
-    );   
+    );
     // SHIPPING
-    // setShipping(true);
+    setShipping(true);
   };
 
   const handleCart = () => navigate('/cart');
@@ -113,8 +117,8 @@ export const Detail = () => {
         price: totalPriceProduct,
         productId: id,
       })
-    );   
-    if(navigateCart) return navigate('/cart');    
+    );
+    if (navigateCart) return navigate('/cart');
   };
 
   const handleLogin = () => {
@@ -174,7 +178,7 @@ export const Detail = () => {
                 disabled={!isStock}
               >
                 {findProductCart ? 'Ya agregado' : 'Agregar al carrito'}
-              </Btn>           
+              </Btn>
               {findProductCart ? (
                 <Btn onClick={handleCart}>Ir al carrito</Btn>
               ) : (
@@ -189,7 +193,7 @@ export const Detail = () => {
       </Container>
       <Review ratings={ratings} />
       {shipping ? <Shipping /> : <></>}
-
+      <Features />
       {/* <Sales /> */}
     </div>
   );

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FooterBar = styled.div`
   background: ${props => props.theme.colors.black};
   /* color: ${props => props.theme.colors.white}; */
-  /* color: #777769; */
+  /* color: #cece4e; */
   padding: 2.5rem;
   a,
   span {
@@ -15,6 +15,7 @@ export const FooterBar = styled.div`
 
   h3 {
     color: ${(props): string => props.theme.colors.primary};
+    text-align: center;
   }
 
   .contact svg {
@@ -25,20 +26,28 @@ export const FooterBar = styled.div`
 
 export const GridFooter = styled.div`
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   align-content: center;
   justify-items: center;
+
+  
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   ul li {
     padding-bottom: 1rem;
   }
 
   @media (min-width: 480px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+    gap: 1rem; 
   }
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
+    gap: 1rem;
   }
 `;
 
@@ -72,7 +81,12 @@ export const Btn = styled.button`
 `;
 
 export const Newsletter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

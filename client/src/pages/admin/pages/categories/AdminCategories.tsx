@@ -25,7 +25,10 @@ export const AdminCategories = () => {
 
   return (
     <main className='main'>
-      <button onClick={() => navigate('/dashboard/categories/create')}>
+      <button
+        className='btn'
+        onClick={() => navigate('/dashboard/categories/create')}
+      >
         <BiAddToQueue /> Crear Categoria
       </button>
       <table className='table'>

@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-import { category, data, usersData, roles, ordenBuyArray } from "../utils";
-import {Promise as Promises} from "bluebird";
+import { Request, Response } from 'express';
+import { category, data, usersData, roles, ordenBuyArray } from '../utils';
+import { Promise as Promises } from 'bluebird';
 
 // Data base context import
-import DBcontext from "../../config/ConnectionDB";
+import DBcontext from '../../config/ConnectionDB';
 // import { where } from 'sequelize';
-import { Op } from "sequelize";
+import { Op } from 'sequelize';
 
 // Models
 const Products = DBcontext.models.products;
@@ -40,11 +40,11 @@ export async function getProducts(req: Request, res: Response) {
 
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
-          throw new Error("The fields can only be greater than 0!");
+          throw new Error('The fields can only be greater than 0!');
 
         const { category, name } = req.query;
         const nameLow = name?.toString().toLowerCase();
-        console.log(nameLow, "nameLow");
+        console.log(nameLow, 'nameLow');
 
         const result = await Products.findAll({
           where: {
@@ -63,10 +63,10 @@ export async function getProducts(req: Request, res: Response) {
             },
             {
               model: Properties,
-              as: "properties",
+              as: 'properties',
             },
           ],
-          attributes: { exclude: ["categoryId"] },
+          attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
           order: [[data, order]],
@@ -84,15 +84,15 @@ export async function getProducts(req: Request, res: Response) {
               where: category ? { name: category } : undefined,
             },
           ],
-          attributes: { exclude: ["categoryId"] },
+          attributes: { exclude: ['categoryId'] },
         });
         return res.json({ result, productsLength: productsAll });
       }
-      throw new Error("The fields can only be numbers!");
+      throw new Error('The fields can only be numbers!');
     }
-    throw new Error("Some filed is empty!");
+    throw new Error('Some filed is empty!');
   } catch ({ message }) {
-    console.log("ERROR MSG => ", message);
+    console.log('ERROR MSG => ', message);
     return res.status(400).send({ message });
   }
 }
@@ -105,18 +105,18 @@ export async function bulk(_req: Request, res: Response) {
     await Users.bulkCreate(usersData);
     await Products.bulkCreate(data, {
       include: [
-        { model: Images, as: "images" },
-        { model: Properties, as: "properties" },
-        { model: Ratings, as: "ratings" },
+        { model: Images, as: 'images' },
+        { model: Properties, as: 'properties' },
+        { model: Ratings, as: 'ratings' },
       ],
     });
 
     await OrderBuy.bulkCreate(ordenBuyArray, {
       include: [{ model: ProductOrder }, { model: Products }],
     });
-    return res.status(200).json({ message: "Datos harcodeados" });
+    return res.status(200).json({ message: 'Datos harcodeados' });
   } catch ({ message }) {
-    console.log("MSG ERR => ", message);
+    console.log('MSG ERR => ', message);
     return res.status(400).send({ message });
   }
 }
@@ -132,21 +132,21 @@ export async function getProductById(req: Request, res: Response) {
         },
         {
           model: Properties,
-          as: "properties",
+          as: 'properties',
         },
         {
           model: Images,
         },
         {
           model: Ratings,
-          attributes: { exclude: ["updatedAt"] },
+          attributes: { exclude: ['updatedAt'] },
         },
       ],
 
-      attributes: { exclude: ["categoryId"] },
+      attributes: { exclude: ['categoryId'] },
     });
 
-    if (!result) return res.status(404).send({ message: "Product not found!" });
+    if (!result) return res.status(404).send({ message: 'Product not found!' });
 
     return res.send(result);
   } catch ({ message }) {
@@ -183,7 +183,7 @@ export async function postProduct(req: Request, res: Response) {
         },
         {
           model: Properties,
-          as: "properties",
+          as: 'properties',
         },
         {
           model: Images,
@@ -208,11 +208,11 @@ export async function updateProduct(req: Request, res: Response) {
       include: [
         {
           model: Properties,
-          as: "properties",
+          as: 'properties',
         },
         {
-          model: Images
-        }
+          model: Images,
+        },
       ],
     });
     if (productToUpdate) {
@@ -228,22 +228,26 @@ export async function updateProduct(req: Request, res: Response) {
         }
       });
 
-      await Promises.map(images, (img:any)=> img.destroy());
+      await Promises.map(images, (img: any) => img.destroy());
 
-      await Promises.map(imgs, (img:any)=> Images.create({...img, productId: dataValues.id}));
+      await Promises.map(imgs, (img: any) =>
+        Images.create({ ...img, productId: dataValues.id })
+      );
 
-      return res.send(await Products.findByPk(id, {
-        include: [
-          {
-            model: Properties,
-            as: "properties",
-          },
-          {
-            model: Images
-          }
-        ],
-      }));
-    } else return res.status(404).send({ message: "Product no found!" });
+      return res.send(
+        await Products.findByPk(id, {
+          include: [
+            {
+              model: Properties,
+              as: 'properties',
+            },
+            {
+              model: Images,
+            },
+          ],
+        })
+      );
+    } else return res.status(404).send({ message: 'Product no found!' });
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
@@ -252,14 +256,29 @@ export async function updateProduct(req: Request, res: Response) {
 export async function deleteProduct(req: Request, res: Response) {
   try {
     const { id } = req.params;
-
     const productToDelete = await Products.findByPk(id);
     if (productToDelete) {
       await productToDelete.update({ state: false });
       await productToDelete.save();
-    } else return res.status(404).send({ message: "Product not found!" });
+    } else return res.status(404).send({ message: 'Product not found!' });
 
-    return res.send({ message: "Product has been discharged!" });
+    return res.send({ message: 'Product has been discharged!' });
+  } catch ({ message }) {
+    return res.status(400).send({ message });
+  }
+}
+
+export async function retrieveProduct(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+
+    const productToUpdate = await Products.findByPk(id);
+    if (productToUpdate) {
+      await productToUpdate.update({ state: true });
+      await productToUpdate.save();
+    } else return res.status(404).send({ message: 'Product not found!' });
+
+    return res.send({ message: 'Product has been discharged!' });
   } catch ({ message }) {
     return res.status(400).send({ message });
   }
@@ -293,7 +312,7 @@ export async function paginateProducts(req: Request, res: Response) {
 
       if (page && quantityProducts) {
         if (page < 1 && quantityProducts < 1)
-          throw new Error("The fields can only be greater than 0!");
+          throw new Error('The fields can only be greater than 0!');
 
         const { category, price, name } = req.query;
         const nameLow = name?.toString().toLowerCase();
@@ -322,10 +341,10 @@ export async function paginateProducts(req: Request, res: Response) {
             },
             {
               model: Properties,
-              as: "properties",
+              as: 'properties',
             },
           ],
-          attributes: { exclude: ["categoryId"] },
+          attributes: { exclude: ['categoryId'] },
           offset: quantityProducts * (page - 1),
           limit: quantityProducts,
           order: [[data, order]],
@@ -350,15 +369,15 @@ export async function paginateProducts(req: Request, res: Response) {
               where: category ? { name: category } : undefined,
             },
           ],
-          attributes: { exclude: ["categoryId"] },
+          attributes: { exclude: ['categoryId'] },
         });
         return res.json({ result, productsLength: productsAll });
       }
-      throw new Error("The fields can only be numbers!");
+      throw new Error('The fields can only be numbers!');
     }
-    throw new Error("Some filed is empty!");
+    throw new Error('Some filed is empty!');
   } catch ({ message }) {
-    console.log("ERROR MSG => ", message);
+    console.log('ERROR MSG => ', message);
     return res.status(400).send({ message });
   }
 }
@@ -372,7 +391,7 @@ export async function setProductStock(req: Request, res: Response) {
 
     const productToUpdate = await Products.findByPk(id);
 
-    if (!productToUpdate) return res.json({ message: "Product No existe" });
+    if (!productToUpdate) return res.json({ message: 'Product No existe' });
 
     const stock: number = +productToUpdate.dataValues.stock;
     await productToUpdate.update({ stock: stock - quantity });

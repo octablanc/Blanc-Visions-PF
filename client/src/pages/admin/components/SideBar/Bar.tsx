@@ -78,10 +78,12 @@ export const Bar = () => {
       </ul>
       <ul>
         <Item onClick={handleLogOut}>
-          <Icon>
-            <MdOutlineLogout />
-          </Icon>
-          <span>Cerrar Sesión</span>
+          <div className='flex cursor'>
+            <Icon>
+              <MdOutlineLogout />
+            </Icon>
+            <span>Cerrar Sesión</span>
+          </div>
         </Item>
       </ul>
     </SideBarContainer>

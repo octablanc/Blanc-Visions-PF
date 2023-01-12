@@ -26,7 +26,8 @@ export const Container = styled.div`
   .container__data {
     border-left: 1px solid grey;
     padding-left: 2rem;
-    position: fixed;
+    padding-bottom: 1rem;
+    /* position: fixed; */
     right: 5rem;
     top: 30%;
     width: 25%;
@@ -40,8 +41,8 @@ export const Contain = styled.div`
 `;
 
 export const Div = styled.div`
-  // margin-bottom: 1rem;
-  // padding-bottom: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   gap: 3rem;

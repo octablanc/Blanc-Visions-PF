@@ -43,7 +43,7 @@ export const Checkout = () => {
         <Detail>
           {/* <div> */}
           <div>
-            <h3>Tu compra</h3>
+            <h3>Tu Pedido</h3>
           </div>
           <div className="info">
             {cart?.map((item: any, key: number) => (           
@@ -64,17 +64,17 @@ export const Checkout = () => {
                       <div className="promo">
                         <p className="price">
                           <span>Pagas:</span>
-                          <span>${item.price*(1 - item.Discount/100)}c/u </span>
+                          <span>${item.price*(1 - item.Discount/100)} </span>
                         </p>
                         <p className="priceProm">
                           <span className="priceProm">Antes:</span>
-                          <span className="discount">${item.price}c/u</span>
+                          <span className="discount">${item.price}</span>
                         </p>
                       </div>
                     ) : (
                       <p className="price">
                         <span>Pagas:</span>
-                        <span>${item.price}c/u</span>
+                        <span>${item.price}</span>
                       </p>
                     )}
                     {/* </ul> */}

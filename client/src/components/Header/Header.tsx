@@ -1,5 +1,6 @@
-import logo from '../../assets/logo2.svg';
-import { HiOutlineMagnifyingGlass, BsCart4 } from '../../icons';
+// import logo from '../../assets/logo2.svg';
+import logo from '../../assets/kingcomm.png';
+import { BsCart4 } from '../../icons';
 import { Link, NavLink } from 'react-router-dom';
 import {
   Navbar,
@@ -63,12 +64,14 @@ export const Header = () => {
       <Nav>
         <Navbar className='container'>
           <Link to='/'>
-            <img src={logo} alt='kingcomm' />
+            <img src={logo} className='logo-king' alt='kingcomm' />
           </Link>
 
           <NavMenu>
-            <FormSearch />
-            <FilterCategory />
+            <div className='searchfilter'>
+              <FormSearch />
+              <FilterCategory />
+            </div>
             <NavOptions>
               <li>
                 <NavLink
@@ -101,7 +104,7 @@ export const Header = () => {
                 </NavLink>
               </li>
 
-              {user ? (
+              {user && (
                 <li>
                   <Link to='/cart'>
                     <IconButton aria-label='cart'>
@@ -124,8 +127,6 @@ export const Header = () => {
                     </StyledBadge>
                   </IconButton> */}
                 </li>
-              ) : (
-                <li></li>
               )}
 
               <li>

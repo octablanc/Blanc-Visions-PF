@@ -9,7 +9,7 @@ import {
   BsWhatsapp,
   BsFillTelephoneFill,
   BsGithub,
-} from '../../icons/index';
+} from "../../icons/index";
 import {
   FooterBar,
   GridFooter,
@@ -21,23 +21,22 @@ import {
 import { FlashMsg } from "../FlashMsg/FlashMsg";
 
 export const Footer = () => {
-
   const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
 
-  const [input, setInput] = useState({mail: ''});
+  const [input, setInput] = useState({ mail: "" });
 
-  const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {    
-  setInput({
-    ...input,
-    [e.target.name]: e.target.value
-  })
-  console.log('input:', input) 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    console.log("input:", input);
   };
 
-  const handleSubmit = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // console.log(input);
     e.preventDefault();
     emailjs
@@ -49,44 +48,36 @@ export const Footer = () => {
         (err: any) => {
           console.log("FAILED...", err);
         }
-      );  
-      setSuccess(true)
-      setMsg('Suscripción recibida!')
+      );
+    // setInput("");
+    setSuccess(true);
+    setMsg("Suscripción recibida!");
+    setInput({mail:''});
   };
 
   return (
     <FooterBar>
       <GridFooter className="container">
         <Newsletter>
-          <form>
-            <h4>Recibí las últimas novedades</h4>
-            <Input
-              placeholder="Ingresá tu email"
-              type="email"
-              name="mail"
-              value={input.mail}
-              onChange={handleChange}
-            />
-            <Btn type='submit' onClick={(e) => handleSubmit(e)}>Suscribirme</Btn>
-          </form>
+          <div>
+            <form>
+              <h3>Recibí las últimas novedades</h3>
+              <Input
+                placeholder="Ingresá tu email"
+                type="email"
+                name="mail"
+                value={input.mail}
+                onChange={handleChange}
+              />
+              <Btn type="submit" onClick={(e) => handleSubmit(e)}>
+                Suscribirme
+              </Btn>
+            </form>
+          </div>
+          {success ? <FlashMsg msg={msg}>{msg}</FlashMsg> : ""}
         </Newsletter>
-        {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''}
-        <div>
-          <h3>KingComm</h3>
-          <ul>
-            <li>
-              <Link to="/">Inicio</Link>
-            </li>
-            <li>
-              <Link to="/products">Productos</Link>
-            </li>
-            <li>
-              <Link to="about">Nosotros</Link>
-            </li>
-          </ul>
-        </div>
 
-        <div>
+        <div className="info">
           <h3>Información</h3>
           <ul>
             <li>
@@ -97,20 +88,19 @@ export const Footer = () => {
             </li>
             <li>
               <Link to="/termsyconditions">Términos y Condiciones</Link>
-              <Link to='/termsyconditions'>Términos y condiciones</Link>
             </li>
           </ul>
         </div>
 
-        <div className='contact'>
+        <div className="contact">
           <h3>Contactanos</h3>
           <p>
             <BsFillEnvelopeOpenFill className="icons" />
             <span> info@kingcomm.com</span>
           </p>
           <p>
-            <BsWhatsapp className='icons' />
-            <a href='https://walink.co/bfd3d0' target='_blank' rel='noreferrer'>
+            <BsWhatsapp className="icons" />
+            <a href="https://walink.co/bfd3d0" target="_blank" rel="noreferrer">
               +54 1121838240
             </a>
           </p>
@@ -125,9 +115,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/NOELIAFERRER'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/NOELIAFERRER"
+                target="_blank"
+                rel="noreferrer"
               >
                 Lucas Alegre
               </a>
@@ -135,9 +125,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/octablanc'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/octablanc"
+                target="_blank"
+                rel="noreferrer"
               >
                 Octavio Blanc
               </a>
@@ -145,9 +135,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/F25C'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/F25C"
+                target="_blank"
+                rel="noreferrer"
               >
                 Florencia Caro
               </a>
@@ -155,9 +145,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/NOELIAFERRER'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/NOELIAFERRER"
+                target="_blank"
+                rel="noreferrer"
               >
                 Noelia Ferrer
               </a>
@@ -165,9 +155,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/tomasflores24'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/tomasflores24"
+                target="_blank"
+                rel="noreferrer"
               >
                 Tomas Flores
               </a>
@@ -175,9 +165,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/JohnTicona'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/JohnTicona"
+                target="_blank"
+                rel="noreferrer"
               >
                 John Ticona
               </a>
@@ -185,9 +175,9 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href='https://github.com/Agagus'
-                target='_blank'
-                rel='noreferrer'
+                href="https://github.com/Agagus"
+                target="_blank"
+                rel="noreferrer"
               >
                 Agustina Zanetti
               </a>
