@@ -88,7 +88,6 @@ export const CartDetail = () => {
           <p>Total</p>
         </Titles>
         {cart.map((c) => {
-          console.log('c=>', c);
           const { id, name, discount, price, stock, image } = c.product;
           const priceDiscount: number = price - (price * discount) / 100;
           return (
