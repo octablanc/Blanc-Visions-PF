@@ -27,7 +27,7 @@ export const Container = styled.div`
     border-left: 1px solid grey;
     padding-left: 2rem;
     padding-bottom: 1rem;
-    position: fixed;
+    /* position: fixed; */
     right: 5rem;
     top: 30%;
     width: 25%;
