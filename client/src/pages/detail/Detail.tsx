@@ -96,7 +96,7 @@ export const Detail = () => {
       })
     );   
     // SHIPPING
-    // setShipping(true);
+    setShipping(true);
   };
 
   const handleCart = () => navigate('/cart');
@@ -165,8 +165,7 @@ export const Detail = () => {
               <span className="list">{el.value}</span>
             </ul>
           ))}
-          
-          <p>{isStock ? <></> : 'No hay Stock'}</p>
+          {/* <p>{isStock ? `Disponible : ${stock}` : 'No hay Stock'}</p> */}
           <CartSection>
             <div>
               <Btn

@@ -43,7 +43,7 @@ export const Checkout = () => {
         <Detail>
           {/* <div> */}
           <div>
-            <h3>Tu compra</h3>
+            <h3>Tu Pedido</h3>
           </div>
           <div className="info">
             {cart?.map((item: any, key: number) => (           
