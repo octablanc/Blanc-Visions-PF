@@ -46,7 +46,7 @@ export const Shipping = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  console.log('order:',order)
   const handleClose = (reason: any) => {
     if (reason === "clickaway") {
       return;
@@ -57,72 +57,73 @@ export const Shipping = () => {
  
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("order:", order);
-    console.log("cart:", cart);
-    console.log('user:', user);
+    // console.log("order:", order);
+    // console.log("cart:", cart);
+    // console.log('user:', user);
 
-  //   const orderItems = cart?.map((prod: any) => {  
-  //     console.log(cart)
-  //     return {     
-  //     productId: prod.id,
-  //     quantity: prod.cartQuantity,
-  //     price: prod.price,
-  //     }    
-  // });  
-
-    // const orderBuy = {
-    //   priceTotalDiscount: priceTotalCart,      
-    //   discount: 0, // HARDCODEO EL DISCOUNT PARA QUE NO SALTE ERROR
-    //   state: true,
-    //   postalCode: order.postalCode,
-    //   street: order.street,
-    //   height: order.height,
-    //   city: order.city,
-    //   quantityProducts: quantityTotalCart,
-    //   dues: 1,
-    //   userId: user?.id,
-    //   buy: true,
-    //   // productOrders: orderItems
-    //   productOrders: [
-    //         {
-    //           productId: 1,
-    //           quantity: 10,
-    //           price: 5050,
-    //         },
-    //         {
-    //           productId: 2,
-    //           quantity: 10,
-    //           price: 5050,
-    //         },
-    //       ],
-    // };
-   
+    const orderItems = cart?.map((prod: any) => {  
+      console.log(cart)
+      return {     
+      productId: prod.id,
+      quantity: prod.cartQuantity,
+      price: prod.price,
+      }    
+  });  
 
     const orderBuy = {
-      priceTotalDiscount: 12,
-      discount: 0,
+      priceTotalDiscount: priceTotalCart,      
+      discount: 0, // HARDCODEO EL DISCOUNT PARA QUE NO SALTE ERROR
       state: true,
-      postalCode: 122,
+      postalCode: order.postalCode,
       street: order.street,
-      height: "1234",
-      city: "¿bs as s",
-      quantityProducts: 123,
+      height: order.height,
+      city: order.city,
+      quantityProducts: quantityTotalCart,
       dues: 1,
-      userId: 1,
+      userId: user?.id,
       buy: true,
-      productOrders: [
-        {
-          productId: 1,
-          quantity: 10,
-          price: 5050,
-        },
-        {
-          productId: 2,
-          quantity: 10,
-          price: 5050,
-        },
-      ],
+      productOrders: orderItems
+      // productOrders: [
+      //       {
+      //         productId: 1,
+      //         quantity: 10,
+      //         price: 5050,
+      //       },
+      //       {
+      //         productId: 2,
+      //         quantity: 10,
+      //         price: 5050,
+      //       },
+      //     ],
     };
+   
+    console.log('orderBuy:', orderBuy)
+
+    // const orderBuy = {
+    //   priceTotalDiscount: 12,
+    //   discount: 0,
+    //   state: true,
+    //   postalCode: 122,
+    //   street: order.street,
+    //   height: "1234",
+    //   city: "¿bs as s",
+    //   quantityProducts: 123,
+    //   dues: 1,
+    //   userId: 1,
+    //   buy: true,
+    //   productOrders: [
+    //     {
+    //       productId: 1,
+    //       quantity: 10,
+    //       price: 5050,
+    //     },
+    //     {
+    //       productId: 2,
+    //       quantity: 10,
+    //       price: 5050,
+    //     },
+    //   ],
+    // };
 
 
     //******* MAIL CON INFO DEL CARRITO*************//
