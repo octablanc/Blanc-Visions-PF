@@ -117,7 +117,6 @@ export const Footer = () => {
               <a
                 href="https://github.com/Lucas2022"
                 target="_blank"
-                rel="noreferrer"
               >
                 Lucas Alegre
               </a>
@@ -127,7 +126,6 @@ export const Footer = () => {
               <a
                 href="https://github.com/octablanc"
                 target="_blank"
-                rel="noreferrer"
               >
                 Octavio Blanc
               </a>
