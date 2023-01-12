@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   BsCameraFill,
   HiUsers,
@@ -14,10 +14,20 @@ import {
   Logo,
   SideBarContainer,
 } from './styled-components/styles';
-import img from '../../../../assets/img.png';
 import logo from '../../../../assets/logo2.svg';
+import { useAppSelector } from '../../../../redux/app/hooks';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../../firebase/firebase.config';
 
 export const Bar = () => {
+  const { user } = useAppSelector(state => state.userState);
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    await signOut(auth);
+    navigate('/');
+  };
+
   return (
     <SideBarContainer>
       <Logo>
@@ -25,10 +35,10 @@ export const Bar = () => {
       </Logo>
       <AdminContent>
         <AdminImage>
-          <img src={img} alt='img user' />
+          <img src={user?.imageProfile} alt='img user' />
         </AdminImage>
         <div>
-          <h2>FLORENCIA</h2>
+          <h2>{user?.name}</h2>
           <h4>Administrador</h4>
         </div>
       </AdminContent>
@@ -67,13 +77,11 @@ export const Bar = () => {
         </Item>
       </ul>
       <ul>
-        <Item>
-          <Link to='products'>
-            <Icon>
-              <MdOutlineLogout />
-            </Icon>
-            <span>Cerrar Sesión</span>
-          </Link>
+        <Item onClick={handleLogOut}>
+          <Icon>
+            <MdOutlineLogout />
+          </Icon>
+          <span>Cerrar Sesión</span>
         </Item>
       </ul>
     </SideBarContainer>
