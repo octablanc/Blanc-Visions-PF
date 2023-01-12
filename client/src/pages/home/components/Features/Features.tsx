@@ -1,8 +1,10 @@
-import { TbTruckDelivery } from 'react-icons/tb';
-import { BsFillCreditCard2BackFill } from 'react-icons/bs';
-import { BiSupport } from 'react-icons/bi';
-import { GiPresent } from 'react-icons/gi';
 import styled from 'styled-components';
+import {
+  FaMedal,
+  BiSupport,
+  BsFillCreditCard2BackFill,
+  TbTruckDelivery,
+} from '../../../../icons';
 
 const FeaturesContainer = styled.div`
   margin: 5rem 0;
@@ -84,11 +86,11 @@ export const Features = () => {
 
           <FeatureItem>
             <FeatureIcon>
-              <GiPresent />
+              <FaMedal />
             </FeatureIcon>
             <FeatureContent>
-              <h3>Regalos</h3>
-              <p>Regalos para tus amigos.</p>
+              <h3>Calidad</h3>
+              <p>Los mejores productos a tu disposición</p>
             </FeatureContent>
           </FeatureItem>
         </FeaturesGrid>

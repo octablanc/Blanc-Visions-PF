@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../redux/app/hooks';
 import {
   getAllCategoriesAdmin,
@@ -14,7 +15,9 @@ export const FormProduct = () => {
     state => state.adminState
   );
   const dispatch = useAppDispatch();
-  const [product, setProduct] = useState({
+  const navigate = useNavigate();
+
+  const [product, setProduct] = useState<any>({
     name: '',
     image: '',
     images: [],
@@ -22,64 +25,92 @@ export const FormProduct = () => {
     price: '',
     stock: '',
     discount: '',
-    state: true,
     categoryId: '',
     description: '',
     properties: [],
   });
-  const [formImages, setFormImages] = useState({
+  const [formImages, setFormImages] = useState<any>({
     id: '',
     productId: '',
     url_image: '',
   });
-  const [property, setProperty] = useState({
-    name: '',
-    value: '',
-  });
+  // const [property, setProperty] = useState<any>({
+  //   name: '',
+  //   value: '',
+  // });
 
   const {
     name,
-    image,
     images,
     code,
     price,
     stock,
     discount,
-    state,
     categoryId,
     description,
     properties,
   } = product;
 
-  const handleChange = e => {
+  const handleChange = (e: any) => {
     setProduct({
       ...product,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleChangeProperty = e => {
-    setProperty({
-      ...property,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmitProperty = e => {
-    e.preventDefault();
+  const handleChangePropertyName = (e: any, id: any) => {
     setProduct({
       ...product,
-      properties: [...properties, property],
-    });
-    setProperty({
-      nameP: '',
-      valueP: '',
+      properties: product.properties.map((property: any) => {
+        if (property.id === id) {
+          return {
+            ...property,
+            name: e.target.value,
+          };
+        }
+        return property;
+      }),
     });
   };
 
-  const handleSubmitProduct = e => {
+  const handleChangePropertyValue = (e: any, id: any) => {
+    setProduct({
+      ...product,
+      properties: product.properties.map((property: any) => {
+        if (property.id === id) {
+          return {
+            ...property,
+            value: e.target.value,
+          };
+        }
+        return property;
+      }),
+    });
+  };
+
+  // const handleChangeProperty = (e: any) => {
+  //   setProperty({
+  //     ...property,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  // const handleSubmitProperty = (e: any) => {
+  //   e.preventDefault();
+  //   setProduct({
+  //     ...product,
+  //     properties: [...properties, property],
+  //   });
+  //   setProperty({
+  //     name: '',
+  //     value: '',
+  //   });
+  // };
+
+  const handleSubmitProduct = async (e: any) => {
     e.preventDefault();
-    dispatch(updateProductOfAdmin(currentProduct.id, product));
+    await dispatch(updateProductOfAdmin(currentProduct.id, product));
+    navigate('/dashboard/products');
   };
 
   useEffect(() => {
@@ -107,7 +138,7 @@ export const FormProduct = () => {
         <h2 className='text-center'>Editar Producto</h2>
         <hr />
         {/* <img width={200} height={200} src={image} alt='imagen' /> */}
-        {images.map(image => (
+        {images.map((image: any) => (
           <img width={100} height={100} src={image.url_image} alt='img' />
         ))}
 
@@ -115,14 +146,14 @@ export const FormProduct = () => {
           {/* {error && <Alert>Todos los campos son obligatorios</Alert>} */}
           <div>
             <label>imagenes</label>
-            {images.map(image => (
+            {images.map((image: any) => (
               <input
                 type='text'
                 value={image.url_image}
                 onChange={e =>
                   setProduct({
                     ...product,
-                    images: product.images.map(product => {
+                    images: product.images.map((product: any) => {
                       if (product.id === image.id) {
                         return {
                           ...product,
@@ -215,9 +246,28 @@ export const FormProduct = () => {
               onChange={handleChange}
             ></textarea>
           </div>
+
+          <div>
+            <label>Propiedades: </label>
+            {properties.map((property: any, index: any) => (
+              <div key={index}>
+                <input
+                  type='text'
+                  value={property.name}
+                  onChange={e => handleChangePropertyName(e, property.id)}
+                />
+                <input
+                  type='text'
+                  value={property.value}
+                  onChange={e => handleChangePropertyValue(e, property.id)}
+                />
+              </div>
+            ))}
+          </div>
+
           <input type='submit' value='Editar' />
         </Form>
-        <Form onSubmit={handleSubmitProperty}>
+        {/* <Form onSubmit={handleSubmitProperty}>
           <label>nombre: </label>
           <input
             type='text'
@@ -233,12 +283,7 @@ export const FormProduct = () => {
             onChange={handleChangeProperty}
           />
           <input type='submit' value='agregar' />
-        </Form>
-        {properties.map((property, index) => (
-          <p key={index}>
-            {property.name} --- {property.value}
-          </p>
-        ))}
+        </Form> */}
       </FormContainer>
     </div>
   );

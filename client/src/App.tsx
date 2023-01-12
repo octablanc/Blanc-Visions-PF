@@ -50,11 +50,6 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path='products' element={<Products />} />
-          {/* {userState?.role?.name === 'admin' && (
-        
-            <Route path='/create' element={<CreateProduct />} />
-       
-          )} */}
 
           <Route path='products/:id' element={<Detail />} />
           {userState && <Route path='cart' element={<Cart />} />}
@@ -69,17 +64,22 @@ function App() {
           <Route path='privacy' element={<Privacy />} />
           <Route path='termsyconditions' element={<Terms />} />
         </Route>
-        <Route path='/dashboard' element={<LayoutDashboard />}>
-          <Route path='products' element={<AdminProducts />} />
-          <Route path='products/edit/:id' element={<FormProduct />} />
-          <Route path='products/create' element={<CreateProduct />} />
+        <Route>
+          {userState?.role?.name === 'admin' && (
+            // <Route path='/create' element={<CreateProduct />} />
+            <Route path='/dashboard' element={<LayoutDashboard />}>
+              <Route path='products' element={<AdminProducts />} />
+              <Route path='products/edit/:id' element={<CreateProduct />} />
+              <Route path='products/create' element={<CreateProduct />} />
 
-          <Route path='categories' element={<AdminCategories />} />
-          <Route path='categories/edit/:id' element={<FormCategory />} />
-          <Route path='categories/create' element={<FormCategory />} />
+              <Route path='categories' element={<AdminCategories />} />
+              <Route path='categories/edit/:id' element={<FormCategory />} />
+              <Route path='categories/create' element={<FormCategory />} />
 
-          <Route path='sales' element={<AdminSales />} />
-          <Route index element={<AdminUsers />} />
+              <Route path='sales' element={<AdminSales />} />
+              <Route index element={<AdminUsers />} />
+            </Route>
+          )}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,25 +1,32 @@
 import styled from 'styled-components';
 
 export const FooterBar = styled.div`
-  background: ${(props) => props.theme.colors.black};
-  /* color: ${(props) => props.theme.colors.white}; */
-  color: #777769;
+  background: ${props => props.theme.colors.black};
+  /* color: ${props => props.theme.colors.white}; */
+  /* color: #777769; */
   padding: 2.5rem;
-  a {
-    color: beige;
+  a,
+  span {
+    color: #d0d0d0;
   }
   a:hover {
     text-decoration: underline;
+  }
+
+  h3 {
+    color: ${(props): string => props.theme.colors.primary};
+  }
+
+  .contact svg {
+    margin-right: 0.8rem;
+    color: #d0d0d0;
   }
 `;
 
 export const GridFooter = styled.div`
   display: grid;
   align-content: center;
-  justify-content: center;
   justify-items: center;
-  align-items: center;
-  // background-color: yellow;
   ul li {
     padding-bottom: 1rem;
   }
@@ -36,25 +43,29 @@ export const GridFooter = styled.div`
 `;
 
 export const Icons = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
   p {
-    margin: 0px;
+    margin-top: 0;
+  }
+
+  svg {
+    color: #d0d0d0;
+    margin-right: 0.5rem;
   }
 `;
 
 export const Input = styled.input`
   padding: 1rem;
-  background-color: white;
+  background-color: #d0d0d0;
   margin-bottom: 1rem;
   width: 80%;
   border: none;
 `;
 
 export const Btn = styled.button`
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors.primary};
   padding: 1rem;
   width: 80%;
   border: none;
