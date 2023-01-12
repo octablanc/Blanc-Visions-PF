@@ -1936,7 +1936,7 @@ export const usersData = [
     phone: 234312,
     birthday: 32,
     state: true,
-    roleId: 1,
+    roleId: 2,
     userName: 'agus',
   },
 ];
