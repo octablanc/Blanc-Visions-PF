@@ -118,7 +118,10 @@ export const Detail = () => {
         productId: id,
       })
     );
-    if (navigateCart) return navigate('/cart');
+    // if (navigateCart) return navigate('/cart');
+    if(navigateCart){
+      setTimeout(() => navigate('/cart'), 500);
+    }
   };
 
   const handleLogin = () => {
