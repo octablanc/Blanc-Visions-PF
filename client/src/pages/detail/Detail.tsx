@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
-import { getProductById } from '../../redux/slices/products';
+import { getProductById, resetDetail } from '../../redux/slices/products';
 import Spinner from '../../components/Spinner/Spinner';
 import { Sales } from '../home/components/Sales/Sales';
 import { FlashMsg } from '../../components/FlashMsg/FlashMsg';
@@ -55,8 +55,26 @@ export const Detail = () => {
   const [shipping, setShipping] = useState(false);
 
   useEffect(() => {
+    let productReset = {
+             id: 0,
+             name: "",
+             code: "",
+             description: "",
+             image: "",
+             price: 0,
+             priceProm: 0,
+             discount: 0,
+             stock: 0,
+             entrega: "",
+             id_category: 0,
+             state: true,
+             category: "",
+             properties: [],
+             images: [],
+             loading: false,
+          };
     if (idParams !== undefined) dispatch(getProductById(+idParams));
-    // return () => {resetDetail()}
+    return () => {dispatch(resetDetail(productReset))}
     // console.log('MONTANDO');
   }, [dispatch, idParams]);
 

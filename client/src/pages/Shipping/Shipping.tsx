@@ -17,6 +17,7 @@ import Email from "@mui/icons-material/Email";
 import emailjs from "emailjs-com";
 import { FlashMsg } from "../../components/FlashMsg/FlashMsg";
 import userEvent from "@testing-library/user-event";
+import { Checkout } from "../Checkout/Checkout";
 
 // {cartTotalAmount,cartTotalQuantity,user,cartItems,discount,}
 
@@ -30,7 +31,7 @@ export const Shipping = () => {
   });
 
   const [checkout, setCheckout] = useState(false);
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const { priceTotalCart, quantityTotalCart, cart } = useAppSelector(
     (state) => state.cartState
@@ -52,39 +53,57 @@ export const Shipping = () => {
     }
     setOpen(false);
   };
-
+  
+ 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("order:", order);
-    console.log("orderBuy:", cart);
+    console.log("cart:", cart);
     console.log('user:', user);
+
+  //   const orderItems = cart?.map((prod: any) => {  
+  //     console.log(cart)
+  //     return {     
+  //     productId: prod.id,
+  //     quantity: prod.cartQuantity,
+  //     price: prod.price,
+  //     }    
+  // });  
+
     // const orderBuy = {
-    //   priceTotalDiscount: cartTotalAmount,
-    //   discount: discount,
+    //   priceTotalDiscount: priceTotalCart,      
+    //   discount: 0, // HARDCODEO EL DISCOUNT PARA QUE NO SALTE ERROR
     //   state: true,
     //   postalCode: order.postalCode,
     //   street: order.street,
     //   height: order.height,
     //   city: order.city,
-    //   quantityProducts: cartTotalQuantity,
+    //   quantityProducts: quantityTotalCart,
     //   dues: 1,
     //   userId: user?.id,
     //   buy: true,
-    //   productOrders: cartItems?.map((prod: any) => {
-    //     return {
-    //       productId: prod.id,
-    //       quantity: prod.cartQuantity,
-    //       price: prod.price,
-    //     };
-    //   }),
+    //   // productOrders: orderItems
+    //   productOrders: [
+    //         {
+    //           productId: 1,
+    //           quantity: 10,
+    //           price: 5050,
+    //         },
+    //         {
+    //           productId: 2,
+    //           quantity: 10,
+    //           price: 5050,
+    //         },
+    //       ],
     // };
+   
 
     const orderBuy = {
       priceTotalDiscount: 12,
       discount: 0,
       state: true,
       postalCode: 122,
-      street: "calalal",
+      street: order.street,
       height: "1234",
       city: "¿bs as s",
       quantityProducts: 123,
@@ -105,6 +124,8 @@ export const Shipping = () => {
       ],
     };
 
+
+    //******* MAIL CON INFO DEL CARRITO*************//
     // const cartUser = cart?.map((el) => {
     //   return {        
     //     quantity: el.quantity,
@@ -112,35 +133,35 @@ export const Shipping = () => {
     //   };
     // });
 
-    console.log("cart:", cart);
-    // })
-    const preOrder = {      
-      name: user?.name,
-      mail: user?.mail, 
-      total: priceTotalCart,
-      quantity: quantityTotalCart,
-      address: `${order.street} ${order.height}, ${order.city}`,
-    };
-    // mailConfirmation(): Promise<any>{
-    // { return new Promise((resolve, reject) => {
-    console.log("preOrder:", preOrder);
+    // console.log("cart:", cart);
+    // // })
+    // const preOrder = {      
+    //   name: user?.name,
+    //   mail: user?.mail, 
+    //   total: priceTotalCart,
+    //   quantity: quantityTotalCart,
+    //   address: `${order.street} ${order.height}, ${order.city}`,
+    // };
+    // // mailConfirmation(): Promise<any>{
+    // // { return new Promise((resolve, reject) => {
+    // console.log("preOrder:", preOrder);
 
-    emailjs
-      .send(
-        "service_dpfn6c5",
-        "template_4kkblqa",
-        preOrder,
-        "JYjoaKNcqXdcfIf3D"
-      )
-      .then(
-        (response: any) => {
-          console.log("SUCCESS!", response.status, response.text);
-          setSuccess(true);
-        },
-        (err: any) => {
-          console.log("FAILED...", err);
-        }
-      );
+    // emailjs
+    //   .send(
+    //     "service_dpfn6c5",
+    //     "template_4kkblqa",
+    //     preOrder,
+    //     "JYjoaKNcqXdcfIf3D"
+    //   )
+    //   .then(
+    //     (response: any) => {
+    //       console.log("SUCCESS!", response.status, response.text);
+    //       setSuccess(true);
+    //     },
+    //     (err: any) => {
+    //       console.log("FAILED...", err);
+    //     }
+    //   );
     // })
 
     postOrderBuy(orderBuy);
@@ -216,14 +237,15 @@ export const Shipping = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleSubmit}
+          <Button            
+            onClick={handleSubmit}            
             color="primary"
             sx={{ width: "100%", fontSize: 12 }}
           >
             Continuar con la compra
           </Button>
-          {success && <FlashMsg></FlashMsg>}
+          {/* {success && <FlashMsg></FlashMsg>}   */}
+          {/* {checkout && <Checkout order={order}></Checkout>}       */}
         </DialogActions>
       </Dialog>
     </div>
