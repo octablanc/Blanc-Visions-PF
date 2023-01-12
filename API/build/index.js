@@ -41,7 +41,6 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv = __importStar(require("dotenv"));
 const ConnectionDB_1 = __importDefault(require("./config/ConnectionDB"));
 const routes_1 = __importDefault(require("./app/routes"));
-// import axios from 'axios';
 const mercadopago = require('mercadopago');
 const body_parser_1 = __importDefault(require("body-parser"));
 module.exports = (function runApp() {
@@ -146,7 +145,7 @@ module.exports = (function runApp() {
         }
     }));
     // Makes the connection to the data base.
-    ConnectionDB_1.default.sync({ force: true }).then(() => {
+    ConnectionDB_1.default.sync({ force: false }).then(() => {
         app.listen(PORT, () => {
             console.log('Server listening ' + BACKEND_URL);
             // setTimeout(()=> axios.post(`${BACKEND_URL}/products/bulk`, {}), parseInt(TIMEOUT_BACKEND? TIMEOUT_BACKEND : '30000'));

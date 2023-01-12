@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setProductStock = exports.paginateProducts = exports.deleteProduct = exports.updateProduct = exports.postProduct = exports.getProductById = exports.bulk = exports.getProducts = void 0;
+exports.setProductStock = exports.paginateProducts = exports.retrieveProduct = exports.deleteProduct = exports.updateProduct = exports.postProduct = exports.getProductById = exports.bulk = exports.getProducts = void 0;
 const utils_1 = require("../utils");
 const bluebird_1 = require("bluebird");
 // Data base context import
@@ -48,10 +48,10 @@ function getProducts(req, res) {
                 const order = req.query.order.toString();
                 if (page && quantityProducts) {
                     if (page < 1 && quantityProducts < 1)
-                        throw new Error("The fields can only be greater than 0!");
+                        throw new Error('The fields can only be greater than 0!');
                     const { category, name } = req.query;
                     const nameLow = name === null || name === void 0 ? void 0 : name.toString().toLowerCase();
-                    console.log(nameLow, "nameLow");
+                    console.log(nameLow, 'nameLow');
                     const result = yield Products.findAll({
                         where: {
                             name: {
@@ -69,10 +69,10 @@ function getProducts(req, res) {
                             },
                             {
                                 model: Properties,
-                                as: "properties",
+                                as: 'properties',
                             },
                         ],
-                        attributes: { exclude: ["categoryId"] },
+                        attributes: { exclude: ['categoryId'] },
                         offset: quantityProducts * (page - 1),
                         limit: quantityProducts,
                         order: [[data, order]],
@@ -89,16 +89,16 @@ function getProducts(req, res) {
                                 where: category ? { name: category } : undefined,
                             },
                         ],
-                        attributes: { exclude: ["categoryId"] },
+                        attributes: { exclude: ['categoryId'] },
                     });
                     return res.json({ result, productsLength: productsAll });
                 }
-                throw new Error("The fields can only be numbers!");
+                throw new Error('The fields can only be numbers!');
             }
-            throw new Error("Some filed is empty!");
+            throw new Error('Some filed is empty!');
         }
         catch ({ message }) {
-            console.log("ERROR MSG => ", message);
+            console.log('ERROR MSG => ', message);
             return res.status(400).send({ message });
         }
     });
@@ -112,18 +112,18 @@ function bulk(_req, res) {
             yield Users.bulkCreate(utils_1.usersData);
             yield Products.bulkCreate(utils_1.data, {
                 include: [
-                    { model: Images, as: "images" },
-                    { model: Properties, as: "properties" },
-                    { model: Ratings, as: "ratings" },
+                    { model: Images, as: 'images' },
+                    { model: Properties, as: 'properties' },
+                    { model: Ratings, as: 'ratings' },
                 ],
             });
             yield OrderBuy.bulkCreate(utils_1.ordenBuyArray, {
                 include: [{ model: ProductOrder }, { model: Products }],
             });
-            return res.status(200).json({ message: "Datos harcodeados" });
+            return res.status(200).json({ message: 'Datos harcodeados' });
         }
         catch ({ message }) {
-            console.log("MSG ERR => ", message);
+            console.log('MSG ERR => ', message);
             return res.status(400).send({ message });
         }
     });
@@ -140,20 +140,20 @@ function getProductById(req, res) {
                     },
                     {
                         model: Properties,
-                        as: "properties",
+                        as: 'properties',
                     },
                     {
                         model: Images,
                     },
                     {
                         model: Ratings,
-                        attributes: { exclude: ["updatedAt"] },
+                        attributes: { exclude: ['updatedAt'] },
                     },
                 ],
-                attributes: { exclude: ["categoryId"] },
+                attributes: { exclude: ['categoryId'] },
             });
             if (!result)
-                return res.status(404).send({ message: "Product not found!" });
+                return res.status(404).send({ message: 'Product not found!' });
             return res.send(result);
         }
         catch ({ message }) {
@@ -189,7 +189,7 @@ function postProduct(req, res) {
                     },
                     {
                         model: Properties,
-                        as: "properties",
+                        as: 'properties',
                     },
                     {
                         model: Images,
@@ -216,11 +216,11 @@ function updateProduct(req, res) {
                 include: [
                     {
                         model: Properties,
-                        as: "properties",
+                        as: 'properties',
                     },
                     {
-                        model: Images
-                    }
+                        model: Images,
+                    },
                 ],
             });
             if (productToUpdate) {
@@ -241,16 +241,16 @@ function updateProduct(req, res) {
                     include: [
                         {
                             model: Properties,
-                            as: "properties",
+                            as: 'properties',
                         },
                         {
-                            model: Images
-                        }
+                            model: Images,
+                        },
                     ],
                 }));
             }
             else
-                return res.status(404).send({ message: "Product no found!" });
+                return res.status(404).send({ message: 'Product no found!' });
         }
         catch ({ message }) {
             return res.status(400).send({ message });
@@ -268,8 +268,8 @@ function deleteProduct(req, res) {
                 yield productToDelete.save();
             }
             else
-                return res.status(404).send({ message: "Product not found!" });
-            return res.send({ message: "Product has been discharged!" });
+                return res.status(404).send({ message: 'Product not found!' });
+            return res.send({ message: 'Product has been discharged!' });
         }
         catch ({ message }) {
             return res.status(400).send({ message });
@@ -277,6 +277,25 @@ function deleteProduct(req, res) {
     });
 }
 exports.deleteProduct = deleteProduct;
+function retrieveProduct(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.params;
+            const productToUpdate = yield Products.findByPk(id);
+            if (productToUpdate) {
+                yield productToUpdate.update({ state: true });
+                yield productToUpdate.save();
+            }
+            else
+                return res.status(404).send({ message: 'Product not found!' });
+            return res.send({ message: 'Product has been discharged!' });
+        }
+        catch ({ message }) {
+            return res.status(400).send({ message });
+        }
+    });
+}
+exports.retrieveProduct = retrieveProduct;
 /*
 order : ASC | DESC
 data : id | price | discount
@@ -303,7 +322,7 @@ function paginateProducts(req, res) {
                 const order = req.query.order.toString();
                 if (page && quantityProducts) {
                     if (page < 1 && quantityProducts < 1)
-                        throw new Error("The fields can only be greater than 0!");
+                        throw new Error('The fields can only be greater than 0!');
                     const { category, price, name } = req.query;
                     const nameLow = name === null || name === void 0 ? void 0 : name.toString().toLowerCase();
                     const result = yield Products.findAll({
@@ -330,10 +349,10 @@ function paginateProducts(req, res) {
                             },
                             {
                                 model: Properties,
-                                as: "properties",
+                                as: 'properties',
                             },
                         ],
-                        attributes: { exclude: ["categoryId"] },
+                        attributes: { exclude: ['categoryId'] },
                         offset: quantityProducts * (page - 1),
                         limit: quantityProducts,
                         order: [[data, order]],
@@ -357,16 +376,16 @@ function paginateProducts(req, res) {
                                 where: category ? { name: category } : undefined,
                             },
                         ],
-                        attributes: { exclude: ["categoryId"] },
+                        attributes: { exclude: ['categoryId'] },
                     });
                     return res.json({ result, productsLength: productsAll });
                 }
-                throw new Error("The fields can only be numbers!");
+                throw new Error('The fields can only be numbers!');
             }
-            throw new Error("Some filed is empty!");
+            throw new Error('Some filed is empty!');
         }
         catch ({ message }) {
-            console.log("ERROR MSG => ", message);
+            console.log('ERROR MSG => ', message);
             return res.status(400).send({ message });
         }
     });
@@ -380,7 +399,7 @@ function setProductStock(req, res) {
             const quantity = +req.body.quantity;
             const productToUpdate = yield Products.findByPk(id);
             if (!productToUpdate)
-                return res.json({ message: "Product No existe" });
+                return res.json({ message: 'Product No existe' });
             const stock = +productToUpdate.dataValues.stock;
             yield productToUpdate.update({ stock: stock - quantity });
             yield productToUpdate.save();
