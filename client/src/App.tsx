@@ -30,6 +30,7 @@ import {
   AdminUsers,
 } from './pages/admin/pages';
 import { FormCategory } from './pages/admin/pages/categories/FormCategory';
+import { FormProduct } from './pages/admin/pages/products/FormProduct';
 
 function App() {
   const userState = useAppSelector(({ userState }) => userState.user);
@@ -37,7 +38,7 @@ function App() {
 
   // Set the user logged in the start
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async user => {
       if (user && !userState) dispatch(getUser(user.email));
       if (!user) dispatch(getUser(user));
     });

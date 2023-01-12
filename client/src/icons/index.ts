@@ -8,6 +8,7 @@ export {
   BsCamera,
   BsCameraFill,
   BsListUl,
+  BsGithub,
 } from 'react-icons/bs';
 
 export {

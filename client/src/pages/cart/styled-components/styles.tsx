@@ -3,23 +3,31 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   position: relative;
+  img {
+    width: 10rem;
+    margin: 2rem;
+  }
 
   .container__products__cart {
+    // display: grid;
+    // grid-template-columns: 3fr 1fr 1fr 1fr;
     // background-color: lightgray;
-    border: 1px solid black;
-    width: 75%;
+    // border: 1px solid black;
+    width: 70%;
   }
   .container__un__product {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
   }
   .img__pcart {
     width: 12rem;
   }
 
   .container__data {
-    border: 1px solid black;
+    border-left: 1px solid grey;
+    padding-left: 2rem;
     position: fixed;
-    right: 0;
+    right: 5rem;
     top: 30%;
     width: 25%;
   }
@@ -33,7 +41,7 @@ export const Contain = styled.div`
 
 export const Div = styled.div`
   // margin-bottom: 1rem;
-  padding-bottom: 1rem;
+  // padding-bottom: 1rem;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   gap: 3rem;
@@ -49,7 +57,8 @@ export const Div = styled.div`
     color: grey;
     font-size: 1.2rem;
     display: flex;
-    align-content: space-between;
+    justify-content: center;
+    // align-content: center;
   }
   .priceProm {
     text-decoration: line-through;
@@ -62,7 +71,7 @@ export const Titles = styled.div`
   gap: 3rem;
   align-items: center;
   justify-items: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 `;
 
 export const Div2 = styled.div`
@@ -73,6 +82,8 @@ export const Div2 = styled.div`
 `;
 
 export const Product = styled.div`
+  // padding-bottom: 0px;
+  // padding-top: 0px;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
@@ -85,6 +96,17 @@ export const Quantity = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+
+export const Stock = styled.div`
+  /* background: yellow; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+  font-size: 1.2rem;
 `;
 
 export const Operators = styled.div`
@@ -126,6 +148,7 @@ export const TotalDiv = styled.div`
 `;
 
 export const Line = styled.div`
+  padding: 0px 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
