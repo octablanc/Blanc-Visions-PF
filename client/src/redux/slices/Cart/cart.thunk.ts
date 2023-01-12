@@ -50,7 +50,6 @@ export const getCartUser = (id: any) => {
         )
       ).data;
       dispatch(addProductCartState(cart.productsOrderUser));
-
     } catch (err) {
       console.log('Err ACtion =>', { err });
     }
@@ -108,6 +107,23 @@ export const deleteCartUser = (id: any) => {
         dispatch(setLoading(false));
         dispatch(setUpdate());
       }, 450);
+    }
+  };
+};
+
+export const setStockProduct = (arrCart: any) => {
+  return async (dispatch: any) => {
+    try {
+      arrCart.forEach(async(c: any) => {
+        await axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/products/stock/${c.productId}`,
+          {
+            quantity: c.quantity
+          }
+        );
+      });
+    } catch (err) {
+      console.log('Err ACtion =>', { err });
     }
   };
 };

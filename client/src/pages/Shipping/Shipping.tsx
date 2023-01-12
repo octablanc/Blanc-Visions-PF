@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 //material ui
 import {
   Button,
@@ -7,36 +7,37 @@ import {
   DialogContentText,
   DialogContent,
   DialogActions,
-} from "@mui/material";
-import TextField from "@mui/material/TextField";
+} from '@mui/material';
+import TextField from '@mui/material/TextField';
 //redux
-import { postOrderBuy } from "../../services/services";
-import { useAppSelector } from "../../redux/app/hooks";
-import Email from "@mui/icons-material/Email";
+import { postOrderBuy } from '../../services/services';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
+import Email from '@mui/icons-material/Email';
 //emailjs
-import emailjs from "emailjs-com";
-import { FlashMsg } from "../../components/FlashMsg/FlashMsg";
-import userEvent from "@testing-library/user-event";
-import { Checkout } from "../Checkout/Checkout";
+import emailjs from 'emailjs-com';
+import { FlashMsg } from '../../components/FlashMsg/FlashMsg';
+import userEvent from '@testing-library/user-event';
+import { Checkout } from '../Checkout/Checkout';
+import { setStockProduct } from '../../redux/slices/Cart';
 
 // {cartTotalAmount,cartTotalQuantity,user,cartItems,discount,}
 
 export const Shipping = () => {
   const [open, setOpen] = useState(true);
   const [order, setOrder] = useState({
-    postalCode: "",
-    street: "",
-    height: "",
-    city: "",
+    postalCode: '',
+    street: '',
+    height: '',
+    city: '',
   });
-
+  const dispatch = useAppDispatch();
   const [checkout, setCheckout] = useState(false);
   // const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const { priceTotalCart, quantityTotalCart, cart } = useAppSelector(
     (state) => state.cartState
   );
-  const { user } = useAppSelector((state) => state.userState);
+  const { user } = useAppSelector((state:any) => state.userState);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | null>
@@ -47,22 +48,21 @@ export const Shipping = () => {
     });
   };
   const handleClose = (reason: any) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
   };
-  
- 
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const orderItems = cart?.map((prod: any) => {  
+    const orderItems = cart?.map((prod: any) => {
       return {
-      productId: prod.productId,
-      quantity: prod.quantity,
-      price: prod.price,
-      }
-  });  
+        productId: prod.productId,
+        quantity: prod.quantity,
+        price: prod.price,
+      };
+    });
     const orderBuy = {
       priceTotalDiscount: priceTotalCart,
       discount: 0, // HARDCODEO EL DISCOUNT PARA QUE NO SALTE ERROR
@@ -75,7 +75,7 @@ export const Shipping = () => {
       dues: 1,
       userId: user?.id,
       buy: true,
-      productOrders: orderItems
+      productOrders: orderItems,
       // productOrders: [
       //       {
       //         productId: 1,
@@ -89,84 +89,25 @@ export const Shipping = () => {
       //       },
       //     ],
     };
-   
-    // console.log('orderBuy:', orderBuy)
-
-    // const orderBuy = {
-    //   priceTotalDiscount: 12,
-    //   discount: 0,
-    //   state: true,
-    //   postalCode: 122,
-    //   street: order.street,
-    //   height: "1234",
-    //   city: "¿bs as s",
-    //   quantityProducts: 123,
-    //   dues: 1,
-    //   userId: 1,
-    //   buy: true,
-    //   productOrders: [
-    //     {
-    //       productId: 1,
-    //       quantity: 10,
-    //       price: 5050,
-    //     },
-    //     {
-    //       productId: 2,
-    //       quantity: 10,
-    //       price: 5050,
-    //     },
-    //   ],
-    // };
-
-
-    //******* MAIL CON INFO DEL CARRITO*************//
-    // const cartUser = cart?.map((el) => {
-    //   return {        
-    //     quantity: el.quantity,
-    //     description: el.product.name,        
-    //   };
-    // });
-
-    // console.log("cart:", cart);
-    // // })
-    // const preOrder = {      
-    //   name: user?.name,
-    //   mail: user?.mail, 
-    //   total: priceTotalCart,
-    //   quantity: quantityTotalCart,
-    //   address: `${order.street} ${order.height}, ${order.city}`,
-    // };
-    // // mailConfirmation(): Promise<any>{
-    // // { return new Promise((resolve, reject) => {
-    // console.log("preOrder:", preOrder);
-
-    // emailjs
-    //   .send(
-    //     "service_dpfn6c5",
-    //     "template_4kkblqa",
-    //     preOrder,
-    //     "JYjoaKNcqXdcfIf3D"
-    //   )
-    //   .then(
-    //     (response: any) => {
-    //       console.log("SUCCESS!", response.status, response.text);
-    //       setSuccess(true);
-    //     },
-    //     (err: any) => {
-    //       console.log("FAILED...", err);
-    //     }
-    //   );
-    // })
-
+    dispatch(
+      setStockProduct(
+        orderItems.map((c) => {
+          return {
+            productId: c.productId,
+            quantity: c.quantity,
+          };
+        })
+      )
+    );
     postOrderBuy(orderBuy);
     setOrder({
-      postalCode: "",
-      street: "",
-      height: "",
-      city: "",
+      postalCode: '',
+      street: '',
+      height: '',
+      city: '',
     });
     setCheckout(true);
-    navigate("/checkout");
+    navigate('/checkout');
   };
 
   return (
@@ -179,7 +120,7 @@ export const Shipping = () => {
       >
         {/* <DialogTitle id="form-dialog-title">Domicilio</DialogTitle> */}
         <DialogContent>
-          <DialogContentText sx={{ width: "100%", fontSize: 18 }}>
+          <DialogContentText sx={{ width: '100%', fontSize: 18 }}>
             Completar los datos para envío a domicilio
           </DialogContentText>
 
@@ -192,7 +133,7 @@ export const Shipping = () => {
             value={order.postalCode}
             fullWidth
             onChange={(e) => handleChange(e)}
-            sx={{ width: "100%", fontSize: 18 }}
+            sx={{ width: '100%', fontSize: 18 }}
           />
 
           <TextField
@@ -204,7 +145,7 @@ export const Shipping = () => {
             value={order.street}
             fullWidth
             onChange={(e) => handleChange(e)}
-            sx={{ width: "100%", fontSize: 18 }}
+            sx={{ width: '100%', fontSize: 18 }}
           />
 
           <TextField
@@ -216,7 +157,7 @@ export const Shipping = () => {
             value={order.height}
             fullWidth
             onChange={(e) => handleChange(e)}
-            sx={{ width: "100%", fontSize: 18 }}
+            sx={{ width: '100%', fontSize: 18 }}
           />
           <TextField
             id="city"
@@ -227,14 +168,14 @@ export const Shipping = () => {
             value={order.city}
             fullWidth
             onChange={(e) => handleChange(e)}
-            sx={{ width: "100%", fontSize: 18 }}
+            sx={{ width: '100%', fontSize: 18 }}
           />
         </DialogContent>
         <DialogActions>
-          <Button            
-            onClick={handleSubmit}            
+          <Button
+            onClick={handleSubmit}
             color="primary"
-            sx={{ width: "100%", fontSize: 12 }}
+            sx={{ width: '100%', fontSize: 12 }}
           >
             Continuar con la compra
           </Button>

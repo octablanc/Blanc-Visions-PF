@@ -61,7 +61,7 @@ export const Footer = () => {
         <Newsletter>
           <div>
             <form>
-              {/* <h3>Recibí las últimas novedades</h3> */}
+              <h3>Recibí las últimas novedades</h3>
               <Input
                 placeholder="Ingresá tu email"
                 type="email"

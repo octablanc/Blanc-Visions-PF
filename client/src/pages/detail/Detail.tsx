@@ -1,5 +1,5 @@
 //components
-import { Slider } from "./components/Slider/Slider";
+import { Slider } from './components/Slider/Slider';
 //styles
 import {
   Container,
@@ -7,20 +7,20 @@ import {
   Info,
   CartSection,
   Btn,
-} from "./styled-components/Detail";
+} from './styled-components/Detail';
 
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
-import { getProductById, resetDetail } from "../../redux/slices/products";
-import Spinner from "../../components/Spinner/Spinner";
-import { Sales } from "../home/components/Sales/Sales";
-import { FlashMsg } from "../../components/FlashMsg/FlashMsg";
-import { Review } from "./components/Review";
-import { addProductCart } from "../../redux/slices/Cart";
-import { Shipping } from "../Shipping/Shipping";
-import { Features } from "../home/components/Features/Features";
+import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
+import { getProductById, resetDetail } from '../../redux/slices/products';
+import Spinner from '../../components/Spinner/Spinner';
+import { Sales } from '../home/components/Sales/Sales';
+import { FlashMsg } from '../../components/FlashMsg/FlashMsg';
+import { Review } from './components/Review';
+import { addProductCart } from '../../redux/slices/Cart';
+import { Shipping } from '../Shipping/Shipping';
+import { Features } from '../home/components/Features/Features';
 
 // import Login from "../../components/login/Login";
 
@@ -52,24 +52,24 @@ export const Detail = () => {
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
   const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
   const [shipping, setShipping] = useState(false);
 
   useEffect(() => {
     let productReset = {
       id: 0,
-      name: "",
-      code: "",
-      description: "",
-      image: "",
+      name: '',
+      code: '',
+      description: '',
+      image: '',
       price: 0,
       priceProm: 0,
       discount: 0,
       stock: 0,
-      entrega: "",
+      entrega: '',
       id_category: 0,
       state: true,
-      category: "",
+      category: '',
       properties: [],
       images: [],
       loading: false,
@@ -87,9 +87,10 @@ export const Detail = () => {
   const handleBuy = () => {
     //AGREGUE EL REQUERIMIENTO DE LOGUEO en la linea de abajo
     if (!user) return handleLogin();
-    console.log("COMPRAR AHORA");
+
     const totalPriceProduct =
       discount === 0 ? price : price - (price * discount) / 100;
+
     dispatch(
       addProductCart({
         userId: user?.id,
@@ -102,7 +103,7 @@ export const Detail = () => {
     setShipping(true);
   };
 
-  const handleCart = () => navigate("/cart");
+  const handleCart = () => navigate('/cart');
   const handleAddToCart = (navigateCart: boolean) => {
     if (!user) return handleLogin();
 
@@ -117,12 +118,12 @@ export const Detail = () => {
         productId: id,
       })
     );
-    if (navigateCart) return navigate("/cart");
+    if (navigateCart) return navigate('/cart');
   };
 
   const handleLogin = () => {
     setSuccess(true);
-    setMsg("login");
+    setMsg('login');
   };
 
   if (loading) return <Spinner />;
@@ -168,7 +169,7 @@ export const Detail = () => {
               <span className="list">{el.value}</span>
             </ul>
           ))}
-          {/* <p>{isStock ? `Disponible : ${stock}` : 'No hay Stock'}</p> */}
+          <p>{isStock ? `Disponible : ${stock}` : 'No hay Stock'}</p>
           <CartSection>
             <div>
               <Btn
@@ -176,7 +177,7 @@ export const Detail = () => {
                 onClick={() => handleAddToCart(true)}
                 disabled={!isStock}
               >
-                {findProductCart ? "Ya agregado" : "Agregar al carrito"}
+                {findProductCart ? 'Ya agregado' : 'Agregar al carrito'}
               </Btn>
               {findProductCart ? (
                 <Btn onClick={handleCart}>Ir al carrito</Btn>
