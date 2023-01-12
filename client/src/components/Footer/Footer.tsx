@@ -72,6 +72,7 @@ export const Footer = () => {
         </Newsletter>
         {success ? <FlashMsg msg={msg}>{msg}</FlashMsg>: ''}
         <div>
+          <h3>KingComm</h3>
           <ul>
             <li>
               <Link to="/">Inicio</Link>
@@ -101,15 +102,17 @@ export const Footer = () => {
           </ul>
         </div>
 
-        <div>
+        <div className='contact'>
           <h3>Contactanos</h3>
           <p>
             <BsFillEnvelopeOpenFill className="icons" />
             <span> info@kingcomm.com</span>
           </p>
           <p>
-            <BsWhatsapp className="icons" />
-            <a href="https://walink.co/bfd3d0"> +54 1121838240</a>
+            <BsWhatsapp className='icons' />
+            <a href='https://walink.co/bfd3d0' target='_blank' rel='noreferrer'>
+              +54 1121838240
+            </a>
           </p>
           <p>
             <BsFillTelephoneFill className="icons" />
@@ -117,35 +120,77 @@ export const Footer = () => {
           </p>
         </div>
         <div>
-          <p>Desarrollado por</p>
-          {/* <p></p> */}
+          <h3>Desarrollado por</h3>
           <Icons>
             <p>
-              <BsGithub />{' '}
-              <a href='https://github.com/NOELIAFERRER'>Lucas Alegre</a>
+              <BsGithub />
+              <a
+                href='https://github.com/NOELIAFERRER'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Lucas Alegre
+              </a>
             </p>
             <p>
-              <BsGithub />{' '}
-              <a href='https://github.com/octablanc'>Octavio Blanc</a>
+              <BsGithub />
+              <a
+                href='https://github.com/octablanc'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Octavio Blanc
+              </a>
             </p>
             <p>
-              <BsGithub /> <a href='https://github.com/F25C'>Florencia Caro</a>
+              <BsGithub />
+              <a
+                href='https://github.com/F25C'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Florencia Caro
+              </a>
             </p>
             <p>
-              <BsGithub />{' '}
-              <a href='https://github.com/NOELIAFERRER'>Noelia Ferrer</a>
+              <BsGithub />
+              <a
+                href='https://github.com/NOELIAFERRER'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Noelia Ferrer
+              </a>
             </p>
             <p>
-              <BsGithub />{' '}
-              <a href='https://github.com/tomasflores24'>Tomas Flores</a>
+              <BsGithub />
+              <a
+                href='https://github.com/tomasflores24'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Tomas Flores
+              </a>
             </p>
             <p>
-              <BsGithub />{' '}
-              <a href='https://github.com/JohnTicona'>John Ticona</a>
+              <BsGithub />
+              <a
+                href='https://github.com/JohnTicona'
+                target='_blank'
+                rel='noreferrer'
+              >
+                John Ticona
+              </a>
             </p>
             <p>
-              <BsGithub />{' '}
-              <a href='https://github.com/Agagus'>Agustina Zanetti</a>
+              <BsGithub />
+              <a
+                href='https://github.com/Agagus'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Agustina Zanetti
+              </a>
             </p>
           </Icons>
         </div>

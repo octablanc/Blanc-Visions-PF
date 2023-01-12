@@ -9,6 +9,7 @@ export {
   BsCameraFill,
   BsListUl,
   BsGithub,
+  BsFillCreditCard2BackFill,
 } from 'react-icons/bs';
 
 export {
@@ -18,5 +19,6 @@ export {
 } from 'react-icons/md';
 
 export { HiUsers, HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-export { FaMoneyBillAlt, FaEdit, FaListUl } from 'react-icons/fa';
-export { BiAddToQueue } from 'react-icons/bi';
+export { FaMoneyBillAlt, FaEdit, FaListUl, FaMedal } from 'react-icons/fa';
+export { BiAddToQueue, BiSupport } from 'react-icons/bi';
+export { TbTruckDelivery } from 'react-icons/tb';

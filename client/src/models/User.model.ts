@@ -4,7 +4,7 @@ export interface User {
   id: Number | undefined;
   name: String | undefined;
   lastName: String | undefined;
-  imageProfile: String | undefined;
+  imageProfile: undefined | string;
   phone: Number | undefined;
   mail: String | undefined;
   password: String | undefined;
