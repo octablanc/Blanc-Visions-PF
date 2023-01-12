@@ -58,7 +58,7 @@ export const Footer = () => {
       <GridFooter className='container'>
         <Newsletter>
           <form>
-            <h4>Recibí las últimas novedades</h4>
+            <h3>Recibí las últimas novedades</h3>
             <Input
               placeholder='Ingresá tu email'
               type='email'
@@ -84,7 +84,6 @@ export const Footer = () => {
             </li>
             <li>
               <Link to='/termsyconditions'>Términos y Condiciones</Link>
-              <Link to='/termsyconditions'>Términos y condiciones</Link>
             </li>
           </ul>
         </div>

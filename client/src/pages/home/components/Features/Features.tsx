@@ -17,8 +17,26 @@ const FeaturesContainer = styled.div`
 
 const FeaturesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr;
   gap: 3rem;
+
+  /* @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  } */
+
+  @media (min-width: 480px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 const FeatureItem = styled.div`

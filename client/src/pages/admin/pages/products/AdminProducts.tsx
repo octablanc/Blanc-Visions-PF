@@ -53,10 +53,15 @@ export const AdminProducts = () => {
 
   return (
     <main className='main'>
-      <button onClick={() => navigate('/dashboard/products/create')}>
-        <BiAddToQueue /> Crear Producto
-      </button>
-      <SearchProduct />
+      <div className='flex justify-content'>
+        <button
+          className='btn'
+          onClick={() => navigate('/dashboard/products/create')}
+        >
+          <BiAddToQueue /> Crear Producto
+        </button>
+        <SearchProduct />
+      </div>
       <table className='table'>
         <thead>
           <tr>

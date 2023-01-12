@@ -187,8 +187,32 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 50%;
   }
 
+  .main .btn {
+    background-color: #1565C0;
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
   .swiper-pagination-bullet-active {
     background-color: ${(props): string => props.theme.colors.primary};
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    padding-right: 3rem;
+  }
+
+  .justify-content {
+    justify-content: space-between;
+  }
+
+  .cursor {
+    cursor: pointer;
   }
 
   @media (min-width: 768px) {

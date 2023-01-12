@@ -68,8 +68,10 @@ export const Header = () => {
           </Link>
 
           <NavMenu>
-            <FormSearch />
-            <FilterCategory />
+            <div className='searchfilter'>
+              <FormSearch />
+              <FilterCategory />
+            </div>
             <NavOptions>
               <li>
                 <NavLink
@@ -102,7 +104,7 @@ export const Header = () => {
                 </NavLink>
               </li>
 
-              {user ? (
+              {user && (
                 <li>
                   <Link to='/cart'>
                     <IconButton aria-label='cart'>
@@ -125,8 +127,6 @@ export const Header = () => {
                     </StyledBadge>
                   </IconButton> */}
                 </li>
-              ) : (
-                <li></li>
               )}
 
               <li>
