@@ -4,6 +4,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import DBcontext from './config/ConnectionDB';
 import router from './app/routes';
+
 const mercadopago = require('mercadopago');
 import bodyParser from 'body-parser';
 
