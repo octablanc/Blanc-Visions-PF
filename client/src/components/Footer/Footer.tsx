@@ -115,7 +115,7 @@ export const Footer = () => {
             <p>
               <BsGithub />
               <a
-                href="https://github.com/NOELIAFERRER"
+                href="https://github.com/Lucas2022"
                 target="_blank"
                 rel="noreferrer"
               >
