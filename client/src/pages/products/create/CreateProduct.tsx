@@ -128,7 +128,8 @@ export default function CreateProduct() {
     setError({
       ...error,
       [key]: !value
-        ? `${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`
+        ? // ? `${key.charAt(0).toUpperCase() + key.slice(1)} no puede estar vacío.`
+          `Este campo no puede estar vacío.`
         : false,
     });
   }
@@ -138,17 +139,20 @@ export default function CreateProduct() {
 
     if (!product.categoryId) {
       hasError = true;
-      newError = { ...newError, categoryId: 'Category cannot be empty.' };
+      newError = {
+        ...newError,
+        categoryId: 'La categoría no puede estar vacía.',
+      };
     }
 
     if (!product.code) {
       hasError = true;
-      newError = { ...newError, code: 'Code cannot be empty.' };
+      newError = { ...newError, code: 'El código no puede estar vacío.' };
     }
 
     if (product.code.length < 5) {
       hasError = true;
-      newError = { ...newError, code: 'Code requires 5 characters.' };
+      newError = { ...newError, code: 'El código requiere 5 caracteres.' };
     }
 
     if (!product.description) {
@@ -158,22 +162,22 @@ export default function CreateProduct() {
 
     if (!product.name) {
       hasError = true;
-      newError = { ...newError, name: 'Name cannot be empty.' };
+      newError = { ...newError, name: 'El nombre no puede estar vacío.' };
     }
 
     if (!product.price) {
       hasError = true;
-      newError = { ...newError, price: 'Price cannot be empty.' };
+      newError = { ...newError, price: 'El precio no puede estar vacío' };
     }
 
     if (!product.discount) {
       hasError = true;
-      newError = { ...newError, discount: 'Discount cannot be empty.' };
+      newError = { ...newError, discount: 'El descuento no puede estar vacío' };
     }
 
     if (!product.stock) {
       hasError = true;
-      newError = { ...newError, stock: 'Stock cannot be empty.' };
+      newError = { ...newError, stock: 'El stock no puede estar vacío' };
     }
 
     if (hasError) setError(newError);
@@ -191,7 +195,11 @@ export default function CreateProduct() {
   function submit() {
     if (id) {
       console.log(product.images, product.image, 'productimage');
-      dispatch(updateProductOfAdmin(currentProduct.id, product));
+      dispatch(
+        updateProductOfAdmin(currentProduct.id, {
+          ...product,
+        })
+      );
     } else {
       postProduct(
         {
@@ -355,16 +363,17 @@ export default function CreateProduct() {
       </Image>
 
       <Fields>
-        <h3>Create product</h3>
+        {id ? <h3>Editar Producto</h3> : <h3>Crear Producto</h3>}
+
         <div>
           <TextField
             InputLabelProps={{
               style: { fontSize: fontSizeLabel },
             }}
-            label='Name'
+            label='Nombre del producto'
             name='name'
             value={product.name}
-            placeholder='Product name'
+            placeholder='Nombre del producto'
             sx={{
               position: 'relative',
               '& p.MuiFormHelperText-root': {
@@ -395,7 +404,7 @@ export default function CreateProduct() {
               InputLabelProps={{
                 style: { fontSize: fontSizeLabel },
               }}
-              label='Code'
+              label='Código'
               name='code'
               value={product.code}
               sx={{
@@ -412,7 +421,7 @@ export default function CreateProduct() {
               InputProps={{
                 style: { fontSize: fontSizeInput },
               }}
-              placeholder='Code of 5 characters'
+              placeholder='El código tiene que tener mas de 5 caracteres'
               variant='standard'
               error={error.code ? true : false}
               helperText={
@@ -430,7 +439,7 @@ export default function CreateProduct() {
               InputLabelProps={{
                 style: { fontSize: fontSizeLabel },
               }}
-              label='Price'
+              label='Precio'
               name='price'
               value={product.price}
               placeholder='$'
@@ -496,61 +505,47 @@ export default function CreateProduct() {
               onFocus={e => handlerChange(e.target.name, e.target.value)}
             />
 
-            <FormControl
-              fullWidth
-              sx={{ margin: '8px' }}
-              error={error.categoryId ? true : false}
-            >
-              <InputLabel
-                id='demo-simple-select-label'
-                sx={{
-                  fontSize: fontSizeLabel,
-                }}
-              >
-                Category
-              </InputLabel>
-              <Select
-                labelId='demo-simple-select-label'
-                name='categoryId'
-                label='Category '
-                value={product.categoryId}
-                sx={{ fontSize: fontSizeInput }}
-                onChange={e => handlerChange(e.target.name, e.target.value)}
-                onFocus={e => handlerChange(e.target.name, e.target.value)}
-                variant='standard'
-              >
-                {categories.length ? (
-                  categories.map(category => (
-                    <MenuItem
-                      value={parseInt(category.id.toString())}
-                      sx={{
-                        fontSize: fontSizeInput,
-                      }}
-                    >
-                      {category.name}
-                    </MenuItem>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </Select>
-              {error.categoryId ? (
-                <FormHelperText>
-                  <span style={{ fontSize: '13px' }}>
-                    Category cannot be empty
+            <TextField
+              InputLabelProps={{
+                style: { fontSize: fontSizeLabel },
+              }}
+              label='Descuento'
+              name='discount'
+              value={product.discount}
+              sx={{
+                position: 'relative',
+                '& p.MuiFormHelperText-root': {
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '0px',
+                },
+                m: 1,
+                width: '100%',
+                marginBottom: '10px',
+              }}
+              InputProps={{
+                style: { fontSize: fontSizeInput },
+                type: 'number',
+              }}
+              placeholder='Discount to Products'
+              variant='standard'
+              error={error.discount ? true : false}
+              helperText={
+                error.discount && (
+                  <span style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
+                    {error.discount}
                   </span>
-                  .
-                </FormHelperText>
-              ) : (
-                <></>
-              )}
-            </FormControl>
+                )
+              }
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
+            />
           </TwoFields>
 
           <PropertyContainer>
             <TextField
               id='property-name'
-              label='Property'
+              label='Propiedad'
               variant='standard'
               name='name'
               value={property.name}
@@ -577,7 +572,9 @@ export default function CreateProduct() {
               }}
               helperText={
                 propertyError.name && (
-                  <span style={{ fontSize: '13px' }}>Property is empty!</span>
+                  <span style={{ fontSize: '13px' }}>
+                    Propiedad esta vacío!
+                  </span>
                 )
               }
               onChange={({ target }) => handleChangeProperty(target)}
@@ -586,7 +583,7 @@ export default function CreateProduct() {
 
             <TextField
               id='property-value'
-              label='Value'
+              label='Valor'
               variant='standard'
               name='value'
               value={property.value}
@@ -613,7 +610,7 @@ export default function CreateProduct() {
               }}
               helperText={
                 propertyError.value && (
-                  <span style={{ fontSize: '13px' }}>Value is empty!</span>
+                  <span style={{ fontSize: '13px' }}>Valor esta vacío!</span>
                 )
               }
               onChange={({ target }) => handleChangeProperty(target)}
@@ -635,9 +632,59 @@ export default function CreateProduct() {
             deleteProperty={deleteProperty}
           />
 
+          <FormControl
+            fullWidth
+            sx={{ margin: '8px' }}
+            error={error.categoryId ? true : false}
+          >
+            <InputLabel
+              id='demo-simple-select-label'
+              sx={{
+                fontSize: fontSizeLabel,
+              }}
+            >
+              Categoría
+            </InputLabel>
+            <Select
+              labelId='demo-simple-select-label'
+              name='categoryId'
+              label='Categoría'
+              value={product.categoryId}
+              sx={{ fontSize: fontSizeInput }}
+              onChange={e => handlerChange(e.target.name, e.target.value)}
+              onFocus={e => handlerChange(e.target.name, e.target.value)}
+              variant='standard'
+            >
+              {categories.length ? (
+                categories.map(category => (
+                  <MenuItem
+                    value={parseInt(category.id.toString())}
+                    sx={{
+                      fontSize: fontSizeInput,
+                    }}
+                  >
+                    {category.name}
+                  </MenuItem>
+                ))
+              ) : (
+                <></>
+              )}
+            </Select>
+            {error.categoryId ? (
+              <FormHelperText>
+                <span style={{ fontSize: '13px' }}>
+                  Category cannot be empty
+                </span>
+                .
+              </FormHelperText>
+            ) : (
+              <></>
+            )}
+          </FormControl>
+
           <TextField
             name='description'
-            label='Description'
+            label='Descripción'
             multiline
             value={product.description}
             variant='standard'
@@ -664,42 +711,7 @@ export default function CreateProduct() {
             helperText={
               error.description && (
                 <span style={{ fontSize: '13px' }}>
-                  Description cannot be empty.
-                </span>
-              )
-            }
-            onChange={e => handlerChange(e.target.name, e.target.value)}
-            onFocus={e => handlerChange(e.target.name, e.target.value)}
-          />
-
-          <TextField
-            InputLabelProps={{
-              style: { fontSize: fontSizeLabel },
-            }}
-            label='Discount'
-            name='discount'
-            value={product.discount}
-            sx={{
-              position: 'relative',
-              '& p.MuiFormHelperText-root': {
-                position: 'absolute',
-                bottom: '-22px',
-                left: '0px',
-              },
-              m: 1,
-              width: '100%',
-              marginBottom: '10px',
-            }}
-            InputProps={{
-              style: { fontSize: fontSizeInput },
-            }}
-            placeholder='Discount to Products'
-            variant='standard'
-            error={error.discount ? true : false}
-            helperText={
-              error.discount && (
-                <span style={{ fontSize: '13px', whiteSpace: 'nowrap' }}>
-                  {error.discount}
+                  Descripción no puede ir vacío.
                 </span>
               )
             }
@@ -734,7 +746,7 @@ export default function CreateProduct() {
                   : false
               }
             >
-              Create
+              {id ? 'Editar' : 'Crear'}
             </Button>
           ) : (
             <LoadingButton
@@ -755,7 +767,7 @@ export default function CreateProduct() {
                 severity='success'
                 sx={{ width: '100%', fontSize: fontSizeInput }}
               >
-                Product successfully published!
+                ¡Producto publicado con éxito!
               </Alert>
             </Snackbar>
           )}
