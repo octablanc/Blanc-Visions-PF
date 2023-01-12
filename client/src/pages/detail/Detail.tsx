@@ -7,19 +7,20 @@ import {
   Info,
   CartSection,
   Btn,
-} from './styled-components/Detail';
+} from "./styled-components/Detail";
 
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
-import { getProductById, resetDetail } from '../../redux/slices/products';
-import Spinner from '../../components/Spinner/Spinner';
-import { Sales } from '../home/components/Sales/Sales';
-import { FlashMsg } from '../../components/FlashMsg/FlashMsg';
-import { Review } from './components/Review';
-import { addProductCart } from '../../redux/slices/Cart';
+import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
+import { getProductById, resetDetail } from "../../redux/slices/products";
+import Spinner from "../../components/Spinner/Spinner";
+import { Sales } from "../home/components/Sales/Sales";
+import { FlashMsg } from "../../components/FlashMsg/FlashMsg";
+import { Review } from "./components/Review";
+import { addProductCart } from "../../redux/slices/Cart";
 import { Shipping } from "../Shipping/Shipping";
+import { Features } from "../home/components/Features/Features";
 
 // import Login from "../../components/login/Login";
 
@@ -51,30 +52,32 @@ export const Detail = () => {
   } = currentProduct;
   let priceProm = Math.ceil(price * (1 - discount / 100));
   const [success, setSuccess] = useState(false);
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
   const [shipping, setShipping] = useState(false);
 
   useEffect(() => {
     let productReset = {
-             id: 0,
-             name: "",
-             code: "",
-             description: "",
-             image: "",
-             price: 0,
-             priceProm: 0,
-             discount: 0,
-             stock: 0,
-             entrega: "",
-             id_category: 0,
-             state: true,
-             category: "",
-             properties: [],
-             images: [],
-             loading: false,
-          };
+      id: 0,
+      name: "",
+      code: "",
+      description: "",
+      image: "",
+      price: 0,
+      priceProm: 0,
+      discount: 0,
+      stock: 0,
+      entrega: "",
+      id_category: 0,
+      state: true,
+      category: "",
+      properties: [],
+      images: [],
+      loading: false,
+    };
     if (idParams !== undefined) dispatch(getProductById(+idParams));
-    return () => {dispatch(resetDetail(productReset))}
+    return () => {
+      dispatch(resetDetail(productReset));
+    };
     // console.log('MONTANDO');
   }, [dispatch, idParams]);
 
@@ -84,7 +87,7 @@ export const Detail = () => {
   const handleBuy = () => {
     //AGREGUE EL REQUERIMIENTO DE LOGUEO en la linea de abajo
     if (!user) return handleLogin();
-    console.log("COMPRAR AHORA")
+    console.log("COMPRAR AHORA");
     const totalPriceProduct =
       discount === 0 ? price : price - (price * discount) / 100;
     dispatch(
@@ -94,12 +97,12 @@ export const Detail = () => {
         price: totalPriceProduct,
         productId: id,
       })
-    );   
+    );
     // SHIPPING
     setShipping(true);
   };
 
-  const handleCart = () => navigate('/cart');
+  const handleCart = () => navigate("/cart");
   const handleAddToCart = (navigateCart: boolean) => {
     if (!user) return handleLogin();
 
@@ -113,13 +116,13 @@ export const Detail = () => {
         price: totalPriceProduct,
         productId: id,
       })
-    );   
-    if(navigateCart) return navigate('/cart');    
+    );
+    if (navigateCart) return navigate("/cart");
   };
 
   const handleLogin = () => {
     setSuccess(true);
-    setMsg('login');
+    setMsg("login");
   };
 
   if (loading) return <Spinner />;
@@ -173,8 +176,8 @@ export const Detail = () => {
                 onClick={() => handleAddToCart(true)}
                 disabled={!isStock}
               >
-                {findProductCart ? 'Ya agregado' : 'Agregar al carrito'}
-              </Btn>           
+                {findProductCart ? "Ya agregado" : "Agregar al carrito"}
+              </Btn>
               {findProductCart ? (
                 <Btn onClick={handleCart}>Ir al carrito</Btn>
               ) : (
@@ -189,7 +192,7 @@ export const Detail = () => {
       </Container>
       <Review ratings={ratings} />
       {shipping ? <Shipping /> : <></>}
-
+      <Features />
       {/* <Sales /> */}
     </div>
   );

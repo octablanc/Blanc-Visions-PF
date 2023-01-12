@@ -9,8 +9,8 @@ export const Review = ({ ratings }: { ratings: Array<any> }) => {
   const formato = 'DD MMM YYYY';
 
   return (
-    <div>
-      <h1>Opiniones del producto</h1>
+    <div>   
+      <h1>Opiniones del producto</h1>      <hr />
       {/* FALTA COMPONENTE DE PROMEDIOS  */}
       <ContainerRatings>
         {ratings?.map((rating) => (
